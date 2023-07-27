@@ -21,3 +21,6 @@ DB : Oracle
 
 server : Tomcat(Boot 내장형)
 
+프론트 : HTML/CSS/JS, BootStrap
+
+기타 기술 : WebSocket, WebRTC, ML, DA
