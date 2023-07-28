@@ -24,3 +24,17 @@ server : Tomcat(Boot 내장형)
 프론트 : HTML/CSS/JS, BootStrap
 
 기타 기술 : WebSocket, WebRTC, ML, DA
+
+=================================== DB 새로운 계정 생성하기 ===============================================
+
+alter session set "_ORACLE_SCRIPT"=true;
+
+create user skott identified by tiger;
+
+alter user skott account unlock;
+
+grant create session to skott;
+
+grant connect,resource,dba to skott;
+
+===========================================================================================================
