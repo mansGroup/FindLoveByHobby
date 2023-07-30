@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+	
+<main layout:fragment="main">
+<p>제대로 열린 거 맞음.</p>
+	<input class="d-none" id="roomId" name="roomId" value="4" />
+	<div>
+		<!-- 내 화면 송출 -->
+		<video id="localVideo" autoplay width="480px"></video>
+        
+	</div>
+	<div>
+		<video id="remoteVideo" width="480px" autoplay></video>
+		<!-- 상대 화면 송출 -->
+	</div>
+</main>
+
+<th:block layout:fragment="myscripts">
+	<script th:src="@{/js/facechat/facechat.js}"></script>
+	
+</th:block>

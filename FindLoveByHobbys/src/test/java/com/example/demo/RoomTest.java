@@ -7,16 +7,21 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import lombok.extern.slf4j.Slf4j;
+
 @SpringBootTest
-class FindLoveByHobbysApplicationTests {
+@Slf4j
+public class RoomTest {
 
 	@Test
-	void contextLoads() {
+	public void test1() {
 		
 		Map<String, Set<Integer>> map = new HashMap<>();
 		
-		System.out.println(map.get("D"));
+		log.info("{}",map.get("D"));
+		
+		
 		
 	}
-
+	
 }
