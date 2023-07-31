@@ -25,19 +25,19 @@ public class Assessment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private Long id; // PK
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private int sexy; 
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private int beautiful;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private int cute;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private int handsome;
 	
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private int wonderful;
 	
 }
