@@ -4,19 +4,30 @@
 	
 <main layout:fragment="main">
 <p>제대로 열린 거 맞음.</p>
-	<input th:class="d-none" id="roomId" name="roomId" th:value="4" />
+	<input th:class="d-none" id="roomId" name="roomId" th:value="${roomId}" />
 	<div>
-		<!-- 내 화면 송출 -->
-		<video id="myFace" autoplay height="640px" width="480px"></video>
+	<div>
+		<!-- 내 화면 송출, 7월 31일 코드 추가 -->
+		<video style="border: 2px solid #ccc; border-radius: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);" id="myFace" autoplay height="640px" width="480px"></video>
         
 	</div>
 	<div>
-		<button id="btnOffer">오퍼 생성</button>
-	</div>
-	<div>
-		<video id="peerFace" width="480px" height="640px" autoplay></video>
+		<video style="border: 2px solid #ccc; border-radius: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);" id="peerFace" width="480px" height="640px" autoplay></video>
 		<!-- 상대 화면 송출 -->
 	</div>
+	</div>
+	<div>
+	<div>
+		<button id="btnOffer" class="btn card">화상 채팅 연결</button>
+	</div>
+	<div>
+		<button id="btnMute" class="btn card">마이크 음소거</button>
+	</div>
+	<div>
+		<button id="btnScreen" class="btn card">화면 숨김</button>
+	</div>
+	</div>
+	
 </main>
 
 <th:block layout:fragment="myscripts">
