@@ -1,4 +1,4 @@
-package com.fin.love.wed;
+package com.fin.love.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/matching")
 public class MatchingDetailController {
 	
-	@GetMapping("/matchingDetails")
+	@GetMapping("/matchingDetail")
 	public void matchingdetail() {
 		log.info("matchingdetails() GET");
 	}
