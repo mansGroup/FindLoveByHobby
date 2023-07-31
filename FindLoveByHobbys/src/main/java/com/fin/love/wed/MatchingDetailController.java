@@ -8,14 +8,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Controller
 @RequiredArgsConstructor
+@Controller
 @RequestMapping("/matching")
 public class MatchingDetailController {
 	
-	@GetMapping("/matchingDetail")
-	public void matchingDetail() {
-		log.info("matchingDetail() GET");
+	@GetMapping("/matchingDetails")
+	public void matchingdetail() {
+		log.info("matchingdetails() GET");
 	}
-
+	
 }
