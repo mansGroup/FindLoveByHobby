@@ -4,7 +4,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 	
-	const likeButton = document.querySelector('div#likeButton'); // html에서 269줄 버튼
+	const likeButton = document.querySelector('g#likeButton'); // html에서 269줄 버튼
 	
 	likeButton.addEventListener('click', (e) => {
 		
@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		// 컨트롤러에 전송
 		// 메세지 보내기
+		
+		console.log('클릭');
 		
 	});
 	

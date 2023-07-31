@@ -13,7 +13,7 @@ public class MemberSignUpDto {
     private String username;
     private Timestamp birthdate;
     private int sex;
-    private int phone;
+    private String phone;
     private String email;
     private String nickname;
 	
