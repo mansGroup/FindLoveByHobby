@@ -23,24 +23,21 @@ public class FaceChatWebSocketHandler implements WebSocketHandler {
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		// TODO Auto-generated method stub
 		String roomId = findRoomId(session);
-		
+		log.info("session on");
 		if(roomId != null) {
-			Set<WebSocketSession> sessionset;
+			
 			if(sessions.get(roomId)==null) {
 				
-				sessionset = new HashSet<>();
+				sessions.put(roomId, new ChatRoom());
 				
-			} else {
+			} 
 			
-				sessionset = sessions.get(roomId).getSessions();
-				
-			}
+			sessions.get(roomId).addSession(session);
 			
-			
-			sessionset.add(session);
 			
 			
 		}
+		
 		
 	}
 
@@ -49,12 +46,23 @@ public class FaceChatWebSocketHandler implements WebSocketHandler {
 		// TODO Auto-generated method stub
 		String roomId = findRoomId(session);
 		
+		if(sessions.get(roomId)==null) {
+			
+			return;
+			
+		}
 		
 		Set<WebSocketSession> ss = sessions.get(roomId).getSessions();
 		
 		for(WebSocketSession x : ss) {
 			
-			x.sendMessage(message);
+			if(!x.getId().equals(session.getId())) {
+				log.info("x.getid = {}, session.getid= {}",x.getId(),session.getId());
+				x.sendMessage(message);
+			}
+				
+			
+			
 			
 		}
 		
@@ -72,14 +80,14 @@ public class FaceChatWebSocketHandler implements WebSocketHandler {
 
 	
 	public void removeSession(WebSocketSession session) {
-		
+		log.info("session out");
 		String roomId = findRoomId(session);
         if (roomId != null) {
-        	Set<WebSocketSession> sessionset;
-            if (sessions.get(roomId) != null) {
+        	
+            if (sessions.get(roomId) != null || sessions.size()!=0) {
             	
-            	sessionset = sessions.get(roomId).getSessions();
-            	sessionset.remove(session);
+            	sessions.get(roomId).removeSession(session);
+            	
             	
             }
         }
@@ -89,7 +97,8 @@ public class FaceChatWebSocketHandler implements WebSocketHandler {
 	
 	private String findRoomId(WebSocketSession session) {
         
-        String roomId = session.getUri().toString().split("/")[3];
+        String roomId = session.getUri().getQuery().toString().split("=")[1];
+        
         return roomId;
     }
 

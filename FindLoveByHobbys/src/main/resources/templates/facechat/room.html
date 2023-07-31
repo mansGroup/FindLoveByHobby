@@ -4,14 +4,17 @@
 	
 <main layout:fragment="main">
 <p>제대로 열린 거 맞음.</p>
-	<input class="d-none" id="roomId" name="roomId" value="4" />
+	<input th:class="d-none" id="roomId" name="roomId" th:value="4" />
 	<div>
 		<!-- 내 화면 송출 -->
-		<video id="localVideo" autoplay width="480px"></video>
+		<video id="myFace" autoplay height="640px" width="480px"></video>
         
 	</div>
 	<div>
-		<video id="remoteVideo" width="480px" autoplay></video>
+		<button id="btnOffer">오퍼 생성</button>
+	</div>
+	<div>
+		<video id="peerFace" width="480px" height="640px" autoplay></video>
 		<!-- 상대 화면 송출 -->
 	</div>
 </main>
