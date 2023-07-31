@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/base_layout}">
+    
+	<main layout:fragment="main">
+		<div class="my-2 card">
+			<div>
+				<h1>프로필 등록</h1>
+				
+				<h2>나이</h2>
+				<select class="form-select" aria-label="Default select example">
+				  <option value="" disabled selected>나이 정보를 선택하세요</option>
+				  <option value="1">20살</option>
+				  <option value="2">21살</option>
+				  <option value="4">22살</option>
+				  <option value="5">23살</option>
+				  <option value="6">24살</option>
+				</select>
+
+				<h2>키</h2>
+				<select class="form-select" aria-label="Default select example">
+				  <option value="" disabled selected>키 정보를 선택하세요</option>
+				  <option value="1">160</option>
+				  <option value="1">161</option>
+				  <option value="2">162</option>			 
+				  <option value="3">163</option>			 
+				</select>
+				
+				<h2>음주여부</h2>
+				<select class="form-select" aria-label="Default select example">
+				  <option value="" disabled selected>음주여부를 선택하세요</option>
+				  <option value="1">마시지 않음</option>
+				  <option value="2">가끔 마심</option>			 
+				  <option value="3">자주 마심</option>			 
+				</select>
+				
+				<h2>흡연여부</h2>
+				<select class="form-select" aria-label="Default select example">
+				  <option value="" disabled selected>흡연여부를 선택하세요</option>
+				  <option value="1">흡연</option>
+				  <option value="2">비흡연</option>
+				</select>
+				
+				<h2>학력</h2>
+				<select class="form-select" aria-label="Default select example">
+				  <option value="" disabled selected>학력 정보를 선택하세요</option>
+				  <option value="1">4년재대학교 졸업</option>
+				  <option value="2">4년재대학교 재학중</option>
+				  <option value="4">전문대학교 졸업</option>
+				  <option value="5">전문대학교 재학중</option>
+				  <option value="6">고등학교 졸업</option>
+				</select>
+				
+				<h2>직업</h2>
+				<select class="form-select" aria-label="Default select example">
+				  <option value="" disabled selected>직업 정보를 선택하세요</option>
+				  <option value="1">학생</option>
+				  <option value="2">사업가</option>
+				  <option value="3">전문직</option>
+				  <option value="4">회사원</option>
+				  <option value="5">공무원</option>
+				  <option value="6">군인</option>
+				  <option value="7">교육직 / 연구직<option>
+				  <option value="8">금융직</option>
+				  <option value="9">기술직</option>
+				  <option value="10">기타</option>
+				</select>
+				
+				<h2>연봉</h2>
+				<select class="form-select" aria-label="Default select example">
+				  <option value="" disabled selected>연봉 정보를 선택하세요</option>
+				  <option value="1">1000만원 이하</option>
+				  <option value="2">1000만원 ~ 2000만원</option>
+				  <option value="3">2000만원 ~ 3000만원</option>
+				  <option value="4">3000만원 ~ 4000만원</option>
+				  <option value="5">4000만원 ~ 5000만원</option>
+				  <option value="6">5000만원 ~ 6000만원</option>
+				  <option value="7">6000만원 ~ 7000만원</option>
+				  <option value="8">7000만원 ~ 8000만원</option>
+				  <option value="9">8000만원 ~ 9000만원</option>
+				  <option value="10">9000만원 ~ 1억원</option>
+				  <option value="11">1억원 이상</option>
+				</select>
+				
+				<h2>종교</h2>
+				<select class="form-select" aria-label="Default select example">
+			      <option value="" disabled selected>종교 정보를 선택하세요</option>
+				  <option value="1">기독교</option>
+				  <option value="2">천주교</option>
+				  <option value="3">불교</option>
+				  <option value="4">무교</option>
+				</select>
+			</div>
+			
+			<div class="my-2">
+				<input class="form-control btn btn-outline-info" type="submit" value="작성완료"/>
+			</div>
+		</div>
+	</main>	
+</html>
