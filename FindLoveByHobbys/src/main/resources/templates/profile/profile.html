@@ -4,9 +4,50 @@
     layout:decorate="~{layout/base_layout}">
     
 	<main layout:fragment="main">
-		<div class="my-2 card">
-			<div>
-				<h1>프로필 등록</h1>
+				<h1>프로필 등록 페이지</h1>
+				
+				
+				<!-- 회원가입 정보에서 불러올 데이터(이름, 성별, 생년월일) -->
+				<div class="card-body">
+					<form>
+						<div class="my-2">
+							<label class="form-label" for="name">이름</label>
+							<input class="form-control" id="name" type="text" name="name" required autofocus>
+						</div>
+						<div class="my-2">
+							<label class="form-label" for="gender">성별</label>
+							<input class="form-control" id="gender" type="text" name="gender" required autofocus>
+						</div>
+						<div class="my-2">
+							<label class="form-label" for="bday">생년월일</label>
+							<input class="form-control" id="bday" type="text" name="bday" required autofocus=>
+						</div>
+					</form>
+				</div>
+				
+				<!-- DB 데이터로 프로필 등록 -->
+		<div>
+			<div class="card-body">
+				<h2>취미 (3개 선택)</h2>
+				<div class="form-check">
+				  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+				  <label class="form-check-label" for="flexCheckDefault">
+				    수영
+				  </label>
+				</div>
+				<div class="form-check">
+				  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+				  <label class="form-check-label" for="flexCheckChecked">
+				    피아노
+				  </label>
+				</div>
+				<div class="form-check">
+				  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+				  <label class="form-check-label" for="flexCheckChecked">
+				    러닝
+				  </label>
+				</div>
+				
 				
 				<h2>나이</h2>
 				<select class="form-select" aria-label="Default select example">

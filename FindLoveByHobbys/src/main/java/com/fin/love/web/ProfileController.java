@@ -10,4 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ProfileController {
 	
+	@GetMapping("/profile")
+	public String home(Model model) {
+		log.info("home()");
+		
+		return "/profile/profile";
+	}
 }
