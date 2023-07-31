@@ -45,4 +45,9 @@ public class HobbyRepositoryTest {
 		log.info("종료");
 	}
 	
+	@Test
+	public void profileData() {
+		
+	}
+	
 }
