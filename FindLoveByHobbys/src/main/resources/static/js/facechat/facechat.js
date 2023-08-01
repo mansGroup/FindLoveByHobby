@@ -150,22 +150,28 @@ document.addEventListener('DOMContentLoaded', () => {
 	function send(message) {
 		conn.send(JSON.stringify(message));
 	}
-
+	
+	
+	
 	// 7월 31일 밤 추가 TODO
 	const mutechange = () => {
 		navigator.mediaDevices.getUserMedia({ audio: true })
 			.then(stream => {
 				// 오디오 트랙 가져오기
 
-
+				const audioTracks = stream.getAudioTracks()[0];
 				if (isMute == false) {
 					// 음소거 처리
 					console.log("mute");
-					stream.getAudioTracks()[0].enabled = false; // true로 설정하면 다시 음소거가 해제됩니다.
+					audioTracks.forEach((track) => {
+						track.enabled = false;
+					}); // true로 설정하면 다시 음소거가 해제됩니다.
 					btnMute.innerHTML = '마이크 활성화';
 				} else {
 					console.log("non-mute");
-					stream.getAudioTracks()[0].enabled = true;
+					audioTracks.forEach((track) => {
+						track.enabled = true;
+					});
 					btnMute.innerHTML = '마이크 음소거';
 				}
 				isMute = !isMute;
@@ -221,14 +227,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	let recorder;
 	let audioChunks = [];
 	let recordedBlob;
+
 	async function audiorecording() {
+
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 			audioContext = new (window.AudioContext || window.webkitAudioContext)();
 			mediaStreamSource = audioContext.createMediaStreamSource(stream);
 
 			// 스트림을 녹음할 노드 생성
-			recorder = new MediaRecorder(mediaStreamSource.stream);
+			recorder = new MediaRecorder(stream);
+			console.log(recorder);
 
 			recorder.ondataavailable = (event) => {
 				if (event.data.size > 0) {
@@ -249,26 +258,27 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
-	btnReport.addEventListener('click', () => {
-		
+	btnReport.addEventListener('click', async () => {
+
 		let answerRes = confirm('정말로 신고하시겠습니까? 신고하시면 곧바로 통화가 종료됩니다.');
-		
-		if(!answerRes){
-			
+
+		if (!answerRes) {
+
 			return;
-			
+
 		}
-		
+
 		// recordedBlob 레코드 파일.
 		// 녹음 중단
+		console.log(recorder);
 		recorder.stop();
 
-		
+
 
 		const formData = new FormData();
-		formData.append('audioFile', recordedBlob, `record-${roomId}.wav`);
+		formData.append('audioFile', recordedBlob);
 
-		fetch(`/facechat/report?roomId=${roomId}`, {
+		await fetch(`/facechat/report?roomId=${roomId}`, {
 			method: 'POST',
 			body: formData,
 		})
@@ -277,7 +287,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			.catch(error => console.error('파일 업로드 실패:', error));
 
 
-		
+
 	})
 
 
