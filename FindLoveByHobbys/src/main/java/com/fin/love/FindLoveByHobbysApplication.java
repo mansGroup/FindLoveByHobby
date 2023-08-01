@@ -6,12 +6,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 
+
+@EnableJpaAuditing
 @SpringBootApplication
 public class FindLoveByHobbysApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FindLoveByHobbysApplication.class, args);
+		
 	}
+
 
 	public ServletWebServerFactory servletContainer() {
 		
@@ -27,4 +31,5 @@ public class FindLoveByHobbysApplication {
 		connector.setPort(8090);
 		return connector;
 	}
+
 }
