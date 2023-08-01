@@ -14,44 +14,23 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "PROFILE")
+@Table(name = "USER_HOBBY")
+@SequenceGenerator(name = "USER_HOBBY_SEQ_GEN", sequenceName = "USER_HOBBY_SEQ", allocationSize = 1)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @ToString
-@SequenceGenerator(name = "PROFILE_SEQ_GEN", sequenceName = "PROFILE_SEQ", allocationSize = 1)
-public class Profile {
+public class UserHobby {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String userId;	
-	
-	@Column
-	private int userAge;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_HOBBY_SEQ_GEN")
+	private Long id;
 	
 	@Column(nullable = false)
-	private String userPersonality;
+	private String userid;
 	
 	@Column(nullable = false)
-	private String userDrinks;
-	
-	@Column(nullable = false)
-	private String userSmoker;
-	
-	@Column
-	private String userHeight;
-	
-	@Column
-	private int userAcademic;
-	
-	@Column
-	private int userIncome;
-	
-	@Column
-	private int userJob;
-	
-	@Column
-	private int userReligion;
+	private int hobbyId;
 	
 }

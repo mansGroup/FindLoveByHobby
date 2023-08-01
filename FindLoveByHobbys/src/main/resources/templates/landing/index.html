@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/base_layout}">
+
+<meta charset="UTF-8">
+	
+	<main layout:fragment="main">
+		<h1 th:text="|현재: ${now}|">현재 시간</h1>
+		<a th:href="@{/login}"> 로그인 </a>
+		<div>
+		<a th:href="@{/member/signup}"> 지금 회원가입 하기 </a>
+		</div>
+	</main>
+	
+</html>
