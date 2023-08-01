@@ -5,6 +5,14 @@
 	layout:decorate="~{layout/base_layout}">
 
 <main layout:fragment="main">
+
+<!-- 로그인한 아이디 -->
+<input type="text" value="qwer1234" id="userId" name="userId" />
+<!-- ${ #authentication.name } -->
+
+<!-- 임시 member 아이디 -->
+<input type="text" value="asdf1234" id="memberId" name="memberId" />
+
 <body class='' >
 <div id="SITE_CONTAINER">
 	<div id="main_MF" class="wix-global-css">
@@ -267,7 +275,7 @@
 																				<div data-testid="svgRoot-comp-lkm60w0p" class="aizuI7 TcoJIb comp-lkm60w0p">
 																					<svg preserveAspectRatio="none" data-bbox="0 0 337.772 303.508" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 337.772 303.508" role=presentation aria-hidden=true>
 																						<g id="likeButton" name="likeButton" cursor="pointer">
-																							<path d="M310.485 21.159C290.731 4.583 271.484-.029 245.926 0c-27.13 2.348-50.615 15.589-77.041 49.05C142.46 15.589 118.975 2.348 91.845 0 66.287-.029 47.038 4.583 27.284 21.159 14.511 31.878 0 60.341 0 87.465c.339 54.573 38.391 136.609 163.485 212.905l5.165 3.138.236-.141.236.141 5.165-3.138c125.094-76.296 163.146-158.332 163.485-212.905-.001-27.124-14.514-55.587-27.287-66.306z"/>
+																							<img src="/images/heart.png" />
 																						</g>
 																					</svg>
 																				</div>
@@ -298,15 +306,6 @@
 																	<div id="bgLayers_comp-lkjwliuz4" data-hook="bgLayers" class="MW5IWV">
 																		<div data-testid="colorUnderlay" class="LWbAav Kv1aVt"></div>
 																		<div id="bgMedia_comp-lkjwliuz4" class="VgO9Yg"></div>
-																	</div>
-																	<div data-mesh-id="comp-lkjwliuz4inlineContent" data-testid="inline-content" class="">
-																		<div data-mesh-id="comp-lkjwliuz4inlineContent-gridContainer" data-testid="mesh-container-content">
-																			<div id="comp-lkjwliv01" class="KcpHeO tz5f0K comp-lkjwliv01 wixui-rich-text" data-testid="richTextElement">
-																				<h1 class="font_0 wixui-rich-text__text" style="font-size:56px; line-height:normal; text-align:center;">
-																					<span style="font-size:56px;" class="wixui-rich-text__text">오늘의 추천 프로필</span>
-																				</h1>
-																			</div>
-																		</div>
 																	</div>
 																</div>
 															</div>
@@ -392,6 +391,7 @@
 																					</div>
 																				</button>
 																			</div>
+																			
 																			<div data-mesh-id="comp-lkjvtqm46inlineContent-wedge-5"></div>
 																		</div>
 																	</div>
