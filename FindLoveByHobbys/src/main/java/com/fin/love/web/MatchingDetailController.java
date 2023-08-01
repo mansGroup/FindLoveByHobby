@@ -25,6 +25,8 @@ public class MatchingDetailController {
 		
 	}
 	
+	
+	
 	@PostMapping("/matchingDetail")
 	public void read(Long id, Model model) {
 		log.info("matchingdetails(id={})", id);
