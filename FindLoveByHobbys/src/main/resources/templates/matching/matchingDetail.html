@@ -1,10 +1,220 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/base_layout}">
-	
-     <main layout:fragment="main">
-    
-    
-</main>
+	xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+<body>
+	<main layout:fragment="main">
+		<div>
+			<div>
+				<h2>프로필 상세보기</h2>
+			</div>
+		</div>
+		<nav>
+			<div>
+				<div>
+					<span id="name"></span><span></span>th:text="${assessment.name}"
+				</div>
+				<div>
+					<span id="job"></span><span></span>th:text="${assessment.job}"
+				</div>
+				<div>
+					<span id="age"></span><span></span>th:text="${assessment.age}"
+				</div>
+				<div>
+					<button id="sex"></button>
+				</div>
+			</div>
+		</nav>
+
+		<div>
+			<h3>자기소개</h3>
+			<br />
+			<textarea id="introduce" name="introduce" readonly></textarea>
+			th:text="${assessment.introduce}"
+		</div>
+		<!-- TODO: 기본정보 입력(키, 나이, 학력,...) -->
+		<div>
+			<h5>기본정보</h5>
+		</div>
+		<div>
+			<ul>
+				<li><span>키: </span><span></span></li>th:text="${assessment.height}"
+				<li><span>나이: </span><span></span></li>th:text="${assessment.age}"
+				<li><span>학력: </span><span></span></li>th:text="${assessment.education}"
+				<li><span>흡연: </span><span></span></li>th:text="${assessment.smoke}"
+				<li><span>음주: </span><span></span></li>th:text="${assessment.drink}"
+				<li><span>종교: </span><span></span></li>th:text="${assessment.religen}"
+			</ul>
+		</div>
+		<div>
+			<h5>나의 취미</h5>
+		</div>
+		<div>
+			<ul>
+				<li><span></span></li>th:text="${assessment.hobby1}"
+				<li><span></span></li>th:text="${assessment.hobby2}"
+				<li><span></span></li>th:text="${assessment.hobby3}"
+				<li><span></span></li>th:text="${assessment.hobby4}"
+				<li><span></span></li>th:text="${assessment.hobby5}"
+				<li><span></span></li>th:text="${assessment.hobby6}"
+			</ul>
+		</div>
+		-->
+
+
+
+		<section class="about-section section-padding" id="section_2">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-lg-12 col-12">
+						<div class="section-title-wrap mb-5">
+							<h2 class="section-title">상세프로필</h2>
+
+							<div class="section-title-bottom">
+								<span class="section-title-line"></span> <i
+									class="section-title-icon bi-heart-fill"></i> <span
+									class="section-title-line"></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- TODO: 이미지 삽입 할 위치-->
+					<div class="col-lg-3 col-12">
+						<div class="image-hover-thumb">
+							<img src="images/vertical-shot-beautiful-smiling-girl.jpg"
+								class="about-image img-fluid" alt="">
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-12">
+						<div class="about-info-wrap d-flex flex-column">
+
+							<!-- TODO: 프로필 이름 -->
+							<div class="about-info-title d-flex align-items-center my-3">
+								<h3>Jolie</h3>
+
+								<!-- TODO: 직업 -->
+								<span class="about-tag ms-4">The Bride</span>
+							</div>
+
+							<!-- TODO: 자기소개 -->
+							<p>Sarah is amazing. When I first met her I knew she was
+								amazing and every passing day reminds me of just how amazing she
+								is!</p>
+
+							<!-- TODO: 호감도 표시를 여기서 -->
+							<div class="social-icon-wrap mt-auto">
+								<ul class="social-icon ms-auto">
+									<li class="social-icon-item"><a href="#"
+										class="social-icon-link bi-facebook"></a></li>
+
+									<li class="social-icon-item"><a href="#"
+										class="social-icon-link bi-twitter"></a></li>
+
+									<li class="social-icon-item"><a href="#"
+										class="social-icon-link bi-instagram"></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-12">
+						<div class="image-hover-thumb">
+							<img
+								src="images/vertical-shot-young-handsome-guy-autumn-park.jpg"
+								class="about-image img-fluid" alt="">
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-12"></div>
+
+				</div>
+			</div>
+		</section>
+		
+		
+		<section class="gallery-section section-bg section-padding" id="section_5">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-12">
+                <div class="section-title-wrap mb-5">
+                    <h5 class="section-title">취미 리스트</h5>
+                    <ul class="hobbies-list">
+                        <li><span class="social-icon-item">취미1</span></li>
+                        <li><span class="social-icon-item">취미2</span></li>
+                        <li><span class="social-icon-item">취미3</span></li>
+                        <li><span class="social-icon-item">취미4</span></li>
+                        <li><span class="social-icon-item">취미5</span></li>
+                        <li><span class="social-icon-item">취미6</span></li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+		
+		
+		<section class="about-section section-padding" id="section_2">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-lg-12 col-12">
+						<div class="section-title-wrap mb-5">
+
+							<!-- TODO: 취미 사진 삽이 할 위치 -->
+							<h2 class="section-title">Gallery about hobby</h2>
+
+							<div class="section-title-bottom">
+								<span class="section-title-line"></span> <i
+									class="section-title-icon bi-heart-fill"></i> <span
+									class="section-title-line"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-12">
+						<div class="gallery-thumb image-hover-thumb">
+							<a
+								href="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+								class="popup-image"> <img
+								src="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+								class="gallery-image img-fluid" alt="">
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-12">
+					<div class="gallery-thumb image-hover-thumb">
+						<a
+							href="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+							class="popup-image"> <img
+							src="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+							class="gallery-image img-fluid" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-4 col-12">
+					<div class="gallery-thumb image-hover-thumb">
+						<a href="images/gallery/elegant-young-woman-fashionable.jpg"
+							class="popup-image"> <img
+							src="images/gallery/elegant-young-woman-fashionable.jpg"
+							class="gallery-image img-fluid" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+		
+
+
+	</main>
+</body>
 </html>
