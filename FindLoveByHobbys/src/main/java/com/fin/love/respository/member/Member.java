@@ -41,7 +41,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(nullable = false)
     private int sex;
     
-    @Column(nullable = true)
+    @Column(nullable = false)
     private Role role;
 	
     @Column(nullable = false)
@@ -57,8 +57,9 @@ public class Member extends BaseTimeEntity implements UserDetails {
     private Timestamp birthday;
     
     @Builder
-    private Member(String name, String password, String email, int sex,
+    private Member(String id, String name, String password, String email, int sex, Role role,
     			String phone, String nickname, String address, Timestamp birthday) {
+    	this.id = id;
         this.name = name;
         this.password = password;
         this.email = email;
@@ -101,8 +102,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.id;
 	}
-    
+	
 }

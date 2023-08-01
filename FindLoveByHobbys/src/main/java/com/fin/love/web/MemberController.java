@@ -30,9 +30,12 @@ public class MemberController {
 	public String createId(MemberSignUpDto dto) {
 		log.info("create({}) POST", dto);
 		
-		memberService.signup(dto);
+		String id = memberService.signUp(dto);
+		log.info("signup id = {}", id);
 		
 		return "landing/index";
 	}
+	
+	
 	
 }

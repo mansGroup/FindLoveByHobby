@@ -1,5 +1,9 @@
 package com.fin.love.respository.member;
 
-public interface MemberRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
 
+public interface MemberRepository extends JpaRepository<Member, String> {
+	
+	
+	
 }
