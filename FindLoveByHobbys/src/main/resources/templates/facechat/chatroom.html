@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+	
+<main layout:fragment="main">
+
+	<h1>여기는 방번호를 입력해서 가지만, 나중엔 버튼 누르면 랜덤한 번호 생성할 거야.</h1>
+	<div class="form-control">
+	<form id="facechat">
+		<input type="number" class="form-control" id="roomId" name="roomId" />
+		<button id="roomIn" class="btn btn-outline-dark">입장하기</button>
+	</form>
+	</div>
+
+</main>
+<th:block layout:fragment="myscripts">
+	
+	<script th:src="@{/js/facechat/chatroomin.js}"></script>
+</th:block>
