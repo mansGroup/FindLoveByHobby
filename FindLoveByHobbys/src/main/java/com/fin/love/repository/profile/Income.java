@@ -15,7 +15,7 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "INCOME")
-@SequenceGenerator(name = "INCOME_SEQ_GEN", sequenceName = "INCOME_SEQ", allocationSize = 1)
+@SequenceGenerator(name = "INCOME_SEQ_GEN", sequenceName = "INCOME_SEQ2", allocationSize = 1)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
