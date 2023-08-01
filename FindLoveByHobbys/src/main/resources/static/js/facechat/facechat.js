@@ -6,10 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// 화면 공유를 해제하는 버튼
 	const btnScreen = document.querySelector('button#btnScreen');
-
+	// 화면이 송출 중인지 여부에 대해 표시(false=쉬는중 / true=송출중)
+	let isScreenSharing = true;
+	
 	// 음소거/해제 를 설정하는 버튼
 	const btnMute = document.querySelector('button#btnMute');
-
+	let isMute = true;
 	// 오퍼 연결을 전달하는 버튼
 	let btnOffer = document.querySelector('button#btnOffer');
 
@@ -136,24 +138,25 @@ document.addEventListener('DOMContentLoaded', () => {
 	function send(message) {
 		conn.send(JSON.stringify(message));
 	}
-	
+
 	// 7월 31일 밤 추가 TODO
 	const mutechange = () => {
 		navigator.mediaDevices.getUserMedia({ audio: true })
 			.then(stream => {
 				// 오디오 트랙 가져오기
-				const audioTrack = stream.getAudioTracks()[0];
-
-				if (audioTrack.enabled == true) {
+				
+				
+				if (isMute == false) {
 					// 음소거 처리
 					console.log("mute");
-					audioTrack.enabled = false; // true로 설정하면 다시 음소거가 해제됩니다.
+					stream.getAudioTracks()[0].enabled = false; // true로 설정하면 다시 음소거가 해제됩니다.
 					btnMute.innerHTML = '마이크 활성화';
 				} else {
 					console.log("non-mute");
-					audioTrack.enabled = true;
+					stream.getAudioTracks()[0].enabled = true;
 					btnMute.innerHTML = '마이크 음소거';
 				}
+				isMute = !isMute;
 			})
 			.catch(error => {
 				console.error('Error accessing local media:', error);
@@ -165,26 +168,39 @@ document.addEventListener('DOMContentLoaded', () => {
 	btnMute.addEventListener('click', mutechange);
 
 
+	
+
+
 	// 화면 공유 중지 버튼 클릭 이벤트 처리 ( 7월 31일 밤 추가 TODO )
 	btnScreen.addEventListener('click', async () => {
-		// 화면 공유 스트림 중지
-		if (myStream) {
-			const tracks = myStream.getTracks();
-			tracks.forEach(track => track.stop());
-			myStream = null;
-			btnScreen.innerHTML = '영상 활성화';
+
+		// 스트리밍 자체가 시작되기 전인 경우
+		if (!myStream) return;
+
+		// 스트리밍 되는 게 없음
+		if (myStream.getVideoTracks().length === 0) return;
+
+		if (!isScreenSharing) {
+			console.log("Video show");
+			btnScreen.innerHTML = '화면 숨김';
+			myStream.getVideoTracks()[0].enabled = true; // 원래 화면 송출 상태로 변경
+			myFace.srcObject = myStream;
 		} else {
-			
-			getMedia();
-			await myStream.getTracks().forEach((track) => myPeerConnection.addTrack(track, myStream));
-			btnScreen.innerHTML = '영상 숨기기';
+			console.log("Video hide");
+			btnScreen.innerHTML = '화면 표시';
+			myStream.getVideoTracks()[0].enabled = false; // 화면 송출 중지
+			myFace.srcObject = null;
 		}
 
-		// 화면 공유 스트림을 비디오 요소에서 해제합니다.
-		myFace.srcObject = null;
+		isScreenSharing = !isScreenSharing;
+
+		
 
 		
 		
+
+
+
 	});
 
 })
