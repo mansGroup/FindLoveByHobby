@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	const btnScreen = document.querySelector('button#btnScreen');
 	// 화면이 송출 중인지 여부에 대해 표시(false=쉬는중 / true=송출중)
 	let isScreenSharing = true;
-	
+
 	// 음소거/해제 를 설정하는 버튼
 	const btnMute = document.querySelector('button#btnMute');
-	let isMute = true;
+	let isMute = false;
 	// 오퍼 연결을 전달하는 버튼
 	let btnOffer = document.querySelector('button#btnOffer');
 
@@ -144,8 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		navigator.mediaDevices.getUserMedia({ audio: true })
 			.then(stream => {
 				// 오디오 트랙 가져오기
-				
-				
+
+
 				if (isMute == false) {
 					// 음소거 처리
 					console.log("mute");
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	btnMute.addEventListener('click', mutechange);
 
 
-	
+
 
 
 	// 화면 공유 중지 버튼 클릭 이벤트 처리 ( 7월 31일 밤 추가 TODO )
@@ -194,10 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		isScreenSharing = !isScreenSharing;
 
-		
 
-		
-		
+
+
+
 
 
 
