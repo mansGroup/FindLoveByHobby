@@ -26,6 +26,7 @@ public class MemberController {
 		
 	}
 	
+
 	@PostMapping("/signup")
 	public String createId(MemberSignUpDto dto) {
 		log.info("create({}) POST", dto);
@@ -38,4 +39,5 @@ public class MemberController {
 	
 	
 	
+
 }

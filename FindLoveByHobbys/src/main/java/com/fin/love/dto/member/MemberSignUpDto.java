@@ -17,5 +17,6 @@ public class MemberSignUpDto {
     private String phone;
     private String email;
     private String nickname;
+    private String address;
 	
 }

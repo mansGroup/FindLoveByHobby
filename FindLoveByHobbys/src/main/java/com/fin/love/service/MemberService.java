@@ -22,6 +22,7 @@ public class MemberService implements UserDetailsService{
 	
 	private final MemberRepository memberRepository;
 	
+
 	public String signUp(MemberSignUpDto dto) {
 		log.info("signUp={dto=()}", dto);
 		
@@ -58,4 +59,5 @@ public class MemberService implements UserDetailsService{
 	}
 
 	
+
 }
