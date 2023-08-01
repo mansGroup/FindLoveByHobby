@@ -4,6 +4,11 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+	// 신고 여부
+	let reportForm = document.querySelector('form#reportForm');
+	let report = false;
+	let btnReport = document.querySelector('button#btnReport');
+
 	// 화면 공유를 해제하는 버튼
 	const btnScreen = document.querySelector('button#btnScreen');
 	// 화면이 송출 중인지 여부에 대해 표시(false=쉬는중 / true=송출중)
@@ -66,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		// RTC 객체 생성 -> RTC 커넥션에 트랙(영상,소리) 담기 -> Offer 전달(SDP 메시지 전달)
 		let offer = await myPeerConnection.createOffer();
 		console.log("오퍼 전달")
-		// 이제 send함수를 통해 소켓으로 나의 offer를 전송해 볼게요
+		// 이제 send 로 오퍼 전달.
 
 		// TODO 여기 await 지움.
 		send({
@@ -95,6 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// 연결된 피어의 스트림을 웹의 상대화면 부분에 표시
 		peerFace.srcObject = data.stream;
+
+		// 녹음 시작
+		audiorecording();
+
+
+		// 성공적으로 Facechatroom이 만들어졌다고 판단되어 방을 만드는 api 호출.
+
 	}
 
 	// 소켓 연결 시 실행할 함수
@@ -202,6 +214,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 	});
+
+
+	let audioContext;
+	let mediaStreamSource;
+	let recorder;
+	let audioChunks = [];
+	let recordedBlob;
+	async function audiorecording() {
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+			audioContext = new (window.AudioContext || window.webkitAudioContext)();
+			mediaStreamSource = audioContext.createMediaStreamSource(stream);
+
+			// 스트림을 녹음할 노드 생성
+			recorder = new MediaRecorder(mediaStreamSource.stream);
+
+			recorder.ondataavailable = (event) => {
+				if (event.data.size > 0) {
+					audioChunks.push(event.data);
+				}
+			};
+
+			recorder.onstop = () => {
+				// 녹음이 완료된 후에 녹음된 음성 데이터를 처리하거나 서버에 업로드할 수 있습니다.
+				recordedBlob = new Blob(audioChunks, { type: 'audio/wav' });
+				// 여기에서 녹음된 음성 데이터를 처리하거나 서버에 업로드할 수 있습니다.
+
+			};
+
+			recorder.start();
+		} catch (err) {
+			console.error('마이크 접근 권한을 얻지 못했습니다.', err);
+		}
+	}
+
+	btnReport.addEventListener('click', () => {
+		
+		let answerRes = confirm('정말로 신고하시겠습니까? 신고하시면 곧바로 통화가 종료됩니다.');
+		
+		if(!answerRes){
+			
+			return;
+			
+		}
+		
+		// recordedBlob 레코드 파일.
+		// 녹음 중단
+		recorder.stop();
+
+		
+
+		const formData = new FormData();
+		formData.append('audioFile', recordedBlob, `record-${roomId}.wav`);
+
+		fetch(`/facechat/report?roomId=${roomId}`, {
+			method: 'POST',
+			body: formData,
+		})
+			.then(response => response.text())
+			.then(result => console.log(result))
+			.catch(error => console.error('파일 업로드 실패:', error));
+
+
+		
+	})
+
 
 })
 

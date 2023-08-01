@@ -3,23 +3,21 @@
 	layout:decorate="~{layout/base_layout}">
 
 <main layout:fragment="main">
-	<p>제대로 열린 거 맞음.</p>
+	
 	<input th:class="d-none" id="roomId" name="roomId" th:value="${roomId}" />
 	<div style="display: flex; justify-content: center;">
-		<div style="margin-right:50px; margin-right: 50px;
-    display: flex;
-    flex-direction: column;">
-			<input type="text" id="user1name" th:class="card" readonly value="철수"/>
+		<div
+			style="margin-right: 50px; margin-right: 50px; display: flex; flex-direction: column;">
+			<input type="text" id="user1name" th:class="card" readonly value="철수" />
 			<!-- 내 화면 송출, 7월 31일 코드 추가 -->
 			<video
-				style="margin-bottom:50px; border: 2px solid #ccc; border-radius: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);"
+				style="margin-bottom: 50px; border: 2px solid #ccc; border-radius: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);"
 				id="myFace" autoplay height="640px" width="480px"></video>
 
 		</div>
-		<div style="margin-right: 50px;
-    display: flex;
-    flex-direction: column;">
-			<input type="text" id="user2name" th:class="card" readonly value="영희"/>
+		<div
+			style="margin-right: 50px; display: flex; flex-direction: column;">
+			<input type="text" id="user2name" th:class="card" readonly value="영희" />
 			<video
 				style="border: 2px solid #ccc; border-radius: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);"
 				id="peerFace" width="480px" height="640px" autoplay></video>
@@ -27,17 +25,24 @@
 		</div>
 	</div>
 	<div style="display: flex; justify-content: center;">
-		<div style="margin-right:50px;">
+		<div style="margin-right: 50px;">
 			<button id="btnOffer" class="btn card">화상 채팅 연결</button>
 		</div>
-		<div style="margin-right:50px;">
+		<div style="margin-right: 50px;">
 			<button id="btnMute" class="btn card">마이크 음소거</button>
+		</div>
+		<!-- 신고하기, 마이크 음소거 동작 안함. TODO -->
+		<div style="margin-right: 50px;">
+			<button id="btnReport" class="btn card">신고하기</button>
+		</div>
+		<div style="margin-right: 50px;">
+			<a th:href="@{/facechat/chatroom}"><button id="btnExit" class="btn card">나가기</button></a>
 		</div>
 		<div>
 			<button id="btnScreen" class="btn card">화면 숨김</button>
 		</div>
 	</div>
-
+	
 </main>
 
 <th:block layout:fragment="myscripts">

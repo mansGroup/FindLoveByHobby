@@ -58,7 +58,12 @@ public class FaceChatWebSocketHandler implements WebSocketHandler {
 			
 			if(!x.getId().equals(session.getId())) {
 				log.info("x.getid = {}, session.getid= {}",x.getId(),session.getId());
+				
+				
+				
 				x.sendMessage(message);
+				
+				// 방 만들기.
 			}
 				
 			
