@@ -128,10 +128,10 @@ img {
 .message {
     color: white;
     padding: 8px 20px;
-    line-height: 20px;
-    font-size: 16px;
+    line-height: 18px;
+    font-size: 15px;
     border-radius: 7px;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     width: 90%;
     position: relative;
 }
