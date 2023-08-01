@@ -1,14 +1,14 @@
 package com.fin.love.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fin.love.repository.assessment.Assessment;
-import com.fin.love.repository.assessment.AssessmentRepository;
+import com.fin.love.service.MatchingDetailService;
 
-import ch.qos.logback.core.model.Model;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/matching")
 public class MatchingDetailController {
 	
-	private final AssessmentRepository assessmentRepository;
+	private final MatchingDetailService matchingDetailService;
 	
 	@GetMapping("/matchingDetail")
 	public void matchingDetail() {
@@ -29,7 +29,7 @@ public class MatchingDetailController {
 	public void read(Long id, Model model) {
 		log.info("matchingdetails(id={})", id);
 		
-		Assessment assessment = assessmentRepository.read(id);
+		Assessment assessment = matchingDetailService.read(id);
 		
 		model.addAttribute("assessment", assessment);
 	}

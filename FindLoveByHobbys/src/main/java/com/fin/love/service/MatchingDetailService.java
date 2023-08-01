@@ -1,7 +1,5 @@
 package com.fin.love.service;
 
-import java.util.NoSuchElementException;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,4 +24,6 @@ public class MatchingDetailService {
 		
 	    return assessmentRepository.findById(id).orElseThrow();
 	}
+    
+    
 }
