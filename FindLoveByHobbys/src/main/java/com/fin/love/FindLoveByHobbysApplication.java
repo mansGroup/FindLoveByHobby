@@ -7,6 +7,7 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 
 
+
 @EnableJpaAuditing
 @SpringBootApplication
 public class FindLoveByHobbysApplication {

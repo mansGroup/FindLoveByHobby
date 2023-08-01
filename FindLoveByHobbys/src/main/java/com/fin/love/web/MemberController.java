@@ -26,4 +26,18 @@ public class MemberController {
 		
 	}
 	
+
+	@PostMapping("/signup")
+	public String createId(MemberSignUpDto dto) {
+		log.info("create({}) POST", dto);
+		
+		String id = memberService.signUp(dto);
+		log.info("signup id = {}", id);
+		
+		return "landing/index";
+	}
+	
+	
+	
+
 }
