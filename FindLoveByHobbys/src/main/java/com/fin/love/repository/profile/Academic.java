@@ -1,7 +1,5 @@
 package com.fin.love.repository.profile;
 
-import com.fin.love.repository.like.Like;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
