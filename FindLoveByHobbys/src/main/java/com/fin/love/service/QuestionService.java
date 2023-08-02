@@ -50,10 +50,18 @@ public class QuestionService {
 	
 	public List<Question> read(String userid){
 		
+		Member member = memberrepository.findById(userid).orElseThrow();
+		
 		log.info("readlist({})",userid);
 		//TODO 유저아이디가 아닌 MEMBER 객체로 찾기
-		return questrepository.findByUserid(userid);
+		return questrepository.findByMemberOrderById(member);
 		
+	}
+
+
+	public Question readbyId(long id) {
+		// TODO Auto-generated method stub
+		return questrepository.findById(id).orElseThrow();
 	}
 	
 	

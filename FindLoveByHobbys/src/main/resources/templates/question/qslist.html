@@ -10,21 +10,19 @@
 			<th>문의자</th>
 			<th>문의유형</th>
 			<th>문의내용</th>
-			<th>작성시간</th>
-			<th>수정시간</th>
+			<th>최종작성시간</th>
 			<th>처리상태</th>
-			<th>처리완료시간</th>
+			
 		</tr>
 		</thead>
 		<tbody>
-		<tr>
-			<td>1</td>
-			<td>2</td>
-			<td>3</td>
-			<td>4</td>
-			<td>5</td>
-			<td>6</td>
-			<td>7</td>
+		<tr th:each="list : ${list}">
+			<td th:text="${list.member.id}"></td>
+			<td th:text="${list.questionoption}"></td>
+			<td class="ellipsis" th:text="${list.questioncontent}"><a
+							th:href="@{/question/qsread?id={id}(id=${list.id})}"></a></td>
+			<td th:text="${ #temporals.format(list.modifiedTime, 'YYYY-MM-dd HH:mm:ss') }"></td>
+			<td th:text="${list.status}"></td>
 		</tr>
 		</tbody>
 	</table>

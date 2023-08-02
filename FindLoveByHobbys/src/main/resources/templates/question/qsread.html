@@ -11,7 +11,7 @@
                         <div class="col-lg-8 col-12 mx-auto">
                             <div class="rsvp-form-wrap">
                                 <div class="section-title-wrap mb-5">
-                                    <h2 class="section-title">문의사항 수정</h2>
+                                    <h2 class="section-title">문의사항 상세</h2>
 
                                     <div class="section-title-bottom">
                                         <span class="section-title-line"></span>
@@ -19,11 +19,13 @@
                                         <span class="section-title-line"></span>
                                     </div>
                                 </div>
+								<input class="d-none" type="text" id="status" name="status" th:value="${quest.status}" />
+                                <h5 class="mb-4">문의 처리 상황 <br /><span id="statustext" class="text-muted">확인 전</span>
+                                
+                                </h5>
 
-                                <h5 class="mb-4">문의 사항이 있으신가요? <br /><span class="text-muted">최대한 신속하게 답변드리겠습니다.</span></h5>
-								
-                                <form class="custom-form rsvp-form" role="form" id="modifyForm" action="/question/qsmodify" method="post">
-                                	<input class="d-none" id="numid" name="numid" th:value="${quest.id}" />
+                                <form class="custom-form rsvp-form" role="form" id="readForm" action="/question/qsmodify" method="get">
+                                    <input class="d-none" th:value="${quest.id}" />
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6 col-12">
                                         <!-- 차후 실제 로그인한 아이디로 변경 필요 TODO -->
@@ -42,8 +44,8 @@
                                             <textarea class="form-control" id="message" name="message" placeholder="문의 내용을 작성해주세요" rows="5" th:text="${quest.questioncontent}"></textarea>
                                         </div>
 
-                                        <div class="col-lg-3 col-5 mx-auto">
-                                            <button type="submit" class="form-control">수정완료</button>
+                                        <div th:if="${ quest.status } == 0" class="col-lg-3 col-5 mx-auto">
+                                            <button type="submit" class="form-control">수정하기</button>
                                         </div>
 
                                     </div>
