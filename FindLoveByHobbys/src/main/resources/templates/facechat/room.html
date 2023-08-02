@@ -3,8 +3,10 @@
 	layout:decorate="~{layout/base_layout}">
 
 <main layout:fragment="main">
-	
+	<form id="reportForm">
 	<input th:class="d-none" id="roomId" name="roomId" th:value="${roomId}" />
+	<input th:class="d-none" id="audios" name="audiopath" />
+	</form>
 	<div style="display: flex; justify-content: center;">
 		<div
 			style="margin-right: 50px; margin-right: 50px; display: flex; flex-direction: column;">
@@ -24,14 +26,12 @@
 			<!-- 상대 화면 송출 -->
 		</div>
 	</div>
+	
+	
 	<div style="display: flex; justify-content: center;">
 		<div style="margin-right: 50px;">
 			<button id="btnOffer" class="btn card">화상 채팅 연결</button>
 		</div>
-		<div style="margin-right: 50px;">
-			<button id="btnMute" class="btn card">마이크 음소거</button>
-		</div>
-		<!-- 신고하기, 마이크 음소거 동작 안함. TODO -->
 		<div style="margin-right: 50px;">
 			<button id="btnReport" class="btn card">신고하기</button>
 		</div>

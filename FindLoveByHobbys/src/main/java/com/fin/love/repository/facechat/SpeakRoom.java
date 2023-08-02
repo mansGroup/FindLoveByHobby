@@ -16,11 +16,13 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
+@AllArgsConstructor
+@Builder
 @Table(name = "SPEAKROOM")
 public class SpeakRoom {
 
 	@Id
-	private long roomId;
+	private long roomid;
 	
 	@Column(nullable = false)
 	private String speakmember1;
@@ -30,5 +32,12 @@ public class SpeakRoom {
 	
 	@Column(nullable = false)
 	private LocalDateTime createdTime;
+	
+	
+	public void findNowTime() {
+		
+		this.createdTime = LocalDateTime.now();
+		
+	}
 	
 }

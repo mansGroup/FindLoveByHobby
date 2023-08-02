@@ -14,13 +14,13 @@
 		 
 		 if(roomNum == ''){
 			 
-			 alert('숫자만 입력 가능합니다.');
+			 alert('방 번호 입력해주세요');
 			 return;
 			 
 		 }
 		 
-		 forms.method = 'get';
-		 forms.action = `/facechat/room?roomId=${roomNum}`;
+		 forms.method = 'post';
+		 forms.action = `/facechat/room`;
 		 forms.submit();
 		 
 	 })

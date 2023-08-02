@@ -59,7 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	// 오퍼 생성 시 해당 함수가 호출됨.
-	async function createOffer() {
+	async function createOffer(e) {
+		e.preventDefault();
+		
 		console.log("Offer Send");
 
 		// 아까 작성한 카메라 연결 함수 호출.
@@ -153,45 +155,20 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	
 	
-	// 7월 31일 밤 추가 TODO
-	const mutechange = () => {
-		navigator.mediaDevices.getUserMedia({ audio: true })
-			.then(stream => {
-				// 오디오 트랙 가져오기
-
-				const audioTracks = stream.getAudioTracks()[0];
-				if (isMute == false) {
-					// 음소거 처리
-					console.log("mute");
-					audioTracks.forEach((track) => {
-						track.enabled = false;
-					}); // true로 설정하면 다시 음소거가 해제됩니다.
-					btnMute.innerHTML = '마이크 활성화';
-				} else {
-					console.log("non-mute");
-					audioTracks.forEach((track) => {
-						track.enabled = true;
-					});
-					btnMute.innerHTML = '마이크 음소거';
-				}
-				isMute = !isMute;
-			})
-			.catch(error => {
-				console.error('Error accessing local media:', error);
-			});
-	}
+	
 
 
-	// 7월 31일 밤 추가 TODO
-	btnMute.addEventListener('click', mutechange);
+	
 
 
 
 
 
 	// 화면 공유 중지 버튼 클릭 이벤트 처리 ( 7월 31일 밤 추가 TODO )
-	btnScreen.addEventListener('click', async () => {
-
+	btnScreen.addEventListener('click', async (e) => {
+		
+		e.preventDefault();
+		
 		// 스트리밍 자체가 시작되기 전인 경우
 		if (!myStream) return;
 
@@ -202,11 +179,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			console.log("Video show");
 			btnScreen.innerHTML = '화면 숨김';
 			myStream.getVideoTracks()[0].enabled = true; // 원래 화면 송출 상태로 변경
+			myStream.getAudioTracks()[0].enabled = true; // 음성 송출 원래 상태로 변경
 			myFace.srcObject = myStream;
 		} else {
 			console.log("Video hide");
 			btnScreen.innerHTML = '화면 표시';
 			myStream.getVideoTracks()[0].enabled = false; // 화면 송출 중지
+			myStream.getAudioTracks()[0].enabled = false; // 음성 송출 중지
 			myFace.srcObject = null;
 		}
 
@@ -258,7 +237,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 
-	btnReport.addEventListener('click', async () => {
+	btnReport.addEventListener('click', async (e) => {
+
+		e.preventDefault();
 
 		let answerRes = confirm('정말로 신고하시겠습니까? 신고하시면 곧바로 통화가 종료됩니다.');
 
@@ -274,19 +255,29 @@ document.addEventListener('DOMContentLoaded', () => {
 		recorder.stop();
 
 
-
+		let audiopath = "";
+		let audios = document.querySelector('input#audios');
 		const formData = new FormData();
 		formData.append('audioFile', recordedBlob);
 
-		await fetch(`/facechat/report?roomId=${roomId}`, {
+		await fetch(`/faceapi/report/${roomId}`, {
 			method: 'POST',
 			body: formData,
 		})
-			.then(response => response.text())
+			.then(response => {
+				
+				audiopath = response.text()
+				audios.value = audiopath;
+				
+				})
 			.then(result => console.log(result))
 			.catch(error => console.error('파일 업로드 실패:', error));
 
-
+		
+		reportForm.method='post';
+		reportForm.action='/facechat/report';
+		reportForm.submit();
+		
 
 	})
 

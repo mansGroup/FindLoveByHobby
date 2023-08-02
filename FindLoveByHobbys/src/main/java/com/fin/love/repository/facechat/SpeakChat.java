@@ -11,18 +11,21 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-//@Entity
+@Builder
+@Entity
+@AllArgsConstructor
 @Table(name = "SPEAKCHAT")
 @SequenceGenerator(name = "SPEAKCHAT_SEQ_GEN", sequenceName = "SPEAKCHAT_SEQ", allocationSize = 1)
-public class SpeakIssue {
+public class SpeakChat {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE , generator =  "SPEAKCHAT_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE , generator =  "SPEAKCHAT_SEQ_GEN")
 	private long id;
 	
 	@Column(nullable = true)
