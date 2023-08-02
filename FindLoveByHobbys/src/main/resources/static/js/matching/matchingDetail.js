@@ -8,11 +8,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const memberSexy = document.querySelector('#memberSexy');
 	const spanRecommendCnt = document.querySelector('#spanRecommendCnt'); // 추가: span 요소를 가져옴
-
+	
+	const memberId = document.querySelector('input#memberId');
+	
 	const makeRecommendElements = (data) => {
 		spanRecommendCnt.innerHTML = '';
 		let htmlStr = '';
-		htmlStr += `호감도 ${data.recommend}<span>`;
+		htmlStr += `호감도 ${data.assessment}<span>`;
 		spanRecommendCnt.innerHTML = htmlStr;
 	};
 
@@ -20,8 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		let mSexy = memberSexy.value;
 		mSexy = parseInt(mSexy) += 1;
 
-		axios
-			.post(`/api/matchingDetail/assessment/${memberId}`, 
+		axios.post(`/api/matchingDetail/assessment/${memberId}`, 
 			{ mSexy: mSexy }) 
 			
 			.then((response) => {

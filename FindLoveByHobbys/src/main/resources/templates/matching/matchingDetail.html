@@ -28,7 +28,8 @@
 								class="about-image img-fluid" alt="">
 						</div>
 					</div>
-
+			<form id="assessmentForm">
+				<input type="text" class="d-none" id="memberId" name="memberId" th:text="${member.id}" />	
 					<div class="col-lg-3 col-12">
 						<div class="about-info-wrap d-flex flex-column">
 
@@ -75,7 +76,7 @@
 							</div>
 						</div>
 					</div>
-
+				</form>
 					<div class="col-lg-3 col-12">
 						<div class="image-hover-thumb">
 							<img
