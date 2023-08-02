@@ -25,12 +25,4 @@ public class ProfileController {
 		return "/profile/profiles";
 	}
 	
-	@GetMapping("/profileimage")
-	public String image(Model model) {
-		log.info("imageUploadPage()");
-		
-		return "/profile/image_upload";
-	}
-	
-	
 }
