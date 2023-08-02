@@ -43,6 +43,9 @@ public class Profile {
 	private String userHeight;
 	
 	@Column
+	private String userIntroduce;
+	
+	@Column
 	private int userAcademic;
 	
 	@Column

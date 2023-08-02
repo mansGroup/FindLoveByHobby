@@ -1,14 +1,22 @@
 package com.fin.love.repository.profile;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import com.fin.love.repository.hobby.Hobby;
+import com.fin.love.service.HobbyService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
 public class ProfileDataTest {
+	
+	@Autowired
+	private HobbyService hs;
 	
 	@Autowired
 	private AcademicRepository ar;
@@ -64,6 +72,14 @@ public class ProfileDataTest {
 		}
 		
 		log.info("끝");
+	}
+	
+	//@Test
+	public void redd() {
+		List<Hobby> hobby = hs.read();
+		for(int i = 0; i < hobby.size(); i++) {
+			log.info("hobby()" + hobby.get(i));
+		}
 	}
 	
 }
