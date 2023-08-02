@@ -8,7 +8,7 @@ import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 
 
 
-@EnableJpaAuditing
+//@EnableJpaAuditing
 @SpringBootApplication
 public class FindLoveByHobbysApplication {
 

@@ -4,11 +4,8 @@
     layout:decorate="~{layout/base_layout}">
     
 	<main layout:fragment="main">
-	
-	
 			<h1>프로필 등록 페이지</h1>
-				
-				
+						
 			<!-- 회원가입 정보에서 불러올 데이터(이름, 성별, 생년월일) -->
 			<div class="card-body">
 				<form>
@@ -24,53 +21,37 @@
 						<label class="form-label" for="bday">생년월일</label>
 						<input class="form-control" id="bday" type="text" name="bday" required autofocus>
 					</div>
+				</form>
+				
+				<form>
 					<div class="my-2">
 						<label class="form-label" for="content">자기 소개를 입력하세요</label>
 						<textarea class="form-control" id="content" name="content" required autofocus></textarea>
 					</div>
-				</form>
+				</form>	
 			</div>
 				
 		<!-- DB 데이터로 프로필 등록 -->
 		<div>
-			<div class="card-body">
-				<h2>취미 (3개 선택 가능)</h2>
-				<div class="form-check">
-				  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-				  <label class="form-check-label" for="flexCheckDefault">
-				    수영
-				  </label>
-				</div>
-				<div class="form-check">
-				  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-				  <label class="form-check-label" for="flexCheckChecked">
-				    피아노
-				  </label>
-				</div>
-				<div class="form-check">
-				  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-				  <label class="form-check-label" for="flexCheckChecked">
-				    러닝
-				  </label>
-				</div>
-							
+			<div class="card-body">		
+				<h2>취미 (최대 3개 선택 가능)</h2>
+				<div class="form-check">			
+					<div th:each="hobby : ${hobbys}">
+					  <input class="form-check-input" name="check" onclick="count(this);" type="checkbox">
+					  <label class="form-check-label" th:text="${hobby.hobbyName}"></label>
+					</div>		
+				</div>		
+						
 				<h2>나이</h2>
-				<select class="form-select" aria-label="Default select example">
+				<select class="form-select" th:field="">
 				  <option value="" disabled selected>나이 정보를 선택하세요</option>
-				  <option value="1">20살</option>
-				  <option value="2">21살</option>
-				  <option value="4">22살</option>
-				  <option value="5">23살</option>
-				  <option value="6">24살</option>
+				  <option th:each="" th:text=""></option>
 				</select>
 
 				<h2>키</h2>
 				<select class="form-select" aria-label="Default select example">
 				  <option value="" disabled selected>키 정보를 선택하세요</option>
-				  <option value="">160</option>
-				  <option value="">161</option>
-				  <option value="">162</option>			 
-				  <option value="">163</option>			 
+				  <option value="">160</option>		 
 				</select>
 				
 				<h2>음주여부</h2>
@@ -144,4 +125,9 @@
 			</div>
 		</div>
 	</main>	
+	
+	<!-- profile 자바스크립트 경로 -->
+	<th:block layout:fragment="myscripts">
+        <script src="..\js\profile\profiles.js"></script>
+    </th:block>
 </html>
