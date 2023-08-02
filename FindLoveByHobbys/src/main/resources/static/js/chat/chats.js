@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     const username = 'Dahan';
     const btnSend = document.querySelector('button#button-send');
-    const msgArea = document.querySelector('div#msgArea');
+    const msgArea = document.querySelector('ul#msgArea');
 
     // $("#disconn").on("click", (e) => {
     //     disconnect();
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         send();
     });
 
-    let websocket = new WebSocket("ws://localhost:8090/ws/chat");
+    let websocket = new WebSocket('wss://' + location.host + '/ws/chat');
     //let websocket = new WebSocket("ws://192.168.219.103:8080/ws/chat");
 
     websocket.onmessage = onMessage;
@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     function send(){
 
         let msg = document.getElementById("msg");
-
         console.log(username + ":" + msg.value);
         websocket.send(username + ":" + msg.value);
         msg.value = '';
@@ -38,8 +37,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     }
     //채팅창에 들어왔을 때
     function onOpen(evt) {
-        let str = username + ": 님이 입장하셨습니다.";
-        websocket.send(str);
+        // TODO 1지우기
     }
 
     function onMessage(msg) {
@@ -65,10 +63,26 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
         //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
         if(sessionId == cur_session){
-            var str = "<div class='col-6'>";
-            str += "<div class='alert alert-secondary'>";
-            str += "<b>" + sessionId + " : " + message + "</b>";
-            str += "</div></div>";
+            var str = "<li className=\"clearfix\" style='margin-bottom: -15px; height: 5px; font-size: 12px;'>";
+            str += '<div className=\"message-data align-right\" style=" margin-bottom: -15px;\n' +
+                '    height: 5px;\n' +
+                '    font-size: 12px;">';
+            str += '<span className=\"message-data-time\">10:14</span> &nbsp; &nbsp;';
+            str += `<span className=\"message-data-name\">${username}</span>`;
+            str += '</div>';
+            str += '<div className=\"message other-message float-right\" style="color: white;\n' +
+                '    padding: 8px 20px;\n' +
+                '    line-height: 18px;\n' +
+                '    font-size: 15px;\n' +
+                '    border-radius: 7px;\n' +
+                '    margin-bottom: 3px;\n' +
+                '    margin-top: 30px;\n' +
+                '    width: 90%;\n' +
+                '    position: relative;' +
+                '    background: #94C2ED">';
+            str += `${message}`;
+            str += '</div>';
+            str += '</li>';
             msgArea.innerHTML += str;
         }
         else{

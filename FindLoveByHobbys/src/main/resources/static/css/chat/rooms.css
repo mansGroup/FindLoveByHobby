@@ -6,23 +6,20 @@
     --gray: #92959E;
 }
 
-*,
-*:before,
-*:after {
-    box-sizing: border-box;
-}
+
 
 body {
-    background: #C5DDEB;
+    background: #ffffff;
     font: 14px/20px "Lato", Arial, sans-serif;
     padding: 40px 0;
     color: white;
 }
 
-.container {
+.container1 {
     margin: 0 auto;
     width: 1200px;
-    background: #444753;
+    height: 638px;
+    background: #FFE4B5;
     border-radius: 5px;
     overflow: hidden; /* To clear floats */
 }
@@ -51,8 +48,8 @@ input {
     left: -25px;
 }
 
-ul {
-    padding: 20px;
+.list {
+    padding: 31px;
     height: 770px;
 }
 
@@ -112,17 +109,19 @@ img {
     padding: 3px 30px 20px;
     border-bottom: 2px solid white;
     overflow-y: scroll;
-    height: 500px;
+    height: 416px;
 }
 
 .message-data {
-    margin-bottom: 15px;
+    margin-bottom: -15px;
     height: 5px;
+    font-size: 12px;
 }
 
 .message-data-time {
     color: #92959E;
     padding-left: 6px;
+    font-size: 12px;
 }
 
 .message {
@@ -131,24 +130,12 @@ img {
     line-height: 18px;
     font-size: 15px;
     border-radius: 7px;
-    margin-bottom: 15px;
+    margin-bottom: 3px;
+    margin-top: 30px;
     width: 90%;
     position: relative;
 }
 
-.message:after {
-    bottom: 100%;
-    left: 7%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-bottom-color: #86BB71;
-    border-width: 10px;
-    margin-left: -10px;
-}
 
 .my-message {
     background: #86BB71;
@@ -164,7 +151,7 @@ img {
 }
 
 .chat-message {
-    padding: 30px;
+    padding: 12px;
 }
 
 textarea {
@@ -172,17 +159,10 @@ textarea {
     border: none;
     padding: 10px 20px;
     font: 14px/22px "Lato", Arial, sans-serif;
-    margin-bottom: 10px;
     border-radius: 5px;
     resize: none;
 }
 
-.fa-file-o,
-.fa-file-image-o {
-    font-size: 16px;
-    color: gray;
-    cursor: pointer;
-}
 
 button {
     float: right;
@@ -192,7 +172,7 @@ button {
     border: none;
     cursor: pointer;
     font-weight: bold;
-    padding: 10px 20px;
+    padding: 36px 24px 36px 15px;
     background: #F2F5F8;
 }
 
@@ -223,4 +203,6 @@ button:hover {
     text-align: left;
 }
 
-.align-right {}
+.align-right {
+    text-align: right;
+}

@@ -9,12 +9,8 @@
 
 <main layout:fragment="main">
     <!-- copy -->
-    <div class="container clearfix">
+    <div class="container1 clearfix">
         <div class="people-list" id="people-list">
-            <div class="search">
-                <input type="text" placeholder="search" />
-                <i class="fa fa-search"></i>
-            </div>
             <ul class="list">
                 <li class="clearfix">
                     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01.jpg" alt="avatar" />
@@ -40,11 +36,13 @@
             </div> <!-- end chat-header -->
 
             <div class="chat-history">
-                <ul>
+
+                <!-- 메세지 영역 -->
+                <ul class="list" id="msgArea">
                     <li class="clearfix">
                         <div class="message-data align-right">
                             <span class="message-data-time" >10:10 AM, Today</span> &nbsp; &nbsp;
-                            <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
+                            <span class="message-data-name" >Olia</span>
 
                         </div>
                         <div class="message other-message float-right">
@@ -73,27 +71,19 @@
                         </div>
                     </li>
 
-                    <li>
-                        <div class="message-data">
-                            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                            <span class="message-data-time">10:31 AM, Today</span>
-                        </div>
-                        <i class="fa fa-circle online"></i>
-                        <i class="fa fa-circle online" style="color: #AED2A6"></i>
-                        <i class="fa fa-circle online" style="color:#DAE9DA"></i>
-                    </li>
-
                 </ul>
 
             </div> <!-- end chat-history -->
 
             <div class="chat-message clearfix">
-                <textarea name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+                <!-- text area -->
+                <textarea name="message-to-send" id="msg" placeholder ="Type your message" rows="3"></textarea>
 
                 <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
                 <i class="fa fa-file-image-o"></i>
 
-                <button>Send</button>
+                <!-- 보내는 버튼 -->
+                <button id="button-send">Send</button>
 
             </div> <!-- end chat-message -->
 
@@ -126,7 +116,8 @@
     </script>
     <!-- copy -->
 
-    <div class="container">
+    <!-- 기본코드
+    <div class="container1">
         <div class="col-6">
             <label><b>채팅방</b></label>
         </div>
@@ -143,6 +134,7 @@
         </div>
         <div class="col-6"></div>
     </div>
+    -->
 </main>
 
     <th:block layout:fragment="myscripts">
