@@ -4,7 +4,7 @@
 	layout:decorate="~{layout/base_layout}">
 <body>
 	<main layout:fragment="main">
-	
+
 		<section class="about-section section-padding" id="section_2">
 			<div class="container">
 				<div class="row">
@@ -34,29 +34,44 @@
 
 							<!-- TODO: 프로필 이름 -->
 							<div class="about-info-title d-flex align-items-center my-3">
-								<span id="name" >조보아</span> th:text="${assessment.name}"
+								<span id="memberName" th:text="${profile.name}">조보아</span>
 
 								<!-- TODO: 직업 -->
-								<span class="about-tag ms-4" id="job">The Bride</span>th:text="${assessment.job}"
+								<span class="about-tag ms-4" id="memberJob" th:text="${profile.job}">The
+									Bride</span>
 							</div>
 
 							<!-- TODO: 자기소개 -->
-							<span>Sarah is amazing. When I first met her I knew she was
-								amazing and every passing day reminds me of just how amazing she
-								is!</span> th:text="${assessment.introduce}"
+							<span th:text="${profile.introduce}" id="memberIntroduce"></span>
 
 							<!-- TODO: 호감도 표시를 여기서 -->
 							<div class="social-icon-wrap mt-auto">
-								<ul class="social-icon ms-auto">
-									<li class="social-icon-item"><a href="#"
-										class="social-icon-link bi-facebook"></a></li>
+								<!-- TODO: 호감도 표시를 아이콘으로 대체 -->
 
-									<li class="social-icon-item"><a href="#"
-										class="social-icon-link bi-twitter"></a></li>
+								<!-- 여자일 경우 -->
+								<div th:if="${member.sex == 0}">
+									<label>호감도</label>
+									<button class="" id="btnSexy"></button>
+									<span th:text="${assessment.Sexy}" id="memberSexy"></span>
 
-									<li class="social-icon-item"><a href="#"
-										class="social-icon-link bi-instagram"></a></li>
-								</ul>
+									<button class="" id="btnBeautiful"></button>
+									<span th:text="${assessment.Beautiful}" id="memberBeautiful"></span>
+									
+									<button class="" id="btnCuteWoman"></button>
+									<span th:text="${assessment.cute}" id="memberCute"></span>
+								</div>
+
+								<!-- 남자일 경우 -->
+								<div th:if="${member.sex == 1}">
+									<button class="" id="btnCuteMan"></button>
+									<span th:text="${assessment.cute}" id="memberCute"></span>
+									
+									<button class="" id="btnWonderful"></button>
+									<span th:text="${assessment.wonderful}" id="memberwonderful"></span>
+									
+									<button class="" id="btnHandsome"></button>
+									<span th:text="${assessment.handsome}" id="handsome"></span>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -82,12 +97,12 @@
 						<div class="section-title-wrap mb-5">
 							<h5 class="section-title">기본정보</h5>
 							<ul>
-								<li><span>키: </span><span></span></li>th:text="${assessment.height}"
-								<li><span>나이: </span><span></span></li>th:text="${assessment.age}"
-								<li><span>학력: </span><span></span></li>th:text="${assessment.education}"
-								<li><span>흡연: </span><span></span></li>th:text="${assessment.smoke}"
-								<li><span>음주: </span><span></span></li>th:text="${assessment.drink}"
-								<li><span>종교: </span><span></span></li>th:text="${assessment.religen}"
+								<li><span th:text="${profile.height}">키: </span><span></span></li>
+								<li><span th:text="${profile.age}">나이: </span><span></span></li>
+								<li><span th:text="${profile.academic}">학력: </span><span></span></li>
+								<li><span th:text="${profile.smoke}">흡연: </span><span></span></li>
+								<li><span th:text="${profile.drink}">음주: </span><span></span></li>
+								<li><span th:text="${profile.religon}">종교: </span><span></span></li>
 							</ul>
 						</div>
 					</div>
@@ -105,9 +120,9 @@
 						<div class="section-title-wrap mb-5">
 							<h5 class="section-title">취미 리스트</h5>
 							<ul class="hobbies-list">
-								<li><span></span></li>th:text="${assessment.hobby1}"
-								<li><span></span></li>th:text="${assessment.hobby2}"
-								<li><span></span></li>th:text="${assessment.hobby3}"
+								<li><span th:text="${userHobbies.hobby1}"></span></li>
+								<li><span th:text="${userHobbies.hobby2}"></span></li>
+								<li><span th:text="${userHobbies.hobby3}"></span></li>
 							</ul>
 						</div>
 					</div>
@@ -124,7 +139,7 @@
 						<div class="section-title-wrap mb-5">
 
 							<!-- TODO: 취미 사진 삽이 할 위치 -->
-							<h2 class="section-title">Gallery about hobby</h2>
+							<h2 class="section-title">취미 사진</h2>
 
 							<div class="section-title-bottom">
 								<span class="section-title-line"></span> <i
@@ -154,16 +169,8 @@
 							</a>
 						</div>
 					</div>
-					<div class="col-lg-4 col-12">
-						<div class="gallery-thumb image-hover-thumb">
-							<a href="images/gallery/elegant-young-woman-fashionable.jpg"
-								class="popup-image"> <img
-								src="images/gallery/elegant-young-woman-fashionable.jpg"
-								class="gallery-image img-fluid" alt="">
-							</a>
-						</div>
-					</div>
 				</div>
+			</div>
 		</section>
 
 	</main>

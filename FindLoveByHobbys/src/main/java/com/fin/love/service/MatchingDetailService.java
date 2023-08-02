@@ -1,6 +1,7 @@
-package com.fin.love.service;
+	package com.fin.love.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,8 @@ import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.ProfileRepository;
 import com.fin.love.repository.profile.UserHobby;
 import com.fin.love.repository.profile.UserHobbyRepository;
+import com.fin.love.respository.member.Member;
+import com.fin.love.respository.member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,10 +30,11 @@ public class MatchingDetailService {
     private final ProfileRepository profileRepository;
     private final HobbyRepository hobbyRepository;
     private final UserHobbyRepository userHobbyRepository;
-
+    private final MemberRepository memberRepository; 
+    
     // DB 테이블에서 id 불러오기
     @Transactional(readOnly = true)
-    public Assessment read(Long id) {
+    public Assessment getUserAssessment(String id) {
         log.info("read(id={})", id);
 
         return assessmentRepository.findById(id).orElseThrow();
@@ -40,11 +44,16 @@ public class MatchingDetailService {
         return hobbyRepository.findAll();
     }
 
-    public Profile getUserProfile(String id) {
-        return profileRepository.findById(id).orElseThrow();
+    public Optional<Profile> getUserProfile(String id) {
+        return profileRepository.findById(id);
     }
-
+    
     public List<UserHobby> getUserHobbies(String id) {
         return userHobbyRepository.findByUserid(id);
     }
+    
+    public Optional<Member> getUserinfo(String id){
+    	return memberRepository.findById(id);
+    }
+
 }
