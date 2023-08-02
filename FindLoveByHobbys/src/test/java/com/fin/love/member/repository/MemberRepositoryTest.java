@@ -43,7 +43,7 @@ public class MemberRepositoryTest {
 
         Timestamp now = new Timestamp(System.currentTimeMillis());
 
-        Member entity = Member.builder()
+        Member entity1 = Member.builder()
                 .name("유다한")
                 .nickname("다한")
                 .phone("010-0000-0000")
@@ -56,6 +56,26 @@ public class MemberRepositoryTest {
                 .password("1")
                 .build();
 
-        memberRepository.save(entity);
+        memberRepository.save(entity1);
+    }
+    @Test
+    public void makeMember3() {
+
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+
+        Member entity2 = Member.builder()
+                .name("이찬희")
+                .nickname("찬희")
+                .phone("010-0000-0000")
+                .sex(1)
+                .id("user3")
+                .role(Role.USER)
+                .email("danbi22@gmail.com")
+                .address("서울특별시 어딘가")
+                .birthday(now)
+                .password("1")
+                .build();
+
+        memberRepository.save(entity2);
     }
 }

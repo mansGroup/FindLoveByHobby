@@ -14,12 +14,14 @@
             <!-- 상대방 리스트 -->
             <ul th:each="list : ${list}" class="list">
                 <li class="clearfix">
-                    <div class="about">
-                        <div class="name">${list.}</div>
-                        <div class="status">
+                    <a th:href="@{/chat/chatroom?room={room} (room = ${list.contentId})}">
+                        <div class="about">
+                            <div class="name" th:text="${list.nickname}">${list}</div>
+                            <div class="status">
 
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </li>
             </ul>
         </div>

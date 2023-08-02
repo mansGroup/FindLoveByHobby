@@ -206,3 +206,7 @@ button:hover {
 .align-right {
     text-align: right;
 }
+
+li {
+    list-style-type: none;
+}
