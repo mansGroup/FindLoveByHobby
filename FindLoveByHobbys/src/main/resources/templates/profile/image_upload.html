@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/base_layout}">
+
+<main layout:fragment="main">
+
+<!-- 유저 아이디 -->
+<input class="d-none" value="qwer1234" id="userId" name="userId" />
+
+	<section class="the-wedding-section section-bg section-padding" id="section_3">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h2 class="section-title">USUAL IMAGE</h2>
+
+                                <div class="section-title-bottom">
+                                    <span class="section-title-line"></span>
+                                    	<img src="/images/photo.png" class="section-title-icon bi-heart-fill" />
+                                    <span class="section-title-line"></span>
+                                </div>
+                            </div>
+                        </div>
+						
+	                        <div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+	                            <div class="image-hover-thumb">
+	                                <img src="/images/70334d97483b4ba8aa81ba7f0bae9cec.jpeg" class="img-fluid" alt="">
+	                            </div>
+	                            <div class="section-block">
+	                                <h3 class="my-3">The Reception</h3>
+	                                
+	                                <input name="uploadFilesUsualImage" id="uploadFilesUsualImage" type="file" multiple>
+	                                
+	                            </div>
+	                        </div>
+							
+							
+							
+	                        <div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+	                            <div class="image-hover-thumb">
+	                                <img src="/images/style_5f90f49969ab5.jpg" class="img-fluid" alt="">
+	                            </div>
+	                            <div class="section-block">
+	                                <h3 class="my-3">The Reception</h3>
+	                                
+	                                <input name="uploadFiles" id="uploadFiles" type="file" multiple>
+	                                
+	                            </div>
+	                        </div>
+	
+	                        <div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+	                            <div class="image-hover-thumb">
+	                                <img src="/images/70334d97483b4ba8aa81ba7f0bae9cec.jpeg" class="img-fluid" alt="">
+	                            </div>
+	                            <div class="section-block">
+	                                <h3 class="my-3">The Reception</h3>
+	                                
+	                                <input name="uploadFiles" id="uploadFiles" type="file" multiple>
+	                                
+	                            </div>
+	                        </div>
+						
+                    </div>
+                </div>
+            </section>
+            
+            <section class="the-wedding-section section-bg section-padding" id="section_3">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-12">
+                            <div class="section-title-wrap mb-5">
+                                <h2 class="section-title">HOBBY IMAGE</h2>
+
+                                <div class="section-title-bottom">
+                                    <span class="section-title-line"></span>
+                                    	<img src="/images/photo.png" class="section-title-icon bi-heart-fill" />
+                                    <span class="section-title-line"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+                            <div class="image-hover-thumb">
+                                <img src="/images/70334d97483b4ba8aa81ba7f0bae9cec.jpeg" class="img-fluid" alt="">
+                            </div>
+                            <div class="section-block">
+	                                <h3 class="my-3">The Reception</h3>
+	                                
+	                                <input name="uploadFiles" id="uploadFiles" type="file" multiple>
+	                                
+	                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+                            <div class="image-hover-thumb">
+                                <img src="/images/70334d97483b4ba8aa81ba7f0bae9cec.jpeg" class="img-fluid" alt="">
+                            </div>
+                            <div class="section-block">
+	                                <h3 class="my-3">The Reception</h3>
+	                                
+	                                <input name="uploadFiles" id="uploadFiles" type="file" multiple>
+	                                
+	                            </div>
+                        </div>
+
+                       <div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+	                            <div class="image-hover-thumb">
+	                                <img src="/images/70334d97483b4ba8aa81ba7f0bae9cec.jpeg" class="img-fluid" alt="">
+	                            </div>
+	                            <div class="section-block">
+	                                <h3 class="my-3">The Reception</h3>
+	                                
+	                                <input name="uploadFiles" id="uploadFiles" type="file" multiple>
+	                                
+	                            </div>
+	                        </div>
+
+                    </div>
+                </div>
+            </section>
+</main>
+
+<th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" ></script>
+        <script src="/js/image/image_upload.js"></script>
+    </th:block>
+
+</html>
