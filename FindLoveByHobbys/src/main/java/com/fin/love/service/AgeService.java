@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fin.love.repository.hobby.Hobby;
-import com.fin.love.repository.hobby.HobbyRepository;
+import com.fin.love.repository.profile.Age;
+import com.fin.love.repository.profile.AgeRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,16 +15,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class HobbyService {
+public class AgeService {
 	
-	public final HobbyRepository hobbyRepository;
+	private final AgeRepository ageRepository;
 
-	// 취미 리스트
+	// 나이 리스트
 	@Transactional(readOnly = true)
-	public List<Hobby> readHobbyList() {
+	public List<Age> readAgeList() {
 		
-		log.info("readHobbyList()");
+		log.info("readAgeList()");
 		
-		return hobbyRepository.findAll();
+		return ageRepository.findAll();
 	}
 }
