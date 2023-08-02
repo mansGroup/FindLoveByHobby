@@ -10,7 +10,7 @@
 	<div style="display: flex; justify-content: center;">
 		<div
 			style="margin-right: 50px; margin-right: 50px; display: flex; flex-direction: column;">
-			<input type="text" id="user1name" th:class="card" readonly value="철수" />
+			<input type="text" id="user1name" th:class="card" readonly th:value="${speakmember1}" />
 			<!-- 내 화면 송출, 7월 31일 코드 추가 -->
 			<video
 				style="margin-bottom: 50px; border: 2px solid #ccc; border-radius: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);"
@@ -19,7 +19,7 @@
 		</div>
 		<div
 			style="margin-right: 50px; display: flex; flex-direction: column;">
-			<input type="text" id="user2name" th:class="card" readonly value="영희" />
+			<input type="text" id="user2name" th:class="card" readonly th:value="${speakmember2}" />
 			<video
 				style="border: 2px solid #ccc; border-radius: 5px; box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);"
 				id="peerFace" width="480px" height="640px" autoplay></video>

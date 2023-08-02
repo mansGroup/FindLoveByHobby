@@ -63,7 +63,7 @@ public class FaceChatWebSocketHandler implements WebSocketHandler {
 				
 				x.sendMessage(message);
 				
-				// 방 만들기.
+				
 			}
 				
 			

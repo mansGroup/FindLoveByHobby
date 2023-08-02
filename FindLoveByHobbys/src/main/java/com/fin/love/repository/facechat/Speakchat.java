@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Table(name = "SPEAKCHAT")
 @SequenceGenerator(name = "SPEAKCHAT_SEQ_GEN", sequenceName = "SPEAKCHAT_SEQ", allocationSize = 1)
-public class SpeakChat {
+public class Speakchat {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE , generator =  "SPEAKCHAT_SEQ_GEN")
@@ -37,8 +39,9 @@ public class SpeakChat {
 	@Column(nullable = false)
 	private int report;
 	
-	@OneToOne
-	private SpeakRoom speakRoom;
+	@ManyToOne
+	@JoinColumn(name="roomid")
+	private Speakroom speakroom;
 	
 	// 녹음 파일 경로 들어오면 저장.
 	public void saveMyReportData(String root) {

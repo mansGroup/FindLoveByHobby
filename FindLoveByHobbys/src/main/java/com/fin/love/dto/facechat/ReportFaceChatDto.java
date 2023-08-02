@@ -2,8 +2,8 @@ package com.fin.love.dto.facechat;
 
 import java.time.LocalDateTime;
 
-import com.fin.love.repository.facechat.SpeakChat;
-import com.fin.love.repository.facechat.SpeakRoom;
+import com.fin.love.repository.facechat.Speakchat;
+import com.fin.love.repository.facechat.Speakroom;
 
 import groovy.util.logging.Slf4j;
 import lombok.AllArgsConstructor;
@@ -22,9 +22,9 @@ public class ReportFaceChatDto {
 	private int report;
 	private String filepath;
 	
-	public SpeakChat toEntity(SpeakRoom room) {
+	public Speakchat toEntity(Speakroom room) {
 		
-		return SpeakChat.builder().chatfile(filepath).createdTime(LocalDateTime.now()).speakRoom(room).report(report).build();
+		return Speakchat.builder().chatfile(filepath).createdTime(LocalDateTime.now()).speakroom(room).report(report).build();
 		
 	}
 	

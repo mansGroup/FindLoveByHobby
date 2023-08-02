@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Table(name = "SPEAKROOM")
-public class SpeakRoom {
+public class Speakroom {
 
 	@Id
 	private long roomid;

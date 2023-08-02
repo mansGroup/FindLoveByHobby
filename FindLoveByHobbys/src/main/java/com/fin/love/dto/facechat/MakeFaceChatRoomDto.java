@@ -1,6 +1,6 @@
 package com.fin.love.dto.facechat;
 
-import com.fin.love.repository.facechat.SpeakRoom;
+import com.fin.love.repository.facechat.Speakroom;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,9 +17,9 @@ public class MakeFaceChatRoomDto {
 	private String speakmember1;
 	private String speakmember2;
 	
-	public SpeakRoom toEntity() {
+	public Speakroom toEntity() {
 		
-		return SpeakRoom.builder().roomid(roomId).speakmember1(speakmember1).speakmember2(speakmember2).build();
+		return Speakroom.builder().roomid(roomId).speakmember1(speakmember1).speakmember2(speakmember2).build();
 		
 	}
 	
