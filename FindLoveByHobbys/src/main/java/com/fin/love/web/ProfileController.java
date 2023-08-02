@@ -30,8 +30,7 @@ public class ProfileController {
 	public String profileHome(Model model) {
 		log.info("profileHome()");
 		
-		List<Hobby> hobby = hobbyService.read();
-		
+		List<Hobby> hobby = hobbyService.read();	
 		
 		model.addAttribute("hobbys", hobby);
 		
