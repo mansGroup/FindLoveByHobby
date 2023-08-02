@@ -1,7 +1,8 @@
 package com.fin.love.dto.member;
 
 
-import java.sql.Timestamp;
+
+import java.time.LocalDate;
 
 import lombok.Data;
 
@@ -11,7 +12,8 @@ public class MemberSignUpDto {
 	private String userid;
     private String password;
     private String username;
-    private Timestamp birthdate;
+    
+    private LocalDate birthdate;
     private int sex;
     private String address;
     private String phone;

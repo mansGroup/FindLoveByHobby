@@ -19,6 +19,10 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	
+	@GetMapping("/login")
+	public void login() {
+		log.info("login() GET");
+	}
 	
 	@GetMapping("/signup")
 	public void signup () {
@@ -34,7 +38,7 @@ public class MemberController {
 		String id = memberService.signUp(dto);
 		log.info("signup id = {}", id);
 		
-		return "landing/index";
+		return "member/login";
 	}
 	
 	

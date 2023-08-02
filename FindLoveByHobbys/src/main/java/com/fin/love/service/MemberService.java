@@ -24,13 +24,14 @@ public class MemberService implements UserDetailsService{
 	
 
 	public String signUp(MemberSignUpDto dto) {
-		log.info("signUp={dto=()}", dto);
+		log.info("signUp{dto=()}", dto);
 		
 		Member entity = Member.builder()
 				.id(dto.getUserid())
 				.name(dto.getUsername())
 				.password(passwordEncoder.encode(dto.getPassword()))
 				.email(dto.getEmail())
+				.nickname(dto.getNickname())
 				.sex(dto.getSex())
 				.phone(dto.getPhone())
 				.address(dto.getAddress())
@@ -51,11 +52,12 @@ public class MemberService implements UserDetailsService{
 		
 		Member user = memberRepository.findById(id).orElseThrow();
 		
+		
 		if(user != null) {
             return user;
         }
         
-        throw new UsernameNotFoundException(id + " not found");
+        throw new UsernameNotFoundException(id + "가 존재하지 않습니다.");
 	}
 
 	
