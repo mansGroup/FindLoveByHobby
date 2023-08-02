@@ -20,6 +20,7 @@ import com.fin.love.dto.facechat.ReportFaceChatDto;
 import com.fin.love.respository.member.Member;
 import com.fin.love.service.FaceChatService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("/facechat")
@@ -34,6 +35,7 @@ public class FaceChatController {
 	@PostMapping("/room")
 	public String facechatroom(Model model, MakeFaceChatRoomDto dto) {
 		log.info("dto = {}", dto);
+		
 		long roomId = dto.getRoomId();
 		int result = faceservice.makeRoom(dto);
 		if (result == 0) {
