@@ -76,11 +76,21 @@ public class FaceChatController {
 	// 신고 처리 메서드
 	@PostMapping("/report")
 	public String facechatreport(ReportFaceChatDto dto) {
-
+		
 		faceservice.doReport(dto);
+		
+		return "redirect:/facechat/chatroom";
 
-		return "redirect:/";
-
+	}
+	
+	// 리폿 당했을 경우 강제로 사이트 이동
+	@GetMapping("/report")
+	public String facechatreport() {
+		
+		log.info("report 당함");
+		
+		return "redirect:/facechat/chatroom";
+		
 	}
 
 }

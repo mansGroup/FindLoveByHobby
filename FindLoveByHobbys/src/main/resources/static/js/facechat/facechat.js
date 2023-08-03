@@ -6,8 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// 신고 여부
 	let reportForm = document.querySelector('form#reportForm');
-	let report = false;
+	let report = document.querySelector('input#report');
 	let btnReport = document.querySelector('button#btnReport');
+	let reports = document.querySelector('input#reports');
 
 	// 화면 공유를 해제하는 버튼
 	const btnScreen = document.querySelector('button#btnScreen');
@@ -119,6 +120,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 소켓에서 메시지 수신 시 실행할 함수
 	conn.onmessage = async function(msg) {
 		let content = JSON.parse(msg.data);
+		
+		if(content.event == 'report'){
+			
+			console.log('report');
+			reports.value=1;
+			
+		}
+		
 		if (content.event == "offer") {
 			console.log("Offer Receive");
 			// Offer가 오면 Offer를 RemoteDescription에 등록함.
@@ -221,14 +230,44 @@ document.addEventListener('DOMContentLoaded', () => {
 			recorder.ondataavailable = (event) => {
 				if (event.data.size > 0) {
 					audioChunks.push(event.data);
+					console.log("데이터추가");
 				}
 			};
 
-			recorder.onstop = () => {
+			recorder.onstop = async () => {
+				console.log("stop 동작");
+				console.log(audioChunks);
 				// 녹음이 완료된 후에 녹음된 음성 데이터를 처리하거나 서버에 업로드할 수 있습니다.
 				recordedBlob = new Blob(audioChunks, { type: 'audio/wav' });
+				console.log(recordedBlob);
 				// 여기에서 녹음된 음성 데이터를 처리하거나 서버에 업로드할 수 있습니다.
+				let audios = document.querySelector('input#audios');
+				console.log(recordedBlob);
+				const formData = new FormData();
+				formData.append('audioFile', recordedBlob);
 
+				try {
+					let reqUrl = `/faceapi/report/${roomId}`;
+					let response = await axios.post(reqUrl, formData, {
+						headers: {
+							'Content-Type': 'multipart/form-data'
+						}
+					});
+
+					let result = response.data;
+					if (result == '실패') {
+						return;
+
+					}
+
+					audios.value = result;
+
+
+				} catch (error) {
+
+					console.log(error);
+
+				}
 			};
 
 			recorder.start();
@@ -254,46 +293,38 @@ document.addEventListener('DOMContentLoaded', () => {
 		console.log(recorder);
 		recorder.stop();
 		
+		send({
+			event : 'report',
+			data : 'report'
+			
+		})
 
-		
-		let audios = document.querySelector('input#audios');
-		console.log(recordedBlob);
-		const formData = new FormData();
-		formData.append('audioFile', recordedBlob);
-		
-		try{
-			let reqUrl = `/faceapi/report/${roomId}`;
-			let response = await axios.post(reqUrl,formData,{
-				 headers: {
-					 'Content-Type' : 'multipart/form-data'
-				 }
-			 });
-				
-			let result = response.data;	
-			if(result == '실패'){
-				return;
-				
-			}
-			
-			audios.value = result;
-			
-			
-		} catch(error){
-			
-			console.log(error);
-			
-		}
-		
+		report.value = 1;
 		
 
 
-		//reportForm.method = 'post';
-		//reportForm.action = '/facechat/report';
-		//reportForm.submit();
+
+
+		reportForm.method = 'post';
+		reportForm.action = '/facechat/report';
+		reportForm.submit();
 
 
 	})
-
+	
+	setInterval(()=>{
+		
+		if(reports.value==1){
+			
+			reportForm.method = 'get';
+			reportForm.action = '/facechat/report';
+			reportForm.submit();
+			alert('상대 유저로부터 신고를 당하셔서 통화가 강제로 종료됩니다.');
+			
+		}
+		
+	},3000);
+	
 
 })
 

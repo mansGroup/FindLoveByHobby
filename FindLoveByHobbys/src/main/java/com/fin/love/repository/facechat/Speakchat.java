@@ -39,6 +39,13 @@ public class Speakchat {
 	@Column(nullable = false)
 	private int report;
 	
+	@Column(nullable = false)
+	private String reporter;
+	
+	@Column(nullable = false)
+	private String respondent;
+	
+	
 	@ManyToOne
 	@JoinColumn(name="roomid")
 	private Speakroom speakroom;

@@ -21,14 +21,14 @@ import lombok.extern.slf4j.Slf4j;
 public class FaceChatRestController {
 
 	@PostMapping("/report/{roomId}")
-	public ResponseEntity<String> reportFaceChat(@PathVariable long roomId,@RequestBody MultipartFile audioFile) {
-
+	public ResponseEntity<String> reportFaceChat(@PathVariable long roomId, @RequestBody MultipartFile audioFile) {
+		log.info("uploadAudio({})", audioFile.toString());
 		try {
 			// 파일 저장 경로 설정
-			String savePath = "/audio/report/";
+			String savePath = "C:/EPI/";
 			String fileName = "record-" + roomId + ".wav";
 			File file = new File(savePath, fileName);
-
+			log.info("파일화 성공 = {}",file.toString());
 			// 파일 저장
 			audioFile.transferTo(file);
 			log.info("{}", file);
@@ -37,6 +37,7 @@ public class FaceChatRestController {
 			// 서비스 호출해서 리폿 기록
 
 		} catch (IOException e) {
+			log.info("업로드 실패");
 			e.printStackTrace();
 			return ResponseEntity.ok("실패");
 			

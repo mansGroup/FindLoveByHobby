@@ -20,11 +20,13 @@ public class ReportFaceChatDto {
 	
 	private long roomId; 
 	private int report;
-	private String filepath;
+	private String audios;
+	private String user1name;
+	private String user2name;
 	
 	public Speakchat toEntity(Speakroom room) {
 		
-		return Speakchat.builder().chatfile(filepath).createdTime(LocalDateTime.now()).speakroom(room).report(report).build();
+		return Speakchat.builder().chatfile(audios).createdTime(LocalDateTime.now()).speakroom(room).report(report).reporter(user1name).respondent(user2name).build();
 		
 	}
 	
