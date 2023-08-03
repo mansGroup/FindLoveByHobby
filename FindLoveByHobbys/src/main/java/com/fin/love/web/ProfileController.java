@@ -2,13 +2,14 @@ package com.fin.love.web;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fin.love.profile.dto.ProfileCreateDto;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.profile.Age;
 import com.fin.love.repository.profile.Height;
@@ -17,6 +18,7 @@ import com.fin.love.service.HeightService;
 import com.fin.love.service.HobbyService;
 import com.fin.love.service.ProfileService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,6 +27,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
+	
+	@Autowired
+	private HttpSession session;
 	
 	private final ProfileService profileService;
 	
@@ -37,6 +42,10 @@ public class ProfileController {
 	public String profileHome(Model model) {
 		log.info("profileHome()");
 		
+//		String name = (String) session.getAttribute("name");
+//		log.info(name);
+//		ProfileReadUserInfoDto dto = profileService.readMemberInfo(name);
+				
 		List<Hobby> hobby = hobbyService.readHobbyList();	
 		
 		List<Age> age = ageService.readAgeList();
@@ -47,15 +56,21 @@ public class ProfileController {
 		model.addAttribute("ages", age);		
 		model.addAttribute("heights", height);
 		
+//		model.addAttribute("names", dto);
+//		log.info("readMemberInfoSuccess!!!()");
+		
 		return "/profile/profiles";
 	}
-
 	
-	@PostMapping("/profiles")
-	public String smokerCheck(@RequestParam("smoker") String smoker) {
+	
+	@PostMapping("/user/profileimage")
+	public String createProfile(ProfileCreateDto dto) {
+		log.info("createProfile(dto={})POST", dto);
 		
+		profileService.createProfile(dto);
 		
-		return "redirect:/index";
+		return "/profile/profileimage";
 	}
+	
 
 }
