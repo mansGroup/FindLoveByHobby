@@ -41,7 +41,7 @@ public class MatchingDetailController {
         model.addAttribute("profile", profile);
 
         // id에 해당하는 UserHobbies 가져오기
-        List<UserHobby> userHobbies = matchingDetailService.getUserHobbies(id);
+        List<String> userHobbies = matchingDetailService.getUserHobbies(id);
         model.addAttribute("userHobbies", userHobbies);
         log.info("userHobbies = {}", userHobbies);
          

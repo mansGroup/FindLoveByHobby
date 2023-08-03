@@ -1,5 +1,6 @@
 package com.fin.love.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,8 +50,28 @@ public class MatchingDetailService {
         return profileRepository.findById(id).orElse(new Profile()); // 기본 객체 반환
     }
     
-    public List<UserHobby> getUserHobbies(String id) {
-        return userHobbyRepository.findByUserid(id);
+    public List<String> getUserHobbies(String id) {
+        List<UserHobby> list1 = userHobbyRepository.findByUserid(id);
+        List<Hobby> list2 = getAllHobbies();
+        List<String> hobbylist = new ArrayList<>();
+        
+        for(UserHobby x : list1) {
+        	
+        	for(Hobby y : list2) {
+        		
+        		if(x.getHobbyId()==y.getHobbyId()) {
+        			
+        			hobbylist.add(y.getHobbyName());
+        			break;
+        		}
+        		
+        	}
+        	
+        }
+        
+        return hobbylist;
+        
+        
     }
     
     public Member getUserinfo(String id){

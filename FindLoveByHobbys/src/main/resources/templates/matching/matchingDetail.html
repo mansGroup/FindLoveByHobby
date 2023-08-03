@@ -123,7 +123,7 @@
 							<h5 class="hobbies-list">취미 리스트</h5>
 							<ul th:each="hob : ${userHobbies}">
 								<!-- TODO: userHobbys 이새끼만 넣으면 터짐 -->
-								<li><span th:text="${userHobbies.userid}"></span></li>
+								<li><span th:text="${hob}"></span></li>
 							</ul>
 						</div>
 					</div>
