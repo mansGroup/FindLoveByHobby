@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UpdateQuestDto {
 
-	private long id;
+	private long numid;
 	private String userid;
 	private String content;
 	private int status;

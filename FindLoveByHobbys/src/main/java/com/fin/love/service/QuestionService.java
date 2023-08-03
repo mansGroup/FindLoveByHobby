@@ -40,7 +40,7 @@ public class QuestionService {
 		// TODO Auto-generated method stub
 		log.info("updateRow({})",dto);
 		
-		Question quest = questrepository.findById(dto.getId()).orElseThrow();
+		Question quest = questrepository.findById(dto.getNumid()).orElseThrow();
 		
 		quest.update(dto);
 		

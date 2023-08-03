@@ -1,28 +1,30 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
-	
+<th:block layout:fragment="css">
+	<link href="/css/question/questlist.css" rel="stylesheet" />
+</th:block>
 <main layout:fragment="main">
 <div>
 	<table class="table">
 		<thead>
 		<tr>
-			<th>문의자</th>
-			<th>문의유형</th>
-			<th>문의내용</th>
-			<th>최종작성시간</th>
-			<th>처리상태</th>
+			<th style="text-align: center;">문의자</th>
+			<th style="text-align: center;">문의유형</th>
+			<th style="text-align: center;">문의내용</th>
+			<th style="text-align: center;">최종작성시간</th>
+			<th style="text-align: center;">처리상태</th>
 			
 		</tr>
 		</thead>
 		<tbody>
 		<tr th:each="list : ${list}">
 			<td th:text="${list.member.id}"></td>
-			<td th:text="${list.questionoption}"></td>
-			<td class="ellipsis" th:text="${list.questioncontent}"><a
-							th:href="@{/question/qsread?id={id}(id=${list.id})}"></a></td>
+			<td id="options" th:text="${list.questionoption}"></td>
+			<td class="ellipsis" ><a
+							th:href="@{/question/qsread?id={id}(id=${list.id})}" th:text="${list.questioncontent}"></a></td>
 			<td th:text="${ #temporals.format(list.modifiedTime, 'YYYY-MM-dd HH:mm:ss') }"></td>
-			<td th:text="${list.status}"></td>
+			<td id="status" th:text="${list.status}"></td>
 		</tr>
 		</tbody>
 	</table>

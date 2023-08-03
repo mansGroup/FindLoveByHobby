@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 오퍼 생성 시 해당 함수가 호출됨.
 	async function createOffer(e) {
 		e.preventDefault();
-		
+
 		console.log("Offer Send");
 
 		// 아까 작성한 카메라 연결 함수 호출.
@@ -152,13 +152,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	function send(message) {
 		conn.send(JSON.stringify(message));
 	}
-	
-	
-	
-	
 
 
-	
+
+
+
+
+
 
 
 
@@ -166,9 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// 화면 공유 중지 버튼 클릭 이벤트 처리 ( 7월 31일 밤 추가 TODO )
 	btnScreen.addEventListener('click', async (e) => {
-		
+
 		e.preventDefault();
-		
+
 		// 스트리밍 자체가 시작되기 전인 경우
 		if (!myStream) return;
 
@@ -253,31 +253,44 @@ document.addEventListener('DOMContentLoaded', () => {
 		// 녹음 중단
 		console.log(recorder);
 		recorder.stop();
+		
 
-
-		let audiopath = "";
+		
 		let audios = document.querySelector('input#audios');
+		console.log(recordedBlob);
 		const formData = new FormData();
 		formData.append('audioFile', recordedBlob);
-
-		await fetch(`/faceapi/report/${roomId}`, {
-			method: 'POST',
-			body: formData,
-		})
-			.then(response => {
-				
-				audiopath = response.text()
-				audios.value = audiopath;
-				
-				})
-			.then(result => console.log(result))
-			.catch(error => console.error('파일 업로드 실패:', error));
-
 		
-		reportForm.method='post';
-		reportForm.action='/facechat/report';
-		reportForm.submit();
+		try{
+			let reqUrl = `/faceapi/report/${roomId}`;
+			let response = await axios.post(reqUrl,formData,{
+				 headers: {
+					 'Content-Type' : 'multipart/form-data'
+				 }
+			 });
+				
+			let result = response.data;	
+			if(result == '실패'){
+				return;
+				
+			}
+			
+			audios.value = result;
+			
+			
+		} catch(error){
+			
+			console.log(error);
+			
+		}
 		
+		
+
+
+		//reportForm.method = 'post';
+		//reportForm.action = '/facechat/report';
+		//reportForm.submit();
+
 
 	})
 

@@ -22,19 +22,19 @@
 
                                 <h5 class="mb-4">문의 사항이 있으신가요? <br /><span class="text-muted">최대한 신속하게 답변드리겠습니다.</span></h5>
 
-                                <form class="custom-form rsvp-form" role="form" id="">
+                                <form class="custom-form rsvp-form" role="form" id="crform" action="/question/qscreate" method="post">
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6 col-12">
                                         <!-- 차후 실제 로그인한 아이디로 변경 필요 TODO -->
-                                            <input type="text" name="name" id="name" class="form-control" placeholder="Full Name*" required="required" value="영희" readonly="readonly">
+                                            <input type="text" name="userid" id="name" class="form-control" placeholder="Full Name*" required="required" value="희영" readonly="readonly">
                                         </div>
 
                                         <div class="col-lg-4 col-md-6 col-12"> 
-                                            <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address*" required="required" value="dudgml2315@naver.com" readonly="readonly">
+                                            <input type="email" name="useremail" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address*" required="required" value="dudgml2315@naver.com" readonly="readonly">
                                         </div>
 
                                         <div class="col-lg-4 col-12"> 
-                                            <select name="questselect" class="form-select" id="guests" aria-label="Guests">
+                                            <select name="questionoption" class="form-select" id="guests" aria-label="Guests">
                                                 <option value="1">서비스 문의</option>
                                                 <option value="2">불편 사항</option>
                                                 <option value="3">건의 사항</option>
@@ -43,7 +43,7 @@
                                         </div>
 
                                         <div class="col-lg-12 col-12">
-                                            <textarea class="form-control" id="message" name="message" placeholder="문의 내용을 작성해주세요" rows="5"></textarea>
+                                            <textarea class="form-control" id="message" name="questioncontent" placeholder="문의 내용을 작성해주세요" rows="5"></textarea>
                                         </div>
 
                                         <div class="col-lg-3 col-5 mx-auto">

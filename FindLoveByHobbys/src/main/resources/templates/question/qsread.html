@@ -25,15 +25,15 @@
                                 </h5>
 
                                 <form class="custom-form rsvp-form" role="form" id="readForm" action="/question/qsmodify" method="get">
-                                    <input class="d-none" th:value="${quest.id}" />
+                                    <input class="d-none" name="numid" id="numid" th:value="${quest.id}" />
                                     <div class="row">
                                         <div class="col-lg-4 col-md-6 col-12">
                                         <!-- 차후 실제 로그인한 아이디로 변경 필요 TODO -->
-                                            <input type="text" name="name" id="name" class="form-control" placeholder="Full Name*" required="required" th:value="${quest.usernickname}" readonly="readonly">
+                                            <input type="text" name="userid" id="name" class="form-control" placeholder="Full Name*" required="required" th:value="${quest.member.id}" readonly="readonly">
                                         </div>
 
                                         <div class="col-lg-4 col-md-6 col-12"> 
-                                            <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address*" required="required" th:value="${quest.useremail}" readonly="readonly">
+                                            <input type="email" name="userid" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address*" required="required" th:value="${quest.useremail}" readonly="readonly">
                                         </div>
 
                                         <div class="col-lg-4 col-md-6 col-12"> 
@@ -41,7 +41,7 @@
                                         </div>
 
                                         <div class="col-lg-12 col-12">
-                                            <textarea class="form-control" id="message" name="message" placeholder="문의 내용을 작성해주세요" rows="5" th:text="${quest.questioncontent}"></textarea>
+                                            <textarea class="form-control" id="message" name="message" placeholder="문의 내용을 작성해주세요" rows="5" th:text="${quest.questioncontent}" readonly="readonly"></textarea>
                                         </div>
 
                                         <div th:if="${ quest.status } == 0" class="col-lg-3 col-5 mx-auto">

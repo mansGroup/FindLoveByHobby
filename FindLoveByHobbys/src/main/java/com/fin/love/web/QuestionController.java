@@ -34,7 +34,7 @@ public class QuestionController {
 	}
 	
 	// TODO 나중에 리스트 페이지 완성 시 변경 필요함.
-	@PostMapping("/question")
+	@PostMapping("/qscreate")
 	public String qscreate(CreateQuestDto dto) {
 		
 		log.info("qscreate({})",dto);
@@ -69,7 +69,7 @@ public class QuestionController {
 	public void qslist(String userid, Model model) {
 		
 		log.info("qslist()");
-		
+		userid = "희영";
 		List<Question> list = questionservice.read(userid);
 		
 		model.addAttribute("list", list);

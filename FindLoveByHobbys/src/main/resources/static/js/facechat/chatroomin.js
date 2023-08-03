@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	let roomId = document.querySelector('input#roomId');
 	let forms = document.querySelector('form#facechat');
 
-	btnOpen.addEventListener('click', () => {
-
+	btnOpen.addEventListener('click', (e) => {
+		e.preventDefault();
 		let roomNum = roomId.value;
 
 		if (roomNum == '') {
