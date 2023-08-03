@@ -39,5 +39,7 @@ public class Assessment {
 	
 	@Column(nullable = true)
 	private int wonderful;
+
+	
 	
 }

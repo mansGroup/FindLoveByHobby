@@ -8,4 +8,5 @@ public interface UserHobbyRepository extends JpaRepository<UserHobby, Long> {
 	
 	List<UserHobby> findByUserid(String id);
 	
+	
 }

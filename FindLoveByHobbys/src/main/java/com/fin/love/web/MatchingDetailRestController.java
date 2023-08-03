@@ -26,9 +26,9 @@ public class MatchingDetailRestController {
 			@PathVariable String memberId) {
 		log.info("assessment(memberId = {})", memberId);
 		
-		int result = detailService.assessment(memberId);
-		log.info("result = {}", result);
+//		int result = detailService.assessment(memberId);
+//		log.info("result = {}", result);
 
-		return ResponseEntity.ok(result);
+		return ResponseEntity.ok(null);
 	}
 }

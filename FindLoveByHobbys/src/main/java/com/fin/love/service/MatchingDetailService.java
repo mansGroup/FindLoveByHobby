@@ -1,4 +1,4 @@
-	package com.fin.love.service;
+package com.fin.love.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,23 +37,26 @@ public class MatchingDetailService {
     public Assessment getUserAssessment(String id) {
         log.info("read(id={})", id);
 
-        return assessmentRepository.findById(id).orElseThrow();
+       Assessment assessment = assessmentRepository.findById(id).orElseThrow();
+        return assessment; // 기본 객체 반환
     }
 
     public List<Hobby> getAllHobbies() {
         return hobbyRepository.findAll();
     }
 
-    public Optional<Profile> getUserProfile(String id) {
-        return profileRepository.findById(id);
+    public Profile getUserProfile(String id) {
+        return profileRepository.findById(id).orElse(new Profile()); // 기본 객체 반환
     }
     
     public List<UserHobby> getUserHobbies(String id) {
         return userHobbyRepository.findByUserid(id);
     }
     
-    public Optional<Member> getUserinfo(String id){
-    	return memberRepository.findById(id);
+    public Member getUserinfo(String id){
+    	log.info("id = {}", id);
+    	
+        return memberRepository.findById(id).orElseThrow();
     }
 
 }

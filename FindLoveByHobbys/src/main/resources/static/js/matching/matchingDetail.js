@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		let mSexy = memberSexy.value;
 		mSexy = parseInt(mSexy) += 1;
 
-		axios.post(`/api/matchingDetail/assessment/${memberId}`, 
+		axios.post(`/api/matchingDetail/assessment/${memberid}`, 
 			{ mSexy: mSexy }) 
 			
 			.then((response) => {

@@ -54,4 +54,7 @@ public class Profile {
 	@Column
 	private int userReligion;
 	
+	@Column
+	private String userIntroduce;
+	
 }
