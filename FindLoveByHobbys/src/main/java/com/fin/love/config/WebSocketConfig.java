@@ -2,6 +2,7 @@ package com.fin.love.config;
 
 import com.fin.love.handler.SocketHandler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
@@ -13,20 +14,14 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @Configuration
 public class WebSocketConfig implements WebSocketConfigurer{
 
-
+    @Autowired
+    private SocketHandler socketHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(getinstance(), "/ws/chat").setAllowedOrigins("*");
+        registry.addHandler(socketHandler, "/ws/chat")
+                .setAllowedOrigins("*");
         log.info("registerWebSocketHandlers()");
     }
-
-    @Bean
-    public SocketHandler getinstance() {
-
-        return new SocketHandler();
-    }
-
-
 
 }

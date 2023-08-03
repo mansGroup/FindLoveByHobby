@@ -11,10 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Slf4j
@@ -58,17 +60,38 @@ public class ChatController {
         // 닉네임과 content
         // 모델에 리스트 실어주기
         model.addAttribute("list", dtoList);
+
     }
 
-    @GetMapping("/chatroom")
-    @ResponseBody
-    public void chatByLove(Long roomId, Model model) {
-        log.info("chatByLove({})", roomId);
+    @GetMapping("/chatroom/{room}")
+    public String chatByLove(@PathVariable Long room, Model model) {
+        log.info("chatByLove({})", room);
+
+        // TODO spring security session 적용
+        // 세션에서 id 찾아오기
+        String userId = "user2";
+
+        // userId로 채팅방번호 상대방 ID 리스트 가져오기
+        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId);
+
+        // 상대방 ID로 상대방 nickname 가져오기
+        for (ChattingListDto dto : dtoList) {
+            dto.setNickname(memberService.getNicknameById(dto.getId()));
+        }
+
+        // 상대방 id 리스트로 닉네임 리스트 가져오기
+        for (int i = 0; i < dtoList.size(); i++) {
+            dtoList.get(i).setNickname(nicknameList.get(i));
+        }
+        // 닉네임과 content 모델에 리스트 실어주기
+        model.addAttribute("list", dtoList);
 
         // roomid로 chatting list를 받아옴
-        List<Chatting> chatList = chattingService.getChatListByContentId(roomId);
+        List<Chatting> chatList = chattingService.getChatListByContentId(room);
 
         model.addAttribute("chatList", chatList);
+        model.addAttribute("roomId", room);
+        return "/chat/chat";
     }
 }
 

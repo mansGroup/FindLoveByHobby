@@ -15,7 +15,7 @@ public class ChattingService {
 
 
     public List<Chatting> getChatListByContentId(Long roomId) {
-        List<Chatting> list = (List<Chatting>) chattingRepository.findById(roomId).orElseThrow();
+        List<Chatting> list = chattingRepository.findByContentid(roomId);
         return list;
     }
 }

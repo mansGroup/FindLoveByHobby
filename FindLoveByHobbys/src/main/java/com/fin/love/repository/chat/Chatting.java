@@ -26,4 +26,7 @@ public class Chatting extends BaseCreatedTimeEntity {
 
     @Column
     private Long texttype;
+
+    @Column
+    private String nickname;
 }

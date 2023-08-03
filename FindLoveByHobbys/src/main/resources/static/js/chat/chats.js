@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const username = 'Dahan';
     const btnSend = document.querySelector('button#button-send');
     const msgArea = document.querySelector('ul#msgArea');
-
+    const roomId = document.querySelector('div#roomId').getAttribute('value');
+    console.log('방번호'+roomId);
     // $("#disconn").on("click", (e) => {
     //     disconnect();
     // })
@@ -11,7 +12,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         send();
     });
 
-    let websocket = new WebSocket('wss://' + location.host + '/ws/chat');
+    let websocket = new WebSocket('wss://' + location.host + `/ws/chat?roomId=${roomId}`);
     //let websocket = new WebSocket("ws://192.168.219.103:8080/ws/chat");
 
     websocket.onmessage = onMessage;
@@ -37,11 +38,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
     }
     //채팅창에 들어왔을 때
     function onOpen(evt) {
-        // TODO 1지우기
+        // TODO
+        console.log(roomId+'로 접속함');
     }
 
     function onMessage(msg) {
+        console.log('onMessage() 호출됨');
         var data = msg.data;
+        console.log('데이터 : '+msg.data);
         var sessionId = null;
         //데이터를 보낸 사람
         var message = null;

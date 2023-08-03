@@ -34,4 +34,6 @@ public class ChatRoomRepositoryTest {
         Assertions.assertNotNull(list);
         log.info(list.toString()+"========================================");
     }
+
+
 }
