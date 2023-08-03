@@ -1,13 +1,11 @@
 package com.fin.love.repository.image;
 
-import com.fin.love.repository.like.Like;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,10 +35,22 @@ public class Picture {
 	@Column
 	private String pic3;
 	
-	@Column
-	private String pic4;
+	public Picture pic1Update(String path) {
+        this.pic1 = path;
+        
+        return this;
+    }
 	
-	@Column
-	private String pic5;
+	public Picture pic2Update(String path) {
+        this.pic2 = path;
+        
+        return this;
+    }
+	
+	public Picture pic3Update(String path) {
+        this.pic3 = path;
+        
+        return this;
+    }
 	
 }

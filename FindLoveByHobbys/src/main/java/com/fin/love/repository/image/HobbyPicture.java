@@ -22,7 +22,6 @@ import lombok.ToString;
 public class HobbyPicture {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 	
 	@Column
@@ -33,5 +32,23 @@ public class HobbyPicture {
 	
 	@Column
 	private String hobbyPic3;
+	
+	public HobbyPicture hobbyPic1Update(String path) {
+        this.hobbyPic1 = path;
+        
+        return this;
+    }
+	
+	public HobbyPicture hobbyPic2Update(String path) {
+        this.hobbyPic2 = path;
+        
+        return this;
+    }
+	
+	public HobbyPicture hobbyPic3Update(String path) {
+        this.hobbyPic3 = path;
+        
+        return this;
+    }
 	
 }
