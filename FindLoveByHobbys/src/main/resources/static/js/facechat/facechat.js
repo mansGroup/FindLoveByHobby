@@ -10,21 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
 	let btnReport = document.querySelector('button#btnReport');
 	let reports = document.querySelector('input#reports');
 
-	// 화면 공유를 해제하는 버튼
+	// 화면 공유/음성 송출을 해제하는 버튼
 	const btnScreen = document.querySelector('button#btnScreen');
 	// 화면이 송출 중인지 여부에 대해 표시(false=쉬는중 / true=송출중)
 	let isScreenSharing = true;
 
-	// 음소거/해제 를 설정하는 버튼
-	const btnMute = document.querySelector('button#btnMute');
-	let isMute = false;
+	
 	// 오퍼 연결을 전달하는 버튼
 	let btnOffer = document.querySelector('button#btnOffer');
 
 	// 방번호
 	let roomId = document.querySelector('input#roomId').value;
 	btnOffer.addEventListener('click', createOffer);
-
+	let connectioncheck = false;
+	
 	// MyFace = 내 카메라, peerFace = 상대 카메라, myStream = 내 카메라에서 나오는 영상 스트림
 	let myFace = document.getElementById("myFace");
 	let peerFace = document.querySelector('video#peerFace');
@@ -62,7 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 오퍼 생성 시 해당 함수가 호출됨.
 	async function createOffer(e) {
 		e.preventDefault();
-
+		if(connectioncheck == true){
+			
+			alert('이미 연결된 상대가 있습니다.');
+			return;
+			
+		}
 		console.log("Offer Send");
 
 		// 아까 작성한 카메라 연결 함수 호출.
@@ -130,6 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		if (content.event == "offer") {
 			console.log("Offer Receive");
+			connectioncheck = true;
 			// Offer가 오면 Offer를 RemoteDescription에 등록함.
 			let offer = content.data;
 			await myPeerConnection.setRemoteDescription(offer);
@@ -279,7 +284,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	btnReport.addEventListener('click', async (e) => {
 
 		e.preventDefault();
-
+		
+		if(connectioncheck==false){
+			
+			alert('아직 연결된 상대가 없어 신고할 수 없습니다.');
+			return;
+			
+		}
+		
 		let answerRes = confirm('정말로 신고하시겠습니까? 신고하시면 곧바로 통화가 종료됩니다.');
 
 		if (!answerRes) {
