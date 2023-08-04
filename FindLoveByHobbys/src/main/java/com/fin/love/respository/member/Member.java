@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-@ToString
+@lombok.ToString
 @Entity
 @Table(name = "USERINFO")
 public class Member extends BaseTimeEntity implements UserDetails {
@@ -104,5 +104,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
 	public String getUsername() {
 		return this.id;
 	}
+	
+	
 	
 }

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserHobbyRepository extends JpaRepository<UserHobby, Long> {
 	
-	List<UserHobby> findByUserid(String userid);
+	List<UserHobby> findByUserid(String id);
+	
 	
 }

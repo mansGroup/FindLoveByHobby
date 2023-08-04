@@ -9,7 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
 
-@EnableJpaAuditing // JPA Auditing 기능 활성화
+
+//@EnableJpaAuditing
 @SpringBootApplication
 public class FindLoveByHobbysApplication {
 

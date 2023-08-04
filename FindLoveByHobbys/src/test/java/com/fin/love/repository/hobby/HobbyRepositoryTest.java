@@ -24,7 +24,7 @@ public class HobbyRepositoryTest {
 	@Autowired
 	private UserHobbyRepository uhr;
 	
-//	@Test
+	@Test
 	public void testCreated() {
 		log.info("testCreated() 실행 ");
 		
