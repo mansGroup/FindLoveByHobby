@@ -22,7 +22,6 @@ import lombok.ToString;
 public class Assessment {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	private String id; // PK
 	
 	@Column(nullable = true)
