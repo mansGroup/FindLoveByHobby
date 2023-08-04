@@ -20,12 +20,10 @@ public class HobbyService {
 
 	// 취미 리스트
 	@Transactional(readOnly = true)
-	public List<Hobby> read() {
+	public List<Hobby> readHobbyList() {
 		
-		log.info("read()");
+		log.info("readHobbyList()");
 		
 		return hobbyRepository.findAll();
 	}
-	
-
 }

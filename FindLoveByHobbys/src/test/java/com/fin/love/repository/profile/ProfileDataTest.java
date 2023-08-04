@@ -1,22 +1,14 @@
 package com.fin.love.repository.profile;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import com.fin.love.repository.hobby.Hobby;
-import com.fin.love.service.HobbyService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
 public class ProfileDataTest {
-	
-	@Autowired
-	private HobbyService hs;
 	
 	@Autowired
 	private AcademicRepository ar;
@@ -30,7 +22,7 @@ public class ProfileDataTest {
 	@Autowired
 	private ReligionRepository rr;
 	
-//	@Test
+	@Test
 	public void profileData() {
 		log.info("데이터 들어간다.");
 		
@@ -39,21 +31,21 @@ public class ProfileDataTest {
 		String[] incomeArr = "1000만원 이하/1,000만원 ~ 2,000만원/2,000만원 ~ 3,000만원/3,000만원 ~ 4,000만원/4,000만원 ~ 5,000만원/5,000만원 ~ 6,000만원/6,000만원 ~ 7,000만원/7,000만원 ~ 8,000만원/8,000만원 ~ 9,000만원/9,000만원 ~ 10,000만원/10,000만원 이상".split("/");
 		String[] religionArr = "기독교,천주교,불교,무교".split(",");
 		
-//		for (String academic : academicArr) {
-//			log.info(academic);
-//			
-//			Academic ac = Academic.builder().academicName(academic).build();
-//			
-//			ar.save(ac);
-//		}
+		for (String academic : academicArr) {
+			log.info(academic);
+			
+			Academic ac = Academic.builder().academicName(academic).build();
+			
+			ar.save(ac);
+		}
 		
-//		for (String job : jobArr) {
-//			log.info(job);
-//			
-//			Jobs jo = Jobs.builder().jobName(job).build();
-//			
-//			jr.save(jo);
-//		}
+		for (String job : jobArr) {
+			log.info(job);
+			
+			Jobs jo = Jobs.builder().jobName(job).build();
+			
+			jr.save(jo);
+		}
 		
 		for (String in : incomeArr) {
 			log.info(in);
@@ -72,14 +64,6 @@ public class ProfileDataTest {
 		}
 		
 		log.info("끝");
-	}
-	
-	//@Test
-	public void redd() {
-		List<Hobby> hobby = hs.read();
-		for(int i = 0; i < hobby.size(); i++) {
-			log.info("hobby()" + hobby.get(i));
-		}
 	}
 	
 }
