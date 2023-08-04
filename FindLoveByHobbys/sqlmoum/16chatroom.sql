@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 금요일-7월-28-2023   
+--  파일이 생성됨 - 금요일-8월-04-2023   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table CHATROOM
@@ -50,7 +50,7 @@ BEGIN
   <<COLUMN_SEQUENCES>>
   BEGIN
     IF INSERTING AND :NEW.CONTENTID IS NULL THEN
-      SELECT CHATROOM_SEQ1.NEXTVAL INTO :NEW.CONTENTID FROM SYS.DUAL;
+      SELECT CHATROOM_SEQ.NEXTVAL INTO :NEW.CONTENTID FROM SYS.DUAL;
     END IF;
   END COLUMN_SEQUENCES;
 END;

@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 금요일-7월-28-2023   
+--  파일이 생성됨 - 금요일-8월-04-2023   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table INCOME
@@ -47,7 +47,7 @@ BEGIN
   <<COLUMN_SEQUENCES>>
   BEGIN
     IF INSERTING AND :NEW.INCOME_ID IS NULL THEN
-      SELECT INCOME_SEQ1.NEXTVAL INTO :NEW.INCOME_ID FROM SYS.DUAL;
+      SELECT INCOME_SEQ2.NEXTVAL INTO :NEW.INCOME_ID FROM SYS.DUAL;
     END IF;
   END COLUMN_SEQUENCES;
 END;

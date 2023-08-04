@@ -131,10 +131,10 @@ document.addEventListener('DOMContentLoaded', () => {
 			reports.value=1;
 			return;
 		}
-		
+		connectioncheck = true;
 		if (content.event == "offer") {
 			console.log("Offer Receive");
-			connectioncheck = true;
+			
 			// Offer가 오면 Offer를 RemoteDescription에 등록함.
 			let offer = content.data;
 			await myPeerConnection.setRemoteDescription(offer);

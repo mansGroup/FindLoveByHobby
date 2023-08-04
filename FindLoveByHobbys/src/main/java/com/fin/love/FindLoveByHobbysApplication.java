@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
 
-//@EnableJpaAuditing
+@EnableJpaAuditing
 @SpringBootApplication
 public class FindLoveByHobbysApplication {
 
