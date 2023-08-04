@@ -48,7 +48,7 @@ public class MatchingListController {
 		Picture member1Pic = pictureService.findById("member1");
 		String member1UsualPic = matchingService.imageChange(member1Pic.getPic1());
 
-		Picture member2Pic = pictureService.findById("member1");
+		Picture member2Pic = pictureService.findById("member2");
 		String member2UsualPic = matchingService.imageChange(member2Pic.getPic1());
 
 //		model.addAttribute("member1", member1); // member1

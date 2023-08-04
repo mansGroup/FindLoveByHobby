@@ -14,6 +14,8 @@ import com.fin.love.repository.image.HobbyPicture;
 import com.fin.love.repository.image.HobbyPictureRepository;
 import com.fin.love.repository.image.Picture;
 import com.fin.love.repository.image.PictureRepository;
+import com.fin.love.respository.member.Member;
+import com.fin.love.respository.member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,7 @@ public class PictureService {
 	
 	private final PictureRepository pictureRepository;
 	private final HobbyPictureRepository hobbyPictureRepository;
+	private final MemberRepository memberRepository;
 	
 	// 날짜별로 폴더 생성하는 메서드.
 	public String makeFolder() {
@@ -52,6 +55,7 @@ public class PictureService {
 	public void pic1SaveImage(String id, String saveImagePathName) {
 		log.info("saveImage(UserId = {})", id);
 		log.info("path >>>>> " + saveImagePathName);
+		
 		
 		Picture pic = pictureRepository.findById(id).orElseThrow();
 		log.info("pic >>>>> " + pic);
