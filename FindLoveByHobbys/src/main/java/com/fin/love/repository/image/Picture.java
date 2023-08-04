@@ -23,7 +23,6 @@ import lombok.ToString;
 public class Picture {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String id;
 	
 	@Column

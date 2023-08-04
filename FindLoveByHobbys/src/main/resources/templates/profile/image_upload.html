@@ -35,6 +35,9 @@
   width: 296px; 
   height: 394px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* 이미지 비율을 유지하면서 컨테이너에 꽉 차도록 조정 */
@@ -49,7 +52,7 @@
 <main layout:fragment="main">
 
 	<!-- 유저 아이디 -->
-	<input class="d-none" value="qwer1234" id="userId" name="userId" />
+	<input class="" th:value="${userPic.id}" id="userId" name="userId" />
 
 	<section class="the-wedding-section section-bg section-padding"
 		id="section_3">
