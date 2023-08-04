@@ -14,7 +14,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 	@Query(value = "select * from USERINFO where id = :speakmember1 or id = :speakmember2", nativeQuery = true)
 	List<Member> findMyNameForFacechat(@Param(value = "speakmember1") String speakmember1, @Param(value = "speakmember2") String speakmember2);
 	
-	
+	int countByNickname(String nickname);
 
 	List<Member> findBySex(int sexCode);
 

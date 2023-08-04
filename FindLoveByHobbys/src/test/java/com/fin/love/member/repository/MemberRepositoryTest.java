@@ -31,7 +31,7 @@ public class MemberRepositoryTest {
                 .role(Role.USER)
                 .email("danbi@gmail.com")
                 .address("경기도 수원시 영통구")
-                .birthday(now)
+                .birthday(now.toLocalDateTime().toLocalDate())
                 .password("1")
                 .build();
 
@@ -52,7 +52,7 @@ public class MemberRepositoryTest {
                 .role(Role.USER)
                 .email("danbi22@gmail.com")
                 .address("경기도 수원시 팔달구")
-                .birthday(now)
+                .birthday(now.toLocalDateTime().toLocalDate())
                 .password("1")
                 .build();
 
@@ -72,7 +72,7 @@ public class MemberRepositoryTest {
                 .role(Role.USER)
                 .email("danbi22@gmail.com")
                 .address("서울특별시 어딘가")
-                .birthday(now)
+                .birthday(now.toLocalDateTime().toLocalDate())
                 .password("1")
                 .build();
 
