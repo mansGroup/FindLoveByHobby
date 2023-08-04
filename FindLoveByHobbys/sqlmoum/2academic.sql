@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 금요일-7월-28-2023   
+--  파일이 생성됨 - 금요일-8월-04-2023   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table ACADEMIC
@@ -7,7 +7,7 @@
 
   CREATE TABLE "SKOTT"."ACADEMIC" 
    (	"ACADEMIC_ID" NUMBER(10,0), 
-	"ACADEMIC_NAME" VARCHAR2(20 BYTE)
+	"ACADEMIC_NAME" VARCHAR2(20 CHAR)
    ) SEGMENT CREATION DEFERRED 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -47,7 +47,7 @@ BEGIN
   <<COLUMN_SEQUENCES>>
   BEGIN
     IF INSERTING AND :NEW.ACADEMIC_ID IS NULL THEN
-      SELECT ACADEMIC_SEQ.NEXTVAL INTO :NEW.ACADEMIC_ID FROM SYS.DUAL;
+      SELECT ACADEMIC_SEQ2.NEXTVAL INTO :NEW.ACADEMIC_ID FROM SYS.DUAL;
     END IF;
   END COLUMN_SEQUENCES;
 END;

@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 금요일-7월-28-2023   
+--  파일이 생성됨 - 금요일-8월-04-2023   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table HOBBY
@@ -22,6 +22,23 @@ SET DEFINE OFF;
   CREATE UNIQUE INDEX "SKOTT"."HOBBY_PK" ON "SKOTT"."HOBBY" ("HOBBY_ID") 
   PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Trigger HOBBY_TRG
+--------------------------------------------------------
+
+  CREATE OR REPLACE NONEDITIONABLE TRIGGER "SKOTT"."HOBBY_TRG" 
+BEFORE INSERT ON HOBBY 
+FOR EACH ROW 
+BEGIN
+  <<COLUMN_SEQUENCES>>
+  BEGIN
+    IF INSERTING AND :NEW.HOBBY_ID IS NULL THEN
+      SELECT HOBBY_SEQ.NEXTVAL INTO :NEW.HOBBY_ID FROM SYS.DUAL;
+    END IF;
+  END COLUMN_SEQUENCES;
+END;
+/
+ALTER TRIGGER "SKOTT"."HOBBY_TRG" ENABLE;
 --------------------------------------------------------
 --  Constraints for Table HOBBY
 --------------------------------------------------------

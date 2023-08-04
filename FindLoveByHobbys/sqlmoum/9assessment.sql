@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 금요일-7월-28-2023   
+--  파일이 생성됨 - 금요일-8월-04-2023   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table ASSESSMENT
@@ -7,9 +7,9 @@
 
   CREATE TABLE "SKOTT"."ASSESSMENT" 
    (	"ID" VARCHAR2(20 BYTE), 
-	"SEXY" NUMBER DEFAULT 0, 
+	"SEXY" NUMBER DEFAULT 1, 
 	"BEAUTIFUL" NUMBER DEFAULT 0, 
-	"CUTE" NUMBER, 
+	"CUTE" NUMBER DEFAULT 0, 
 	"HANDSOME" NUMBER, 
 	"WONDERFUL" NUMBER
    ) SEGMENT CREATION DEFERRED 
