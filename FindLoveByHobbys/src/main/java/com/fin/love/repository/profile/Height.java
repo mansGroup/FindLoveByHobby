@@ -11,24 +11,22 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "ACADEMIC")
-@SequenceGenerator(name = "ACADEMIC_SEQ_GEN", sequenceName = "ACADEMIC_SEQ2", allocationSize = 1)
+@Table(name = "HEIGHT")
+@SequenceGenerator(name = "HEIGHT_SEQ_GEN", sequenceName = "HEIGHT_SEQ", allocationSize = 1)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @ToString
-public class Academic {
-	
+public class Height {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ACADEMIC_SEQ_GEN")
-	private Long academicId;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "HEIGHT_SEQ_GEN")
+	private Long heightId;
 	
 	@Column(nullable = false)
-	private String academicName;
-	
+	private String heightName;
 }

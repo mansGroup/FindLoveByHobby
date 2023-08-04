@@ -3,145 +3,138 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layout/base_layout}">
     
-	<main layout:fragment="main">
-	
-	
-			<h1>프로필 등록 페이지</h1>
-				
-				
-			<!-- 회원가입 정보에서 불러올 데이터(이름, 성별, 생년월일) -->
-			<div class="card-body">
-				<form>
-					<div class="my-2">
-						<label class="form-label" for="name">이름</label>
-						<input class="form-control" id="name" type="text" name="name" required autofocus>
-					</div>
-					<div class="my-2">
-						<label class="form-label" for="gender">성별</label>
-						<input class="form-control" id="gender" type="text" name="gender" required autofocus>
-					</div>
-					<div class="my-2">
-						<label class="form-label" for="bday">생년월일</label>
-						<input class="form-control" id="bday" type="text" name="bday" required autofocus>
-					</div>
-					<div class="my-2">
-						<label class="form-label" for="content">자기 소개를 입력하세요</label>
-						<textarea class="form-control" id="content" name="content" required autofocus></textarea>
-					</div>
-				</form>
-			</div>
-				
-		<!-- DB 데이터로 프로필 등록 -->
-		<div>
-			<div class="card-body">
-				<h2>취미 (3개 선택 가능)</h2>
-				<div class="form-check">
-				  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-				  <label class="form-check-label" for="flexCheckDefault">
-				    수영
-				  </label>
-				</div>
-				<div class="form-check">
-				  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-				  <label class="form-check-label" for="flexCheckChecked">
-				    피아노
-				  </label>
-				</div>
-				<div class="form-check">
-				  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-				  <label class="form-check-label" for="flexCheckChecked">
-				    러닝
-				  </label>
-				</div>
-							
-				<h2>나이</h2>
-				<select class="form-select" aria-label="Default select example">
-				  <option value="" disabled selected>나이 정보를 선택하세요</option>
-				  <option value="1">20살</option>
-				  <option value="2">21살</option>
-				  <option value="4">22살</option>
-				  <option value="5">23살</option>
-				  <option value="6">24살</option>
-				</select>
+    <th:block layout:fragment="css">
+    	<link rel="stylesheet" href="@{/css/profile/profile.css}">
+	</th:block>
+    
+<main layout:fragment="main">
 
-				<h2>키</h2>
-				<select class="form-select" aria-label="Default select example">
-				  <option value="" disabled selected>키 정보를 선택하세요</option>
-				  <option value="">160</option>
-				  <option value="">161</option>
-				  <option value="">162</option>			 
-				  <option value="">163</option>			 
-				</select>
-				
-				<h2>음주여부</h2>
-				<select class="form-select" aria-label="Default select example">
-				  <option value="" disabled selected>음주여부를 선택하세요</option>
-				  <option value="dn">마시지 않음</option>
-				  <option value="ds">가끔 마심</option>			 
-				  <option value="dy">자주 마심</option>			 
-				</select>
-				
-				<h2>흡연여부</h2>
-				<select class="form-select" aria-label="Default select example">
-				  <option value="" disabled selected>흡연여부를 선택하세요</option>
-				  <option value="sy">흡연</option>
-				  <option value="sn">비흡연</option>
-				</select>
-				
-				<h2>학력</h2>
-				<select class="form-select" aria-label="Default select example">
-				  <option value="" disabled selected>학력 정보를 선택하세요</option>
-				  <option value="4g">4년재대학교 졸업</option>
-				  <option value="4is">4년재대학교 재학중</option>
-				  <option value="cg">전문대학교 졸업</option>
-				  <option value="cis">전문대학교 재학중</option>
-				  <option value="hg">고등학교 졸업</option>
-				</select>
-				
-				<h2>직업</h2>
-				<select class="form-select" aria-label="Default select example">
-				  <option value="" disabled selected>직업 정보를 선택하세요</option>
-				  <option value="stu">학생</option>
-				  <option value="ceo">사업가</option>
-				  <option value="sj">전문직</option>
-				  <option value="cpy">회사원</option>
-				  <option value="ge">공무원</option>
-				  <option value="army">군인</option>
-				  <option value="tc">교육직 / 연구직<option>
-				  <option value="f">금융직</option>
-				  <option value="tc">기술직</option>
-				  <option value="gt">기타</option>
-				</select>
-				
-				<h2>연봉</h2>
-				<select class="form-select" aria-label="Default select example">
-				  <option value="" disabled selected>연봉 정보를 선택하세요</option>
-				  <option value="1">1,000만원 이하</option>
-				  <option value="2">1,000만원 ~ 2,000만원</option>
-				  <option value="3">2,000만원 ~ 3,000만원</option>
-				  <option value="4">3,000만원 ~ 4,000만원</option>
-				  <option value="5">4,000만원 ~ 5,000만원</option>
-				  <option value="6">5,000만원 ~ 6,000만원</option>
-				  <option value="7">6,000만원 ~ 7,000만원</option>
-				  <option value="8">7,000만원 ~ 8,000만원</option>
-				  <option value="9">8,000만원 ~ 9,000만원</option>
-				  <option value="10">9,000만원 ~ 10,000만원</option>
-				  <option value="11">10,000만원 이상</option>
-				</select>
-				
-				<h2>종교</h2>
-				<select class="form-select" aria-label="Default select example">
-			      <option value="" disabled selected>종교 정보를 선택하세요</option>
-				  <option value="cr">기독교</option>
-				  <option value="cat">천주교</option>
-				  <option value="bud">불교</option>
-				  <option value="nr">무교</option>
-				</select>
-			</div>
-			
+	<h1>프로필 등록 페이지</h1>
+						
+		<!-- 회원가입 정보에서 불러올 데이터(이름, 성별, 생년월일) -->
+	<form action="/profile/user/profileimage" method="post">
+		<input class="d-none" value="11111" name="userId" />
+	
+		<div class="card-body">
 			<div class="my-2">
-				<input class="form-control btn btn-outline-info" type="submit" value="작성완료"/>
+				<label class="form-label" for="name">이름</label>
+				<input class="form-control" id="name" type="text"  value="1234" required autofocus>
+			</div>
+			<div class="my-2">
+				<label class="form-label" for="gender">성별</label>
+				<input class="form-control" id="gender" type="text"  value="1" required autofocus>
+			</div>
+			<div class="my-2">
+				<label class="form-label" for="bday">생년월일</label>
+				<input class="form-control" id="bday" type="text"  value="2000/03/12 11:03:32.039284932" required autofocus>
+			</div>
+	 
+				
+			<div class="my-2">
+				<label class="form-label" for="userIntroduce">자기 소개를 입력하세요</label>
+				<textarea class="form-control" id="userIntroduce" name="userIntroduce" required autofocus></textarea>
 			</div>
 		</div>
-	</main>	
+				
+		<!-- DB 데이터로 프로필 등록 -->
+		<div class="card-body">
+					
+		<h2>취미 (최대 3개 선택 가능)</h2>
+			<div class="form-check">			
+				<div th:each="hobby , idx : ${hobbys}">
+				  <input type="checkbox" name="check" onclick="count(this);" id="myCheckbox">
+				  <label th:text="${hobby.hobbyName}" th:value="${idx.count}" for="myCheckbox"></label>
+				</div>		
+			</div>		
+						
+			<h2>나이</h2>
+			<select class="form-select" name="userAge" autofocus>
+			  <option value="" disabled selected>나이 정보를 선택하세요</option>
+			  <option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
+			</select>
+
+			<h2>키</h2>
+			<select class="form-select" name="userHeight" autofocus>
+			  <option value="" disabled selected>키 정보를 선택하세요</option>
+			  <option th:each="height : ${heights}" th:text="${height.heightName}"></option>		 
+			</select>
+				
+			<h2>음주여부</h2>
+				<select class="form-select" name="userDrinks" th:value="${smoker}" autofocus>
+				  <option value="" disabled selected>음주여부를 선택하세요</option>
+				  <option value="1">마시지 않음</option>
+				  <option value="2">가끔 마심</option>			 
+				  <option value="3">자주 마심</option>			 
+				</select>
+				
+			<h2>흡연여부</h2>
+			<select class="form-select" name="userSmoker" aria-label="Default select example" autofocus>
+			  <option value="" disabled selected>흡연여부를 선택하세요</option>
+			  <option value="1">흡연</option>
+			  <option value="2">비흡연</option>
+			</select>
+				
+			<h2>학력</h2>
+			<select class="form-select" name="userAcademic" autofocus>
+			  <option value="" disabled selected>학력 정보를 선택하세요</option>
+			  <option value="1">4년재대학교 졸업</option>
+			  <option value="2">4년재대학교 재학중</option>
+			  <option value="3">전문대학교 졸업</option>
+			  <option value="4">전문대학교 재학중</option>
+			  <option value="5">고등학교 졸업</option>
+			</select>
+				
+			<h2>직업</h2>
+			<select class="form-select" name="userJob" aria-label="Default select example" autofocus>
+			  <option value="" disabled selected>직업 정보를 선택하세요</option>
+			  <option value="1">학생</option>
+			  <option value="2">사업가</option>
+			  <option value="3">전문직</option>
+			  <option value="4">회사원</option>
+			  <option value="5">공무원</option>
+			  <option value="6">군인</option>
+			  <option value="7">교육직 / 연구직</option>
+			  <option value="8">금융직</option>
+			  <option value="9">기술직</option>
+			  <option value="10">기타</option>
+			</select>
+				
+			<h2>연봉</h2>
+			<select class="form-select" name="userIncome" aria-label="Default select example" autofocus>
+			<option value="" disabled selected>연봉 정보를 선택하세요</option>
+			<option value="1">1,000만원 이하</option>
+			<option value="2">1,000만원 ~ 2,000만원</option>
+			<option value="3">2,000만원 ~ 3,000만원</option>
+			<option value="4">3,000만원 ~ 4,000만원</option>
+			<option value="5">4,000만원 ~ 5,000만원</option>
+		 	<option value="6">5,000만원 ~ 6,000만원</option>
+		 	<option value="7">6,000만원 ~ 7,000만원</option>
+			<option value="8">7,000만원 ~ 8,000만원</option>
+			<option value="9">8,000만원 ~ 9,000만원</option>
+			<option value="10">9,000만원 ~ 10,000만원</option>
+			<option value="11">10,000만원 이상</option>
+			</select>
+				
+			<h2>종교</h2>
+			<select class="form-select" name="userReligion" aria-label="Default select example" autofocus>
+			  <option value="" disabled selected>종교 정보를 선택하세요</option>
+			  <option value="1">기독교</option>
+			  <option value="2">천주교</option>
+			  <option value="3">불교</option>
+			  <option value="4">무교</option>
+			</select>
+		</div>
+			
+		<div class="my-2">
+			<input class="form-control btn btn-outline-info" type="submit" value="작성완료"/>
+		</div>
+	</form>
+		
+	
+</main>	
+	
+	<!-- profile 자바스크립트 경로 -->
+	<th:block layout:fragment="myscripts">
+        <script src="..\js\profile\profiles.js"></script>
+    </th:block>
 </html>
