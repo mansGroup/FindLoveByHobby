@@ -30,7 +30,7 @@ public class MatchingListController {
 		log.info("listHome()");
 
 		// 매칭 유저 뽑기
-		List<MatchingListDto> memberList = matchingService.matching(userId);
+//		List<MatchingListDto> memberList = matchingService.matching(userId);
 
 		// 매칭 유저에서 2명 선정하기
 //        List<MatchingListDto> bestMember = matchingService.matchingBest(memberList);

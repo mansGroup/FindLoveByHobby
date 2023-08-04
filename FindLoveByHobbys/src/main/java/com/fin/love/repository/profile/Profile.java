@@ -1,17 +1,14 @@
 package com.fin.love.repository.profile;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -27,7 +24,7 @@ public class Profile {
 	private String userId;	
 	
 	@Column
-	private int userAge;
+	private String userAge;
 	
 	@Column(nullable = false)
 	private String userPersonality;
@@ -45,20 +42,20 @@ public class Profile {
 	private String userIntroduce;
 	
 	@Column
-	private int userAcademic;
+	private String userAcademic;
 	
 	@Column
-	private int userIncome;
+	private String userIncome;
 	
 	@Column
-	private int userJob;
+	private String userJob;
 	
 	@Column
 	private int userReligion;
 	
 	public Profile updateData(
-			int userAge, String userDrinks, String userHeight, String userIntroduce,
-			int userAcademic, int userIncome, int userJob, int userReligion
+			String userAge, String userDrinks, String userHeight, String userIntroduce,
+			String userAcademic, String userIncome, String userJob, int userReligion
 			) {
 		this.userAge = userAge;
 		this.userDrinks = userDrinks;

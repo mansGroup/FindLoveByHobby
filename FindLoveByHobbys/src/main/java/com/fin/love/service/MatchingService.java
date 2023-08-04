@@ -36,99 +36,99 @@ public class MatchingService {
 	private final ProfileRepository profileRepository;
 	private final AssessmentRepository assessmentRepository;
 
-	@Transactional(readOnly = true)
-	public List<MatchingListDto> matching(String id) {
-		log.info("matching()");
-
-		// 로그인한 사용자 profile 들고오기
-		Profile userProfile = profileRepository.findById(id).orElseThrow();
-		
-		// 로그인한 사용자 userInfo 들고오기
-		Member userInfo = memberRepository.findById(id).orElseThrow();
-
-		// 로그인한 사용자 취미 들고 오기
-		List<UserHobby> userHobbys = userHobbyRepository.findByUserid(id);
-
-		// 로그인한 사용자 취미를 전체 취미 List와 대조해 정리한 List
-		List<Integer> hobbyScore = new LinkedList<>();
-
-		// 전체 회원 검색을 위한 list
-		List<Member> members = null;
-		
-		log.info("사용자 성별 >>>> " + userInfo.getSex());
-		
-		if (userInfo.getSex() == 1) { // 1인지 모르겠지만 남자라면
-			members = memberRepository.findBySex(0); // 여자만 검색
-		} else { // 여자라면
-			members = memberRepository.findBySex(1); // 남자만 검색
-		}
-
-		// 모든 취미 불러오는 List
-		List<Hobby> hobbys = hobbyRepository.findAll();
-
-		for (int i = 0; i < 75; i++) {
-			for (int j = 0; j < userHobbys.size(); j++) {
-				if (hobbys.get(i).getHobbyId() == userHobbys.get(j).getHobbyId()) {
-					hobbyScore.add(1);
-				} else {
-					hobbyScore.add(0);
-				}
-			}
-		}
-
-		// 점수를 저장할 객체 생성.
-		int score = 0;
-
-		// 점수가 높은 5명을 고르기 위해 아이디 5개를 저장하는 객체 생성.
-		String first = ""; // 가장 높은 점수
-		String second = ""; // 두번째로 높은 점수
-		String third = ""; // 세번째로 높은 점수
-		String fourth = ""; // 네번째
-		String fifth = ""; // 다섯번째
-
-		// 취미 매칭하기
-		for (int i = 0; i < members.size(); i++) {
-			int matchingMemberScore = 0;
-			
-			log.info("members >>>>>> " + members.get(i).toString());
-			
-			// 취미
-			List<UserHobby> matchingMemberHobby = userHobbyRepository.findByUserid(members.get(i).getId());
-
-			for (int j = 0; j < matchingMemberHobby.size(); j++) {
-				// 같은 취미를 가지는지 확인을 위한 객체 생성.
-				int number = matchingMemberHobby.get(j).getHobbyId();
-				
-				if (hobbyScore.get(number) == 1) { // 1이면 같은 취미
-					matchingMemberScore += 10;
-				}
-			}
-
-			Profile memberProfile = profileRepository.findById(members.get(i).getId()).orElseThrow();
-			
-			log.info("memberProfile >>>> " + memberProfile);
-			
-			// 직업
-			matchingMemberScore += jobCalculation(userProfile.getUserJob(), memberProfile.getUserJob());
-
-			// 연봉
-			matchingMemberScore += incomeCalculation(userProfile.getUserIncome(), memberProfile.getUserIncome());
-
-			// 학교
-			matchingMemberScore += academicCalculation(userProfile.getUserAcademic(), memberProfile.getUserAcademic());
-
-			// 매칭률이 높으면 String 객체에 저장하기 위한 조건식.
-			if (score < matchingMemberScore) {
-				fifth = fourth;
-				fourth = third;
-				third = second;
-				second = first;
-				first = members.get(i).getId();
-			}
-		}
+//	@Transactional(readOnly = true)
+//	public List<MatchingListDto> matching(String id) {
+//		log.info("matching()");
+//
+//		// 로그인한 사용자 profile 들고오기
+//		Profile userProfile = profileRepository.findById(id).orElseThrow();
+//		
+//		// 로그인한 사용자 userInfo 들고오기
+//		Member userInfo = memberRepository.findById(id).orElseThrow();
+//
+//		// 로그인한 사용자 취미 들고 오기
+//		List<UserHobby> userHobbys = userHobbyRepository.findByUserid(id);
+//
+//		// 로그인한 사용자 취미를 전체 취미 List와 대조해 정리한 List
+//		List<Integer> hobbyScore = new LinkedList<>();
+//
+//		// 전체 회원 검색을 위한 list
+//		List<Member> members = null;
+//		
+//		log.info("사용자 성별 >>>> " + userInfo.getSex());
+//		
+//		if (userInfo.getSex() == 1) { // 1인지 모르겠지만 남자라면
+//			members = memberRepository.findBySex(0); // 여자만 검색
+//		} else { // 여자라면
+//			members = memberRepository.findBySex(1); // 남자만 검색
+//		}
+//
+//		// 모든 취미 불러오는 List
+//		List<Hobby> hobbys = hobbyRepository.findAll();
+//
+//		for (int i = 0; i < 75; i++) {
+//			for (int j = 0; j < userHobbys.size(); j++) {
+//				if (hobbys.get(i).getHobbyId() == userHobbys.get(j).getHobbyId()) {
+//					hobbyScore.add(1);
+//				} else {
+//					hobbyScore.add(0);
+//				}
+//			}
+//		}
+//
+//		// 점수를 저장할 객체 생성.
+//		int score = 0;
+//
+//		// 점수가 높은 5명을 고르기 위해 아이디 5개를 저장하는 객체 생성.
+//		String first = ""; // 가장 높은 점수
+//		String second = ""; // 두번째로 높은 점수
+//		String third = ""; // 세번째로 높은 점수
+//		String fourth = ""; // 네번째
+//		String fifth = ""; // 다섯번째
+//
+//		// 취미 매칭하기
+//		for (int i = 0; i < members.size(); i++) {
+//			int matchingMemberScore = 0;
+//			
+//			log.info("members >>>>>> " + members.get(i).toString());
+//			
+//			// 취미
+//			List<UserHobby> matchingMemberHobby = userHobbyRepository.findByUserid(members.get(i).getId());
+//
+//			for (int j = 0; j < matchingMemberHobby.size(); j++) {
+//				// 같은 취미를 가지는지 확인을 위한 객체 생성.
+//				int number = matchingMemberHobby.get(j).getHobbyId();
+//				
+//				if (hobbyScore.get(number) == 1) { // 1이면 같은 취미
+//					matchingMemberScore += 10;
+//				}
+//			}
+//
+//			Profile memberProfile = profileRepository.findById(members.get(i).getId()).orElseThrow();
+//			
+//			log.info("memberProfile >>>> " + memberProfile);
+//			
+//			// 직업
+//			matchingMemberScore += jobCalculation(userProfile.getUserJob(), memberProfile.getUserJob());
+//
+//			// 연봉
+//			matchingMemberScore += incomeCalculation(userProfile.getUserIncome(), memberProfile.getUserIncome());
+//
+//			// 학교
+//			matchingMemberScore += academicCalculation(userProfile.getUserAcademic(), memberProfile.getUserAcademic());
+//
+//			// 매칭률이 높으면 String 객체에 저장하기 위한 조건식.
+//			if (score < matchingMemberScore) {
+//				fifth = fourth;
+//				fourth = third;
+//				third = second;
+//				second = first;
+//				first = members.get(i).getId();
+//			}
+//		}
 		
 		// 리터할 List
-		List<MatchingListDto> list = new LinkedList<>();
+//		List<MatchingListDto> list = new LinkedList<>();
 		
 		//TODO
 //		// 첫번째 매칭 유저
@@ -277,9 +277,9 @@ public class MatchingService {
 //				}
 //			}
 //		}
-		
-		return list;
-	}
+//		
+//		return list;
+//	}
 	
 	// 호감도가 제일 높은 걸 찾기 위한 메서드
 	private String assessmentMaxValue(Assessment assessment) {
