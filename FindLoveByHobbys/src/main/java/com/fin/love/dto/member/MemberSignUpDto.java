@@ -27,7 +27,11 @@ public class MemberSignUpDto {
     
     private LocalDate birthdate;
     private int sex;
+    
     private String address;
+    private String useraddress;
+    private String userdetailaddress;
+    private String useraddressnotes;
     
     @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$",message = "핸드폰 번호의 양식과 맞지 않습니다. 01x-xxxx-xxxx")
     @NotEmpty(message = "핸드폰 번호를 입력해주세요")
