@@ -31,7 +31,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
 	@Id
 	private String id;
 	
-	@Column(nullable = false, unique = true) // No Null, UNIQUE 제약 조건
+	@Column(nullable = false) 
     private String name;
     
     @Column(nullable = false)
@@ -43,7 +43,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(nullable = false)
     private int sex;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Role role;
 	
     @Column(nullable = false)

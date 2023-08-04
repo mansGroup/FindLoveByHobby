@@ -1,11 +1,16 @@
 package com.fin.love.service;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.fin.love.dto.member.MemberLogInDto;
 import com.fin.love.dto.member.MemberSignUpDto;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
@@ -46,6 +51,25 @@ public class MemberService implements UserDetailsService{
 	     
 	}
 	
+	public boolean idDupleCheck(String userid) {
+		log.info("idDupleCheck(userid={})", userid);
+		boolean result = memberRepository.existsById(userid);
+		log.info("result=({})", result);
+		return result;
+	}
+	
+	public Boolean nickDupleCheck(String nickname) {
+		log.info("nickDupleCheck(nickname={})", nickname);
+		
+		int result = memberRepository.countByNickname(nickname);
+		log.info("result=({})", result);
+		if(result > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 		log.info("loadUserByUsername(id={})", id);
@@ -54,11 +78,15 @@ public class MemberService implements UserDetailsService{
 		
 		
 		if(user != null) {
-            return user;
+			log.info("user(user={})", user);
+            return user; // 로그인 성공한 경우 UserDetails 객체 반환
         }
         
+		
         throw new UsernameNotFoundException(id + "가 존재하지 않습니다.");
 	}
+
+	
 
 	
 
