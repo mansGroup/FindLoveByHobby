@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ChattingRoomRepository extends JpaRepository<ChattingRoom, Long> {
 
-    List<ChattingRoom> findByMyId(String myId);
+    List<ChattingRoom> findByMaleId(String userId);
 
+    List<ChattingRoom> findByFemaleId(String userId);
 }

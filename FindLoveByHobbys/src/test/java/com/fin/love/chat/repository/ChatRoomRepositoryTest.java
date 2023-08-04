@@ -21,19 +21,14 @@ public class ChatRoomRepositoryTest {
     @Test
     public void makeRoom() {
         ChattingRoom entity = ChattingRoom.builder()
-                .myId("user1")
-                .otherId("user2")
+                .maleId("user1")
+                .femaleId("user2")
                 .build();
 
         chattingRepository.saveAndFlush(entity);
     }
 
-    @Test
-    public void findByMyIdTest() {
-        List<ChattingRoom> list = chattingRepository.findByMyId("user2");
-        Assertions.assertNotNull(list);
-        log.info(list.toString()+"========================================");
-    }
+
 
 
 }

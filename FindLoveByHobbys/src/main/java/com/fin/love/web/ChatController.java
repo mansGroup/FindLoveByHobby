@@ -3,6 +3,7 @@ package com.fin.love.web;
 import com.fin.love.dto.chatting.ChattingListDto;
 import com.fin.love.repository.chat.Chatting;
 import com.fin.love.repository.chat.ChattingRoom;
+import com.fin.love.respository.member.Member;
 import com.fin.love.service.MemberService;
 import com.fin.love.service.chatting.ChattingRoomService;
 import com.fin.love.service.chatting.ChattingService;
@@ -35,32 +36,22 @@ public class ChatController {
 
         // TODO spring security session 적용
         // 세션에서 id 찾아오기
-        String session = "user2";
+        String userId = "user1";
 
-        // id로 채팅방 정보 가져오기
-        List<ChattingRoom> idList = chattingRoomService.getChattingRoomListById(session);
-        log.info(idList.toString());
+        // 나의 성별 찾기
+        Member member = memberService.getSexById(userId);
 
-        // 채팅방 정보에서 otherId 가져오기, contentid 가져오기
-        List<ChattingListDto> dtoList = new ArrayList<>();
-        ArrayList<String> otherIdList = new ArrayList<>();
-        for (ChattingRoom chattingRoom : idList) {
-            otherIdList.add(chattingRoom.getOtherId());
-            ChattingListDto dto = new ChattingListDto(chattingRoom.getContentid());
-            dtoList.add(dto);
+        // id로 상대방 id, 채팅방 정보 가져오기
+        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId, member.getSex());
+
+        // 상대방 id로 닉네임 리스트 가져오기
+        for (ChattingListDto dto : dtoList) {
+            dto.setNickname(memberService.getNicknameById(dto.getId()));
         }
-        log.info(otherIdList.toString());
 
-        // 상대방 id 리스트로 닉네임 리스트 가져오기
-        List<String> nicknameList = memberService.getNicknameById(otherIdList);
-        log.info(nicknameList.toString());
-        for (int i = 0; i < dtoList.size(); i++) {
-            dtoList.get(i).setNickname(nicknameList.get(i));
-        }
-        // 닉네임과 content
         // 모델에 리스트 실어주기
-        model.addAttribute("list", dtoList);
-
+        model.addAttribute("dtoList", dtoList);
+        log.info("채팅방 정보 리스트 사이즈 from chatController {}", dtoList.size());
     }
 
     @GetMapping("/chatroom/{room}")
@@ -69,29 +60,42 @@ public class ChatController {
 
         // TODO spring security session 적용
         // 세션에서 id 찾아오기
-        String userId = "user2";
+        String userId = "user1";
+
+        // 나의 성별 찾기
+        Member member = memberService.getSexById(userId);
 
         // userId로 채팅방번호 상대방 ID 리스트 가져오기
-        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId);
+        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId, member.getSex());
 
         // 상대방 ID로 상대방 nickname 가져오기
         for (ChattingListDto dto : dtoList) {
             dto.setNickname(memberService.getNicknameById(dto.getId()));
         }
 
-        // 상대방 id 리스트로 닉네임 리스트 가져오기
-        for (int i = 0; i < dtoList.size(); i++) {
-            dtoList.get(i).setNickname(nicknameList.get(i));
-        }
-        // 닉네임과 content 모델에 리스트 실어주기
-        model.addAttribute("list", dtoList);
-
         // roomid로 chatting list를 받아옴
         List<Chatting> chatList = chattingService.getChatListByContentId(room);
+        log.info("chatList size({})", chatList.size());
 
+        // 내 id로 내 nickname 찾아오기
+        String myNickname = memberService.getNicknameById(userId);
+
+        // 내 id로 내 nickname 찾아오기
+        String otherNickname = "";
+        for (Chatting x : chatList) {
+            if (x.getNickname() != myNickname) {
+                otherNickname = x.getNickname();
+                break;
+            }
+        }
+
+        // 닉네임과 채팅방 번호 모델에 리스트 실어주기
+        model.addAttribute("dtoList", dtoList);
         model.addAttribute("chatList", chatList);
         model.addAttribute("roomId", room);
-        return "/chat/chat";
+        model.addAttribute("myNickname", myNickname);
+        model.addAttribute("otherNickname", otherNickname);
+        return "/chat/chatroom";
     }
 }
 

@@ -12,26 +12,25 @@
     <div class="container1 clearfix">
         <div class="people-list" id="people-list">
             <!-- 상대방 리스트 -->
-            <ul th:each="list : ${list}" class="list">
-                <li class="clearfix">
-                    <a th:href="@{'/chat/chatroom/' + ${list.contentId}}">
-                        <div class="about">
-                            <div class="name" th:text="${list.nickname}">${list}</div>
-                            <div class="status">
-
+            <ul  class="list">
+                <div th:each="list : ${dtoList}">
+                    <li class="clearfix">
+                        <a th:href="@{'/chat/chatroom/' + ${list.contentId}}">
+                            <div class="about">
+                                <div class="name" th:text="${list.nickname}">${list}</div>
                             </div>
-                        </div>
-                    </a>
-                </li>
+                        </a>
+                    </li>
+                </div>
             </ul>
         </div>
         <!-- 방번호 -->
-        <div id="roomId" class="d-none" th:value="${roomId}"></div>
+        <div id="roomId" class="d-none"></div>
         <div class="chat">
             <!-- 카톡방 상대방 프로필 영역 -->
             <div class="chat-header clearfix">
                 <div class="chat-about">
-                    <div class="chat-with" th:text="${list[0].nickname}">상대방 이름</div>
+                    <div class="chat-with"></div>
                 </div>
                 <i class="fa fa-star"></i>
             </div> <!-- end chat-header -->
@@ -39,29 +38,7 @@
             <div class="chat-history">
 
                 <!-- 메세지 영역 -->
-                <ul class="list" id="msgArea" th:each="chatList : ${chatList}">
 
-                    <li th:if="${chatList.nickname} != ${list[0].nickname}" class="clearfix align-right">
-                        <div class="message-data">
-                            <span class="message-data-time " th:text="${#temporals.format(chatList.createdTime,'a hh:mm')}" >10:10 AM, Today</span> &nbsp; &nbsp;
-                            <span class="message-data-name" th:text="${chatList.nickname}">Olia</span>
-                        </div>
-                        <div class="message my-message" th:text="${chatList.conversation}">
-                            Hi Vincent, how are you? How is the project coming along?
-                        </div>
-                    </li>
-
-                    <li th:if="${chatList.nickname} == ${list[0].nickname}">
-                        <div class="message-data">
-                            <span class="message-data-name" th:text="${chatList.nickname}">Vincent</span>
-                            <span class="message-data-time" th:text="${#temporals.format(chatList.createdTime,'a hh:mm')}">10:20 AM, Today</span>
-                        </div>
-                        <div class="message other-message float-right" th:text="${chatList.conversation}">
-                            Actually everything was fine. I'm very excited to show this to our team.
-                        </div>
-                    </li>
-
-                </ul>
 
             </div> <!-- end chat-history -->
 
@@ -73,7 +50,7 @@
                 <i class="fa fa-file-image-o"></i>
 
                 <!-- 보내는 버튼 -->
-                <button id="button-send">Send</button>
+                <button id="button-send" class="d-none">Send</button>
 
             </div> <!-- end chat-message -->
 
@@ -84,9 +61,6 @@
 
 </main>
 
-    <th:block layout:fragment="myscripts">
-        <script src="\js\chat\chats.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    </th:block>
+
 
 </html>

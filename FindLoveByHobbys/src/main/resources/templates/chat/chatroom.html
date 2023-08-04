@@ -4,34 +4,34 @@
       layout:decorate="~{layout/base_layout}">
 
 <th:block layout:fragment="css">
-    <link rel="stylesheet" href="./static/css/chat/rooms.css">
+    <link rel="stylesheet" href="/css/chat/rooms.css">
 </th:block>
 
 <main layout:fragment="main">
-    <!-- copy -->
+    <!-- 닉네임 정보 -->
+    <div id="myNickname" class="d-none" th:value="${myNickname}"></div>
+    <div id="otherNickname" class="d-none" th:value="${otherNickname}"></div>
+
     <div class="container1 clearfix">
         <div class="people-list" id="people-list">
             <!-- 상대방 리스트 -->
-            <ul th:each="list : ${list}" class="list">
-                <li class="clearfix">
-
-                    <a th:href="@{'/chat/chatroom/'+${list.contentId}}">
+            <ul  class="list">
+                <li class="clearfix" th:each="dto : ${dtoList}">
+                    <a th:href="@{'/chat/chatroom/' + ${dto.contentId}}">
                         <div class="about">
-                            <div class="name" th:text="${list.nickname}">${list}</div>
-                            <div class="status">
-
-                            </div>
+                            <div class="name" th:text="${dto.nickname}">${list}</div>
                         </div>
                     </a>
                 </li>
             </ul>
         </div>
-
+        <!-- 방번호 -->
+        <div id="roomId" class="d-none" th:value="${roomId}"></div>
         <div class="chat">
             <!-- 카톡방 상대방 프로필 영역 -->
             <div class="chat-header clearfix">
                 <div class="chat-about">
-                    <div class="chat-with " th:text="">상대방 이름</div>
+                    <div class="chat-with" th:text="${otherNickname}">상대방 이름</div>
                 </div>
                 <i class="fa fa-star"></i>
             </div> <!-- end chat-header -->
@@ -39,37 +39,28 @@
             <div class="chat-history">
 
                 <!-- 메세지 영역 -->
-                <ul class="list" id="msgArea">
-                    <li class="clearfix">
-                        <div class="message-data align-right">
-                            <span class="message-data-time" >10:10 AM, Today</span> &nbsp; &nbsp;
-                            <span class="message-data-name" >Olia</span>
-                        </div>
-                        <div class="message other-message float-right">
-                            Hi Vincent, how are you? How is the project coming along?
-                        </div>
-                    </li>
+                <ul class="list" id="msgArea" >
+                    <div th:each="chat : ${chatList}">
+                        <li th:if="${myNickname} == ${chat.nickname}" class="clearfix align-right">
+                            <div class="message-data">
+                                <span class="message-data-time " th:text="${#temporals.format(chat.createdTime,'a hh:mm')}" >10:10 AM, Today</span> &nbsp; &nbsp;
+                                <span class="message-data-name" th:text="${chat.nickname}">Olia</span>
+                            </div>
+                            <div class="message my-message" th:text="${chat.conversation}">
+                                Hi Vincent, how are you? How is the project coming along?
+                            </div>
+                        </li>
 
-                    <li class="clearfix">
-                        <div class="message-data align-right">
-                            <span class="message-data-time" >10:14 AM, Today</span> &nbsp; &nbsp;
-                            <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
-
-                        </div>
-                        <div class="message other-message float-right">
-                            Well I am not sure. The rest of the team is not here yet. Maybe in an hour or so? Have you faced any problems at the last phase of the project?
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="message-data">
-                            <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                            <span class="message-data-time">10:20 AM, Today</span>
-                        </div>
-                        <div class="message my-message">
-                            Actually everything was fine. I'm very excited to show this to our team.
-                        </div>
-                    </li>
+                        <li th:if="${otherNickname} == ${chat.nickname}">
+                            <div class="message-data">
+                                <span class="message-data-name" th:text="${chat.nickname}">Vincent</span>
+                                <span class="message-data-time" th:text="${#temporals.format(chat.createdTime,'a hh:mm')}">10:20 AM, Today</span>
+                            </div>
+                            <div class="message other-message float-right" th:text="${chat.conversation}">
+                                Actually everything was fine. I'm very excited to show this to our team.
+                            </div>
+                        </li>
+                    </div>
 
                 </ul>
 
@@ -78,9 +69,6 @@
             <div class="chat-message clearfix">
                 <!-- text area -->
                 <textarea name="message-to-send" id="msg" placeholder ="Type your message" rows="3"></textarea>
-
-                <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
-                <i class="fa fa-file-image-o"></i>
 
                 <!-- 보내는 버튼 -->
                 <button id="button-send">Send</button>
@@ -91,54 +79,11 @@
 
     </div> <!-- end container -->
 
-    <script id="message-template" type="text/x-handlebars-template">
-        <li class="clearfix">
-            <div class="message-data align-right">
-                <span class="message-data-time" >{{time}}, Today</span> &nbsp; &nbsp;
-                <span class="message-data-name" >Olia</span> <i class="fa fa-circle me"></i>
-            </div>
-            <div class="message other-message float-right">
-                {{messageOutput}}
-            </div>
-        </li>
-    </script>
 
-    <script id="message-response-template" type="text/x-handlebars-template">
-        <li>
-            <div class="message-data">
-                <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
-                <span class="message-data-time">{{time}}, Today</span>
-            </div>
-            <div class="message my-message">
-                {{response}}
-            </div>
-        </li>
-    </script>
-    <!-- copy -->
-
-    <!-- 기본코드
-    <div class="container1">
-        <div class="col-6">
-            <label><b>채팅방</b></label>
-        </div>
-        <div>
-            <div id="msgArea" class="col"></div>
-            <div class="col-6">
-                <div class="input-group mb-3">
-                    <input type="text" id="msg" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="button-send">전송</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-6"></div>
-    </div>
-    -->
 </main>
 
     <th:block layout:fragment="myscripts">
-        <script src="..\js\chat\chats.js"></script>
+        <script src="\js\chat\chats.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </th:block>
 

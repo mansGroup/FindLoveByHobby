@@ -65,14 +65,14 @@ public class MemberService implements UserDetailsService{
 
 
 
-    public List<String> getNicknameById(List<String> idList) {
-		List result = new ArrayList<>();
+    public String getNicknameById(String id) {
 
-		for (String id : idList) {
-			Member member = memberRepository.findById(id).orElseThrow();
-			result.add(member.getNickname());
-		}
+		Member member = memberRepository.findById(id).orElseThrow();
 
-		return result;
+		return member.getNickname();
     }
+
+	public Member getSexById(String session) {
+		return memberRepository.findById(session).orElseThrow();
+	}
 }
