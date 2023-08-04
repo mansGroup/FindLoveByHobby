@@ -55,6 +55,8 @@ public class MatchingDetailController {
     // 테스트 페이지
     @GetMapping("/detailTest")
     public void detailTest(Model model) {
+    	
+    	// DB에 있는 Id를 넣어서 임시로 Id값을 넘겨줌.
     	String code = "a";
     	model.addAttribute("id", code);
     	
