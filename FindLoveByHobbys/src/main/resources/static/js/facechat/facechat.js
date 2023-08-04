@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	let myFace = document.getElementById("myFace");
 	let peerFace = document.querySelector('video#peerFace');
 	let myStream;
-
+	let audios = document.querySelector('input#audios');
 	// wss 주소로 웹소켓을 연결(채팅에는 ws로도 가능하나, RTC는 반드시 Security 연결 필요)
 	let wss = 'wss://' + location.host + `/facechat?roomid=${roomId}`;
 
@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 			console.log('report');
 			reports.value=1;
-			
+			return;
 		}
 		
 		if (content.event == "offer") {
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				recordedBlob = new Blob(audioChunks, { type: 'audio/wav' });
 				console.log(recordedBlob);
 				// 여기에서 녹음된 음성 데이터를 처리하거나 서버에 업로드할 수 있습니다.
-				let audios = document.querySelector('input#audios');
+				
 				console.log(recordedBlob);
 				const formData = new FormData();
 				formData.append('audioFile', recordedBlob);
@@ -260,13 +260,9 @@ document.addEventListener('DOMContentLoaded', () => {
 					});
 
 					let result = response.data;
-					if (result == '실패') {
-						return;
-
-					}
 
 					audios.value = result;
-
+					alert('오디오 저장 성공!');
 
 				} catch (error) {
 

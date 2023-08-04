@@ -32,14 +32,14 @@ public class FaceChatRestController {
 			// 파일 저장
 			audioFile.transferTo(file);
 			log.info("{}", file);
-			return ResponseEntity.ok(savePath+fileName);
+			return ResponseEntity.ok(file.toString());
 
 			// 서비스 호출해서 리폿 기록
 
 		} catch (IOException e) {
 			log.info("업로드 실패");
 			e.printStackTrace();
-			return ResponseEntity.ok("실패");
+			return ResponseEntity.ok(roomId+"");
 			
 
 		}
