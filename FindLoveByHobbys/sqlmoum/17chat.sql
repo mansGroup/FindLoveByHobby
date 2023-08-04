@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 금요일-7월-28-2023   
+--  파일이 생성됨 - 금요일-8월-04-2023   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table CHAT
@@ -10,7 +10,8 @@
 	"CHATID" NUMBER(10,0), 
 	"CONVERSATION" VARCHAR2(2000 BYTE), 
 	"TEXTTYPE" NUMBER DEFAULT 0, 
-	"CREATED_TIME" TIMESTAMP (6)
+	"CREATED_TIME" TIMESTAMP (6), 
+	"NICKNAME" VARCHAR2(20 CHAR)
    ) SEGMENT CREATION DEFERRED 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING

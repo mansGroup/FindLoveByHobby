@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  파일이 생성됨 - 금요일-7월-28-2023   
+--  파일이 생성됨 - 금요일-8월-04-2023   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Table HOBBYPICTURE
@@ -7,9 +7,9 @@
 
   CREATE TABLE "SKOTT"."HOBBYPICTURE" 
    (	"ID" VARCHAR2(20 BYTE), 
-	"HOBBY_PIC1" VARCHAR2(20 BYTE), 
-	"HOBBY_PIC2" VARCHAR2(20 BYTE), 
-	"HOBBY_PIC3" VARCHAR2(20 BYTE)
+	"HOBBY_PIC1" VARCHAR2(3000 BYTE), 
+	"HOBBY_PIC2" VARCHAR2(3000 BYTE), 
+	"HOBBY_PIC3" VARCHAR2(3000 BYTE)
    ) SEGMENT CREATION DEFERRED 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
