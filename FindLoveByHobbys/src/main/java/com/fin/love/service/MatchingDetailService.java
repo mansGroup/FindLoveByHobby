@@ -41,15 +41,18 @@ public class MatchingDetailService {
        Assessment assessment = assessmentRepository.findById(id).orElseThrow();
         return assessment; // 기본 객체 반환
     }
-
+    
+    // 취미를 가져오기위해
     public List<Hobby> getAllHobbies() {
         return hobbyRepository.findAll();
     }
-
+    
+    // 유저의 profile 정보를 가져오기 위해
     public Profile getUserProfile(String id) {
         return profileRepository.findById(id).orElse(new Profile()); // 기본 객체 반환
     }
     
+    // UserHobby와 Hobby에 Id를 비교 후 같다면 취미 목록을 출력한다.
     public List<String> getUserHobbies(String id) {
         List<UserHobby> list1 = userHobbyRepository.findByUserid(id);
         List<Hobby> list2 = getAllHobbies();
@@ -59,7 +62,7 @@ public class MatchingDetailService {
         	
         	for(Hobby y : list2) {
         		
-        		if(x.getHobbyId()==y.getHobbyId()) {
+        		if(x.getHobbyId() == y.getHobbyId()) {
         			
         			hobbylist.add(y.getHobbyName());
         			break;
@@ -74,10 +77,17 @@ public class MatchingDetailService {
         
     }
     
+    // 유저의 회원가입 정보를 가져오기 위해
     public Member getUserinfo(String id){
     	log.info("id = {}", id);
     	
         return memberRepository.findById(id).orElseThrow();
     }
+    
+    // 
+	public int assessment(String memberId) {
+		// TODO: 
+		return 0;
+	}
 
 }

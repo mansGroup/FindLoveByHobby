@@ -21,14 +21,14 @@ public class MatchingDetailRestController {
 	
 	private final MatchingDetailService detailService;
 	
-	@GetMapping("/assessment/{memberId}")
-	public ResponseEntity<Integer> assessment(
-			@PathVariable String memberId) {
-		log.info("assessment(memberId = {})", memberId);
-		
+//	@GetMapping("/assessment/{assessmentId}{inputUserId}")
+//	public ResponseEntity<Integer> assessment(
+//			@PathVariable String memberId) {
+//		log.info("assessment(memberId = {})", memberId);
+//		
 //		int result = detailService.assessment(memberId);
 //		log.info("result = {}", result);
-
-		return ResponseEntity.ok(null);
-	}
+//
+//		return ResponseEntity.ok(null);
+//	}
 }
