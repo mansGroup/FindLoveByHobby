@@ -22,7 +22,7 @@ public class ProfileCreateDto {
 		return Profile.builder()
 				.userId(userId)
 				.userAge(userAge)
-				.userPersonality("123455dwqdqwqw")
+				.userPersonality("TEST 테스트 값")
 				.userDrinks(userDrinks)
 				.userSmoker(userSmoker)
 				.userHeight(userHeight)

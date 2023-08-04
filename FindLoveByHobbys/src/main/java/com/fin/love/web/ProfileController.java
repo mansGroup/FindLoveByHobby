@@ -62,7 +62,7 @@ public class ProfileController {
 		return "/profile/profiles";
 	}
 	
-	
+	// 클라이언트에서 받은 데이터를 DB로 넘겨줌
 	@PostMapping("/user/profileimage")
 	public String createProfile(ProfileCreateDto dto) {
 		log.info("createProfile(dto={})POST", dto);

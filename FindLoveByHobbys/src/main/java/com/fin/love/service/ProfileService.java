@@ -16,6 +16,7 @@ public class ProfileService {
 	
 	public final ProfileRepository profileRepository;
 	
+	// 컨트롤러에서 받은 클라이언트 정보를 DB에 insert
 	public void createProfile(ProfileCreateDto dto) {
 		log.info("createProfile(dto= {})", dto);
 		
