@@ -14,6 +14,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import jakarta.servlet.DispatcherType;
+
 @EnableMethodSecurity
 @EnableWebSecurity
 @Configuration
@@ -23,23 +25,36 @@ public class SecurityConfig {
 		return new BCryptPasswordEncoder();
 	}
 
-	@Bean
-	public UserDetailsService inMemoryUserDeatailsService() {
-		// 사용자 상세 정보
-		UserDetails user1 = User.withUsername("user1") // 로그인할 때 사용할 사용자 이름
-				.password(passwordEncoder().encode("1111")) // 로그인 시 사용할 암호
-				.roles("USER") // 사용자 권한(USER, ADMIN, ...
-				.build(); // UserDetails 객체 생성.
-		
-		return new InMemoryUserDetailsManager(user1);
-	}
+//	@Bean
+//	public UserDetailsService inMemoryUserDeatailsService() {
+//		// 사용자 상세 정보
+//		UserDetails user1 = User.withUsername("user1") // 로그인할 때 사용할 사용자 이름
+//				.password(passwordEncoder().encode("1111")) // 로그인 시 사용할 암호
+//				.roles("USER") // 사용자 권한(USER, ADMIN, ...
+//				.build(); // UserDetails 객체 생성.
+//		
+//		return new InMemoryUserDetailsManager(user1);
+//	}
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		
 		http.csrf((csrf) -> csrf.disable());
 		
-		http.formLogin(Customizer.withDefaults());
+		http.authorizeHttpRequests(request -> request
+					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+//					.requestMatchers("/member/signup", "landing/index") // 로그인 하지 않아도 접근 가능한 주소 설정
+//					.requestMatchers("/", "/login", "/css/**", "/images/**", "/js/**", "/fonts/**", "/member/login", "/matching/matchingList", "/member/signup","/api/member/**").permitAll()
+					.anyRequest().permitAll()//authenticated()
+				);
+		
+		http.formLogin(login -> login
+				.loginPage("/member/login")	// 커스텀 로그인 페이지 지정
+//				.loginProcessingUrl("/member/signin") // submit받을 url
+				.usernameParameter("username") // submit할 아이디
+				.passwordParameter("password") // submit할 패스워드
+				.defaultSuccessUrl("/matching/matchingList", true) // 로그인 성공 시 이동할 페이지
+				);
 		
 		http.logout((logout) -> logout.logoutSuccessUrl("/"));
 		

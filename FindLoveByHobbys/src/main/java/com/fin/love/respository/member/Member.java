@@ -1,6 +1,8 @@
 package com.fin.love.respository.member;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -29,7 +31,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
 	@Id
 	private String id;
 	
-	@Column(nullable = false, unique = true) // No Null, UNIQUE 제약 조건
+	@Column(nullable = false) 
     private String name;
     
     @Column(nullable = false)
@@ -41,7 +43,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
     @Column(nullable = false)
     private int sex;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Role role;
 	
     @Column(nullable = false)
@@ -54,11 +56,11 @@ public class Member extends BaseTimeEntity implements UserDetails {
     private String address;
     
     @Column(nullable = false)
-    private Timestamp birthday;
+    private LocalDate birthday;
     
     @Builder
     private Member(String id, String name, String password, String email, int sex, Role role,
-    			String phone, String nickname, String address, Timestamp birthday) {
+    			String phone, String nickname, String address, LocalDate birthday) {
     	this.id = id;
         this.name = name;
         this.password = password;
