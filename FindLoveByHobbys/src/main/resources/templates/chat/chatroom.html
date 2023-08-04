@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base_layout}">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" href="/css/chat/rooms.css">
+</th:block>
+
+<main layout:fragment="main">
+    <!-- 닉네임 정보 -->
+    <div id="myNickname" class="d-none" th:value="${myNickname}"></div>
+    <div id="otherNickname" class="d-none" th:value="${otherNickname}"></div>
+
+    <div class="container1 clearfix">
+        <div class="people-list" id="people-list">
+            <!-- 상대방 리스트 -->
+            <ul  class="list">
+                <li class="clearfix" th:each="dto : ${dtoList}">
+                    <a th:href="@{'/chat/chatroom/' + ${dto.contentId}}">
+                        <div class="about">
+                            <div class="name" th:text="${dto.nickname}">${list}</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- 방번호 -->
+        <div id="roomId" class="d-none" th:value="${roomId}"></div>
+        <div class="chat">
+            <!-- 카톡방 상대방 프로필 영역 -->
+            <div class="chat-header clearfix">
+                <div class="chat-about">
+                    <div class="chat-with" th:text="${otherNickname}">상대방 이름</div>
+                </div>
+                <i class="fa fa-star"></i>
+            </div> <!-- end chat-header -->
+
+            <div class="chat-history">
+
+                <!-- 메세지 영역 -->
+                <ul class="list" id="msgArea" >
+                    <div th:each="chat : ${chatList}">
+                        <li th:if="${myNickname} == ${chat.nickname}" class="clearfix align-right">
+                            <div class="message-data">
+                                <span class="message-data-time " th:text="${#temporals.format(chat.createdTime,'a hh:mm')}" >10:10 AM, Today</span> &nbsp; &nbsp;
+                                <span class="message-data-name" th:text="${chat.nickname}">Olia</span>
+                            </div>
+                            <div class="message my-message" th:text="${chat.conversation}">
+                                Hi Vincent, how are you? How is the project coming along?
+                            </div>
+                        </li>
+
+                        <li th:if="${otherNickname} == ${chat.nickname}">
+                            <div class="message-data">
+                                <span class="message-data-name" th:text="${chat.nickname}">Vincent</span>
+                                <span class="message-data-time" th:text="${#temporals.format(chat.createdTime,'a hh:mm')}">10:20 AM, Today</span>
+                            </div>
+                            <div class="message other-message float-right" th:text="${chat.conversation}">
+                                Actually everything was fine. I'm very excited to show this to our team.
+                            </div>
+                        </li>
+                    </div>
+
+                </ul>
+
+            </div> <!-- end chat-history -->
+
+            <div class="chat-message clearfix">
+                <!-- text area -->
+                <textarea name="message-to-send" id="msg" placeholder ="Type your message" rows="3"></textarea>
+
+                <!-- 보내는 버튼 -->
+                <button id="button-send">Send</button>
+
+            </div> <!-- end chat-message -->
+
+        </div> <!-- end chat -->
+
+    </div> <!-- end container -->
+
+
+</main>
+
+    <th:block layout:fragment="myscripts">
+        <script src="\js\chat\chats.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </th:block>
+
+</html>

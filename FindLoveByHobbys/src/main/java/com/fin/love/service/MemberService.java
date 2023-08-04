@@ -1,5 +1,6 @@
 package com.fin.love.service;
 
+import com.fin.love.repository.chat.ChattingRoom;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,6 +13,10 @@ import com.fin.love.respository.member.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -58,6 +63,16 @@ public class MemberService implements UserDetailsService{
         throw new UsernameNotFoundException(id + " not found");
 	}
 
-	
 
+
+    public String getNicknameById(String id) {
+
+		Member member = memberRepository.findById(id).orElseThrow();
+
+		return member.getNickname();
+    }
+
+	public Member getSexById(String session) {
+		return memberRepository.findById(session).orElseThrow();
+	}
 }

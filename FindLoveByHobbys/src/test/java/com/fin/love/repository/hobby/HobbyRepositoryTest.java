@@ -2,6 +2,7 @@ package com.fin.love.repository.hobby;
 
 import java.util.List;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,7 +12,7 @@ import com.fin.love.repository.hobby.HobbyRepository;
 import com.fin.love.repository.profile.UserHobby;
 import com.fin.love.repository.profile.UserHobbyRepository;
 
-import lombok.extern.slf4j.Slf4j;
+
 
 @Slf4j
 @SpringBootTest

@@ -41,6 +41,10 @@ dependencies {
 	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// Lombok Test
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok'
 	
 	// 스프링 dev 툴
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
