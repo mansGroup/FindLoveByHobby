@@ -181,11 +181,18 @@ public class PictureService {
 		
 		return result;
 	}
-
+	
+	// 유저아이디로 데이터 찾기
 	public Picture findById(String userId) {
 		log.info("findById(userId = {})", userId);
 		
 		return pictureRepository.findById(userId).orElseThrow();
+	}
+	
+	public HobbyPicture hobbyFindById(String userId) {
+		log.info("findById(userId = {})", userId);
+		
+		return hobbyPictureRepository.findById(userId).orElseThrow();
 	}
 	
 	// 문자열로 받은 경로 이미지 값을 인코딩

@@ -3,6 +3,24 @@
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="~{layout/base_layout}">
 
+<th:block layout:fragment="css">
+<style>
+/* 원하는 크기로 조정 */
+.imageBoxContainer {
+  width: 236px; 
+  height: 394px;
+  overflow: hidden;
+}
+
+/* 이미지 비율을 유지하면서 컨테이너에 꽉 차도록 조정 */
+.imageThumnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+</style>
+</th:block>
+
 	<main layout:fragment="main">
 		<section class="about-section section-padding" id="section_2">
                 <div class="container">
@@ -20,9 +38,9 @@ layout:decorate="~{layout/base_layout}">
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-12">
-                            <div class="image-hover-thumb">
-                                <img src="images/vertical-shot-beautiful-smiling-girl.jpg" class="about-image img-fluid" alt="">
+                        <div class="col-lg-3 col-12" style="display: flex;justify-content: center;">
+                            <div class="image-hover-thumb imageBoxContainer" style=" display: flex;">
+                                <img th:src="${pic1}" class="about-image img-fluid imageThumnail" alt="">
                             </div>
                         </div>
 
@@ -50,14 +68,14 @@ layout:decorate="~{layout/base_layout}">
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-12">
-                            <div class="image-hover-thumb">
-                                <img src="images/vertical-shot-young-handsome-guy-autumn-park.jpg" class="about-image img-fluid" alt="">
+                        <div class="col-lg-3 col-12" style="display: flex;justify-content: center;">
+                            <div class="image-hover-thumb imageBoxContainer" style=" display: flex;">
+                                <img src="images/vertical-shot-young-handsome-guy-autumn-park.jpg" class="about-image img-fluid imageThumnail" alt="">
                             </div>
                         </div>
 
                         <div class="col-lg-3 col-12">
-                            <div class="about-info-wrap d-flex flex-column">
+                            <div class="about-info-wrap d-flex flex-column" >
                                 <div class="about-info-title d-flex align-items-center my-3">
                                     <h4>Bratt</h4>
 

@@ -2,11 +2,14 @@ package com.fin.love.web;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,7 +78,7 @@ public class FileUploadRestController {
 			e.printStackTrace();
 		}
 		
-		pictureService.pic1SaveImage(id, strsavePath);
+		pictureService.pic1SaveImage(id, saveImagePathName);
 		
 		return ResponseEntity.ok(saveImagePathName);
 	}
@@ -124,7 +127,7 @@ public class FileUploadRestController {
 			e.printStackTrace();
 		}
 		
-		pictureService.pic2SaveImage(id, strsavePath);
+		pictureService.pic2SaveImage(id, saveImagePathName);
 		
 		return ResponseEntity.ok(saveImagePathName);
 	}
@@ -173,7 +176,7 @@ public class FileUploadRestController {
 			e.printStackTrace();
 		}
 		
-		pictureService.pic3SaveImage(id, strsavePath);
+		pictureService.pic3SaveImage(id, saveImagePathName);
 		
 		return ResponseEntity.ok(saveImagePathName);
 	}
@@ -222,7 +225,7 @@ public class FileUploadRestController {
 			e.printStackTrace();
 		}
 		
-		pictureService.hobbyPic1SaveImage(id, strsavePath);
+		pictureService.hobbyPic1SaveImage(id, saveImagePathName);
 		
 		return ResponseEntity.ok(saveImagePathName);
 	}
@@ -271,7 +274,7 @@ public class FileUploadRestController {
 			e.printStackTrace();
 		}
 		
-		pictureService.hobbyPic2SaveImage(id, strsavePath);
+		pictureService.hobbyPic2SaveImage(id, saveImagePathName);
 		
 		return ResponseEntity.ok(saveImagePathName);
 	}
@@ -320,7 +323,7 @@ public class FileUploadRestController {
 			e.printStackTrace();
 		}
 		
-		pictureService.hobbyPic3SaveImage(id, strsavePath);
+		pictureService.hobbyPic3SaveImage(id, saveImagePathName);
 		
 		return ResponseEntity.ok(saveImagePathName);
 	}
@@ -338,4 +341,26 @@ public class FileUploadRestController {
 		
 		return resultImage;
 	}
+	
+	@PostMapping("/removeFile") // 미완성
+    public ResponseEntity<Boolean> removeFile(String fileName){
+        String srcFileName = null;
+
+        try {
+            srcFileName = URLDecoder.decode(fileName,"UTF-8");
+            File file = new File(uploadPath + File.separator + srcFileName);
+
+            boolean result = file.delete();
+
+            File thumbnail = new File(file.getParent(),"s_" + file.getName());
+
+            result = thumbnail.delete();
+
+            return new ResponseEntity<>(result,HttpStatus.OK);
+
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+            return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

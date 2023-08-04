@@ -19,7 +19,7 @@ public class MatchingDetailService {
 	
 	// DB 테이블에서 id 불러오기
     @Transactional(readOnly = true)
-	public Assessment read(Long id) {
+	public Assessment read(String id) {
 		log.info("read(id={})", id);
 		
 	    return assessmentRepository.findById(id).orElseThrow();

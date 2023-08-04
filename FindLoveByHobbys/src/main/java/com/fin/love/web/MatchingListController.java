@@ -1,17 +1,14 @@
 package com.fin.love.web;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fin.love.repository.image.Picture;
-import com.fin.love.repository.profile.UserHobbyRepository;
-import com.fin.love.respository.member.MemberRepository;
-import com.fin.love.service.MatchingService;
 import com.fin.love.service.PictureService;
 
-import ch.qos.logback.core.model.Model;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,15 +18,24 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class MatchingListController {
 	
-	private final MatchingService matchingService;
 	private final PictureService pictureService;
 	
 	@GetMapping("/matchingList/{userId}")
-	public void listHome(@PathVariable String userId, Model model) {
+	public String listHome(@PathVariable String userId, Model model) throws Exception {
         log.info("listHome()");
         
-        Picture pic = pictureService.findById(userId);
+        // 매칭 유저 뽑기
+//        List<MatchingListDto> memberList = matchingService.matching(userId);
         
+        // 자기 소개 테이블 컬럼 불러오고 나이 닉네임 호감도/카운트 사진
+        
+        Picture pic = pictureService.findById(userId);
+        String usualPic1 = "/images/uploadImages/";
+        usualPic1 += pic.getPic1();
+        
+        model.addAttribute("pic1", usualPic1);
+        
+        return "/matching/matchingList";
     }
 	
 	@GetMapping("/test")

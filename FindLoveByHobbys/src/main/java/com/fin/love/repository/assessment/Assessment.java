@@ -22,8 +22,7 @@ import lombok.ToString;
 public class Assessment {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
-	private Long id; // PK
+	private String id; // PK
 	
 	@Column(nullable = true)
 	private int sexy; 

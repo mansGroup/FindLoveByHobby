@@ -26,7 +26,7 @@ public class MatchingDetailController {
 	}
 	
 	@PostMapping("/matchingDetail")
-	public void read(Long id, Model model) {
+	public void read(String id, Model model) {
 		log.info("matchingdetails(id={})", id);
 		
 		Assessment assessment = matchingDetailService.read(id);
