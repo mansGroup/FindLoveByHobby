@@ -28,7 +28,7 @@ public class Hobby {
 	private Long hobbyId; // pk 시퀀스
 	
 	@Column(nullable = false)
-	private String content; // ??
+	private String content;
 	
 	@Column(nullable = false)
 	private String hobbyName; // 취미 카테고리

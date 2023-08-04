@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+
+<th:block layout:fragment="css">
+<style>
+		.matchingPage {
+	box-shadow:inset 0px 0px 15px 0px #ffffff;
+	background:linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+	background-color:#ededed;
+	border-radius:42px;
+	border:4px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#777777;
+	font-family:Arial;
+	font-size:23px;
+	font-weight:bold;
+	padding:12px 36px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #ffffff;
+}
+.matchingPage:hover {
+	background:linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+	background-color:#dfdfdf;
+}
+.matchingPage:active {
+	position:relative;
+	top:1px;
+}
+
+/* 원하는 크기로 조정 */
+.imageBoxContainer {
+  width: 296px; 
+  height: 394px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 이미지 비율을 유지하면서 컨테이너에 꽉 차도록 조정 */
+.imageThumnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+</style>
+	</th:block>
+
+<main layout:fragment="main">
+
+	<!-- 유저 아이디 -->
+	<input class="" th:value="${userPic.id}" id="userId" name="userId" />
+
+	<section class="the-wedding-section section-bg section-padding"
+		id="section_3">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-12 col-12">
+					<div class="section-title-wrap mb-5">
+						<h2 class="section-title">USUAL IMAGE</h2>
+
+						<div class="section-title-bottom">
+							<span class="section-title-line"></span> <img
+								src="/images/photo.png" class="section-title-icon bi-heart-fill" />
+							<span class="section-title-line"></span>
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="uploadFilesUsualImage1"> <img
+						src="/images/Adding_a_Person_Image.png" class="img-fluid imageThumnail" alt=""
+						id="defultImage1">
+					</label> <input class="d-none" id="uploadFilesUsualImage1" type="file"
+						multiple>
+				</div>
+
+
+
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="uploadFilesUsualImage2"> <img
+						src="/images/Adding_a_Person_Image.png" class="img-fluid imageThumnail" alt=""
+						id="defultImage2">
+					</label> <input class="d-none" id="uploadFilesUsualImage2" type="file"
+						multiple>
+				</div>
+
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="uploadFilesUsualImage3"> <img
+						src="/images/Adding_a_Person_Image.png" class="img-fluid imageThumnail" alt=""
+						id="defultImage3">
+					</label> <input class="d-none" id="uploadFilesUsualImage3" type="file"
+						multiple>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section class="the-wedding-section section-bg section-padding"
+		id="section_3">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-12 col-12">
+					<div class="section-title-wrap mb-5">
+						<h2 class="section-title">HOBBY IMAGE</h2>
+
+						<div class="section-title-bottom">
+							<span class="section-title-line"></span> <img
+								src="/images/photo.png" class="section-title-icon bi-heart-fill" />
+							<span class="section-title-line"></span>
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="hobbyUploadFilesUsualImage1"> <img
+						src="/images/Adding_a_Person_Image.png" class="img-fluid imageThumnail" alt=""
+						id="hobbyDefultImage1">
+					</label> <input class="d-none" id="hobbyUploadFilesUsualImage1" type="file"
+						multiple>
+				</div>
+
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="hobbyUploadFilesUsualImage2"> <img
+						src="/images/Adding_a_Person_Image.png" class="img-fluid imageThumnail" alt=""
+						id="hobbyDefultImage2">
+					</label> <input class="d-none" id="hobbyUploadFilesUsualImage2" type="file"
+						multiple>
+				</div>
+
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="hobbyUploadFilesUsualImage3"> <img
+						src="/images/Adding_a_Person_Image.png" class="img-fluid imageThumnail" alt=""
+						id="hobbyDefultImage3">
+					</label> <input class="d-none" id="hobbyUploadFilesUsualImage3" type="file"
+						multiple>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="section-bg" style="display: flex; justify-content: center;">
+		<div>
+			<a th:href="@{/matching/matchingList/{userId} (userId = ${userPic.id})}" class="matchingPage">매칭 시작</a>
+		</div>
+	</div>
+</main>
+
+<th:block layout:fragment="myscripts">
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="/js/image/image_upload.js"></script>
+</th:block>
+
+</html>

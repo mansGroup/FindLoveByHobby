@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity
@@ -20,11 +21,9 @@ import lombok.ToString;
 @Builder
 @Getter
 @ToString
-@SequenceGenerator(name = "PROFILE_SEQ_GEN", sequenceName = "PROFILE_SEQ", allocationSize = 1)
 public class Profile {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String userId;	
 	
 	@Column
@@ -43,6 +42,9 @@ public class Profile {
 	private String userHeight;
 	
 	@Column
+	private String userIntroduce;
+	
+	@Column
 	private int userAcademic;
 	
 	@Column
@@ -53,5 +55,22 @@ public class Profile {
 	
 	@Column
 	private int userReligion;
+	
+	public Profile updateData(
+			int userAge, String userDrinks, String userHeight, String userIntroduce,
+			int userAcademic, int userIncome, int userJob, int userReligion
+			) {
+		this.userAge = userAge;
+		this.userDrinks = userDrinks;
+		this.userHeight = userHeight;
+		this.userIntroduce = userIntroduce;
+		this.userAcademic = userAcademic;
+		this.userIncome = userIncome;
+		this.userJob = userJob;
+		this.userReligion = userReligion;
+		this.userPersonality = "123455678";
+		
+		return this;
+	}
 	
 }

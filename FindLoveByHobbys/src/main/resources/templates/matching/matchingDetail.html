@@ -1,10 +1,191 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/base_layout}">
+	xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+<body>
+	<main layout:fragment="main">
+	<!-- 로그인 아이디 (수정 전) -->
+	<input class="d-none" value="qwer1234" id="userId" />
 	
-     <main layout:fragment="main">
-    
-    
-</main>
+		<section class="about-section section-padding" id="section_2">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-lg-12 col-12">
+						<div class="section-title-wrap mb-5">
+							<h2 class="section-title">상세프로필</h2>
+
+							<div class="section-title-bottom">
+								<span class="section-title-line"></span> <i
+									class="section-title-icon bi-heart-fill"></i> <span
+									class="section-title-line"></span>
+							</div>
+						</div>
+					</div>
+
+					<!-- TODO: 이미지 삽입 할 위치-->
+					<div class="col-lg-3 col-12">
+						<div class="image-hover-thumb">
+							<img src="images/vertical-shot-beautiful-smiling-girl.jpg"
+								class="about-image img-fluid" alt="">
+						</div>
+					</div>
+					<form id="assessmentForm">
+						<input type="text" class="d-none" th:value="${assessment.id}"
+							id="assessmentid" name="id" />
+						<div class="col-lg-3 col-12">
+							<div class="about-info-wrap d-flex flex-column">
+
+								<!-- TODO: 프로필 이름 -->
+								<div class="about-info-title d-flex align-items-center my-3">
+									<span id="memberName" th:text="${member.nickname}"></span>
+
+									<!-- TODO: 직업 -->
+									<span class="about-tag ms-4" id="memberJob"
+										th:text="${profile.userJob}"></span>
+								</div>
+
+								<!-- TODO: 자기소개 -->
+								<span th:text="${profile.userIntroduce}" id="memberIntroduce"></span>
+
+								<!-- TODO: 호감도 표시를 여기서 -->
+								<div class="social-icon-wrap mt-auto">
+									<!-- TODO: 호감도 표시를 아이콘으로 대체 -->
+
+									<!-- 여자일 경우 -->
+									<div th:if="${member.sex} == 0">
+										<label>호감도</label>
+										<br />
+										<button id="btnSexy"></button>
+										<span th:text="${assessment.sexy}" id="memberSexy"></span>섹시해요
+										
+										<button id="btnBeautiful"></button>
+										<span th:text="${assessment.beautiful}" id="memberBeautiful"></span>예뻐요
+
+										<button id="btnCuteWoman"></button>
+										<span th:text="${assessment.cute}" id="memberCute"></span>귀여워요
+									</div>
+
+									<!-- 남자일 경우 -->
+									<div th:if="${member.sex} == 1">
+										<button id="btnCuteMan"></button>
+										<span th:text="${assessment.cute}" id="memberCute"></span>귀여워요
+
+										<button id="btnWonderful"></button>
+										<span th:text="${assessment.wonderful}" id="memberwonderful"></span>멋져요
+
+										<button id="btnHandsome"></button>
+										<span th:text="${assessment.handsome}" id="handsome"></span>잘생겼어요
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div class="col-lg-3 col-12">
+						<div class="image-hover-thumb">
+							<img
+								src="images/vertical-shot-young-handsome-guy-autumn-park.jpg"
+								class="about-image img-fluid" alt="">
+						</div>
+					</div>
+					<div class="col-lg-3 col-12"></div>
+				</div>
+			</div>
+		</section>
+
+		<!-- TODO: 기본정보 입력(키, 나이, 학력,...) -->
+		<section class="gallery-section section-bg section-padding"
+			id="section_5">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-12">
+						<div class="section-title-wrap mb-5">
+							<h5 class="section-title">기본정보</h5>
+							<ul>
+								<li><span th:text="${profile.userHeight}">키: </span><span></span></li>
+								<li><span th:text="${profile.userAge}">나이: </span><span></span></li>
+								<li><span th:text="${profile.userAcademic}">학력: </span><span></span></li>
+								<li><span th:text="${profile.userSmoker}">흡연: </span><span></span></li>
+								<li><span th:text="${profile.userDrinks}">음주: </span><span></span></li>
+								<li><span th:text="${profile.userReligion}">종교: </span><span></span></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+
+		<section class="gallery-section section-bg section-padding"
+			id="section_5">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12 col-12">
+						<div class="section-title-wrap mb-5">
+							<h5 class="hobbies-list">취미 리스트</h5>
+							<!-- ${userHobbies}에서 하나씩  원소를 꺼내 hob에 담음 -->
+							<ul th:each="hob : ${userHobbies}">
+								<li><span th:text="${hob}"></span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="gallery-section section-bg section-padding"
+			id="section_5">
+			<div class="container">
+				<div class="row"></div>
+			</div>
+		</section>
+
+		<section class="about-section section-padding" id="section_2">
+			<div class="container">
+				<div class="row">
+
+					<div class="col-lg-12 col-12">
+						<div class="section-title-wrap mb-5">
+
+							<!-- TODO: 취미 사진 삽이 할 위치 -->
+							<h2 class="section-title">취미 사진</h2>
+
+							<div class="section-title-bottom">
+								<span class="section-title-line"></span> <i
+									class="section-title-icon bi-heart-fill"></i> <span
+									class="section-title-line"></span>
+							</div>
+						</div>
+						<div class="col-lg-4 col-12">
+							<div class="gallery-thumb image-hover-thumb">
+								<a
+									href="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+									class="popup-image"> <img
+									src="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+									class="gallery-image img-fluid" alt="">
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-4 col-12">
+						<div class="gallery-thumb image-hover-thumb">
+							<a
+								href="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+								class="popup-image"> <img
+								src="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+								class="gallery-image img-fluid" alt="">
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+	<script th:src="@{/js/matching/matchingDetail.js}"></script>
+
+</body>
 </html>
