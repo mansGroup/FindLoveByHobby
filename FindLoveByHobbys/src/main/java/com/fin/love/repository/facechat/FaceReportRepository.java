@@ -10,4 +10,6 @@ public interface FaceReportRepository extends JpaRepository<Speakchat, Long>{
 
 	List<Speakchat> findBySpeakroomRoomid(long roomid);
 	
+	List<Speakchat> findByReport(int status);
+	
 }

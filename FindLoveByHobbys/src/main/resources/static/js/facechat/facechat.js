@@ -258,7 +258,8 @@ document.addEventListener('DOMContentLoaded', () => {
 							'Content-Type': 'multipart/form-data'
 						}
 					});
-
+					console.log(response);
+					console.log(response.data);
 					let result = response.data;
 
 					audios.value = result;

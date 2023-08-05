@@ -53,6 +53,7 @@ public class FaceChatService {
 		} else {
 			
 			List<Speakchat> report = facereport.findBySpeakroomRoomid(room.getRoomid());
+			log.info("{}",report);
 			if(report==null || report.size()==0) {
 				
 				return 1;

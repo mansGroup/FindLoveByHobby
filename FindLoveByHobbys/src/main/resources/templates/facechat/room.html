@@ -5,7 +5,7 @@
 <main layout:fragment="main">
 	<form id="reportForm">
 	<input th:class="d-none" id="roomId" name="roomId" th:value="${roomId}" />
-	<input th:class="d-none" id="audios" name="audios" type="text"/>
+	<input th:class="d-none" id="audios" name="audios" type="text" th:value="X"/>
 	<!-- 로그인 완성되면 아이디로 교체할 계획. -->
 	<input type="text" name="user1name" id="user1name" th:class="d-none" readonly th:value="${speakmember1}" />
 	<input type="text" id="user2name" name="user2name" th:class="d-none" readonly th:value="${speakmember2}" />

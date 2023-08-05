@@ -57,5 +57,21 @@ public class Speakchat {
 		
 	}
 	
+	// 업데이트용
+	public void updateStatus(int status) {
+		
+		if(status == 1) {
+			
+			this.report = 2;
+			
+		} else {
+			
+			this.report = 1;
+			
+		}
+		
+		
+	}
+	
 	
 }
