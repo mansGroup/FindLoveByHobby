@@ -1,16 +1,61 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layout/base_layout}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
 
-<meta charset="UTF-8">
-	
-	<main layout:fragment="main">
-		<h1 th:text="|현재: ${now}|">현재 시간</h1>
-		<a th:href="@{/member/login}"> 로그인 </a>
-		<div>
-		<a th:href="@{/member/signup}"> 지금 회원가입 하기 </a>
+<th:block layout:fragment="css">
+	<style>
+.half-container {
+	width: 100%;
+	height: 800px;
+	display: flex;
+}
+
+.half-box {
+	width: 50%;
+	height: 100%;
+	background-size: cover;
+	opacity: 0.5;
+	transition: opacity 0.3s ease; /* 투명도 변화에 애니메이션 효과 추가 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.half-box:hover {
+	width: 70%;
+	opacity: 1; /* 마우스를 올렸을 때 투명도 1로 설정 */
+}
+
+.half-box span {
+	width: 50%; /* 이미지의 크기에 맞게 조정 */
+	height: auto; /* 높이를 자동으로 조정하여 이미지 비율 유지 */
+	text-align: center;
+	font-size: 48px;
+	font-weight: bold;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+	padding: 10px 20px;
+	position: absolute; /* 부모 요소에 상대적으로 위치 설정 */
+	top: 50%; /* 세로 중앙에 위치 */
+	left: 50%; /* 가로 중앙에 위치 */
+	transform: translate(-50%, -50%); /* 중앙 정렬을 위한 이동 변환 */
+}
+</style>
+</th:block>
+
+<main layout:fragment="main">
+	<div class="half-container">
+		<div class="half-box"
+			style="background-image: url('/images/decorated-table-setting-wedding-celebration.jpg');">
+			<span>로그인</span>
 		</div>
-	</main>
-	
+		<div class="half-box"
+			style="background-image: url('/images/style_5f90f49969ab5.jpg');">
+			<span>회원가입</span>
+		</div>
+	</div>
+</main>
+
 </html>
