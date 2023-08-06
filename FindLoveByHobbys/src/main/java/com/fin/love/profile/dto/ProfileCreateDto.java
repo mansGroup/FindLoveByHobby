@@ -9,14 +9,14 @@ import lombok.Data;
 public class ProfileCreateDto {
 
 	private String userId;
-	private String userAge;
+	private int userAge;
 	private String userDrinks;
 	private String userSmoker;
 	private String userHeight;
 	private String userIntroduce;
-	private String userAcademic;
-	private String userIncome;
-	private String userJob;
+	private int userAcademic;
+	private int userIncome;
+	private int userJob;
 	private int userReligion;
 	
 	public Profile toEntity() {

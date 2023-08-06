@@ -1,108 +1,131 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layout/base_layout}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
 
 <th:block layout:fragment="css">
-<style>
+	<style>
 /* 원하는 크기로 조정 */
 .imageBoxContainer {
-  width: 236px; 
-  height: 394px;
-  overflow: hidden;
+	width: 236px;
+	height: 394px;
+	overflow: hidden;
 }
 
 /* 이미지 비율을 유지하면서 컨테이너에 꽉 차도록 조정 */
 .imageThumnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; 
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 </style>
 </th:block>
 
-	<main layout:fragment="main">
-		<section class="about-section section-padding" id="section_2">
-                <div class="container">
-                    <div class="row">
+<main layout:fragment="main">
 
-                        <div class="col-lg-12 col-12">
-                            <div class="section-title-wrap mb-5">
-                                <h2 class="section-title">Love Story</h2>
-
-                                <div class="section-title-bottom">
-                                    <span class="section-title-line"></span>
-                                    	<img src="/images/heart.png" class="section-title-icon bi-heart-fill" />
-                                    <span class="section-title-line"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-12" style="display: flex;justify-content: center;">
-                            <div class="image-hover-thumb imageBoxContainer" style=" display: flex;">
-                                <img th:src="${member1Pic}" class="about-image img-fluid imageThumnail" alt="">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-12">
-                            <div class="about-info-wrap d-flex flex-column">
-                                <div class="about-info-title d-flex align-items-center my-3">
-                                    <h4>Jolie</h4>
-
-                                    <span class="about-tag ms-2">The Bride</span>
-                                </div>
-
-                                <p>Sarah is amazing. When I first met her I knew she was amazing and every passing day reminds me of just how amazing she is!</p>
-
-                                <div class="social-icon-wrap mt-auto">
-                                    <ul class="social-icon ms-auto">
-                                        <li class="social-icon-item"><a href="#" class="social-icon-link bi-facebook"></a></li>
-
-                                        <li class="social-icon-item"><a href="#" class="social-icon-link bi-twitter"></a></li>
-
-                                        <li class="social-icon-item"><a href="#" class="social-icon-link bi-instagram"></a></li>
-
-                                        <li class="social-icon-item"><a href="#" class="social-icon-link bi-whatsapp"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-12" style="display: flex;justify-content: center;">
-                            <div class="image-hover-thumb imageBoxContainer" style=" display: flex;">
-                                <img th:src="${member2Pic}" class="about-image img-fluid imageThumnail" alt="">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-12">
-                            <div class="about-info-wrap d-flex flex-column" >
-                                <div class="about-info-title d-flex align-items-center my-3">
-                                    <h4>Bratt</h4>
-
-                                    <span class="about-tag ms-2">The Groom</span>
-                                </div>
-
-                                <p>I really love her incredibly unique blend of talents.</p>
-
-                                <p>She's a talented artist, always excited about a genuinely loving person.</p>
-
-                                <div class="social-icon-wrap mt-auto">
-                                    <ul class="social-icon ms-auto">
-                                        <li class="social-icon-item"><a href="#" class="social-icon-link bi-facebook"></a></li>
-
-                                        <li class="social-icon-item"><a href="#" class="social-icon-link bi-twitter"></a></li>
-
-                                        <li class="social-icon-item"><a href="#" class="social-icon-link bi-instagram"></a></li>
-
-                                        <li class="social-icon-item"><a href="#" class="social-icon-link bi-whatsapp"></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
-	</main>
+	<!-- 로그인 / 프로필 유저 아이디 -->
+	<input class="d-none" th:value="${loginUserId}" id="loginUserId" />
+	<input calss="d-none" th:value="${member1.userId}" id="member1Id" />
+	<input calss="d-none" th:value="${member2.userId}" id="member2Id" />
 	
+	<section class="about-section section-padding" id="section_2">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-12 col-12">
+					<div class="section-title-wrap mb-5">
+						<h2 class="section-title">Love Story</h2>
+
+						<div class="section-title-bottom">
+							<span class="section-title-line"></span> <img
+								src="/images/heart.png" class="section-title-icon bi-heart-fill" />
+							<span class="section-title-line"></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-12"
+					style="display: flex; justify-content: center;">
+					<div class="image-hover-thumb imageBoxContainer"
+						style="display: flex;">
+						<img th:src="${member1Pic}"
+							class="about-image img-fluid imageThumnail" alt="">
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-12">
+					<div class="about-info-wrap d-flex flex-column">
+						<div class="about-info-title d-flex align-items-center my-3">
+							<h4 th:text="${member1.nickname}">nickname</h4>
+
+							<span class="about-tag ms-2" th:text="${member1.userAge	}">age</span>
+						</div>
+
+						<div type="text" class="btn btn-light position-relative" style="margin-bottom: 5px;">
+							<span th:text="${member1.assessment}">assessmentName</span> <span
+								class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+								th:text="${member1.assessmentCount}"> count </span>
+						</div>
+						<div type="text" class="btn btn-light position-relative" style="margin-bottom: 5px;">
+							<a th:href="@{/matching/matchingDetail/{id} (id=${member1.userId})}">상세프로필</a>
+						</div>
+
+						<p th:text="${member1.userIntrodus}">userIntrodus</p>
+						
+						<div class="social-icon-wrap mt-auto" style="display: flex; justify-content: center;">
+							<label for="member1LikeBtn" style="cursor: pointer;" onmouseover="this.style.transform = 'scale(1.1)';" onmouseout="this.style.transform = 'scale(1)';"> 
+								<img src="/images/heart.png" style="width: 44px;"/>
+							</label>
+							<button class="d-none" id="member1LikeBtn"></button>
+						</div>
+						
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-12"
+					style="display: flex; justify-content: center;">
+					<div class="image-hover-thumb imageBoxContainer"
+						style="display: flex;">
+						<img th:src="${member2Pic}"
+							class="about-image img-fluid imageThumnail" alt="">
+					</div>
+				</div>
+
+				<div class="col-lg-3 col-12">
+					<div class="about-info-wrap d-flex flex-column">
+						<div class="about-info-title d-flex align-items-center my-3">
+							<h4 th:text="${member2.nickname}">nickname</h4>
+
+							<span class="about-tag ms-2" th:text="${member2.userAge	}">age</span>
+						</div>
+
+						<div type="text" class="btn btn-light position-relative" style="margin-bottom: 5px;">
+							<span th:text="${member2.assessment}">assessmentName</span> <span
+								class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+								th:text="${member2.assessmentCount}"> count </span>
+						</div>
+						<div type="text" class="btn btn-light position-relative" style="margin-bottom: 5px;">
+							<a th:href="@{/matching/matchingDetail/{id} (id=${member2.userId})}">상세프로필</a>
+						</div>
+						
+						<p th:text="${member2.userIntrodus}">userIntrodus</p>
+
+						<div class="social-icon-wrap mt-auto" style="display: flex; justify-content: center;">
+							<label for="member2LikeBtn" style="cursor: pointer;" onmouseover="this.style.transform = 'scale(1.1)';" onmouseout="this.style.transform = 'scale(1)';"> 
+								<img src="/images/heart.png" style="width: 44px;"/>
+							</label>
+							<button class="d-none" id="member2LikeBtn"></button>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+</main>
+
+<th:block layout:fragment="myscripts">
+	<script src="/js/matching/matchingList.js"></script>
+</th:block>
+
 </html>
