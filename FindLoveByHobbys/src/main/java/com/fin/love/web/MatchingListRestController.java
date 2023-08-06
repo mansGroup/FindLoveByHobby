@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fin.love.repository.like.LikeRepository;
 import com.fin.love.service.LikeService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,10 @@ public class MatchingListRestController {
 	
 	private final LikeService likeService;
 	
-	@PostMapping("/likesend/{userId}/{memberId}")
-	public ResponseEntity<Integer> likeSend(@PathVariable String userId, @PathVariable String memberId) {
+	@PostMapping("/likesend/{getterId}/{senderId}")
+	public ResponseEntity<Integer> likeSend(
+			@PathVariable String userId, 
+			@PathVariable String memberId) {
 		log.info("likeSend(userId = {}, memberId = {})", userId, memberId);
 		
 		int result = likeService.likeSend(userId, memberId);

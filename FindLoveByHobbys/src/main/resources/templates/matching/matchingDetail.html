@@ -4,8 +4,10 @@
 	layout:decorate="~{layout/base_layout}">
 <body>
 	<main layout:fragment="main">
-	<!-- 로그인 아이디 (수정 전) -->
-	<input class="d-none" value="qwer1234" id="userId" />
+	<!-- 로그인 아이디 -->
+	<!-- th:value="{#authentication.name}" -->
+	<input class="d-none" th:value="a" id="senderId" />
+	<input class="d-none" th:value="${id}" id="getterId"/>
 	
 		<section class="about-section section-padding" id="section_2">
 			<div class="container">
@@ -26,11 +28,10 @@
 					<!-- TODO: 이미지 삽입 할 위치-->
 					<div class="col-lg-3 col-12">
 						<div class="image-hover-thumb">
-							<img src="images/vertical-shot-beautiful-smiling-girl.jpg"
+							<img src="/images/heart.jpg"
 								class="about-image img-fluid" alt="">
 						</div>
 					</div>
-					<form id="assessmentForm">
 						<input type="text" class="d-none" th:value="${assessment.id}"
 							id="assessmentid" name="id" />
 						<div class="col-lg-3 col-12">
@@ -48,16 +49,19 @@
 								<!-- TODO: 자기소개 -->
 								<span th:text="${profile.userIntroduce}" id="memberIntroduce"></span>
 
-								<!-- TODO: 호감도 표시를 여기서 -->
-								<div class="social-icon-wrap mt-auto">
+								<!-- TODO: 호감도 표시를 여기서  social-icon-wrap mt-auto -->
+								<div class="">
 									<!-- TODO: 호감도 표시를 아이콘으로 대체 -->
 
 									<!-- 여자일 경우 -->
 									<div th:if="${member.sex} == 0">
 										<label>호감도</label>
 										<br />
-										<button id="btnSexy"></button>
-										<span th:text="${assessment.sexy}" id="memberSexy"></span>섹시해요
+										<button id="btnSexy">나야</button>
+										<span id="memberSexyCount" >
+											<span th:text="${assessment.sexy}" id="sexyCount"></span>
+										</span>
+										<span id="memberSexy" >sexy</span>
 										
 										<button id="btnBeautiful"></button>
 										<span th:text="${assessment.beautiful}" id="memberBeautiful"></span>예뻐요
@@ -80,12 +84,9 @@
 								</div>
 							</div>
 						</div>
-					</form>
 					<div class="col-lg-3 col-12">
 						<div class="image-hover-thumb">
-							<img
-								src="images/vertical-shot-young-handsome-guy-autumn-park.jpg"
-								class="about-image img-fluid" alt="">
+							<img src="/images/heart.png" class="about-image img-fluid" alt="">
 						</div>
 					</div>
 					<div class="col-lg-3 col-12"></div>
@@ -160,9 +161,9 @@
 						<div class="col-lg-4 col-12">
 							<div class="gallery-thumb image-hover-thumb">
 								<a
-									href="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+									href="#"
 									class="popup-image"> <img
-									src="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+									src="#"
 									class="gallery-image img-fluid" alt="">
 								</a>
 							</div>
@@ -172,9 +173,9 @@
 					<div class="col-lg-4 col-12">
 						<div class="gallery-thumb image-hover-thumb">
 							<a
-								href="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+								href="#"
 								class="popup-image"> <img
-								src="images/gallery/bearded-stylish-groom-suit-beautiful-blonde.jpg"
+								src="#"
 								class="gallery-image img-fluid" alt="">
 							</a>
 						</div>
@@ -184,8 +185,9 @@
 		</section>
 
 	</main>
-
-	<script th:src="@{/js/matching/matchingDetail.js}"></script>
+<th:block layout:fragment="myscripts">
+	<script src="/js/matching/matchingDetail.js"></script>
+</th:block>
 
 </body>
 </html>

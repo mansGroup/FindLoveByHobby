@@ -39,6 +39,10 @@ public class Assessment {
 	@Column(nullable = true)
 	private int wonderful;
 
-	
+	public Assessment sexyUpdate(int sexy) {
+		this.sexy = sexy;
+		
+		return this;
+	}
 	
 }

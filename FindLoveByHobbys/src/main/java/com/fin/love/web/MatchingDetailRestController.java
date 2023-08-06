@@ -3,6 +3,7 @@ package com.fin.love.web;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,14 +22,34 @@ public class MatchingDetailRestController {
 	
 	private final MatchingDetailService detailService;
 	
-//	@GetMapping("/assessment/{assessmentId}{inputUserId}")
-//	public ResponseEntity<Integer> assessment(
-//			@PathVariable String memberId) {
-//		log.info("assessment(memberId = {})", memberId);
-//		
-//		int result = detailService.assessment(memberId);
-//		log.info("result = {}", result);
-//
-//		return ResponseEntity.ok(null);
-//	}
+	@PostMapping("/assessment/{assessmentName}/{senderId}/{getterId}")
+	public ResponseEntity<Integer> assessment( @PathVariable String assessmentName,
+			@PathVariable String senderId, @PathVariable String getterId) {
+		log.info("assessment(senderId = {}, getterId = {})", getterId, senderId);
+		
+		int count = 0;
+		
+		Assessment assessment = detailService.findById(getterId);
+		log.info("assessment = {}", assessment);
+		
+		if (assessmentName.equals("sexy")) {
+			detailService.sexyCountUp(getterId);
+			
+			count = assessment.getSexy();
+		}
+		// TODO: 나머지 코드 추가
+		
+		return ResponseEntity.ok(count);
+	}
+	
+	@PostMapping("/assessment/chack/{senderId}/{getterId}")
+	public ResponseEntity<Integer> chack(@PathVariable String senderId, @PathVariable String getterId) {
+		log.info("chack(setterId = {}, getterId = {})", senderId, getterId);
+		int result = 0;
+		
+		// TODO 0이면 중복없음 1이면 중복있
+		
+		return ResponseEntity.ok(result);
+	}
+	
 }

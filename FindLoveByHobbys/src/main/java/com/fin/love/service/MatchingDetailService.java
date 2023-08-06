@@ -84,10 +84,21 @@ public class MatchingDetailService {
         return memberRepository.findById(id).orElseThrow();
     }
     
-    // 
-	public int assessment(String memberId) {
-		// TODO: 
-		return 0;
+	public Assessment findById(String getterId) {
+		log.info("findById(getterId = {})", getterId);
+		
+		return assessmentRepository.findById(getterId).orElseThrow();
+	}
+	
+	@Transactional
+	public void sexyCountUp(String id) {
+		log.info("sexyCountUp(id = {})", id);
+		
+		Assessment assessment = assessmentRepository.findById(id).orElseThrow();
+		
+		int count = assessment.getSexy() + 1;
+		
+		assessment.sexyUpdate(count);
 	}
 
 }
