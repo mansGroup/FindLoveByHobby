@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fin.love.profile.dto.ProfileCreateDto;
+import com.fin.love.profile.dto.UserHobbyDto;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.profile.Age;
 import com.fin.love.repository.profile.Height;
+import com.fin.love.repository.profile.Profile;
 import com.fin.love.service.AgeService;
 import com.fin.love.service.HeightService;
 import com.fin.love.service.HobbyService;
@@ -64,12 +66,24 @@ public class ProfileController {
 	
 	// 클라이언트에서 받은 데이터를 DB로 넘겨줌
 	@PostMapping("/user/profileimage")
-	public String createProfile(ProfileCreateDto dto) {
-		log.info("createProfile(dto={})POST", dto);
+	public String createProfile(ProfileCreateDto dto, UserHobbyDto hobbyDto) {
+		log.info("createProfile(dto={})POST", dto, hobbyDto);
 		
-		profileService.createProfile(dto);
+		profileService.createProfile(dto, hobbyDto);
 		
 		return "/profile/profileimage";
+	}
+	
+	
+	// 프로필 수정
+	@GetMapping("/profilemodify")
+	public void modifyProfile(Model model, String user_Id) {
+		log.info("modifyProfile(user_Id={})", user_Id);
+		
+		Profile profile = profileService.read(user_Id);
+		
+		model.addAttribute("profile", profile);
+		
 	}
 	
 

@@ -8,7 +8,7 @@
 
 		<!-- 회원가입 정보에서 불러올 데이터(이름, 성별, 생년월일) -->
 		<div class="memberInfo">
-			<input class="d-none" value="11111" name="userId" />
+			<input class="d-none" value="11111" name="user_Id" />
 			<div class="my-1">
 				<label class="form-label" for="name">이름</label>
 				<input class="form-control" id="name" type="text" value="빵빵이">
@@ -24,8 +24,8 @@
 			
 			<!-- 자기소개서는 텍스트 입력 -->
 			<div class="my-4">
-				<label class="form-label" for="userIntroduce">자기 소개를 입력하세요</label>
-				<textarea class="form-control" id="userIntroduce" name="userIntroduce" required autofocus></textarea>
+				<label class="form-label" for="user_Introduce">자기 소개를 입력하세요</label>
+				<textarea class="form-control" id="user_Introduce" name="user_Introduce" required autofocus></textarea>
 			</div>
 		</div>
 
@@ -38,19 +38,19 @@
 			</div>
 			
 			<h2>나이</h2>
-			<select class="form-select" name="userAge" required>
+			<select class="form-select" name="user_Age" required>
 				<option value="" disabled selected>나이 정보를 선택하세요</option>
 				<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
 			</select>
 
 			<h2>키</h2>
-			<select class="form-select" name="userHeight" required>
+			<select class="form-select" name="user_Height" required>
 				<option value="" disabled selected>키 정보를 선택하세요</option>
 				<option th:each="height : ${heights}" th:text="${height.heightName}"></option>
 			</select>
 
 			<h2>음주여부</h2>
-			<select class="form-select" name="userDrinks" th:value="${smoker}" required>
+			<select class="form-select" name="user_Drinks" required>
 				<option value="" disabled selected>음주여부를 선택하세요</option>
 				<option value="1">마시지 않음</option>
 				<option value="2">가끔 마심</option>
@@ -58,15 +58,14 @@
 			</select>
 
 			<h2>흡연여부</h2>
-			<select class="form-select" name="userSmoker"
-				aria-label="Default select example" required>
+			<select class="form-select" name="user_Smoker" required>
 				<option value="" disabled selected>흡연여부를 선택하세요</option>
 				<option value="1">흡연</option>
 				<option value="2">비흡연</option>
 			</select>
 
 			<h2>학력</h2>
-			<select class="form-select" name="userAcademic" required>
+			<select class="form-select" name="user_Academic" required>
 				<option value="" disabled selected>학력 정보를 선택하세요</option>
 				<option value="1">4년재대학교 졸업</option>
 				<option value="2">4년재대학교 재학중</option>
@@ -76,8 +75,7 @@
 			</select>
 
 			<h2>직업</h2>
-			<select class="form-select" name="userJob"
-				aria-label="Default select example" required>
+			<select class="form-select" name="user_Job" required>
 				<option value="" disabled selected>직업 정보를 선택하세요</option>
 				<option value="1">학생</option>
 				<option value="2">사업가</option>
@@ -92,7 +90,7 @@
 			</select>
 
 			<h2>연봉</h2>
-			<select class="form-select" name="userIncome" aria-label="Default select example" required>
+			<select class="form-select" name="user_Income" required>
 				<option value="" disabled selected>연봉 정보를 선택하세요</option>
 				<option value="1">1,000만원 이하</option>
 				<option value="2">1,000만원 ~ 2,000만원</option>
@@ -108,7 +106,7 @@
 			</select>
 
 			<h2>종교</h2>
-			<select class="form-select" name="userReligion" aria-label="Default select example" required>
+			<select class="form-select" name="user_Religion" required>
 				<option value="" disabled selected>종교 정보를 선택하세요</option>
 				<option value="1">기독교</option>
 				<option value="2">천주교</option>

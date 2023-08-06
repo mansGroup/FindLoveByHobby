@@ -1,5 +1,6 @@
 package com.fin.love.repository.profile;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,9 +29,16 @@ public class UserHobby {
 	private Long id;
 	
 	@Column(nullable = false)
-	private String userid;
+	private String userId;
 	
 	@Column(nullable = false)
 	private int hobbyId;
+	
+	public UserHobby userHobbyData(Long id, String userId, int hobbyId) {
+		this.id = id;
+		this.userId = userId;
+		this.hobbyId = hobbyId;
+		return this;
+	}
 	
 }
