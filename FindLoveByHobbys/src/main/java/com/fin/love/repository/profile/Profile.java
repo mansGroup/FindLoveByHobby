@@ -24,7 +24,7 @@ public class Profile {
 	private String userId;	
 	
 	@Column
-	private String userAge;
+	private int userAge;
 	
 	@Column(nullable = false)
 	private String userPersonality;
@@ -42,20 +42,20 @@ public class Profile {
 	private String userIntroduce;
 	
 	@Column
-	private String userAcademic;
+	private int userAcademic;
 	
 	@Column
-	private String userIncome;
+	private int userIncome;
 	
 	@Column
-	private String userJob;
+	private int userJob;
 	
 	@Column
 	private int userReligion;
 	
 	public Profile updateData(
-			String userAge, String userDrinks, String userHeight, String userIntroduce,
-			String userAcademic, String userIncome, String userJob, int userReligion
+			int userAge, String userDrinks, String userHeight, String userIntroduce,
+			int userAcademic, int userIncome, int userJob, int userReligion
 			) {
 		this.userAge = userAge;
 		this.userDrinks = userDrinks;
