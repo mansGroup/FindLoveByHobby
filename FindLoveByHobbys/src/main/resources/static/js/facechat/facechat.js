@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 화면이 송출 중인지 여부에 대해 표시(false=쉬는중 / true=송출중)
 	let isScreenSharing = true;
 
-	
+
 	// 오퍼 연결을 전달하는 버튼
 	let btnOffer = document.querySelector('button#btnOffer');
 
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	let roomId = document.querySelector('input#roomId').value;
 	btnOffer.addEventListener('click', createOffer);
 	let connectioncheck = false;
-	
+
 	// MyFace = 내 카메라, peerFace = 상대 카메라, myStream = 내 카메라에서 나오는 영상 스트림
 	let myFace = document.getElementById("myFace");
 	let peerFace = document.querySelector('video#peerFace');
@@ -61,11 +61,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 오퍼 생성 시 해당 함수가 호출됨.
 	async function createOffer(e) {
 		e.preventDefault();
-		if(connectioncheck == true){
-			
+		if (connectioncheck == true) {
+
 			alert('이미 연결된 상대가 있습니다.');
 			return;
-			
+
 		}
 		console.log("Offer Send");
 
@@ -124,17 +124,17 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 소켓에서 메시지 수신 시 실행할 함수
 	conn.onmessage = async function(msg) {
 		let content = JSON.parse(msg.data);
-		
-		if(content.event == 'report'){
-			
+
+		if (content.event == 'report') {
+
 			console.log('report');
-			reports.value=1;
+			reports.value = 1;
 			return;
 		}
 		connectioncheck = true;
 		if (content.event == "offer") {
 			console.log("Offer Receive");
-			
+
 			// Offer가 오면 Offer를 RemoteDescription에 등록함.
 			let offer = content.data;
 			await myPeerConnection.setRemoteDescription(offer);
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	let recorder;
 	let audioChunks = [];
 	let recordedBlob;
-
+	let fileuri = '';
 	async function audiorecording() {
 
 		try {
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				recordedBlob = new Blob(audioChunks, { type: 'audio/wav' });
 				console.log(recordedBlob);
 				// 여기에서 녹음된 음성 데이터를 처리하거나 서버에 업로드할 수 있습니다.
-				
+
 				console.log(recordedBlob);
 				const formData = new FormData();
 				formData.append('audioFile', recordedBlob);
@@ -261,9 +261,20 @@ document.addEventListener('DOMContentLoaded', () => {
 					console.log(response);
 					console.log(response.data);
 					let result = response.data;
-
+					fileuri = response.data;
 					audios.value = result;
 					alert('오디오 저장 성공!');
+					
+
+					report.value = 1;
+
+
+
+
+
+					reportForm.method = 'post';
+					reportForm.action = `/facechat/report`;
+					reportForm.submit();
 
 				} catch (error) {
 
@@ -281,14 +292,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	btnReport.addEventListener('click', async (e) => {
 
 		e.preventDefault();
-		
-		if(connectioncheck==false){
-			
+
+		if (connectioncheck == false) {
+
 			alert('아직 연결된 상대가 없어 신고할 수 없습니다.');
 			return;
-			
+
 		}
-		
+
 		let answerRes = confirm('정말로 신고하시겠습니까? 신고하시면 곧바로 통화가 종료됩니다.');
 
 		if (!answerRes) {
@@ -301,39 +312,31 @@ document.addEventListener('DOMContentLoaded', () => {
 		// 녹음 중단
 		console.log(recorder);
 		recorder.stop();
-		
+
 		send({
-			event : 'report',
-			data : 'report'
-			
+			event: 'report',
+			data: 'report'
+
 		})
 
-		report.value = 1;
-		
 
-
-
-
-		reportForm.method = 'post';
-		reportForm.action = '/facechat/report';
-		reportForm.submit();
 
 
 	})
-	
-	setInterval(()=>{
-		
-		if(reports.value==1){
-			
+
+	setInterval(() => {
+
+		if (reports.value == 1) {
+
 			reportForm.method = 'get';
 			reportForm.action = '/facechat/report';
 			reportForm.submit();
 			alert('상대 유저로부터 신고를 당하셔서 통화가 강제로 종료됩니다.');
-			
+
 		}
-		
-	},3000);
-	
+
+	}, 3000);
+
 
 })
 

@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			x.addEventListener('click', async () => {
 				datalist.style.opacity = "0";
-				datalist.style.transition = "opacity 0.5s ease-in-out";
+				datalist.style.transition = "opacity 0.1s ease-in-out";
 				let checknumvalue = checknum.value;
 				let reqUrl = `/api/admin/refresh`;
 				let data = {
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							controls>
 							<source src="data:audio/wav;base64,${y.audio}" type="audio/wav">
 						</audio></td>
-							<td><button class="btnChange" sts="${y.report}" id="${y.id}">처리</button></td>
+							<td><button class="btnChange btn" sts="${y.report}" id="${y.id}">처리</button></td>
 						</tr>
 						
 						`
@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							controls>
 							<source src="data:audio/wav;base64,${y.audio}" type="audio/wav">
 						</audio></td>
-							<td><button class="btnChange" sts="${y.report}" id="${y.id}">처리 취소</button></td>
+							<td><button class="btnChange btn" sts="${y.report}" id="${y.id}">처리 취소</button></td>
 						</tr>
 						
 						`

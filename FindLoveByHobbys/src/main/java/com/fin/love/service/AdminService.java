@@ -36,7 +36,7 @@ public class AdminService {
 	public List<ReportReadDto> readlist() {
 		log.info("read all reportlist");
 
-		List<Speakchat> list3 = facerepository.findAll();
+		List<Speakchat> list3 = facerepository.findAllByOrderByCreatedTimeDesc();
 		List<ReportReadDto> list = new ArrayList<>();
 
 		for (Speakchat x : list3) {
@@ -51,8 +51,15 @@ public class AdminService {
 					list.add(dto);
 					
 				} else {
-
-					String audio = encodeAudioToBase64(x.getChatfile());
+					String audio = "";
+					if(x.getChatfile()==null) {
+					
+						audio = encodeAudioToBase64("C:\\EPI\\record-sample.wav");
+						
+					} else {
+					
+					audio = encodeAudioToBase64(x.getChatfile());
+					}
 					map.put(x.getId(), audio);
 					dtos.setFilemap(map);
 					dto.resourceaddon(audio);
@@ -72,7 +79,7 @@ public class AdminService {
 	public List<ReportReadDto> readchecklist() {
 		log.info("read need reportlist");
 
-		List<Speakchat> list3 = facerepository.findByReport(1);
+		List<Speakchat> list3 = facerepository.findByReportOrderByCreatedTimeDesc(1);
 		List<ReportReadDto> list = new ArrayList<>();
 
 		for (Speakchat x : list3) {
@@ -87,8 +94,15 @@ public class AdminService {
 					list.add(dto);
 					
 				} else {
-
-					String audio = encodeAudioToBase64(x.getChatfile());
+					String audio = "";
+					if(x.getChatfile()==null) {
+					
+						audio = encodeAudioToBase64("C:\\EPI\\record-sample.wav");
+						
+					} else {
+					
+					audio = encodeAudioToBase64(x.getChatfile());
+					}
 					map.put(x.getId(), audio);
 					dtos.setFilemap(map);
 					dto.resourceaddon(audio);
@@ -108,7 +122,7 @@ public class AdminService {
 	public List<ReportReadDto> readendlist() {
 		log.info("read end reportlist");
 
-		List<Speakchat> list3 = facerepository.findByReport(2);
+		List<Speakchat> list3 = facerepository.findByReportOrderByCreatedTimeDesc(2);
 		List<ReportReadDto> list = new ArrayList<>();
 
 		for (Speakchat x : list3) {
@@ -123,8 +137,15 @@ public class AdminService {
 					list.add(dto);
 					
 				} else {
-
-					String audio = encodeAudioToBase64(x.getChatfile());
+					String audio = "";
+					if(x.getChatfile()==null) {
+					
+						audio = encodeAudioToBase64("C:\\EPI\\record-sample.wav");
+						
+					} else {
+					
+					audio = encodeAudioToBase64(x.getChatfile());
+					}
 					map.put(x.getId(), audio);
 					dtos.setFilemap(map);
 					dto.resourceaddon(audio);

@@ -75,8 +75,11 @@ public class FaceChatController {
 
 	// 신고 처리 메서드
 	@PostMapping("/report")
-	public String facechatreport(ReportFaceChatDto dto) {
+	public String facechatreport(@RequestParam String audios, ReportFaceChatDto dto) {
 		log.info("doReport({})",dto);
+		log.info("{}",audios);
+		dto.setAudios(audios);
+		
 		faceservice.doReport(dto);
 		
 		return "redirect:/facechat/chatroom";
