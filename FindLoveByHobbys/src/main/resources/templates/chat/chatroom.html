@@ -11,6 +11,22 @@
     <!-- 닉네임 정보 -->
     <div id="myNickname" class="d-none" th:value="${myNickname}"></div>
     <div id="otherNickname" class="d-none" th:value="${otherNickname}"></div>
+    <div id="maleID" class="d-none" th:value="${maleId}"></div>
+    <div id="femaleID" class="d-none" th:value="${femaleId}"></div>
+
+    <!-- d-none form -->
+    <form id="goChat" class="d-none" action="/chat/demo"></form>
+
+    <form class="d-none" id="chatOutForm" action="/chat/out" method="post">
+        <input name="roomId" th:value="${roomId}">
+    </form>
+
+    <form id="faceChatForm" class="d-none" action="/facechat/room" method="post">
+        <input type="hidden" name="roomId" th:value="${roomId}">
+        <input type="hidden" name="speakmember1" th:value="${femaleId}">
+        <input type="hidden" name="speakmember2" th:value="${maleId}">
+        <input type="submit" value="화상채팅">
+    </form>
 
     <div class="container1 clearfix">
         <div class="people-list" id="people-list">
@@ -30,8 +46,14 @@
         <div class="chat">
             <!-- 카톡방 상대방 프로필 영역 -->
             <div class="chat-header clearfix">
-                <div class="chat-about">
+                <div class="chat-about btn">
                     <div class="chat-with" th:text="${otherNickname}">상대방 이름</div>
+                </div>
+                <span class="btn" id="btnFaceChat">화상채팅
+
+                </span>
+                <div id="btnOut" class="btn">
+                    채팅방 나가기
                 </div>
                 <i class="fa fa-star"></i>
             </div> <!-- end chat-header -->
@@ -44,7 +66,7 @@
                         <li th:if="${myNickname} == ${chat.nickname}" class="clearfix align-right">
                             <div class="message-data">
                                 <span class="message-data-time " th:text="${#temporals.format(chat.createdTime,'a hh:mm')}" >10:10 AM, Today</span> &nbsp; &nbsp;
-                                <span class="message-data-name" th:text="${chat.nickname}">Olia</span>
+                                <span class="message-data-name" th:text="${myNickname}">Olia</span>
                             </div>
                             <div class="message my-message" th:text="${chat.conversation}">
                                 Hi Vincent, how are you? How is the project coming along?
@@ -53,7 +75,7 @@
 
                         <li th:if="${otherNickname} == ${chat.nickname}">
                             <div class="message-data">
-                                <span class="message-data-name" th:text="${chat.nickname}">Vincent</span>
+                                <span class="message-data-name" th:text="${otherNickname}">Vincent</span>
                                 <span class="message-data-time" th:text="${#temporals.format(chat.createdTime,'a hh:mm')}">10:20 AM, Today</span>
                             </div>
                             <div class="message other-message float-right" th:text="${chat.conversation}">

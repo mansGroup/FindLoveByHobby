@@ -41,6 +41,7 @@ public class SocketHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         //소켓 연결
+        log.info(session.getId()+"=====================");
 
         // 세션에서 방번호 찾아오기
         String roomId = getRoomId(session);

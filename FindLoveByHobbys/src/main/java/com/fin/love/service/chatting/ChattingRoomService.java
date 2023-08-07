@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -40,5 +41,9 @@ public class ChattingRoomService {
             }
         }
         return dtoList;
+    }
+
+    public void deleteRoom(Long roomId) {
+        chattingRoomRepository.deleteById(roomId);
     }
 }

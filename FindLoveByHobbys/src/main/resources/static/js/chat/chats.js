@@ -2,14 +2,16 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const myNickname = document.querySelector('div#myNickname').getAttribute('value');
     const otherNickname = document.querySelector('div#otherNickname').getAttribute('value');
     const btnSend = document.querySelector('button#button-send');
-    const msgArea = document.querySelector('ul#msgArea');
     const roomId = document.querySelector('div#roomId').getAttribute('value');
-    console.log('방번호'+roomId);
+    const btnOut = document.querySelector('div#btnOut');
+    const chatOutForm = document.querySelector('form#chatOutForm');
+    const btnFaceChat = document.querySelector('span#btnFaceChat');
+    const faceChatForm = document.querySelector('form#faceChatForm')
+    const maleId = document.querySelector('div#maleID');
+    const femaleId = document.querySelector('div#femaleID');
+    const goChat = document.querySelector('form#goChat');
 
-    // 보내기 버튼 이벤트 리스너
-    btnSend.addEventListener('click', ()=>{
-        send();
-    });
+    console.log('방번호'+roomId);
 
     // 웹소켓 생성
     let websocket = new WebSocket('wss://' + location.host + `/ws/chat?roomId=${roomId}`);
@@ -18,11 +20,39 @@ document.addEventListener("DOMContentLoaded", ()=>{
     websocket.onopen = onOpen;
     websocket.onclose = onClose;
 
-    /*function disconnect(){
+    btnOut.addEventListener('click', () => {
+        if (confirm('채팅방을 나가시겠습니까?')) {
+            onClose();
+            goChat.submit();
+        }
+    });
 
-        websocket.send(myNickname + "님이 퇴장하셨습니다.");
-        websocket.close();
-    }*/
+    btnFaceChat.addEventListener('click', () => {
+        if (confirm('화상채팅 요청을 보내시겠습니까?')) {
+            sendFaceChat();
+
+        }
+    });
+
+    function sendFaceChat() {
+        const Data = {
+            "message" : `${myNickname}님에게서 화상채팅 요청이 왔어요!`,
+            "textType" : "faceChat",
+            "nickname" : myNickname
+        }
+
+        const jsonData = JSON.stringify(Data);
+        websocket.send(jsonData);
+        msg.value = '';
+    }
+
+
+    // 보내기 버튼 이벤트 리스너
+    btnSend.addEventListener('click', ()=>{
+        send();
+    });
+
+
     function send(){
         let msg = document.getElementById("msg");
         console.log(myNickname + ":" + msg.value);
@@ -31,7 +61,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const Data = {
             "message" :  msg.value,
             "createdTime" : curDate,
-            "nickname" : myNickname
+            "nickname" : myNickname,
+            "textType" : "message"
         }
 
         const jsonData = JSON.stringify(Data);
@@ -41,8 +72,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     //채팅창에서 나갔을 때
     function onClose(evt) {
-        let str = myNickname + ": 님이 방을 나가셨습니다.";
-        websocket.send(str);
+        let str = {
+            "message" : + myNickname + "님이 방을 나가셨습니다.",
+            "nickname" : myNickname,
+            "textType" : "bye"
+        };
+
+        let jsonData = JSON.stringify(str);
+
+        websocket.send(jsonData);
     }
 
     //채팅창에 들어왔을 때
@@ -52,42 +90,91 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     function onMessage(msg) {
         console.log('onMessage() 호출됨');
+        let msgArea = document.querySelector('ul#msgArea');
 
         // 데이터를 담음 데이터에는 send()에서 담은 nickname과 메세지, 보낸시간이 들어있음
         let data = JSON.parse(msg.data);
         let sessionId = data.nickname;
-        let message = data.message;
-        let time = formatDateTime(data.createdTime);
-
-        // myNickname
         let cur_session = myNickname;
 
+        switch (data.textType) {
+            case 'bye' :
+                if (sessionId != cur_session) {
+                    bye(data);
+                }
+                break;
+            case 'message':
+                if (sessionId == cur_session) {
+                    myMessage(data);
+                } else {
+                    otherMessage(data);
+                }
+                break;
+            case 'faceChat':
+                if (sessionId != cur_session) {
+                    callFaceChat(data);
+                }
+                break;
+            case 'accept':
+                acceptFaceChat(data);
+                break;
+            case 'refuse':
+                if (sessionId != cur_session) {
+                    refuseMessage(data);
+                }
+        }
 
+        function refuseMessage(data) {
+            alert(data.nickname + '님이 화상채팅을 거절하셨습니다.');
+        }
 
-        //로그인 한 클라이언트와 타 클라이언트를 분류하기 위함
-        if(sessionId == cur_session){
-            let str = "<li className=\"clearfix\" style='margin-bottom: -15px; height: 5px; font-size: 12px;'>";
+        function acceptFaceChat() {
+            faceChatForm.submit();
+        }
+
+        function callFaceChat(data) {
+            if (confirm(data.message)) {
+                // 화상채팅 연결 메세지 뿌려주기
+                let data = {"textType" : "accept"}
+                websocket.send(JSON.stringify(data));
+            } else {
+                // 상대방 거절메세지
+                let data = {
+                    "textType" : "refuse",
+                    "nickname" : myNickname
+                }
+                websocket.send(JSON.stringify(data));
+            }
+        }
+
+        function otherMessage(data) {
+            let time = formatDateTime(data.createdTime);
+            let str = "<li className=\"clearfix\" style='margin-bottom: -15px; height: 5px; font-size: 12px; margin-top: 71px;'>";
+            str += '<div className=\"message-data\" style="margin-bottom: -15px; height: 5px; font-size: 12px;">';
+            str += `<span className=\"message-data-name\">${otherNickname}</span>`;
+            str += `<span className=\"message-data-time\" style="padding-left: 6px;">${time}</span> &nbsp; &nbsp;`;
+            str += '</div>';
+            str += '<div className=\"message other-message float-right\" style="color: white; padding: 8px 20px; line-height: 18px; font-size: 15px; border-radius: 7px; margin-bottom: 3px; margin-top: 30px; width: 57%; position: relative; background: #94C2ED;">';
+            str += `${data.message}`;
+            str += '</div>';
+            str += '</li>';
+            msgArea.innerHTML += str;
+        }
+
+        function myMessage(data) {
+            let time = formatDateTime(data.createdTime);
+            let str = "<li className=\"clearfix\" style='margin-bottom: -15px; height: 5px; font-size: 12px; margin-top: 71px;'>";
             str += '<div className=\"message-data\" style="margin-bottom: -15px; height: 5px; font-size: 12px; text-align: right;">';
             str += `<span className=\"message-data-time\">${time}</span> &nbsp; &nbsp;`;
             str += `<span className=\"message-data-name\">${myNickname}</span>`;
             str += '</div>';
-            str += '<div className=\"message other-message float-right\" style="color: white;\n' +
-                '    padding: 8px 20px;\n' +
-                '    line-height: 18px;\n' +
-                '    font-size: 15px;\n' +
-                '    border-radius: 7px;\n' +
-                '    margin-bottom: 3px;\n' +
-                '    margin-top: 30px;\n' +
-                '    width: 57%; left: 306px; \n'  +
-
-                '    position: relative;' +
-                '    background: #86BB71">';
-            str += `${message}`;
+            str += '<div className=\"message other-message float-right\" style="color: white; padding: 8px 20px; line-height: 18px; font-size: 15px; border-radius: 7px; margin-bottom: 3px; margin-top: 30px; width: 57%; left: 306px; position: relative; background: #86BB71">';
+            str += `${data.message}`;
             str += '</div>';
             str += '</li>';
             msgArea.innerHTML += str;
 
-            const reqUrl = `/api/chatting/${roomId}/${myNickname}/${message}`
+            const reqUrl = `/api/chatting/${roomId}/${myNickname}/${data.message}`;
 
             axios
                 .get(reqUrl)
@@ -98,26 +185,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
                     console.log(error);
                 });
         }
-        else{
-            let str = "<li className=\"clearfix\" style='margin-bottom: -15px; height: 5px; font-size: 12px;'>";
-            str += '<div className=\"message-data\" style="margin-bottom: -15px; height: 5px; font-size: 12px;">';
-            str += `<span className=\"message-data-name\">${myNickname}</span>`;
-            str += `<span className=\"message-data-time\" style="padding-left: 6px;">${time}</span> &nbsp; &nbsp;`;
-            str += '</div>';
-            str += '<div className=\"message other-message float-right\" style="color: white;\n' +
-                '    padding: 8px 20px;\n' +
-                '    line-height: 18px;\n' +
-                '    font-size: 15px;\n' +
-                '    border-radius: 7px;\n' +
-                '    margin-bottom: 3px;\n' +
-                '    margin-top: 30px;\n' +
-                '    width: 57%;\n' +
-                '    position: relative;    background: #94C2ED;">';
-            str += `${message}`;
-            str += '</div>';
-            str += '</li>';
-            msgArea.innerHTML += str;
+
+        function bye(data) {
+            alert(data.message);
+            chatOutForm.submit();
         }
+
     }
 
     function formatDateTime(dateTimeString) {
