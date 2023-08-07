@@ -1,6 +1,8 @@
 package com.fin.love.repository.profile;
 
 
+import com.fin.love.profile.dto.ProfileUpdateDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,52 +23,64 @@ import lombok.ToString;
 public class Profile {
 	
 	@Id
-	private String user_Id;	
+	private String userId;	
 	
 	@Column
-	private int user_Age;
+	private int userAge;
 	
 	@Column(nullable = false)
-	private String user_Personality;
+	private int userDrinks;
 	
 	@Column(nullable = false)
-	private String user_Drinks;
-	
-	@Column(nullable = false)
-	private String user_Smoker;
+	private int userSmoker;
 	
 	@Column
-	private String user_Height;
+	private String userHeight;
 	
 	@Column
-	private String user_Introduce;
+	private String userIntroduce;
 	
 	@Column
-	private int user_Academic;
+	private int userAcademic;
 	
 	@Column
-	private int user_Income;
+	private int userIncome;
 	
 	@Column
-	private int user_Job;
+	private int userJob;
 	
 	@Column
-	private int user_Religion;
+	private int userReligion;
 	
-	public Profile updateData(
-			int user_Age, String user_Personality, String user_Drinks, String user_Smoker, String user_Height, String user_Introduce,
-			int user_Academic, int user_Income, int user_Job, int user_Religion
+	public Profile saveData(
+			String userId, int userAge, int userDrinks, int userSmoker, String userHeight, String userIntroduce,
+			int userAcademic, int userIncome, int userJob, int userReligion
 			) {
-		this.user_Age = user_Age;
-		this.user_Personality = "123455678";
-		this.user_Drinks = user_Drinks;
-		this.user_Smoker = user_Smoker;
-		this.user_Height = user_Height;
-		this.user_Introduce = user_Introduce;
-		this.user_Academic = user_Academic;
-		this.user_Income = user_Income;
-		this.user_Job = user_Job;
-		this.user_Religion = user_Religion;
+		this.userId = userId;
+		this.userAge = userAge;
+		this.userDrinks = userDrinks;
+		this.userSmoker = userSmoker;
+		this.userHeight = userHeight;
+		this.userIntroduce = userIntroduce;
+		this.userAcademic = userAcademic;
+		this.userIncome = userIncome;
+		this.userJob = userJob;
+		this.userReligion = userReligion;
+		
+		return this;
+	}
+	
+	public Profile update(ProfileUpdateDto dto) {
+		this.userId = dto.getUserId();
+		this.userAge = dto.getUserAge();
+		this.userDrinks = dto.getUserDrinks();
+		this.userSmoker = dto.getUserSmoker();
+		this.userHeight = dto.getUserHeight();
+		this.userIntroduce = dto.getUserIntroduce();
+		this.userAcademic = dto.getUserAcademic();
+		this.userIncome = dto.getUserIncome();
+		this.userJob = dto.getUserJob();
+		this.userReligion = dto.getUserReligion();
 		
 		return this;
 	}

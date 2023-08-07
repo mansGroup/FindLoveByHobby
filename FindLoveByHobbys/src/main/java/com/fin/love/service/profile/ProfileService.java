@@ -1,9 +1,10 @@
-package com.fin.love.service;
+package com.fin.love.service.profile;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fin.love.profile.dto.ProfileCreateDto;
+import com.fin.love.profile.dto.ProfileUpdateDto;
 import com.fin.love.profile.dto.UserHobbyDto;
 import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.ProfileRepository;
@@ -19,8 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 public class ProfileService {
 	
 	public final ProfileRepository profileRepository;
-	
 	public final UserHobbyRepository userHobbyRepository;
+	
 	
 	// 컨트롤러에서 받은 클라이언트 정보를 DB에 insert
 	public void createProfile(ProfileCreateDto dto, UserHobbyDto hobbyDto) {
@@ -32,18 +33,38 @@ public class ProfileService {
 		entity = profileRepository.save(entity);
 		log.info("pro= {}", entity);
 		
-		UserHobby hobbyEntity = hobbyDto.toEntity();
+		UserHobby uhEntity = hobbyDto.toEntity();
+		log.info("uhEntity= {}", uhEntity);
 		
-		hobbyEntity = userHobbyRepository.save(hobbyEntity);
+		uhEntity = userHobbyRepository.save(uhEntity);
+		log.info("userHobby= {}", uhEntity);
 	}
-
+	
 	
 	@Transactional(readOnly = true)
-	public Profile read(String user_Id) {
-		log.info("read(user_Id={})", user_Id);
+	public Profile profileModify(String userId) {
+		log.info("profileModify(userId={})", userId);
 		
-		return profileRepository.findById(user_Id).orElseThrow();
+		return profileRepository.findById(userId).orElseThrow();
 	}
+	
+	
+	@Transactional
+	public void profileUpdate(ProfileUpdateDto dto) {
+		log.info("profileUpdate(dto={})", dto);
+		
+		Profile entity = profileRepository.findById(dto.getUserId()).orElseThrow();
+		entity.update(dto);
+	}
+	
+	
+	@Transactional
+	public void profileDelete(String userId) {
+		log.info("profileDelete(userId={})", userId);
+		
+		profileRepository.deleteById(userId);
+	}
+
 
 	
 }

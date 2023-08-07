@@ -1,4 +1,4 @@
-package com.fin.love.service;
+package com.fin.love.service.profile;
 
 import java.util.List;
 

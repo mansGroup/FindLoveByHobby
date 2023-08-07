@@ -9,10 +9,10 @@ import lombok.Data;
 public class UserHobbyDto {
 
 	private Long id;
-	private String userId;
-	private int hobbyId;
+	private String userid;
+	private Long hobbyId;
 	
 	public UserHobby toEntity() {
-		return UserHobby.builder().id(id).userId(userId).hobbyId(hobbyId).build();
+		return UserHobby.builder().id(id).userid(userid).hobbyId(hobbyId).build();
 	}
 }

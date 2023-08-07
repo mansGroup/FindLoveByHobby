@@ -5,27 +5,28 @@
 <main layout:fragment="main">
 	<h3>이성에게 어필할 수 있는 프로필을 작성해주세요</h3>
 	<form action="/profile/user/profileimage" method="post">
+	
 
 		<!-- 회원가입 정보에서 불러올 데이터(이름, 성별, 생년월일) -->
 		<div class="memberInfo">
-			<input class="d-none" value="11111" name="user_Id" />
+			<input class="d-none" value="11111" name="userId" />
 			<div class="my-1">
 				<label class="form-label" for="name">이름</label>
-				<input class="form-control" id="name" type="text" value="빵빵이">
+				<input class="form-control" id="name" type="text" value="테스트 값" readonly>
 			</div>
 			<div class="my-2">
-				<label class="form-label" for="gender">성별</label>
-				<input class="form-control" id="gender" type="text" value="남성">
+				<label class="form-label" for="gender">성별</label> 
+				<input class="form-control" id="gender" type="text" value="테스트 값" readonly>
 			</div>
 			<div class="my-3">
 				<label class="form-label" for="bday">생년월일</label>
-				<input class="form-control" id="bday" type="text" value="2069년 04월 17일">
+				<input class="form-control" id="bday" type="text" value="테스트 값" readonly>
 			</div>
 			
 			<!-- 자기소개서는 텍스트 입력 -->
 			<div class="my-4">
-				<label class="form-label" for="user_Introduce">자기 소개를 입력하세요</label>
-				<textarea class="form-control" id="user_Introduce" name="user_Introduce" required autofocus></textarea>
+				<label class="form-label" for="userIntroduce">자기 소개를 입력하세요</label>
+				<textarea class="form-control" id="userIntroduce" name="userIntroduce" required autofocus></textarea>
 			</div>
 		</div>
 
@@ -38,19 +39,19 @@
 			</div>
 			
 			<h2>나이</h2>
-			<select class="form-select" name="user_Age" required>
+			<select class="form-select" name="userAge" required>
 				<option value="" disabled selected>나이 정보를 선택하세요</option>
 				<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
 			</select>
 
 			<h2>키</h2>
-			<select class="form-select" name="user_Height" required>
+			<select class="form-select" name="userHeight" required>
 				<option value="" disabled selected>키 정보를 선택하세요</option>
 				<option th:each="height : ${heights}" th:text="${height.heightName}"></option>
 			</select>
 
 			<h2>음주여부</h2>
-			<select class="form-select" name="user_Drinks" required>
+			<select class="form-select" name="userDrinks" required>
 				<option value="" disabled selected>음주여부를 선택하세요</option>
 				<option value="1">마시지 않음</option>
 				<option value="2">가끔 마심</option>
@@ -58,14 +59,14 @@
 			</select>
 
 			<h2>흡연여부</h2>
-			<select class="form-select" name="user_Smoker" required>
+			<select class="form-select" name="userSmoker" required>
 				<option value="" disabled selected>흡연여부를 선택하세요</option>
 				<option value="1">흡연</option>
 				<option value="2">비흡연</option>
 			</select>
 
 			<h2>학력</h2>
-			<select class="form-select" name="user_Academic" required>
+			<select class="form-select" name="userAcademic" required>
 				<option value="" disabled selected>학력 정보를 선택하세요</option>
 				<option value="1">4년재대학교 졸업</option>
 				<option value="2">4년재대학교 재학중</option>
@@ -75,7 +76,7 @@
 			</select>
 
 			<h2>직업</h2>
-			<select class="form-select" name="user_Job" required>
+			<select class="form-select" name="userJob" required>
 				<option value="" disabled selected>직업 정보를 선택하세요</option>
 				<option value="1">학생</option>
 				<option value="2">사업가</option>
@@ -90,7 +91,7 @@
 			</select>
 
 			<h2>연봉</h2>
-			<select class="form-select" name="user_Income" required>
+			<select class="form-select" name="userIncome" required>
 				<option value="" disabled selected>연봉 정보를 선택하세요</option>
 				<option value="1">1,000만원 이하</option>
 				<option value="2">1,000만원 ~ 2,000만원</option>
@@ -106,7 +107,7 @@
 			</select>
 
 			<h2>종교</h2>
-			<select class="form-select" name="user_Religion" required>
+			<select class="form-select" name="userReligion" required>
 				<option value="" disabled selected>종교 정보를 선택하세요</option>
 				<option value="1">기독교</option>
 				<option value="2">천주교</option>

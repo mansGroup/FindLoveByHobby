@@ -1,6 +1,5 @@
 package com.fin.love.repository.profile;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,31 +14,19 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name = "USER_HOBBY")
-@SequenceGenerator(name = "USER_HOBBY_SEQ_GEN", sequenceName = "USER_HOBBY_SEQ", allocationSize = 1)
+@Table(name = "SMOKER")
+@SequenceGenerator(name = "SMOKER_SEQ_GEN", sequenceName = "SMOKER_SEQ", allocationSize = 1)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 @ToString
-public class UserHobby {
-	
+public class Smoker {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USER_HOBBY_SEQ_GEN")
-	private Long id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SMOKER_SEQ_GEN")
+	private String smokerId;
 	
 	@Column(nullable = false)
-	private String userid;
-	
-	@Column(nullable = false)
-	private Long hobbyId;
-	
-	public UserHobby updateData(Long id, String userid, Long hobbyId) {
-		this.id = id;
-		this.userid = userid;
-		this.hobbyId = hobbyId;
-		
-		return this;
-	}
-	
+	private String smokerName;
+
 }
