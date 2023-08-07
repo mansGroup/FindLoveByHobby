@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+	
+<th:block layout:fragment="css"></th:block>
+
+<th:block layout:fragment="main">
+	<section class="the-wedding-section" style="padding-top: 40px; padding-bottom: 100px;" id="section_3">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-12 col-12">
+					<div class="section-title-wrap mb-5">
+						<h2 class="section-title">My Page</h2>
+
+						<div class="section-title-bottom">
+							<span class="section-title-line"></span> <img
+								src="/images/mypage/mypage_main_icon.gif" class="section-title-icon bi-heart-fill" />
+							<span class="section-title-line"></span>
+						</div>
+					</div>
+				</div>
+
+				<div 
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="matchingList" style="cursor:pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;"> 
+						<img src="/images/mypage/mypage_matchingList_gif.gif" class="img-fluid imageThumnail" alt="" id="defultImage1">
+					</label>
+					<a href="#" id="matchingList" style="display: flex; justify-content: center;" >매칭 하러 가기</a>
+				</div>
+
+
+
+				<div 
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="matchingList" style="cursor:pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;"> 
+						<img src="/images/mypage/mypage_myprofile_hobby.gif" class="img-fluid imageThumnail" alt="" id="defultImage1">
+					</label>
+					<a href="#" id="matchingList" style="display: flex; justify-content: center;" >회원 정보</a>
+				</div>
+
+				<div 
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="matchingList" style="cursor:pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;"> 
+						<img src="/images/mypage/mypage_myprofile.gif" class="img-fluid imageThumnail" alt="" id="defultImage1">
+					</label>
+					<a href="#" id="matchingList" style="display: flex; justify-content: center;" >상세 정보</a>
+				</div>
+				
+				<div 
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="matchingList" style="cursor:pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;"> 
+						<img src="/images/mypage/mypage_image_modifiy.gif" class="img-fluid imageThumnail" alt="" id="defultImage1">
+					</label>
+					<a href="#" id="matchingList" style="display: flex; justify-content: center;" >사진 수정</a>
+				</div>
+				
+				<div 
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="matchingList" style="cursor:pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;"> 
+						<img src="/images/mypage/mypage_quesion.gif" class="img-fluid imageThumnail" alt="" id="defultImage1">
+					</label>
+					<a href="#" id="matchingList" style="display: flex; justify-content: center;" >공지 / 이벤트</a>
+				</div>
+				
+				<div 
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="matchingList" style="cursor:pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;"> 
+						<img src="/images/mypage/mypage_search_matching.gif" class="img-fluid imageThumnail" alt="" id="defultImage1">
+					</label>
+					<a href="#" id="matchingList" style="display: flex; justify-content: center;" >검색 매칭</a>
+				</div>
+
+			</div>
+		</div>
+	</section>
+</th:block>
+
+<th:block layout:fragment="myscripts"></th:block>
+</html>
