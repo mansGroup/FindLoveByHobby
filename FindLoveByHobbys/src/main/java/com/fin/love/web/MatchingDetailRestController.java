@@ -64,7 +64,7 @@ public class MatchingDetailRestController {
 
 	}
 
-	// 중복체크하는 코드
+	// 호감 보낼 때 중복체크하는 코드
 	@PostMapping("/assessment/chack/{senderId}/{getterId}")
 	public ResponseEntity<Integer> chack(
 			@PathVariable String senderId, 

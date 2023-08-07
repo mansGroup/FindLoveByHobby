@@ -38,8 +38,9 @@ public class MatchingDetailController {
         
 
         
-        
+        // 프로필 사진
         Picture member1Pic = pictureService.findById(id);
+        	
         String member1UsualPic1 = matchingService.imageChange(member1Pic.getPic1());
         String member1UsualPic2 = matchingService.imageChange(member1Pic.getPic2());
         String member1UsualPic3 = matchingService.imageChange(member1Pic.getPic3());
@@ -48,6 +49,7 @@ public class MatchingDetailController {
         model.addAttribute("usualPic2",member1UsualPic2);
         model.addAttribute("usualPic3",member1UsualPic3);
         
+        // 취미 사진
         HobbyPicture member1HobbyPic = pictureService.hobbyFindById(id);
         
         String member1HobbyPic1 = matchingService.imageChange(member1HobbyPic.getHobbyPic1());
