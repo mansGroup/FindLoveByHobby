@@ -30,10 +30,10 @@ public class FaceChatController {
 
 	@Autowired
 	private FaceChatService faceservice;
-
+	
 	// 화상채팅 방으로 입장하는 메서드
 	@PostMapping("/room")
-	public String facechatroom(Model model, MakeFaceChatRoomDto dto) {
+	public String facechatroom(Model model, MakeFaceChatRoomDto dto, HttpSession session) {
 		log.info("dto = {}", dto);
 		
 		long roomId = dto.getRoomId();
@@ -46,8 +46,8 @@ public class FaceChatController {
 		List<Member> list = faceservice.loadMemberName(dto);
 
 		for (Member x : list) {
-
-			if (x.getId().equals(dto.getSpeakmember1())) {
+			// TODO 로그인 하면 여기에 아이디 담겨야 함.
+			if (x.getId().equals(session.getAttribute("userid").toString())) {
 
 				model.addAttribute("speakmember1", x.getName());
 
@@ -75,7 +75,7 @@ public class FaceChatController {
 
 	// 신고 처리 메서드
 	@PostMapping("/report")
-	public String facechatreport(@RequestParam String audios, ReportFaceChatDto dto) {
+	public String facechatreport(@RequestParam String audios, ReportFaceChatDto dto, HttpSession session) {
 		log.info("doReport({})",dto);
 		log.info("{}",audios);
 		dto.setAudios(audios);

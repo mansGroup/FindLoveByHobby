@@ -4,33 +4,45 @@
 <th:block layout:fragment="css">
 	<link href="/css/question/questlist.css" rel="stylesheet" />
 </th:block>
+
 <main layout:fragment="main">
-<div style="height: 800px;">
-	<table class="table">
-		<thead>
-		<tr>
-			<th style="text-align: center;">문의자</th>
-			<th style="text-align: center;">문의유형</th>
-			<th style="text-align: center;">문의내용</th>
-			<th style="text-align: center;">최종작성시간</th>
-			<th style="text-align: center;">처리상태</th>
-			
-		</tr>
-		</thead>
-		<tbody>
-		<tr th:each="list : ${list}">
-			<td th:text="${list.member.id}"></td>
-			<td id="options" th:text="${list.questionoption}"></td>
-			<td class="ellipsis" ><a
-							th:href="@{/question/qsread?id={id}(id=${list.id})}" th:text="${list.questioncontent}"></a></td>
-			<td th:text="${ #temporals.format(list.modifiedTime, 'YYYY-MM-dd HH:mm:ss') }"></td>
-			<td id="status" th:text="${list.status}"></td>
-		</tr>
-		</tbody>
-	</table>
-</div>
+<input class="d-none" id="userid" name="userid" th:value="${userid}" />
+<input class="d-none" value = "1" id="num" name="num">
+	<div style="height: 800px;">
+		<table class="table">
+			<thead>
+				<tr>
+					<th style="text-align: center;">문의자</th>
+					<th style="text-align: center;">문의유형</th>
+					<th style="text-align: center;">문의내용</th>
+					<th style="text-align: center;">최종작성시간</th>
+					<th style="text-align: center;">처리상태</th>
+				</tr>
+			</thead>
+			<tbody id="qsbody">
+				<tr th:each="list : ${list}">
+					<td th:text="${list.member.id}"></td>
+					<td class="options" th:text="${list.questionoption}" th:data-id="${list.questionoption}"></td>
+					<td class="ellipsis"><a
+						th:href="@{/question/qsread?id={id}(id=${list.id})}"
+						th:text="${list.questioncontent}"></a></td>
+					<td
+						th:text="${ #temporals.format(list.modifiedTime, 'YYYY. M. d a h:mm:ss') }"></td>
+					<td class="status" th:text="${list.status}" th:data-id="${list.status}"></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5"><button class="btn form-control" id="btnaddload">더 보기</button></td>
+				</tr>
+				<tr>
+					<td colspan="5"><a th:href="@{/question/qscreate}" class="btn form-control" id="btnCreate"></a></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
 </main>
 <th:block layout:fragment="myscripts">
-	
-	
+	<script th:src="@{/js/question/questlist.js}"></script>
+
 </th:block>

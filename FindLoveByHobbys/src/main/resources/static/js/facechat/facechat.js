@@ -257,6 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						headers: {
 							'Content-Type': 'multipart/form-data'
 						}
+						
 					});
 					console.log(response);
 					console.log(response.data);

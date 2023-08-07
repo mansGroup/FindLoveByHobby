@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fin.love.dto.member.MemberLogInDto;
 import com.fin.love.dto.member.MemberSignUpDto;
 
 import com.fin.love.service.MemberService;
@@ -30,9 +31,11 @@ public class MemberController {
 		
 		log.info("login() GET");
 		String userid = (String) session.getAttribute("username");
+		session.setAttribute("userid", userid);
 		log.info("userid=({})",userid);
 		model.addAttribute("userid",userid);
 	}
+	
 	
 	@GetMapping("/signup")
 	public void signup () {

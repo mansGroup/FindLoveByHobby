@@ -164,7 +164,9 @@ public class AdminService {
 	}
 
 	public void update(ReportListDto dto) {
-
+		
+		//TODO speakChat에서 신고당한 사람 불러와서 userinfo의 role 값 바꿔줘야됨. 지금은 몇번이 Ban 번호인지 몰라서 놔둠.
+		
 		long id = dto.getUpdatenum();
 
 		Speakchat entity = facerepository.findById(id).orElseThrow();
