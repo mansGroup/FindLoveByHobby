@@ -57,29 +57,45 @@
 									<div th:if="${member.sex} == 0">
 										<label>호감도</label>
 										<br />
-										<button id="btnSexy">나야</button>
+										<button id="btnSexy">호감 보내기</button>
 										<span id="memberSexyCount" >
 											<span th:text="${assessment.sexy}" id="sexyCount"></span>
 										</span>
-										<span id="memberSexy" >sexy</span>
+										<span id="memberSexy">sexy</span>
 										
-										<button id="btnBeautiful"></button>
-										<span th:text="${assessment.beautiful}" id="memberBeautiful"></span>예뻐요
-
-										<button id="btnCuteWoman"></button>
-										<span th:text="${assessment.cute}" id="memberCute"></span>귀여워요
+										<button id="btnBeautiful">호감 보내기</button>
+										<span id="memberBeautiful">
+											<span th:text="${assessment.beautiful}" id="beautifulCount"></span>
+										</span>
+										<span id="memberBeautiful">beautiful</span>
+										
+										<button id="btnCute">호감 보내기</button>
+										<span id="memberCute">
+											<span th:text="${assessment.cute}" id="cuteCount"></span>
+										</span>
+										<span id="memebrCute">cute</span>
 									</div>
 
 									<!-- 남자일 경우 -->
 									<div th:if="${member.sex} == 1">
-										<button id="btnCuteMan"></button>
-										<span th:text="${assessment.cute}" id="memberCute"></span>귀여워요
-
-										<button id="btnWonderful"></button>
-										<span th:text="${assessment.wonderful}" id="memberwonderful"></span>멋져요
-
-										<button id="btnHandsome"></button>
-										<span th:text="${assessment.handsome}" id="handsome"></span>잘생겼어요
+										<br />
+										<button id="btnCute">호감 보내기</button>
+										<span id="memberCute">
+											<span th:text="${assessment.cute}" id="cuteCount"></span>
+										</span>
+										<span id="memebrCute">cute</span>
+										
+										<button id="btnWonderful">호감 보내기</button>
+										<span id="memberwonderful">
+											<span th:text="${assessment.wonderful}" id="wonderfulCount"></span>멋져요
+										</span>
+										<span id="memberWonderful">wonderful</span>
+										
+										<button id="btnHandsome">호감 보내기</button>
+										<span id="handsome">
+											<span th:text="${assessment.handsome}" id="handsomeCount"></span>잘생겼어요
+										</span>
+										<span id="memberHandsome">handsome</span>
 									</div>
 								</div>
 							</div>

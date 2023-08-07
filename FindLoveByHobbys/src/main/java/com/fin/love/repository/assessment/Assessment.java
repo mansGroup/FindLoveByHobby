@@ -38,9 +38,34 @@ public class Assessment {
 	
 	@Column(nullable = true)
 	private int wonderful;
-
+	
+	
 	public Assessment sexyUpdate(int sexy) {
 		this.sexy = sexy;
+		
+		return this;
+	}
+	
+	public Assessment beautifulUpdate(int beautiful) {
+		this.beautiful = beautiful;
+		
+		return this;
+	}
+	
+	public Assessment cuteUpdate(int cute) {
+		this.cute = cute;
+		
+		return this;
+	}
+	
+	public Assessment wonderfulUpdate(int wonderful) {
+		this.wonderful = wonderful;
+		
+		return this;
+	}
+	
+	public Assessment handsomeUpdate(int handsome) {
+		this.handsome = handsome;
 		
 		return this;
 	}

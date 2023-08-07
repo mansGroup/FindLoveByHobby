@@ -90,7 +90,9 @@ public class MatchingDetailService {
 		return assessmentRepository.findById(getterId).orElseThrow();
 	}
 	
+	
 	@Transactional
+	// @Transactional: 읽고 바로 실행시켜준다.
 	public void sexyCountUp(String id) {
 		log.info("sexyCountUp(id = {})", id);
 		
@@ -100,5 +102,48 @@ public class MatchingDetailService {
 		
 		assessment.sexyUpdate(count);
 	}
-
+	
+	@Transactional
+	public void beautifulCountUp(String id) {
+		log.info("beautifulCountUp(id = {})", id);
+		
+		Assessment assessment = assessmentRepository.findById(id).orElseThrow();
+		
+		int count = assessment.getBeautiful() + 1;
+		
+		assessment.beautifulUpdate(count);
+	}
+	
+	@Transactional
+	public void cuteCountUp(String id) {
+		log.info("cuteCountUp(id = {})", id);
+		
+		Assessment assessment = assessmentRepository.findById(id).orElseThrow();
+		
+		int count = assessment.getCute() + 1;
+		
+		assessment.cuteUpdate(count);
+	}
+	
+	@Transactional
+	public void wonderfulCoubtUp(String id) {
+		log.info("wonderfulCountUp(id = {})", id);
+		
+		Assessment assessment = assessmentRepository.findById(id).orElseThrow();
+		
+		int count = assessment.getWonderful() + 1;
+		
+		assessment.wonderfulUpdate(count);
+	}
+	
+	@Transactional
+	public void handsomeCountUp(String id) {
+		log.info("handsomeCountUp(id={})", id);
+		
+		Assessment assessment = assessmentRepository.findById(id).orElseThrow();
+		
+		int count = assessment.getHandsome() + 1;
+		
+		assessment.handsomeUpdate(count);
+	}
 }

@@ -1,7 +1,6 @@
 package com.fin.love.web;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +18,14 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/matchingDetail")
 
 public class MatchingDetailRestController {
-	
+
 	private final MatchingDetailService detailService;
-	
+
 	@PostMapping("/assessment/{assessmentName}/{senderId}/{getterId}")
-	public ResponseEntity<Integer> assessment( @PathVariable String assessmentName,
-			@PathVariable String senderId, @PathVariable String getterId) {
+	public ResponseEntity<Integer> assessment(
+			@PathVariable String assessmentName,
+			@PathVariable String senderId, 
+			@PathVariable String getterId) {
 		log.info("assessment(senderId = {}, getterId = {})", getterId, senderId);
 		
 		int count = 0;
@@ -33,17 +34,36 @@ public class MatchingDetailRestController {
 		log.info("assessment = {}", assessment);
 		
 		if (assessmentName.equals("sexy")) {
-			detailService.sexyCountUp(getterId);
-			
-			count = assessment.getSexy();
-		}
-		// TODO: 나머지 코드 추가
+		    detailService.sexyCountUp(getterId);
+		    count = assessment.getSexy();
+		    
+		} else if (assessmentName.equals("beautiful")) {
+		    detailService.beautifulCountUp(getterId);
+		    count = assessment.getBeautiful();
+		    
+		} else if (assessmentName.equals("cute")) {
+		    detailService.cuteCountUp(getterId);
+		    count = assessment.getCute();
+		    
+		} else if (assessmentName.equals("wonderful")) {
+		    detailService.wonderfulCoubtUp(getterId);
+		    count = assessment.getWonderful();
+		    
+		} else  { 
+		    detailService.handsomeCountUp(getterId);
+		    count = assessment.getHandsome();
 		
-		return ResponseEntity.ok(count);
+		}
+
+
+	return ResponseEntity.ok(count);
+
 	}
-	
+
 	@PostMapping("/assessment/chack/{senderId}/{getterId}")
-	public ResponseEntity<Integer> chack(@PathVariable String senderId, @PathVariable String getterId) {
+	public ResponseEntity<Integer> chack(
+			@PathVariable String senderId, 
+			@PathVariable String getterId) {
 		log.info("chack(setterId = {}, getterId = {})", senderId, getterId);
 		int result = 0;
 		
@@ -51,5 +71,5 @@ public class MatchingDetailRestController {
 		
 		return ResponseEntity.ok(result);
 	}
-	
+
 }
