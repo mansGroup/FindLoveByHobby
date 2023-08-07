@@ -37,22 +37,26 @@ public class MatchingDetailRestController {
 		    detailService.sexyCountUp(getterId);
 		    count = assessment.getSexy();
 		    
-		} else if (assessmentName.equals("beautiful")) {
+		} 
+		
+		if (assessmentName.equals("beautiful")) {
 		    detailService.beautifulCountUp(getterId);
 		    count = assessment.getBeautiful();
-		    
-		} else if (assessmentName.equals("cute")) {
+		} 
+		
+		if (assessmentName.equals("cute")) {
 		    detailService.cuteCountUp(getterId);
-		    count = assessment.getCute();
-		    
-		} else if (assessmentName.equals("wonderful")) {
+		    count = assessment.getCute();		    
+		} 
+		
+		if (assessmentName.equals("wonderful")) {
 		    detailService.wonderfulCoubtUp(getterId);
-		    count = assessment.getWonderful();
-		    
-		} else  { 
+		    count = assessment.getWonderful();	    
+		} 
+		
+		if (assessmentName.equals("handsome")) { 
 		    detailService.handsomeCountUp(getterId);
 		    count = assessment.getHandsome();
-		
 		}
 
 
@@ -60,15 +64,16 @@ public class MatchingDetailRestController {
 
 	}
 
+	// 중복체크하는 코드
 	@PostMapping("/assessment/chack/{senderId}/{getterId}")
 	public ResponseEntity<Integer> chack(
 			@PathVariable String senderId, 
 			@PathVariable String getterId) {
 		log.info("chack(setterId = {}, getterId = {})", senderId, getterId);
-		int result = 0;
 		
-		// TODO 0이면 중복없음 1이면 중복있
-		
+		int result = detailService.assessment(senderId, getterId);
+		log.info("result = {}", result);
+
 		return ResponseEntity.ok(result);
 	}
 

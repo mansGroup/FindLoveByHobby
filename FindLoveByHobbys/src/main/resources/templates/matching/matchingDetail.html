@@ -1,14 +1,15 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
 <body>
 	<main layout:fragment="main">
-	<!-- 로그인 아이디 -->
-	<!-- th:value="{#authentication.name}" -->
-	<input class="d-none" th:value="a" id="senderId" />
-	<input class="d-none" th:value="${id}" id="getterId"/>
-	
+		<!-- 로그인 아이디 -->
+		<!-- th:value="{#authentication.name}" -->
+		<input class="d-none" th:value="a" id="senderId" /> <input
+			class="d-none" th:value="${id}" id="getterId" />
+
 		<section class="about-section section-padding" id="section_2">
 			<div class="container">
 				<div class="row">
@@ -26,80 +27,81 @@
 					</div>
 
 					<!-- TODO: 이미지 삽입 할 위치-->
-					<div class="col-lg-3 col-12">
-						<div class="image-hover-thumb">
-							<img src="/images/heart.jpg"
-								class="about-image img-fluid" alt="">
+					<div>
+						<div class="col-lg-3 col-12">
+							<div class="image-hover-thumb">
+								<img class="about-image img-fluid" th:src="${usualPic1}" alt="">
+							</div>
 						</div>
-					</div>
+						<div class="col-lg-3 col-12">
+							<div class="image-hover-thumb">
+								<img class="about-image img-fluid" th:src="${usualPic2}" alt="">
+							</div>
+						</div>
+						<div class="col-lg-3 col-12">
+							<div class="image-hover-thumb">
+								<img class="about-image img-fluid" th:src="${usualPic3}" alt="">
+							</div>
+						</div>
 						<input type="text" class="d-none" th:value="${assessment.id}"
 							id="assessmentid" name="id" />
 						<div class="col-lg-3 col-12">
-							<div class="about-info-wrap d-flex flex-column">
+							<div class="about-info-wrap d-flex flex-column"></div>
+							<!-- TODO: 프로필 이름 -->
+							<div class="about-info-title d-flex align-items-center my-3">
+								<span id="memberName" th:text="${member.nickname}"></span>
 
-								<!-- TODO: 프로필 이름 -->
-								<div class="about-info-title d-flex align-items-center my-3">
-									<span id="memberName" th:text="${member.nickname}"></span>
+								<!-- TODO: 직업 -->
+								<span class="about-tag ms-4" id="memberJob" th:text="${job}"></span>
+							</div>
 
-									<!-- TODO: 직업 -->
-									<span class="about-tag ms-4" id="memberJob"
-										th:text="${profile.userJob}"></span>
+							<!-- TODO: 자기소개 -->
+							<span th:text="${profile.userIntroduce}" id="memberIntroduce"></span>
+
+							<!-- TODO: 호감도 표시를 여기서  social-icon-wrap mt-auto -->
+							<div class="">
+								<!-- TODO: 호감도 표시를 아이콘으로 대체 -->
+
+								<!-- 여자일 경우 -->
+								<div th:if="${member.sex} == 0">
+									<label>호감도</label> <br />
+									<button id="btnSexy">호감 보내기</button>
+									<span id="memberSexyCount"> <span
+										th:text="${assessment.sexy}" id="sexyCount"></span>
+									</span> <span id="memberSexy">sexy</span>
+
+									<button id="btnBeautiful">호감 보내기</button>
+									<span id="memberBeautifulCount"> <span
+										th:text="${assessment.beautiful}" id="beautifulCount"></span>
+									</span> <span id="memberBeautiful">beautiful</span>
+
+									<button id="btnCute">호감 보내기</button>
+									<span id="memberCuteCount"> <span
+										th:text="${assessment.cute}" id="cuteCount"></span>
+									</span> <span id="memberCute">cute</span>
 								</div>
 
-								<!-- TODO: 자기소개 -->
-								<span th:text="${profile.userIntroduce}" id="memberIntroduce"></span>
+								<!-- 남자일 경우 -->
+								<div th:if="${member.sex} == 1">
+									<br />
+									<button id="btnCute">호감 보내기</button>
+									<span id="memberCuteCount"> <span
+										th:text="${assessment.cute}" id="cuteCount"></span>
+									</span> <span id="memberCute">cute</span>
 
-								<!-- TODO: 호감도 표시를 여기서  social-icon-wrap mt-auto -->
-								<div class="">
-									<!-- TODO: 호감도 표시를 아이콘으로 대체 -->
+									<button id="btnWonderful">호감 보내기</button>
+									<span id="memberWonderfulCount"> <span
+										th:text="${assessment.wonderful}" id="wonderfulCount"></span>멋져요
+									</span> <span id="memberWonderful">wonderful</span>
 
-									<!-- 여자일 경우 -->
-									<div th:if="${member.sex} == 0">
-										<label>호감도</label>
-										<br />
-										<button id="btnSexy">호감 보내기</button>
-										<span id="memberSexyCount" >
-											<span th:text="${assessment.sexy}" id="sexyCount"></span>
-										</span>
-										<span id="memberSexy">sexy</span>
-										
-										<button id="btnBeautiful">호감 보내기</button>
-										<span id="memberBeautiful">
-											<span th:text="${assessment.beautiful}" id="beautifulCount"></span>
-										</span>
-										<span id="memberBeautiful">beautiful</span>
-										
-										<button id="btnCute">호감 보내기</button>
-										<span id="memberCute">
-											<span th:text="${assessment.cute}" id="cuteCount"></span>
-										</span>
-										<span id="memebrCute">cute</span>
-									</div>
-
-									<!-- 남자일 경우 -->
-									<div th:if="${member.sex} == 1">
-										<br />
-										<button id="btnCute">호감 보내기</button>
-										<span id="memberCute">
-											<span th:text="${assessment.cute}" id="cuteCount"></span>
-										</span>
-										<span id="memebrCute">cute</span>
-										
-										<button id="btnWonderful">호감 보내기</button>
-										<span id="memberwonderful">
-											<span th:text="${assessment.wonderful}" id="wonderfulCount"></span>멋져요
-										</span>
-										<span id="memberWonderful">wonderful</span>
-										
-										<button id="btnHandsome">호감 보내기</button>
-										<span id="handsome">
-											<span th:text="${assessment.handsome}" id="handsomeCount"></span>잘생겼어요
-										</span>
-										<span id="memberHandsome">handsome</span>
-									</div>
+									<button id="btnHandsome">호감 보내기</button>
+									<span id="handsomeCount"> <span
+										th:text="${assessment.handsome}" id="handsomeCount"></span>잘생겼어요
+									</span> <span id="memberHandsome">handsome</span>
 								</div>
 							</div>
 						</div>
+					</div>
 					<div class="col-lg-3 col-12">
 						<div class="image-hover-thumb">
 							<img src="/images/heart.png" class="about-image img-fluid" alt="">
@@ -121,10 +123,10 @@
 							<ul>
 								<li><span th:text="${profile.userHeight}">키: </span><span></span></li>
 								<li><span th:text="${profile.userAge}">나이: </span><span></span></li>
-								<li><span th:text="${profile.userAcademic}">학력: </span><span></span></li>
+								<li><span th:text="${academic}">학력: </span><span></span></li>
 								<li><span th:text="${profile.userSmoker}">흡연: </span><span></span></li>
 								<li><span th:text="${profile.userDrinks}">음주: </span><span></span></li>
-								<li><span th:text="${profile.userReligion}">종교: </span><span></span></li>
+								<li><span th:text="${religion}">종교: </span><span></span></li>
 							</ul>
 						</div>
 					</div>
@@ -161,39 +163,33 @@
 		<section class="about-section section-padding" id="section_2">
 			<div class="container">
 				<div class="row">
-
 					<div class="col-lg-12 col-12">
 						<div class="section-title-wrap mb-5">
-
 							<!-- TODO: 취미 사진 삽이 할 위치 -->
 							<h2 class="section-title">취미 사진</h2>
-
-							<div class="section-title-bottom">
-								<span class="section-title-line"></span> <i
-									class="section-title-icon bi-heart-fill"></i> <span
-									class="section-title-line"></span>
-							</div>
 						</div>
-						<div class="col-lg-4 col-12">
-							<div class="gallery-thumb image-hover-thumb">
-								<a
-									href="#"
-									class="popup-image"> <img
-									src="#"
-									class="gallery-image img-fluid" alt="">
-								</a>
+						<div class="row">
+							<div class="col-lg-4 col-12">
+								<div class="gallery-thumb image-hover-thumb">
+									<a href="#" class="popup-image"> <img th:src="${usualPic1}"
+										class="gallery-image img-fluid" alt="">
+									</a>
+								</div>
 							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-12">
-						<div class="gallery-thumb image-hover-thumb">
-							<a
-								href="#"
-								class="popup-image"> <img
-								src="#"
-								class="gallery-image img-fluid" alt="">
-							</a>
+							<div class="col-lg-4 col-12">
+								<div class="gallery-thumb image-hover-thumb">
+									<a href="#" class="popup-image"> <img th:src="${usualPic2}"
+										class="gallery-image img-fluid" alt="">
+									</a>
+								</div>
+							</div>
+							<div class="col-lg-4 col-12">
+								<div class="gallery-thumb image-hover-thumb">
+									<a href="#" class="popup-image"> <img th:src="${usualPic3}"
+										class="gallery-image img-fluid" alt="">
+									</a>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -201,9 +197,9 @@
 		</section>
 
 	</main>
-<th:block layout:fragment="myscripts">
-	<script src="/js/matching/matchingDetail.js"></script>
-</th:block>
+	<th:block layout:fragment="myscripts">
+		<script src="/js/matching/matchingDetail.js"></script>
+	</th:block>
 
 </body>
 </html>

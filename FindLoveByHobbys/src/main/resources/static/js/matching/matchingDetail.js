@@ -32,28 +32,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// 사용자 프로필 아이디
 	const senderId = document.querySelector('input#senderId').value;
-	
-	
-	// 호감도버튼의 span을 새로운 값으로 변경시켜줌
-	const makeAssessmentElements = (data) => {
+
+
+	// sexy호감도버튼의 span을 새로운 값으로 변경시켜줌
+	const makeSexyElements = (data) => {
 		const sexyCount = spanMemberSexyCount.querySelector('#sexyCount');
 		sexyCount.innerHTML = `${data}`;
-		
+	};
+
+	// beautiful호감도버튼의 span을 새로운 값으로 변경시켜줌
+	const makeBeautifulElements = (data) => {
 		const beautifulCount = spanMemberBeautifulCount.querySelector('#beautifulCount');
 		beautifulCount.innerHTML = `${data}`;
-		
+	};
+
+	// cute호감도버튼의 span을 새로운 값으로 변경시켜줌
+	const makeCuteElements = (data) => {
 		const cuteCount = spanMemberCuteCount.querySelector('#cuteCount');
 		cuteCount.innerHTML = `${data}`;
-		
+
+	};
+
+	// wonderful호감도버튼의 span을 새로운 값으로 변경시켜줌	
+	const makeWonderfulElements = (data) => {
 		const wonderfulCount = spanMemberWonderfulCount.querySelector('#wonderfulCount');
 		wonderfulCount.innerHTML = `${data}`;
-		
+	};
+
+	// handsome호감도버튼의 span을 새로운 값으로 변경시켜줌
+	const makeHandsomeElements = (data) => {
 		const handsomeCount = spanMemberHandsomeCount.querySelector('#handsomeCount');
 		handsomeCount.innerHTML = `${data}`;
-	
+
 	};
-	
-	
 
 	btnSexy.addEventListener('click', () => {
 		const assessmentName = spanMemberSexy.innerHTML;
@@ -70,12 +81,13 @@ document.addEventListener('DOMContentLoaded', () => {
 					axios.post(`/api/matchingDetail/assessment/${assessmentName}/${senderId}/${getterId}`)
 						.then((response) => {
 							console.log(response.data);
-							makeAssessmentElements(response.data);
+							makeSexyElements(response.data);
 						})
 						.catch((error) => console.log(error));
 
 				} else {
 					alert('호감 표시는 한번밖에 할 수 없습니다.')
+					return;
 				}
 
 			})
@@ -98,19 +110,20 @@ document.addEventListener('DOMContentLoaded', () => {
 					axios.post(`/api/matchingDetail/assessment/${assessmentName}/${senderId}/${getterId}`)
 						.then((response) => {
 							console.log(response.data);
-							makeAssessmentElements(response.data);
+							makeBeautifulElements(response.data);
 						})
 						.catch((error) => console.log(error));
 
 				} else {
 					alert('호감 표시는 한번밖에 할 수 없습니다.')
+					return;
 				}
 
 			})
 			.catch((errer) => console.log(errer));
 
 	});
-	
+
 	btnCute.addEventListener('click', () => {
 		const assessmentName = spanMemberCute.innerHTML;
 
@@ -126,19 +139,20 @@ document.addEventListener('DOMContentLoaded', () => {
 					axios.post(`/api/matchingDetail/assessment/${assessmentName}/${senderId}/${getterId}`)
 						.then((response) => {
 							console.log(response.data);
-							makeAssessmentElements(response.data);
+							makeCuteElements(response.data);
 						})
 						.catch((error) => console.log(error));
 
 				} else {
 					alert('호감 표시는 한번밖에 할 수 없습니다.')
+					return;
 				}
 
 			})
 			.catch((errer) => console.log(errer));
-		
+
 	});
-	
+
 	btnWonderful.addEventListener('click', () => {
 		const assessmentName = spanMemberWonderful.innerHTML;
 
@@ -154,19 +168,20 @@ document.addEventListener('DOMContentLoaded', () => {
 					axios.post(`/api/matchingDetail/assessment/${assessmentName}/${senderId}/${getterId}`)
 						.then((response) => {
 							console.log(response.data);
-							makeAssessmentElements(response.data);
+							makeWonderfulElements(response.data);
 						})
 						.catch((error) => console.log(error));
 
 				} else {
 					alert('호감 표시는 한번밖에 할 수 없습니다.')
+					return;
 				}
 
 			})
 			.catch((errer) => console.log(errer));
-		
+
 	});
-	
+
 	btnHandsome.addEventListener('click', () => {
 		const assessmentName = spanMemberHandsome.innerHTML;
 
@@ -182,12 +197,13 @@ document.addEventListener('DOMContentLoaded', () => {
 					axios.post(`/api/matchingDetail/assessment/${assessmentName}/${senderId}/${getterId}`)
 						.then((response) => {
 							console.log(response.data);
-							makeAssessmentElements(response.data);
+							makeHandsomeElements(response.data);
 						})
 						.catch((error) => console.log(error));
 
 				} else {
 					alert('호감 표시는 한번밖에 할 수 없습니다.')
+					return;
 				}
 
 			})
