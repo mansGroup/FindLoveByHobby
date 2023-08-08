@@ -97,7 +97,8 @@ public class MatchingService {
 
 			for (int j = 0; j < matchingMemberHobby.size(); j++) {
 				// 같은 취미를 가지는지 확인을 위한 객체 생성.
-				int number = matchingMemberHobby.get(j).getHobbyId();
+				Long num = matchingMemberHobby.get(j).getHobbyId();
+				int number = Integer.parseInt(String.valueOf(num));
 				
 				if (hobbyScore.get(number) == 1) { // 1이면 같은 취미
 					matchingMemberScore += 10;
