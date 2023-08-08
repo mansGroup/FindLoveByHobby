@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				
 				if (responce.data == 1) {
 					alert('호감을 표시했습니다.');
+					
+					// 알람추가
 				} else {
 					alert('이미 호감을 표시한 상대입니다.')
 				}
