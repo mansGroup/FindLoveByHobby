@@ -14,7 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 프로필 유저 아이디
 	const inputMember1UserId = document.querySelector('input#member1Id');
 	const inputMember2UserId = document.querySelector('input#member2Id');
-	
+
+	const websocket = new WebSocket('wss://' + location.host + `/ws/note?id=${inputUserId}`);
+
+	websocket.onmessage = onMessage;
+	websocket.onopen = onOpen;
+	websocket.onclose = onClose;
+
 	const member1LikeEvent = () => {
 		console.log('button1')
 		
@@ -39,8 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 				
 			}).catch((error) => console.log(error));
-		
+
+		sendLikes();
 	};
+
+	function sendLikes() {
+
+	}
 	
 	const member2LikeEvent = () => {
 		console.log('button2')
