@@ -29,7 +29,7 @@ public class FileUploadController {
 	
 	@GetMapping("/profileimage")
 	public String image(Model model) {
-		String userId = "member2"; // 유저 아이디 나중에 받아오기
+		String userId = "member4"; // 유저 아이디 나중에 받아오기
 		log.info("imageUploadPage(userId = {})", userId);
 		
 		// 데이터가 있는지 확인

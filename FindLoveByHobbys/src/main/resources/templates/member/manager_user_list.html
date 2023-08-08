@@ -7,53 +7,76 @@
 </th:block>
 
 <th:block layout:fragment="main">
+	<div class="container">
+		<table class="table">
+			<thead>
+				<tr>
+					<th id="colNumber">#</th>
+					<th id="colName">Name</th>
+					<th id="colNickname">Nickname</th>
+					<th id="colGender">Gender</th>
+					<th id="colRole">Role</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="member, idx : ${members}" data-bs-toggle="offcanvas"
+					th:data-bs-target="'#offcanvasScrolling' + ${idx.index}">
+					<td th:text="${idx.index + 1}"></td>
+					<td th:text="${member.name}"></td>
+					<td th:text="${member.nickname}"></td>
+					<td><span th:text="${member.sex == 0 ? '여' : '남'}"></span></td>
+					<td><span
+						th:text="${member.role eq USER ? 'Authentication completed' : 'Waiting for certification'}"></span></td>
+				</tr>
+			</tbody>
+		</table>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th id="colNumber">#</th>
-				<th id="colName">Name</th>
-				<th id="colNickname">Nickname</th>
-				<th id="colGender">Gender</th>
-				<th id="colRole" >Role</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="member, idx : ${members}" data-bs-toggle="offcanvas"
-				th:data-bs-target="'#offcanvasScrolling' + ${idx.index}">
-				<td th:text="${idx.index + 1}"></td>
-				<td th:text="${member.name}"></td>
-				<td th:text="${member.nickname}"></td>
-				<td><span th:text="${member.sex == 0 ? '여' : '남'}"></span></td>
-				<td><span th:text="${member.role eq USER ? 'Authentication completed' : 'Waiting for certification'}"></span></td>
-			</tr>
-		</tbody>
-	</table>
+		<div th:each="member, idx : ${members}">
+			<div class="offcanvas offcanvas-end" data-bs-scroll="true"
+				data-bs-backdrop="false" tabindex="-1"
+				th:id="'offcanvasScrolling' + ${idx.index}"
+				aria-labelledby="'offcanvasScrollingLabel' + ${idx.index}">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title"
+						th:id="'offcanvasScrollingLabel' + ${idx.index}">
+						Details for <span th:text="${member.name}"></span>
+					</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+						aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
 
-	<div th:each="member, idx : ${members}">
-		<div class="offcanvas offcanvas-end" data-bs-scroll="true"
-			data-bs-backdrop="false" tabindex="-1"
-			th:id="'offcanvasScrolling' + ${idx.index}"
-			aria-labelledby="'offcanvasScrollingLabel' + ${idx.index}">
-			<div class="offcanvas-header">
-				<h5 class="offcanvas-title"
-					th:id="'offcanvasScrollingLabel' + ${idx.index}">
-					Details for <span th:text="${member.name}"></span>
-				</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-					aria-label="Close"></button>
-			</div>
-			<div class="offcanvas-body">
-				<p>
-					Name: <span th:text="${member.name}"></span>
-				</p>
-				<p>
-					Email: <span th:text="${member.email}"></span>
-				</p>
-				<!-- 추가적인 정보를 표시할 수 있습니다. -->
+					<!-- 이미지 -->
+					<div id="carouselExample" class="carousel slide">
+						<div class="carousel-inner">
+							<div class="carousel-item active" >
+								<img src="..." class="d-block w-100" alt="...">
+							</div>
+						</div>
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselExample" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselExample" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div>
+
+					<p>
+						Name: <span th:text="${member.name}"></span>
+					</p>
+					<p>
+						Email: <span th:text="${member.email}"></span>
+					</p>
+					<!-- 추가적인 정보를 표시할 수 있습니다. -->
+				</div>
 			</div>
 		</div>
 	</div>
+
 
 
 
