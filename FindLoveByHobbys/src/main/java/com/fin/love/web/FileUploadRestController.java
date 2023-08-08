@@ -363,4 +363,47 @@ public class FileUploadRestController {
             return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+	
+	@PostMapping("/usualPic1/delete/{userId}")
+	public void usualPic1Delete(@PathVariable String userId) {
+		log.info("usualPic1Delete(userId = {})", userId);
+		
+		pictureService.usualPic1Delete(userId);
+	}
+	
+	@PostMapping("/usualPic2/delete/{userId}")
+	public void usualPic2Delete(@PathVariable String userId) {
+		log.info("usualPic2Delete(userId = {})", userId);
+		
+		pictureService.usualPic2Delete(userId);
+	}
+	
+	@PostMapping("/usualPic3/delete/{userId}")
+	public void usualPic3Delete(@PathVariable String userId) {
+		log.info("usualPic3Delete(userId = {})", userId);
+		
+		pictureService.usualPic3Delete(userId);
+	}
+	
+	@PostMapping("/hobbyPic1/delete/{userId}")
+	public void hobbyPic1Delete(@PathVariable String userId) {
+		log.info("hobbyPic1Delete(userId = {})", userId);
+		
+		pictureService.hobbyPic1Delete(userId);
+	}
+	
+	@PostMapping("/hobbyPic2/delete/{userId}")
+	public void hobbyPic2Delete(@PathVariable String userId) {
+		log.info("hobbyPic2Delete(userId = {})", userId);
+		
+		pictureService.hobbyPic2Delete(userId);
+	}
+	
+	@PostMapping("/hobbyPic3/delete/{userId}")
+	public void hobbyPic3Delete(@PathVariable String userId) {
+		log.info("hobbyPic3Delete(userId = {})", userId);
+		
+		pictureService.hobbyPic3Delete(userId);
+	}
+	
 }

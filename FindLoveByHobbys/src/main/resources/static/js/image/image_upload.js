@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage1.src = '#';
+			previewImage1.src = '/images/Adding_a_Person_Image.png';
 			previewImage1.style.display = 'none';
 		}
 		
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage2.src = '#';
+			previewImage2.src = '/images/Adding_a_Person_Image.png';
 			previewImage2.style.display = 'none';
 		}
 		
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage3.src = '#';
+			previewImage3.src = '/images/Adding_a_Person_Image.png';
 			previewImage3.style.display = 'none';
 		}
 		
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage4.src = '#';
+			previewImage4.src = '/images/Adding_a_Person_Image.png';
 			previewImage4.style.display = 'none';
 		}
 		
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage5.src = '#';
+			previewImage5.src = '/images/Adding_a_Person_Image.png';
 			previewImage5.style.display = 'none';
 		}
 		
@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage6.src = '#';
+			previewImage6.src = '/images/Adding_a_Person_Image.png';
 			previewImage6.style.display = 'none';
 		}
 		

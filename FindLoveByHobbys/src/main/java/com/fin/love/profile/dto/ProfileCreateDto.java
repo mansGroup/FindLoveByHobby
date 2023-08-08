@@ -1,5 +1,6 @@
 package com.fin.love.profile.dto;
 
+
 import com.fin.love.repository.profile.Profile;
 
 import lombok.Data;

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+
+<th:block layout:fragment="css">
+</th:block>
+
+<th:block layout:fragment="main">
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th id="colNumber">#</th>
+				<th id="colName">Name</th>
+				<th id="colNickname">Nickname</th>
+				<th id="colGender">Gender</th>
+				<th id="colRole" >Role</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="member, idx : ${members}" data-bs-toggle="offcanvas"
+				th:data-bs-target="'#offcanvasScrolling' + ${idx.index}">
+				<td th:text="${idx.index + 1}"></td>
+				<td th:text="${member.name}"></td>
+				<td th:text="${member.nickname}"></td>
+				<td><span th:text="${member.sex == 0 ? '여' : '남'}"></span></td>
+				<td><span th:text="${member.role eq USER ? 'Authentication completed' : 'Waiting for certification'}"></span></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div th:each="member, idx : ${members}">
+		<div class="offcanvas offcanvas-end" data-bs-scroll="true"
+			data-bs-backdrop="false" tabindex="-1"
+			th:id="'offcanvasScrolling' + ${idx.index}"
+			aria-labelledby="'offcanvasScrollingLabel' + ${idx.index}">
+			<div class="offcanvas-header">
+				<h5 class="offcanvas-title"
+					th:id="'offcanvasScrollingLabel' + ${idx.index}">
+					Details for <span th:text="${member.name}"></span>
+				</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+					aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+				<p>
+					Name: <span th:text="${member.name}"></span>
+				</p>
+				<p>
+					Email: <span th:text="${member.email}"></span>
+				</p>
+				<!-- 추가적인 정보를 표시할 수 있습니다. -->
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- 페이지 네이션 -->
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
+			<li class="page-item disabled"><a class="page-link">이전</a></li>
+			<li class="page-item"><a class="page-link" href="#">1</a></li>
+			<li class="page-item"><a class="page-link" href="#">2</a></li>
+			<li class="page-item"><a class="page-link" href="#">3</a></li>
+			<li class="page-item"><a class="page-link" href="#">다음</a></li>
+		</ul>
+	</nav>
+
+</th:block>
+
+<th:block layout:fragment="myscripts">
+</th:block>
+
+</html>
