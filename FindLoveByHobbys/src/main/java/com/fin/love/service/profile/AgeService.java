@@ -1,11 +1,10 @@
-package com.fin.love.service;
+package com.fin.love.service.profile;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.profile.Age;
 import com.fin.love.repository.profile.AgeRepository;
 

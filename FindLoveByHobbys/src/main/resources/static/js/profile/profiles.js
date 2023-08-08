@@ -3,7 +3,7 @@
  */
 
  function count(obj){
-	 var chkBox = document.getElementsByName("check");
+	 var chkBox = document.getElementsByName("hobbyId");
 	 var chkCnt = 0;
 	 
 	 for(var i = 0; i < chkBox.length; i++) {
