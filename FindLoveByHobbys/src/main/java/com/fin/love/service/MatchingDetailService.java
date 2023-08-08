@@ -15,6 +15,10 @@ import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.hobby.HobbyRepository;
 import com.fin.love.repository.profile.Academic;
 import com.fin.love.repository.profile.AcademicRepository;
+import com.fin.love.repository.profile.Age;
+import com.fin.love.repository.profile.AgeRepository;
+import com.fin.love.repository.profile.Height;
+import com.fin.love.repository.profile.HeightRepository;
 import com.fin.love.repository.profile.Jobs;
 import com.fin.love.repository.profile.JobsRepository;
 import com.fin.love.repository.profile.Profile;
@@ -44,7 +48,11 @@ public class MatchingDetailService {
 	private final JobsRepository jobsRepository;
 	private final ReligionRepository religionRepository;
 	private final AcademicRepository academicRepository;
-	
+//	private final DrinksRepository drinksRepository;
+//	private final SmokeRepository smokeRepository;
+	private final HeightRepository heightRepository;
+	private final AgeRepository ageRepository;
+
 	// DB 테이블에서 id 불러오기
 	@Transactional(readOnly = true)
 	public Assessment getUserAssessment(String id) {
@@ -63,42 +71,91 @@ public class MatchingDetailService {
 	public Profile getUserProfile(String id) {
 		return profileRepository.findById(id).orElse(new Profile()); // 기본 객체 반환
 	}
-	
-	// 유저의 직업을 가져오기 위해 
+
+	// 유저의 직업을 가져오기 위해
 	public List<Jobs> getUserJob() {
-	    return jobsRepository.findAll();
+		return jobsRepository.findAll();
 	}
 
 	// 유저의 직업 이름을 가져오기 위해
 	public String getUserJobName(int jobNum) {
 		List<Jobs> jo = getUserJob();
-		
-		return jo.get(jobNum - 1).getJobName();		
+
+		return jo.get(jobNum - 1).getJobName();
 	}
-	
+
 	// 유저의 종교를 가져오기 위해
-	public List<Religion> getUserReligion(){
+	public List<Religion> getUserReligion() {
 		return religionRepository.findAll();
 	}
-	
-	// 유저의 종교이름 가져오기 위해
+
+	// 유저의 종교 이름을 가져오기 위해
 	public String getUserReligionName(int religingNum) {
 		List<Religion> re = getUserReligion();
-		
-		return re.get(religingNum -1).getReligionName();
+
+		return re.get(religingNum - 1).getReligionName();
 	}
-	
+
 	// 유저의 학력 가져오기 위해
-	public List<Academic> getUserAcdemic(){
+	public List<Academic> getUserAcdemic() {
 		return academicRepository.findAll();
 	}
-	
-	// 유저의 학력이름 가져오기 위해
+
+	// 유저의 학력 이름을 가져오기 위해
 	public String getUserAcademicName(int academicNum) {
 		List<Academic> ac = getUserAcdemic();
-		
+
 		return ac.get(academicNum - 1).getAcademicName();
 	}
+
+	// 유저의 키 가져오기 위해
+	public List<Height> getUserHeight() {
+		return heightRepository.findAll();
+	}
+
+	// 유저의 키 이름을 가져오기 위해
+	public String getUserHeightName(int heightNum) {
+		List<Height> he = getUserHeight();
+
+		return he.get(heightNum - 1).getHeightName();
+	}
+	
+
+	// 유저의 나이 가져오기 위해
+	public List<Age> getUserAge() {
+		return ageRepository.findAll();
+	}
+
+	// 유저의 나이 이름을 가져오기 위해
+	public String getUserAgeName(int ageNum) {
+		List<Age> age = getUserAge();
+
+		return age.get(ageNum - 1).getAgeName();
+	}
+
+//	// 유저의 음주 여부를 가져오기 위해
+//	public List<Drinks> getUserDrinke() {
+//		return drinksRepository.findAll();
+//	}
+//
+//	// 유저의 음주 이름을 가져오기 위해서
+//	public String getUserDrinksName(int drinksNum) {
+//		List<Drinks> dr = getUserAcdemic();
+//
+//		return dr.get(drinksNum - 1).getDrinksName();
+//	}
+//
+//	// 유저의 흡연 여부를 가져오기 위해
+//	public List<Smoke> getUserDrinke() {
+//		return drinksRepository.findAll();
+//	}
+//
+//	// 유저의 흡연 이름을 가져오기 위해서
+//	public String getUserSmokeName(int smokeNum) {
+//		List<Smoke> sm = getUserAcdemic();
+//
+//		return sm.get(smokeNum - 1).getSmokeName();
+//	}
 
 	// UserHobby와 Hobby에 Id를 비교 후 같다면 취미 목록을 출력한다.
 	public List<String> getUserHobbies(String id) {
@@ -136,8 +193,6 @@ public class MatchingDetailService {
 
 		return assessmentRepository.findById(getterId).orElseThrow();
 	}
-	
-	
 
 //======================== 호감을 보내기 위해============================================================
 
@@ -200,19 +255,21 @@ public class MatchingDetailService {
 
 	// 호감 보낼 때 중복체크 하기위해
 	public int assessment(String senderId, String getterId) {
-	    int result = 0;
+		int result = 0;
 
-	    UserAssessment UA = userAssessmentRepository.findBySenderAndGetter(senderId, getterId);
+		UserAssessment UA = userAssessmentRepository.findBySenderAndGetter(senderId, getterId);
 
-	    if (UA != null) {
-	        // 이미 호감을 보낸 기록이 있는 경우, 중복으로 처리
-	        result = 1;
-	    } else {
-	        // 호감을 보낸 기록이 없는 경우에만 저장
-	        UserAssessment entity = UserAssessment.builder().sender(senderId).getter(getterId).build();
-	        userAssessmentRepository.save(entity);
-	    }
+		if (UA != null) {
+			// 이미 호감을 보낸 기록이 있는 경우, 중복으로 처리
+			result = 1;
+		} else {
+			// 호감을 보낸 기록이 없는 경우에만 저장
+			UserAssessment entity = UserAssessment.builder().sender(senderId).getter(getterId).build();
+			userAssessmentRepository.save(entity);
+		}
 
-	    return result;
+		return result;
 	}
+
+	
 }

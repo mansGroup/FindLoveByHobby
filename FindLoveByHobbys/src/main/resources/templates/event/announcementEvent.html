@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+<body>
+	<main layout:fragment="main">
+	
+	<header>
+		<h1>관리자 공지 이벤트 페이지</h1>
+	</header>
+	<div>
+		<input type="checkbox" id="announcement" name="announcement" value="공지">
+		<label>공지</label>
+		
+		<input type="checkbox" id="event" name="event" value="이벤트">		
+		<label>이벤트</label>
+	</div>	
+	<div>
+		<label>등록일</label>
+		<br />
+		<!-- 등록시간 부여주기 -->
+		<input id="createtime" name="createtime"  />th:value="${}"
+	</div>
+	<div>
+		<label>제목</label>
+		<br />
+		<input id="title" name="title"/>
+	</div>
+	<div>
+		<label>작성자</label>
+		<br />
+		<input id="author" name="author" />
+	</div>
+	<!-- 이지미 업로드 -->
+	<div>
+		<img>
+		<button id="btnImeage">첨부파일</button>
+	</div>
+	<div>
+		<label>내용</label>
+		<br />
+		<textarea id="content" name="content"></textarea>
+	</div>
+	<div>
+		<button id="btnComplete	">등록하기</button>
+	</div>
+
+	
+	</main>
+	<th:block layout:fragment="myscripts">
+	</th:block>
+
+</body>
+</html>
