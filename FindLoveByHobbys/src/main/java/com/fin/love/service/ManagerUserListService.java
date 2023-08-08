@@ -78,8 +78,6 @@ public class ManagerUserListService {
 		String hobbyPic2 = pictureService.imageChange(hobbyPic.getHobbyPic2());
 		String hobbyPic3 = pictureService.imageChange(hobbyPic.getHobbyPic3());
 		
-		
-		
 		ManagerUserListDto dto = new ManagerUserListDto(
 				userId,  // 아이디
 				member.getName(),  // 이름
