@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fin.love.dto.meeting.MeetingMakeDto;
+import com.fin.love.repository.hobby.Hobby;
+import com.fin.love.repository.location.Location;
 import com.fin.love.repository.meeting.Meeting;
 import com.fin.love.service.MeetingService;
 
@@ -36,7 +38,13 @@ public class MeetingController {
 	}
 	
 	@GetMapping("/create")
-	public void meetcreate() {
+	public void meetcreate(Model model) {
+		
+		List<Hobby> list = meetingservice.loadhobby();
+		List<Location> list2 = meetingservice.loadloc();
+		
+		model.addAttribute("list",list);
+		model.addAttribute("list2", list2);
 		
 		log.info("meetcreate()");
 		

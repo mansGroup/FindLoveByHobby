@@ -1,6 +1,10 @@
 package com.fin.love.service;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +34,7 @@ public class MeetingService {
 
 	@Autowired
 	private LocationRepository locrepository;
-	
+
 	@Autowired
 	private AgeRepository agerepository;
 
@@ -113,20 +117,36 @@ public class MeetingService {
 	}
 
 	public List<Hobby> loadhobby() {
-		
+
 		return hobbyrepository.findAll();
-		
+
 	}
 
 	public List<Location> loadloc() {
 
 		return locrepository.findAll();
-		
+
 	}
-	
-	public List<Age> loadage(){
-		
+
+	public List<Age> loadage() {
+
 		return agerepository.findAll();
+
+	}
+
+	public String imageToBase64(String imagePath) {
+		
+		byte[] imageBytes = null;
+		try {
+			Path path = Paths.get(imagePath);
+			imageBytes = Files.readAllBytes(path);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
+		return Base64.getEncoder().encodeToString(imageBytes);
 		
 	}
 

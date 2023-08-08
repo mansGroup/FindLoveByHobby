@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.location.Location;
 import com.fin.love.repository.meeting.Meeting;
+import com.fin.love.respository.member.Member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,11 +37,9 @@ public class MeetingMember {
 	@ManyToOne
 	private Meeting meeting;
 	
-	@Column
-	private String userid;
-	
-	@Column
-	private int userage;
+	@JoinColumn(name = "userid")
+	@ManyToOne
+	private Member member;
 	
 	
 }

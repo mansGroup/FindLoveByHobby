@@ -2,7 +2,75 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
 
-<main style="height: 1000px;" layout:fragment="main"></main>
+<main style="height: 1000px;" layout:fragment="main">
+	<div>
+		<form class="card">
+			<div>
+				<div class="textsection">
+					<div>
+						<input class="card tworow" type="text" id="title" name="title" />
+					</div>
+					<div>
+						<input class="card tworow" type="text" id="content1"
+							name="content1" />
+					</div>
+					<div>
+						<input class="card tworow" type="text" id="content2"
+							name="content2" />
+					</div>
+					<div>
+						<input class="card tworow" type="text" id="content3"
+							name="content3" />
+					</div>
+					<div>
+						<input class="card contents" type="text" id="contents"
+							name="contents" />
+					</div>
+					<div>
+						<input class="card dates" type="datetime" id="meetingtime"
+							name="meetingtime" />
+					</div>
+					<div>
+						<select th:each="list : ${list}" class="card options" id="hobbyid" name="hobbyid">
+							<option th:value=${list.hobbyId} th:text="${list.hobbyName}">아?</option>					
+						</select>
+					</div>
+					<div>
+						<select th:each="list2 : ${list2}" class="card options" id="locationid" name="locationid">
+							<option th:value=${list2.id} th:text="${list2.locationname}">어?</option>
+						</select>
+					</div>
+				</div>
+				<div class="imgsection">
+					<div>
+						<input class="card img" type="file" id="image1" name="image1" />
+					</div>
+					<div>
+						<input class="card img" type="file" id="image2" name="image2" />
+					</div>
+					<div>
+						<input class="card img" type="file" id="image3" name="image3" />
+					</div>
+				</div>
+				<div class="imgsection2">
+					<div>
+						<label>Image 1</label>
+						<img src="" alt="이미지 없음" id="img1"/>
+					</div>
+					<div>
+						<label>Image 2</label>
+						<img src="" alt="이미지 없음" id="img2"/>	
+					</div>
+					<div>
+						<label>Image 3</label>
+						<img src="" alt="이미지 없음" id="img3"/>	
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</main>
 
 <th:block layout:fragment="myscripts">
 
