@@ -12,6 +12,6 @@ public class NoteController {
 
     @GetMapping("/note")
     public void note() {
-        String
+
     }
 }
