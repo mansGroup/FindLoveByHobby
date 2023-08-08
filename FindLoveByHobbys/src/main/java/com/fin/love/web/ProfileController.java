@@ -1,18 +1,19 @@
 package com.fin.love.web;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fin.love.profile.dto.ProfileCreateDto;
-import com.fin.love.profile.dto.ProfileUpdateDto;
-import com.fin.love.profile.dto.UserHobbyDto;
+import com.fin.love.dto.profile.ProfileCreateDto;
+import com.fin.love.dto.profile.ProfileUpdateDto;
+import com.fin.love.dto.profile.UserHobbyDto;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.profile.Academic;
 import com.fin.love.repository.profile.Age;
@@ -37,7 +38,6 @@ import com.fin.love.service.profile.SmokerService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -58,29 +58,19 @@ public class ProfileController {
 	private final ReligionService religionService;
 	private final DringsService dringsService;
 	private final SmokerService smokerService;
-
 	
 	// 취미, 나이, 키 리스트 불러서 뷰에 출력
 	@GetMapping("/profiles")
 	public String profileHome(Model model) {
 		log.info("profileHome()");
 
-//		String name = (String) session.getAttribute("name");
-//		log.info(name);
-//		ProfileReadUserInfoDto dto = profileService.readMemberInfo(name);
-
 		List<Hobby> hobby = hobbyService.readHobbyList();
-
 		List<Age> age = ageService.readAgeList();
-
 		List<Height> height = heightService.readHeightList();
 
 		model.addAttribute("hobbys", hobby);
 		model.addAttribute("ages", age);
 		model.addAttribute("heights", height);
-
-//		model.addAttribute("names", dto);
-//		log.info("readMemberInfoSuccess!!!()");
 
 		return "/profile/profiles";
 	}
@@ -88,11 +78,30 @@ public class ProfileController {
 	
 	// 클라이언트에서 받은 데이터를 DB로 넘겨줌
 	@PostMapping("/user/profileimage")
-	public String createProfile(ProfileCreateDto dto, UserHobbyDto hobbyDto, Model model) {
-		log.info("createProfile(dto={})POST", dto, hobbyDto);
+	public String createProfile(ProfileCreateDto dto, @RequestParam(value = "hobbyId") String hobbyID) {
+		log.info("createProfile(dto={}, hobbyID={})POST", dto, hobbyID);
+		log.info("hobbyID >>>>>>>>>>>>>>>>>> {}", hobbyID);
 
-		profileService.createProfile(dto, hobbyDto);
-
+		profileService.createProfile(dto);
+		
+		StringTokenizer st = new StringTokenizer(hobbyID, ",");
+		Long hobbyId1 = Long.valueOf(st.nextToken());
+		Long hobbyId2 = Long.valueOf(st.nextToken());
+		Long hobbyId3 = Long.valueOf(st.nextToken());
+		
+		UserHobbyDto hobbyDto1 = new UserHobbyDto(dto.getUserId(), hobbyId1);
+		UserHobbyDto hobbyDto2 = new UserHobbyDto(dto.getUserId(), hobbyId2);
+		UserHobbyDto hobbyDto3 = new UserHobbyDto(dto.getUserId(), hobbyId3);
+		
+		hobbyService.hobbySave(hobbyDto1);
+		log.info("hobbyDto= {}", hobbyDto1);
+		
+		hobbyService.hobbySave(hobbyDto2);
+		log.info("hobbyDto= {}", hobbyDto2);
+		
+		hobbyService.hobbySave(hobbyDto3);
+		log.info("hobbyDto= {}", hobbyDto3);
+		
 		return "/profile/profileimage";
 	}
 
@@ -157,7 +166,7 @@ public class ProfileController {
 		
 		profileService.profileDelete(userId);
 		
-		return "redirect:/profile/peofiles";
+		return "redirect:/profile/profiles";
 	}
 	
 }

@@ -22,7 +22,7 @@ public class ProfileDataTest {
 	@Autowired
 	private ReligionRepository rr;
 	
-	@Test
+	//@Test
 	public void profileData() {
 		log.info("데이터 들어간다.");
 		

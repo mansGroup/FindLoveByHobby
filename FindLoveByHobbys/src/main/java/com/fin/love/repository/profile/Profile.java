@@ -1,7 +1,7 @@
 package com.fin.love.repository.profile;
 
 
-import com.fin.love.profile.dto.ProfileUpdateDto;
+import com.fin.love.dto.profile.ProfileUpdateDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -3,9 +3,9 @@ package com.fin.love.service.profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fin.love.profile.dto.ProfileCreateDto;
-import com.fin.love.profile.dto.ProfileUpdateDto;
-import com.fin.love.profile.dto.UserHobbyDto;
+import com.fin.love.dto.profile.ProfileCreateDto;
+import com.fin.love.dto.profile.ProfileUpdateDto;
+import com.fin.love.dto.profile.UserHobbyDto;
 import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.ProfileRepository;
 import com.fin.love.repository.profile.UserHobby;
@@ -24,20 +24,14 @@ public class ProfileService {
 	
 	
 	// 컨트롤러에서 받은 클라이언트 정보를 DB에 insert
-	public void createProfile(ProfileCreateDto dto, UserHobbyDto hobbyDto) {
+	public void createProfile(ProfileCreateDto dto) {
 		log.info("createProfile(dto= {})", dto);
 		
 		Profile entity = dto.toEntity();
 		log.info("entity= {}", entity);
 		
 		entity = profileRepository.save(entity);
-		log.info("pro= {}", entity);
-		
-		UserHobby uhEntity = hobbyDto.toEntity();
-		log.info("uhEntity= {}", uhEntity);
-		
-		uhEntity = userHobbyRepository.save(uhEntity);
-		log.info("userHobby= {}", uhEntity);
+		log.info("pro= {}", entity);	
 	}
 	
 	

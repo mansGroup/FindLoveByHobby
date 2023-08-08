@@ -1,4 +1,4 @@
-package com.fin.love.profile.dto;
+package com.fin.love.dto.profile;
 
 import groovy.transform.ToString;
 import lombok.AllArgsConstructor;
