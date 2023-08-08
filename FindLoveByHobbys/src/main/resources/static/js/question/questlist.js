@@ -8,7 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	let options = document.querySelectorAll('td.options');
 
-
+	const modal = new bootstrap.Modal('div#modals',{backdrop: false});
+	const btnModal = document.querySelector('button#btnModal');
+	
 	// 더보기 페이지 관련
 	let num = document.querySelector('input#num');
 	let userid = document.querySelector('input#userid');
@@ -48,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					<td>${list.member.id}</td>
 					<td class="options" data-id="${list.questionoption}">${list.questionoption}</td>
 					<td class="ellipsis"><a
-						th:href="/question/qsread?id=${list.id}">${list.questioncontent}</a></td>
+						href="/question/qsread?id=${list.id}">${list.questioncontent}</a></td>
 					<td>${dates}</td>
 					<td class="status" data-id="${list.status}">${list.status}</td>
 				</tr>
@@ -71,6 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 	})
+	
+	btnModal.addEventListener('click',()=>{
+		
+		
+		modal.show();
+		
+	})
+	
 
 	function refresh() {
 

@@ -2,24 +2,9 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
 
-<main layout:fragment="main">
-	<nav>
-		<input type="number" th:value="${ check }" th:class="d-none"
-			id="checknum" name="checknum" />
-		<div th:if="${ check } == 1">
-			<a class="btn" href="/admin/reportcheck">신고 처리 전</a> <a class="btn" href="/admin/reportend">신고
-				처리 완료</a>
-		</div>
-		<div th:if="${ check } == 2">
-			<a class="btn" href="/admin/reportlist">신고 전체 리스트</a> <a class="btn" href="/admin/reportend">신고
-				처리 완료</a>
-		</div>
-		<div th:if="${ check } == 3">
-			<a class="btn" href="/admin/reportlist">신고 전체 리스트</a> <a class="btn"
-				href="/admin/reportcheck">신고 처리 전</a>
-		</div>
-	</nav>
-	<div style="height: 1000px; max-height: 500px; overflow-y: auto;">
+<main style="height:700px; margin:0px 30px;" layout:fragment="main">
+	
+	<div style="height: 1000px; max-height: 500px; overflow-y: auto; margin-top:50px;">
 		<table class="table">
 			<thead>
 				<tr>
@@ -38,7 +23,7 @@
 					<td th:text="${ list.reporter }"></td>
 					<td th:text="${ list.respondent }"></td>
 					<td
-						th:text="${ #temporals.format(list.createdTime, 'YYYY-MM-dd HH:mm:ss') }"></td>
+						th:text="${ #temporals.format(list.createdTime, 'YYYY. M. d. HH:mm:ss') }"></td>
 					<td class="reports" th:text="${ list.report }"></td>
 					<td><audio id="audioPlayer" controls>
 							<source th:src="'data:audio/wav;base64,'+${ list.audio }"
@@ -55,7 +40,24 @@
 			</tbody>
 		</table>
 	</div>
-
+	<nav style="display: flex;
+    margin-top: 50px;
+    justify-content: center;">
+		<input type="number" th:value="${ check }" th:class="d-none"
+			id="checknum" name="checknum" />
+		<div th:if="${ check } == 1">
+			<a style="margin-right:50px;" class="btn btn-outline-dark" href="/admin/reportcheck">신고 처리 전</a> <a class="btn btn-outline-dark" href="/admin/reportend">신고
+				처리 완료</a>
+		</div>
+		<div th:if="${ check } == 2">
+			<a style="margin-right:50px;" class="btn btn-outline-dark" href="/admin/reportlist">신고 전체 리스트</a> <a class="btn btn-outline-dark" href="/admin/reportend">신고
+				처리 완료</a>
+		</div>
+		<div th:if="${ check } == 3">
+			<a style="margin-right:50px;" class="btn btn-outline-dark" href="/admin/reportlist">신고 전체 리스트</a> <a class="btn btn-outline-dark"
+				href="/admin/reportcheck">신고 처리 전</a>
+		</div>
+	</nav>
 </main>
 
 <th:block layout:fragment="myscripts">

@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			let crtime = y.createdTime;
 			let date = new Date(crtime);
-			let datestr = date.toLocaleString();
+			let datestr = date.toLocaleDateString() + ' ' + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 			let chatfile = y.chatfile;
 			if (y.chatfile == '' || y.chatfile == null) {
 

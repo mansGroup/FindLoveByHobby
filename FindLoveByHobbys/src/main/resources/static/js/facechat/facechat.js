@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	let wss = 'wss://' + location.host + `/facechat?roomid=${roomId}`;
 
 
+	// 나가기 버튼
+	let btnExit = document.querySelector('button#btnExit');
+
 	let conn = new WebSocket(wss);
 
 	// RTC 객체 생성 후 해당 객체에 Stun 서버 주소 전달.
@@ -50,6 +53,29 @@ document.addEventListener('DOMContentLoaded', () => {
 				audio: true,
 				video: true
 			});
+
+
+			const videoTracksc = myStream.getVideoTracks()[0];
+
+			// 비디오 트랙의 설정 변경
+			const constraints = {
+				width: { ideal: 640 },  // 원하는 가로 크기
+				height: { ideal: 520 }  // 원하는 세로 크기
+			};
+
+			videoTracksc.applyConstraints(constraints)
+				.then(function() {
+					// 적용이 성공한 경우
+					console.log("Video track constraints applied successfully.");
+				})
+				.catch(function(error) {
+					// 적용이 실패한 경우
+					console.error("Error applying video track constraints:", error);
+				});
+
+
+
+
 
 			// 불러온 카메라를 HTML에 연결함. 이때부터 카메라에 담기는 화면이 웹에 표시됨.
 			myFace.srcObject = myStream;
@@ -124,6 +150,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 소켓에서 메시지 수신 시 실행할 함수
 	conn.onmessage = async function(msg) {
 		let content = JSON.parse(msg.data);
+
+		if (content.event == 'out') {
+
+			console.log('out');
+			reports.value = 2;
+			return;
+
+		}
 
 		if (content.event == 'report') {
 
@@ -257,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
 						headers: {
 							'Content-Type': 'multipart/form-data'
 						}
-						
+
 					});
 					console.log(response);
 					console.log(response.data);
@@ -265,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					fileuri = response.data;
 					audios.value = result;
 					alert('오디오 저장 성공!');
-					
+
 
 					report.value = 1;
 
@@ -325,6 +359,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	})
 
+	btnExit.addEventListener('click', () => {
+
+		let result = confirm('정말로 나가시겠습니까?');
+		if (result) {
+
+			return;
+
+		}
+		send({
+
+			event: 'out',
+			data: 'out'
+
+		})
+		reportForm.method = 'get';
+		reportForm.action = '/facechat/roomout';
+		reportForm.submit();
+
+	})
+
 	setInterval(() => {
 
 		if (reports.value == 1) {
@@ -333,6 +387,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			reportForm.action = '/facechat/report';
 			reportForm.submit();
 			alert('상대 유저로부터 신고를 당하셔서 통화가 강제로 종료됩니다.');
+
+		} else if (reports.value == 2) {
+
+
+			reportForm.method = 'get';
+			reportForm.action = '/facechat/roomout';
+			reportForm.submit();
+			alert('상대 유저가 방을 나갔습니다. 확인을 누르시면 이동합니다.');
 
 		}
 
