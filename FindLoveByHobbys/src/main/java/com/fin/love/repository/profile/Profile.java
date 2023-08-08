@@ -1,6 +1,8 @@
 package com.fin.love.repository.profile;
 
 
+import com.fin.love.dto.profile.ProfileUpdateDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -27,16 +29,13 @@ public class Profile {
 	private int userAge;
 	
 	@Column(nullable = false)
-	private String userPersonality;
+	private int userDrinks;
 	
 	@Column(nullable = false)
-	private String userDrinks;
-	
-	@Column(nullable = false)
-	private String userSmoker;
+	private int userSmoker;
 	
 	@Column
-	private String userHeight;
+	private int userHeight;
 	
 	@Column
 	private String userIntroduce;
@@ -53,19 +52,35 @@ public class Profile {
 	@Column
 	private int userReligion;
 	
-	public Profile updateData(
-			int userAge, String userDrinks, String userHeight, String userIntroduce,
+	public Profile saveData(
+			String userId, int userAge, int userDrinks, int userSmoker, int userHeight, String userIntroduce,
 			int userAcademic, int userIncome, int userJob, int userReligion
 			) {
+		this.userId = userId;
 		this.userAge = userAge;
 		this.userDrinks = userDrinks;
+		this.userSmoker = userSmoker;
 		this.userHeight = userHeight;
 		this.userIntroduce = userIntroduce;
 		this.userAcademic = userAcademic;
 		this.userIncome = userIncome;
 		this.userJob = userJob;
 		this.userReligion = userReligion;
-		this.userPersonality = "123455678";
+		
+		return this;
+	}
+	
+	public Profile update(ProfileUpdateDto dto) {
+		this.userId = dto.getUserId();
+		this.userAge = dto.getUserAge();
+		this.userDrinks = dto.getUserDrinks();
+		this.userSmoker = dto.getUserSmoker();
+		this.userHeight = dto.getUserHeight();
+		this.userIntroduce = dto.getUserIntroduce();
+		this.userAcademic = dto.getUserAcademic();
+		this.userIncome = dto.getUserIncome();
+		this.userJob = dto.getUserJob();
+		this.userReligion = dto.getUserReligion();
 		
 		return this;
 	}

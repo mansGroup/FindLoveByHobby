@@ -16,6 +16,10 @@ import com.fin.love.repository.profile.Academic;
 import com.fin.love.repository.profile.AcademicRepository;
 import com.fin.love.repository.profile.Age;
 import com.fin.love.repository.profile.AgeRepository;
+import com.fin.love.repository.profile.Drings;
+import com.fin.love.repository.profile.DringsRepository;
+import com.fin.love.repository.profile.Height;
+import com.fin.love.repository.profile.HeightRepository;
 import com.fin.love.repository.profile.Income;
 import com.fin.love.repository.profile.IncomeRepository;
 import com.fin.love.repository.profile.Jobs;
@@ -24,6 +28,8 @@ import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.ProfileRepository;
 import com.fin.love.repository.profile.Religion;
 import com.fin.love.repository.profile.ReligionRepository;
+import com.fin.love.repository.profile.Smoker;
+import com.fin.love.repository.profile.SmokerRepository;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
 
@@ -46,6 +52,9 @@ public class ManagerUserListService {
 	private final JobsRepository jobsRepository;
 	private final ReligionRepository religionRepository;
 	private final PictureService pictureService;
+	private final HeightRepository heightRepository;
+	private final SmokerRepository smokerRepository;
+	private final DringsRepository dringsRepository;
 	
 	public ManagerUserListDto dtoCreate(String userId) {
 		log.info("dtoCreate(userId = {})", userId);
@@ -63,6 +72,12 @@ public class ManagerUserListService {
 		String userJob = jobs.get(profile.getUserJob() - 1).getJobName();
 		List<Religion> religions = religionRepository.findAll();
 		String religion = religions.get(profile.getUserReligion() - 1).getReligionName();
+		List<Drings> drings = dringsRepository.findAll();
+		String drink = drings.get(profile.getUserDrinks() - 1).getDringsName();
+		List<Height> heights = heightRepository.findAll();
+		String height = heights.get(profile.getUserHeight() - 1).getHeightName();
+		List<Smoker> smokers = smokerRepository.findAll();
+		String smoker = smokers.get(profile.getUserSmoker() - 1).getSmokerName();
 		
 		Assessment assessment = assessmentRepository.findById(userId).orElseThrow();
 		StringTokenizer st = new StringTokenizer(assessmentMaxValue(assessment), "/");
@@ -78,8 +93,6 @@ public class ManagerUserListService {
 		String hobbyPic2 = pictureService.imageChange(hobbyPic.getHobbyPic2());
 		String hobbyPic3 = pictureService.imageChange(hobbyPic.getHobbyPic3());
 		
-		
-		
 		ManagerUserListDto dto = new ManagerUserListDto(
 				userId,  // 아이디
 				member.getName(),  // 이름
@@ -93,9 +106,9 @@ public class ManagerUserListService {
 				member.getCreatedTime(),  // 가입 시간
 				member.getModifiedTime(),  // 정보 수정 시간
 				age, // 나이
-				profile.getUserDrinks(),  // 음주
-				profile.getUserSmoker(),  // 흡연
-				profile.getUserHeight(),  // 키
+				drink,  // 음주
+				smoker,  // 흡연
+				height,  // 키
 				academic,  // 학교
 				income,  // 연봉
 				userJob,  // 직업
