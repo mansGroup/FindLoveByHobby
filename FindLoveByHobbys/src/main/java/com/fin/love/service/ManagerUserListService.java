@@ -60,6 +60,12 @@ public class ManagerUserListService {
 		log.info("dtoCreate(userId = {})", userId);
 
 		Member member = memberRepository.findById(userId).orElseThrow();
+		String gender = "";
+		if (member.getSex() == 0) {
+			gender = "여자";
+		} else {
+			gender = "남자";
+		}
 		
 		Profile profile = profileRepository.findById(userId).orElseThrow();
 		List<Age> ages = ageRepository.findAll();
@@ -98,7 +104,7 @@ public class ManagerUserListService {
 				member.getName(),  // 이름
 				member.getNickname(), // 닉네임
 				member.getEmail(),  // 이메일
-				member.getSex(),  // 성별
+				gender,  // 성별
 				member.getRole(),  // 권한
 				member.getPhone(),  // 폰
 				member.getAddress(),  // 주소

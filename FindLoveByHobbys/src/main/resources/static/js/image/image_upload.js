@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const formData = new FormData();
 
 		// 추가적인 파일 데이터를 FormData 객체에 추가합니다.
-		const fileInput = document.querySelector('input#uploadFilesUsualImage1');
+		const fileInput = document.querySelector('input#hobbyUploadFilesUsualImage1');
 		const uploadFile = fileInput.files[0]; // 첫 번째 파일만 선택합니다.
 		formData.append("uploadFile", uploadFile);
 
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const formData = new FormData();
 
 		// 추가적인 파일 데이터를 FormData 객체에 추가합니다.
-		const fileInput = document.querySelector('input#uploadFilesUsualImage1');
+		const fileInput = document.querySelector('input#hobbyUploadFilesUsualImage2');
 		const uploadFile = fileInput.files[0]; // 첫 번째 파일만 선택합니다.
 		formData.append("uploadFile", uploadFile);
 
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const formData = new FormData();
 
 		// 추가적인 파일 데이터를 FormData 객체에 추가합니다.
-		const fileInput = document.querySelector('input#uploadFilesUsualImage1');
+		const fileInput = document.querySelector('input#hobbyUploadFilesUsualImage3');
 		const uploadFile = fileInput.files[0]; // 첫 번째 파일만 선택합니다.
 		formData.append("uploadFile", uploadFile);
 
