@@ -1,4 +1,4 @@
-package com.fin.love.profile.dto;
+package com.fin.love.dto.profile;
 
 
 import com.fin.love.repository.profile.Profile;
@@ -10,8 +10,8 @@ public class ProfileCreateDto {
 
 	private String userId;
 	private int userAge;
-	private String userDrinks;
-	private String userSmoker;
+	private int userDrinks;
+	private int userSmoker;
 	private String userHeight;
 	private String userIntroduce;
 	private int userAcademic;
@@ -23,7 +23,6 @@ public class ProfileCreateDto {
 		return Profile.builder()
 				.userId(userId)
 				.userAge(userAge)
-				.userPersonality("TEST 테스트 값")
 				.userDrinks(userDrinks)
 				.userSmoker(userSmoker)
 				.userHeight(userHeight)
