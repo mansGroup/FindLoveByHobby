@@ -4,6 +4,7 @@ import com.fin.love.repository.chat.Chatting;
 import com.fin.love.repository.chat.ChattingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,8 +21,10 @@ public class ChattingService {
 
     public void save(Chatting chatting) {
         chattingRepository.save(chatting);
+
     }
 
+    @Transactional
     public void deleteChat(Long roomId) {
         chattingRepository.deleteByContentid(roomId);
     }

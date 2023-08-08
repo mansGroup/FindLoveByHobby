@@ -10,6 +10,7 @@ import com.fin.love.service.chatting.ChattingService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -119,8 +120,10 @@ public class ChatController {
         return "/chat/chatroom";
     }
 
+    @Transactional
     @PostMapping("/out")
-    public String chatOut(@RequestBody Long roomId) {
+    public String chatOut(Long roomId) {
+        log.info("chatOut({})", roomId);
 
         chattingService.deleteChat(roomId);
         chattingRoomService.deleteRoom(roomId);

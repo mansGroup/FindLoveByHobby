@@ -9,5 +9,5 @@ public interface ChattingRepository extends JpaRepository<Chatting, Long> {
 
     List<Chatting> findByContentidOrderByChatid(Long contentid);
 
-    void deleteByContentid(Long roomId);
+    void deleteByContentid(Long contentid);
 }

@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     //채팅창에서 나갔을 때
     function onClose(evt) {
         let str = {
-            "message" : + myNickname + "님이 방을 나가셨습니다.",
+            "message" : + `${myNickname}님이 방을 나가셨습니다.`,
             "nickname" : myNickname,
             "textType" : "bye"
         };
@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         let jsonData = JSON.stringify(str);
 
         websocket.send(jsonData);
+        websocket.close();
     }
 
     //채팅창에 들어왔을 때
@@ -187,7 +188,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
         }
 
         function bye(data) {
-            alert(data.message);
+            alert('상대방이 대화방을 나가셨습니다.');
+            websocket.close();
             chatOutForm.submit();
         }
 

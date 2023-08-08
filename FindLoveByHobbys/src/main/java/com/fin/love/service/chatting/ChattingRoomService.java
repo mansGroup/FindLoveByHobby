@@ -5,6 +5,7 @@ import com.fin.love.repository.chat.ChattingRoom;
 import com.fin.love.repository.chat.ChattingRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,6 +44,7 @@ public class ChattingRoomService {
         return dtoList;
     }
 
+    @Transactional
     public void deleteRoom(Long roomId) {
         chattingRoomRepository.deleteById(roomId);
     }

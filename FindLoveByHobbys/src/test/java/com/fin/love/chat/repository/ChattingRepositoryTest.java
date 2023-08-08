@@ -13,9 +13,5 @@ public class ChattingRepositoryTest {
     @Autowired
     private ChattingRepository chattingRepository;
 
-    @Test
-    public void findByContentidTest() {
-        chattingRepository.findByContentid(5L);
 
-    }
 }
