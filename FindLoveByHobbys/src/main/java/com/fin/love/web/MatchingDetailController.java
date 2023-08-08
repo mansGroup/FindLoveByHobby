@@ -90,25 +90,25 @@ public class MatchingDetailController {
 		log.info("userAcademic = {}", userAcademic);
 		model.addAttribute("academic", userAcademic);
 
-//		//프로필 테이블에서 키 번호를 조회하여 키 데이블의 키 이름을 가져옴.
-//		String userHeight = matchingDetailService.getUserHeightName(profile.getUserHeight());
-//		log.info("userHeight = {}", userHeight);
-//		model.addAttribute("height", userHeight);
+		//프로필 테이블에서 키 번호를 조회하여 키 데이블의 키 이름을 가져옴.
+		String userHeight = matchingDetailService.getUserHeightName(profile.getUserHeight());
+		log.info("userHeight = {}", userHeight);
+		model.addAttribute("height", userHeight);
 
 		// 프로필 테이블에서 나이 번호를 조회하여 나이 데이블의 나이 이름을 가져옴.
 		String userAge = matchingDetailService.getUserAgeName(profile.getUserAge());
 		log.info("userAge = {}", userAge);
 		model.addAttribute("age", userAge);
 
-//		// 프로필 테이블에서 음주 번호를 조회하여 음주 테이블에사 음주 이름을 가져옴.
-//		String userDrinks = matchingDetailService.getUserDrinksName(profile.getUserDrinks());
-//		log.info("userDrinks = {}", userDrinks);
-//		model.addAttribute("drinks", userDrinks);
-//
-//		// 프로필 테이블에서 흡연 번호를 조회하여 흡연 테이블에사 흡연 이름을 가져옴.
-//		String userSmoke = matchingDetailService.getUserSmokeName(profile.getUserSmoker());
-//		log.info("userSmoke = {}", userSmoke);
-//		model.addAttribute("smoke", userSmoke);
+		// 프로필 테이블에서 음주 번호를 조회하여 음주 테이블에사 음주 이름을 가져옴.
+		String userDrinks = matchingDetailService.getUserDrinksName(profile.getUserDrinks());
+		log.info("userDrinks = {}", userDrinks);
+		model.addAttribute("drinks", userDrinks);
+
+		// 프로필 테이블에서 흡연 번호를 조회하여 흡연 테이블에사 흡연 이름을 가져옴.
+		String userSmoke = matchingDetailService.getUserSmokerName(profile.getUserSmoker());
+		log.info("userSmoke = {}", userSmoke);
+		model.addAttribute("smoke", userSmoke);
 
 		// id에 해당하는 UserHobbies 가져오기
 		List<String> userHobbies = matchingDetailService.getUserHobbies(id);

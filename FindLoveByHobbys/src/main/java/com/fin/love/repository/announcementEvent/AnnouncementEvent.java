@@ -6,9 +6,13 @@ import com.fin.love.repository.BaseTimeEntity;
 import io.micrometer.core.annotation.Counted;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,15 +20,20 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "ANNOUNCEMENT_EVENT")
+@SequenceGenerator(name = "ANNOUNCEMENT_EVENT_SEQ_GEN", sequenceName = "ANNOUNCEMENT_EVENT_SEQ", allocationSize = 1)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Builder
 @Setter
 @ToString
 public class AnnouncementEvent extends BaseTimeEntity {
 	
-	@Id
-	private String id;
+	@Id // Primary key 제약조건
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANNOUNCEMENT_EVENT_SEQ_GEN")
+	
+	@Column(nullable = false)
+	private Long id;
 	
     @Column(nullable = false)
 	private String title;

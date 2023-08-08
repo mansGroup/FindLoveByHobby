@@ -1,5 +1,7 @@
 package com.fin.love.repository.announcementEvent;
 
-public interface AnnouncementEventRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AnnouncementEventRepository extends JpaRepository<AnnouncementEvent, Long>{
 
 }

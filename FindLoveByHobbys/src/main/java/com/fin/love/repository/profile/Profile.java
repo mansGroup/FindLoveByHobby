@@ -35,7 +35,7 @@ public class Profile {
 	private int userSmoker;
 	
 	@Column
-	private String userHeight;
+	private int userHeight;
 	
 	@Column
 	private String userIntroduce;
@@ -53,7 +53,7 @@ public class Profile {
 	private int userReligion;
 	
 	public Profile saveData(
-			String userId, int userAge, int userDrinks, int userSmoker, String userHeight, String userIntroduce,
+			String userId, int userAge, int userDrinks, int userSmoker, int userHeight, String userIntroduce,
 			int userAcademic, int userIncome, int userJob, int userReligion
 			) {
 		this.userId = userId;

@@ -2,8 +2,6 @@ package com.fin.love.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +15,8 @@ import com.fin.love.repository.profile.Academic;
 import com.fin.love.repository.profile.AcademicRepository;
 import com.fin.love.repository.profile.Age;
 import com.fin.love.repository.profile.AgeRepository;
+import com.fin.love.repository.profile.Drings;
+import com.fin.love.repository.profile.DringsRepository;
 import com.fin.love.repository.profile.Height;
 import com.fin.love.repository.profile.HeightRepository;
 import com.fin.love.repository.profile.Jobs;
@@ -25,6 +25,8 @@ import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.ProfileRepository;
 import com.fin.love.repository.profile.Religion;
 import com.fin.love.repository.profile.ReligionRepository;
+import com.fin.love.repository.profile.Smoker;
+import com.fin.love.repository.profile.SmokerRepository;
 import com.fin.love.repository.profile.UserHobby;
 import com.fin.love.repository.profile.UserHobbyRepository;
 import com.fin.love.respository.member.Member;
@@ -48,8 +50,8 @@ public class MatchingDetailService {
 	private final JobsRepository jobsRepository;
 	private final ReligionRepository religionRepository;
 	private final AcademicRepository academicRepository;
-//	private final DrinksRepository drinksRepository;
-//	private final SmokeRepository smokeRepository;
+	private final DringsRepository dringsRepository;
+	private final SmokerRepository smokerRepository;
 	private final HeightRepository heightRepository;
 	private final AgeRepository ageRepository;
 
@@ -133,29 +135,29 @@ public class MatchingDetailService {
 		return age.get(ageNum - 1).getAgeName();
 	}
 
-//	// 유저의 음주 여부를 가져오기 위해
-//	public List<Drinks> getUserDrinke() {
-//		return drinksRepository.findAll();
-//	}
-//
-//	// 유저의 음주 이름을 가져오기 위해서
-//	public String getUserDrinksName(int drinksNum) {
-//		List<Drinks> dr = getUserAcdemic();
-//
-//		return dr.get(drinksNum - 1).getDrinksName();
-//	}
-//
-//	// 유저의 흡연 여부를 가져오기 위해
-//	public List<Smoke> getUserDrinke() {
-//		return drinksRepository.findAll();
-//	}
-//
-//	// 유저의 흡연 이름을 가져오기 위해서
-//	public String getUserSmokeName(int smokeNum) {
-//		List<Smoke> sm = getUserAcdemic();
-//
-//		return sm.get(smokeNum - 1).getSmokeName();
-//	}
+	// 유저의 음주 여부를 가져오기 위해
+	public List<Drings> getUserDrings() {
+		return dringsRepository.findAll();
+	}
+
+	// 유저의 음주 이름을 가져오기 위해서
+	public String getUserDrinksName(int drinksNum) {
+		List<Drings> dr = getUserDrings();
+
+		return dr.get(drinksNum - 1).getDringsName();
+	}
+
+	// 유저의 흡연 여부를 가져오기 위해
+	public List<Smoker> getUserSmokers() {
+		return smokerRepository.findAll();
+	}
+
+	// 유저의 흡연 이름을 가져오기 위해서
+	public String getUserSmokerName(int smokerNum) {
+		List<Smoker> sm = getUserSmokers();
+
+		return sm.get(smokerNum - 1).getSmokerName();
+	}
 
 	// UserHobby와 Hobby에 Id를 비교 후 같다면 취미 목록을 출력한다.
 	public List<String> getUserHobbies(String id) {
@@ -251,7 +253,7 @@ public class MatchingDetailService {
 
 		assessment.handsomeUpdate(count);
 	}
-//============================================================================================
+//======================== 호감을 보내기 위해============================================================
 
 	// 호감 보낼 때 중복체크 하기위해
 	public int assessment(String senderId, String getterId) {
