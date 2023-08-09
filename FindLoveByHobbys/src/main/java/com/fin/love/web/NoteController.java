@@ -22,9 +22,9 @@ public class NoteController {
     @GetMapping("/note")
     public void note(Model model) {
         // TODO 시큐리티 id 바꿔주기
-        String id = "user1";
+        String id = "user2";
         List<NoteContentDto> noteContentDtos = noteService.getMyNoteContent(id);
-        log.info(noteContentDtos.size() + "");
+        log.info(noteContentDtos.get(0).getSender() + "");
         model.addAttribute("userId", id);
         model.addAttribute("noteContentList", noteContentDtos);
     }
