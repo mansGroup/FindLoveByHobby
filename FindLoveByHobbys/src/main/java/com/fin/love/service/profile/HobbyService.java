@@ -59,6 +59,14 @@ public class HobbyService {
 		
 		return userHobbyRepository.findByUserid(userId);
 	}
+
+	
+	@Transactional
+	public void hobbyByIdAllDelete(String userId) {
+		log.info("hobbyByIdAllDelete(userId = {})", userId);
+		
+		userHobbyRepository.deleteByUserid(userId);
+	}
 	
 	
 //	@Transactional

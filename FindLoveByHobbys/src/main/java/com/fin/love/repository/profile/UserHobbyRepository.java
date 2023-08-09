@@ -8,4 +8,6 @@ public interface UserHobbyRepository extends JpaRepository<UserHobby, String> {
 	
 	List<UserHobby> findByUserid(String id);
 	
+	void deleteByUserid(String userid);
+	
 }
