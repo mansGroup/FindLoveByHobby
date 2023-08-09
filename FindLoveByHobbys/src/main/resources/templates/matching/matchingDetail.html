@@ -98,40 +98,15 @@
 										</button>
 									</div>
 									
-									<div class="d-none">
-										<h6 style="padding-bottom: 15px;">호감 보내기</h6>
-										<br />
-										<button type="button" id="btnCute" class="btn btn-warning btn-lg">cute
-										<span id="memberCuteCount">
-										<span th:text="${assessment.cute}" id="cuteCount" class="badge text-bg-secondary"></span>
-										</span> 
-										<span id="memberCute" class="d-none">cute</span>
-										</button>
-
-										<button type="button" id="btnWonderful" class="btn btn-warning btn-lg">wonderful
-										<span id="memberWonderfulCount">
-										<span th:text="${assessment.wonderful}" id="wonderfulCount" class="badge text-bg-secondary"></span>
-										</span>
-										<span id="memberWonderful" class="d-none">wonderful</span>
-										</button>
-										
-
-										<button type="button" id="btnHandsome" class="btn btn-warning btn-lg">handsome
-										<span id="handsomeCount">
-										<span th:text="${assessment.handsome}" id="handsomeCount" class="badge text-bg-secondary"></span>
-										</span>
-										<span id="memberHandsome" class="d-none">handsome</span>
-										</button>
-									</div>
-
 									<!-- 남자일 경우 -->
 									<div th:if="${member.sex} == 1">
+									
 										<h6 style="padding-bottom: 15px;">호감 보내기</h6>
 										<br />
 										<button type="button" id="btnCute" class="btn btn-warning btn-lg">cute
 										<span id="memberCuteCount">
 										<span th:text="${assessment.cute}" id="cuteCount" class="badge text-bg-secondary"></span>
-										</span> 
+										</span>
 										<span id="memberCute" class="d-none">cute</span>
 										</button>
 
@@ -149,31 +124,6 @@
 										</span>
 										<span id="memberHandsome" class="d-none">handsome</span>
 										</button>
-										
-										<div class="d-none">
-											<h6 style="padding-bottom: 15px;">호감 보내기</h6>
-											<br />
-											<button type="button" class="btn btn-warning btn-lg" id="btnSexy">sexy
-											<span id="memberSexyCount"> 
-											<span th:text="${assessment.sexy}" id="sexyCount" class="badge text-bg-secondary"></span>
-											</span> 
-											<span id="memberSexy" class="d-none">sexy</span>
-											</button>
-											
-											<button type="button" id="btnBeautiful" class="btn btn-warning btn-lg">beautiful
-											<span id="memberBeautifulCount"> 
-											<span th:text="${assessment.beautiful}" id="beautifulCount" class="badge text-bg-secondary"></span>
-											</span> 
-											<span id="memberBeautiful" class="d-none">beautiful</span>
-											</button>
-											
-											<button type="button" id="btnCute" class="btn btn-warning btn-lg">cute
-											<span id="memberCuteCount"> 
-											<span th:text="${assessment.cute}" id="cuteCount" class="badge text-bg-secondary"></span>
-											</span> 
-											<span id="memberCute" class="d-none">cute</span>
-											</button>
-										</div>
 										
 									</div>
 								</div>
@@ -278,7 +228,7 @@
 							</div>
 							<div class="col-lg-4 col-12">
 								<div class="gallery-thumb image-hover-thumb">
-									<a href="#" class="popup-image"> <img th:src="${hobbyPic3}"
+									 <img th:src="${hobbyPic3}"
 										class="gallery-image img-fluid" alt="">
 									</a>
 								</div>

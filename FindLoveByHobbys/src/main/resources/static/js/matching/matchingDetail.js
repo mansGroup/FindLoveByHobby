@@ -66,35 +66,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	};
 
-	btnSexy.addEventListener('click', () => {
-		const assessmentName = spanMemberSexy.innerHTML;
+	if (btnSexy) { // 버튼이 있을 때만 이벤트 핸들러 등록.
+		btnSexy.addEventListener('click', () => {
+			const assessmentName = spanMemberSexy.innerHTML;
+	
+			console.log('assessmentName >>>> ', assessmentName);
+			console.log('들어옴');
+	
+			const checkUrl = `/api/matchingDetail/assessment/chack/${senderId}/${getterId}`;
+	
+			axios.post(checkUrl)
+				.then((responce) => {
+					console.log('responce 중복 체크 >>>> ', responce);
+					if (responce.data == 0) {
+						axios.post(`/api/matchingDetail/assessment/${assessmentName}/${senderId}/${getterId}`)
+							.then((response) => {
+								console.log(response.data);
+								makeSexyElements(response.data);
+							})
+							.catch((error) => console.log(error));
+	
+					} else {
+						alert('호감 표시는 한번밖에 할 수 없습니다.')
+						return;
+					}
+	
+				})
+				.catch((errer) => console.log(errer));
+	
+		});
+	}
 
-		console.log('assessmentName >>>> ', assessmentName);
-		console.log('들어옴');
-
-		const checkUrl = `/api/matchingDetail/assessment/chack/${senderId}/${getterId}`;
-
-		axios.post(checkUrl)
-			.then((responce) => {
-				console.log('responce 중복 체크 >>>> ', responce);
-				if (responce.data == 0) {
-					axios.post(`/api/matchingDetail/assessment/${assessmentName}/${senderId}/${getterId}`)
-						.then((response) => {
-							console.log(response.data);
-							makeSexyElements(response.data);
-						})
-						.catch((error) => console.log(error));
-
-				} else {
-					alert('호감 표시는 한번밖에 할 수 없습니다.')
-					return;
-				}
-
-			})
-			.catch((errer) => console.log(errer));
-
-	});
-
+	if (btnBeautiful) { // 버튼이 있을 때만 이벤트 핸들러 등록.
 	btnBeautiful.addEventListener('click', () => {
 		const assessmentName = spanMemberBeautiful.innerHTML;
 
@@ -123,7 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			.catch((errer) => console.log(errer));
 
 	});
-
+	}
+	if (btnCute) { // 버튼이 있을 때만 이벤트 핸들러 등록.
 	btnCute.addEventListener('click', () => {
 		const assessmentName = spanMemberCute.innerHTML;
 
@@ -153,8 +157,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 
 	});
+	}
 	
-
+	if (btnWonderful) { // 버튼이 있을 때만 이벤트 핸들러 등록.
 	btnWonderful.addEventListener('click', () => {
 		const assessmentName = spanMemberWonderful.innerHTML;
 
@@ -183,7 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			.catch((errer) => console.log(errer));
 
 	});
-
+	}
+	if (btnHandsome) { // 버튼이 있을 때만 이벤트 핸들러 등록.
 	btnHandsome.addEventListener('click', () => {
 		const assessmentName = spanMemberHandsome.innerHTML;
 
@@ -211,4 +217,5 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 			.catch((errer) => console.log(errer));
 	});
+	}
 });
