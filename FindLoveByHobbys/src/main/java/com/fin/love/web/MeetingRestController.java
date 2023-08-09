@@ -34,7 +34,13 @@ public class MeetingRestController {
 	@PostMapping("/search")
 	public ResponseEntity<List<Meeting>> search(@RequestBody MeetingSearchDto dto){
 		log.info("meeting search(dto = {})",dto);
-		List<Meeting> list = meetservice.search(dto);
+		List<Meeting> list = new ArrayList<>();
+		try {
+			list = meetservice.search(dto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		

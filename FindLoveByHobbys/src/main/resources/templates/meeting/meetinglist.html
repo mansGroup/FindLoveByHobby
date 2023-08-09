@@ -4,7 +4,7 @@
 
 
 
-<main style="height: 1000px;" layout:fragment="main">
+<main style="height: 100%;" layout:fragment="main">
 	<div style="margin: 0px 30px;">
 
 		<div id="selectors" class="row">
@@ -20,48 +20,67 @@
 				class="card col-2">
 
 			</select>
-			
-				<div class="row card-body my-3"
-					style="display: flex; justify-content: center; align-content: center;">
-					<div class="col-3 row mx-1">
-						<label
-							style="border: none; display: flex; justify-content: center;"
-							class="card col-4" for="location">희망 지역</label> <input
-							style="border: none; border-bottom: 1px solid black; text-align: center;"
-							class="col-8" readonly="readonly" required="required" type="text"
-							id="location" name="location" />
-					</div>
-					<div class="col-3 row">
-						<label
-							style="border: none; display: flex; justify-content: center;"
-							class="card col-4" for="hobby">희망 취미</label> <input
-							style="border: none; border-bottom: 1px solid black; text-align: center;"
-							class="col-8" readonly="readonly" required="required" type="text"
-							id="hobby" name="hobby" />
-					</div>
-					<div class="col-3 row mx-1">
-						<label
-							style="border: none; display: flex; justify-content: center;"
-							class="card col-4" for="age">희망 연령</label> <input
-							style="border: none; border-bottom: 1px solid black; text-align: center;"
-							class="col-8" readonly="readonly" required="required" type="text"
-							id="age" name="age" />
-					</div>
-					<div class="col-3 row" style="justify-content: center;">
-						<button class="btn btn-outline-primary col-10" id="btnsearch">검색</button>
-					</div>
+
+			<div class="row card-body my-3"
+				style="display: flex; justify-content: center; align-content: center;">
+				<div class="col-3 row mx-1">
+					<label
+						style="border: none; display: flex; justify-content: center;"
+						class="card col-4" for="location">희망 지역</label> <input
+						style="border: none; border-bottom: 1px solid black; text-align: center;"
+						class="col-8" readonly="readonly" required="required" type="text"
+						id="location" name="location" />
 				</div>
+				<div class="col-3 row">
+					<label
+						style="border: none; display: flex; justify-content: center;"
+						class="card col-4" for="hobby">희망 취미</label> <input
+						style="border: none; border-bottom: 1px solid black; text-align: center;"
+						class="col-8" readonly="readonly" required="required" type="text"
+						id="hobby" name="hobby" />
+				</div>
+				<div class="col-3 row mx-1">
+					<label
+						style="border: none; display: flex; justify-content: center;"
+						class="card col-4" for="age">희망 연령</label> <input
+						style="border: none; border-bottom: 1px solid black; text-align: center;"
+						class="col-8" readonly="readonly" required="required" type="text"
+						id="age" name="age" />
+				</div>
+				<div class="col-3 row" style="justify-content: center;">
+					<button class="btn btn-outline-primary col-10" id="btnsearch">검색</button>
+				</div>
+			</div>
 			<form id="searchform">
-				<input class="d-none" type="text" name="hobbyId" id="hobbyId"/>
-				<input class="d-none" type="text" name="locationid" id="locationId" />
-				<input class="d-none" type="text" name="ageId" id="ageId" />
+				<input class="d-none" type="text" name="hobbyId" id="hobbyId" /> <input
+					class="d-none" type="text" name="locationid" id="locationId" /> <input
+					class="d-none" type="text" name="ageId" id="ageId" />
 			</form>
 		</div>
 	</div>
 	<div>
-		<section id="searchresult">
-			<!-- 검색 결과 표출 페이지 -->
+		<section style="background-color: white;"
+			class="the-wedding-section section-bg section-padding" id="section_3">
+			<div class="container">
+				<div class="row">
+				<div style="display: flex;" class="col-1 d-none" id="btnBackPr">
+					<button class="btn btn-outline-dark" id="btnBack">◀</button>
+				</div>
+				<div id="searchresult" class="row col-10">
+				
+				</div>
+				<div style="display: flex;" class="col-1 d-none" id="btnFrontPr">
+					<button class="btn btn-outline-dark" id="btnFront">▶</button>
+				</div>
+				</div>
+			</div>
+
+
+
+
+
 		</section>
+
 
 		<section style="background-color: white;"
 			class="the-wedding-section section-bg section-padding" id="section_3">

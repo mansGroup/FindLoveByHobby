@@ -1,6 +1,7 @@
 package com.fin.love.repository.meeting;
 
 import java.time.LocalDateTime;
+import java.util.Deque;
 
 import com.fin.love.dto.meeting.MeetingMakeDto;
 import com.fin.love.repository.BaseTimeEntity;
@@ -93,6 +94,14 @@ public class Meeting extends BaseTimeEntity {
 		this.image3 = dto.getImage3();
 		this.status = dto.getStatus();
 		this.meetingdate = dto.getMeetingtime().toLocalDateTime();
+	}
+	
+	public void makePhoto(Deque<String> photo) {
+		
+		this.image1 = photo.pollFirst();
+		this.image2 = photo.pollFirst();
+		this.image3 = photo.pollFirst();
+		
 	}
 	
 }

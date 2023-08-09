@@ -1,11 +1,16 @@
 package com.fin.love.service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Deque;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +45,7 @@ public class MeetingService {
 
 	@Autowired
 	private AgeRepository agerepository;
-	
+
 	@Autowired
 	private MeetingMemberRepository mtmemrepository;
 
@@ -141,97 +146,175 @@ public class MeetingService {
 	}
 
 	public String imageToBase64(String imagePath) {
+		log.info(imagePath);
 		
-		byte[] imageBytes = null;
 		try {
 			Path path = Paths.get(imagePath);
-			imageBytes = Files.readAllBytes(path);
-			
+			byte[] imageBytes = Files.readAllBytes(path);
+			return Base64.getEncoder().encodeToString(imageBytes);
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
-		
-		return Base64.getEncoder().encodeToString(imageBytes);
-		
+
+		return null;
+
 	}
 
-	public List<Meeting> search(MeetingSearchDto dto) {
-		
+	public List<Meeting> search(MeetingSearchDto dto) throws Exception {
+
 		List<Meeting> list2 = meetingrepository.findAll();
-		List<Meeting> list = new ArrayList<>();
-	
 		
-		return list;
-	}
-	
-	public List<Meeting> findByHobby(List<Meeting> unlist, long hobbyId){
-		List<Meeting> list = new ArrayList<>();
-		
-		for(Meeting x : unlist) {
+		if(list2 == null) {
 			
-			if(x.getHobby().getHobbyId()==hobbyId) {
-				
-				list.add(x);
-				
-			}
+			return new ArrayList<Meeting>();
 			
 		}
 		
-		
-		return list;
-	}
-	
-	public List<Meeting> findbyLocation(List<Meeting> unlist, long locationId){
+		List<Meeting> listh = findByHobby(list2, dto.getHobbyId());
+		List<Meeting> listl = findbyLocation(listh, dto.getLocationId());
+		List<Meeting> lista = findByAge(listl, dto.getAgeId());
 		List<Meeting> list = new ArrayList<>();
+		Random random = new Random(42);
+		int end = lista.size()>=6 ? 6 : lista.size();
+		List<Integer> nums = new ArrayList<>();
 		
-		for(Meeting x : unlist) {
-			
-			if(x.getLocation().getId()==locationId) {
+		for (int i = 0; i<end; ) {
+			int index = random.nextInt(0, lista.size());
+			boolean check = false;
+			for(int j = 0; j<nums.size(); j++) {
 				
-				list.add(x);
-				
-			}
-			
-		}
-		
-		
-		return list;
-	}
-	
-	public List<Meeting> findByAge(List<Meeting> unlist, long ageId){
-		List<Meeting> list = new ArrayList<>();
-		
-		for(Meeting x : unlist) {
-			
-			long age = mtmemrepository.findAverageProfileUserAgeByMeeting(x);
-			
-			if(age==ageId) {
-				
-				list.add(x);
-				
-			}
-			
-		}
-		
-		// 만약 원하는 나이대의 이성이 부족한 경우 비슷한 연령대 추가.
-		if(list.size()<6) {
-			
-			for(Meeting x : unlist) {
-				long age = mtmemrepository.findAverageProfileUserAgeByMeeting(x);
-				if(age!=ageId && (ageId-age<1 || age-ageId<1)) {
+				if(nums.get(j)==index) {
+					check = true;
+					break;
 					
-					list.add(x);
 					
 				}
 				
 			}
+			if(check == true) {
+				
+				continue;
+				
+			}
+			
+			list.add(lista.get(index));
+			nums.add(index);
+			i++;
 			
 		}
 		
 		
+		
+		for (int i = 0; i < list.size(); i++) {
+			Deque<String> deq = new ArrayDeque<>();
+			log.info("image = {}",list.get(i).getImage1());
+			if (list.get(i).getImage1() != null) {
+				log.info("이미지 {}",list.get(i).getImage1());
+				deq.push(imageToBase64(list.get(i).getImage1()));
+				
+			}
+			
+			if (list.get(i).getImage2() != null) {
+				
+				deq.push(imageToBase64(list.get(i).getImage2()));
+				
+			}
+			
+			if (list.get(i).getImage3() != null) {
+				
+				
+				deq.push(imageToBase64(list.get(i).getImage3()));
+				
+			}
+			list.get(i).makePhoto(deq);
+		}
+
 		return list;
 	}
-	
-	
+
+	public List<Meeting> findByHobby(List<Meeting> unlist, long hobbyId) {
+		List<Meeting> list = new ArrayList<>();
+
+		for (Meeting x : unlist) {
+
+			if (x.getHobby().getHobbyId() == hobbyId) {
+
+				list.add(x);
+
+			}
+
+		}
+
+		return list;
+	}
+
+	public List<Meeting> findbyLocation(List<Meeting> unlist, long locationId) {
+		List<Meeting> list = new ArrayList<>();
+
+		for (Meeting x : unlist) {
+
+			if (x.getLocation().getId() == locationId) {
+
+				list.add(x);
+
+			}
+
+		}
+
+		return list;
+	}
+
+	public List<Meeting> findByAge(List<Meeting> unlist, long ageId) {
+		List<Meeting> list = new ArrayList<>();
+		
+		int count = 0;
+		for (Meeting x : unlist) {
+			if (count > 5) {
+
+				break;
+
+			}
+			List<MeetingMember> list2 = mtmemrepository.findByMeetingId(x.getId());
+			long age = 0;
+			for(MeetingMember y : list2) {
+				
+				age += (Long.parseLong(y.getProfile().getUserAge())+19);
+				
+			}
+			age = ((age/list2.size())/10)*10;
+
+			if (age == ageId) {
+
+				list.add(x);
+				count++;
+			}
+
+		}
+
+		// 만약 원하는 나이대의 이성이 부족한 경우 비슷한 연령대 추가.
+		if (count < 6) {
+
+			for (Meeting x : unlist) {
+				List<MeetingMember> list2 = mtmemrepository.findByMeetingId(x.getId());
+				long age = 0;
+				for(MeetingMember y : list2) {
+					
+					age += (Long.parseLong(y.getProfile().getUserAge())+19);
+					
+				}
+				age = ((age/list2.size())/10)*10;
+				if (age != ageId && (age == ageId + 10 || age == ageId - 10)) {
+
+					list.add(x);
+
+				}
+
+			}
+
+		}
+
+		return list;
+	}
+
 }
