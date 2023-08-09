@@ -26,7 +26,6 @@ public class HobbyService {
 	public final UserHobbyRepository userHobbyRepository;
 	
 
-	// 취미 리스트
 	@Transactional(readOnly = true)
 	public List<Hobby> readHobbyList() {
 		
@@ -48,10 +47,25 @@ public class HobbyService {
 	
 	
 	@Transactional
-	public void userHobbyUpdate(UserHobbyUpdateDto dto) {
-		log.info("userHobbyUpdate(dto={})", dto);
+	public void userHobbyDelete(String userId) {
+		log.info("userHobbyDelete(userId={})", userId);
 		
-		//UserHobby entity = userHobbyRepository.findById(dto.getUserid()).orElseThrow();
-		//entity.userHobbyUpdate(dto);
+		userHobbyRepository.deleteById(userId);
 	}
+
+
+	public List<UserHobby> findById(String userId) {
+		log.info("findById(userId = {})", userId);
+		
+		return userHobbyRepository.findByUserid(userId);
+	}
+	
+	
+//	@Transactional
+//	public void userHobbyUpdate(UserHobbyUpdateDto dto) {
+//		log.info("userHobbyUpdate(dto={})", dto);
+//		
+//		UserHobby entity = userHobbyRepository.findById(dto.getUserid()).orElseThrow();
+//		entity.userHobbyUpdate(dto);
+//	}
 }

@@ -17,7 +17,7 @@ public class ProfileUpdateDto {
 	private int userAge;
 	private int userDrinks;
 	private int userSmoker;
-	private String userHeight;
+	private int userHeight;
 	private String userIntroduce;
 	private int userAcademic;
 	private int userIncome;
