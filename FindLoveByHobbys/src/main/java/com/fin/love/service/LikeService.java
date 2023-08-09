@@ -22,8 +22,11 @@ public class LikeService {
 		
 		Like like = likeRepository.findBySenderAndRecipient(userId, memberId);
 		
-		if (like != null) {
+		if (like == null) {
 			result = 1;
+			
+			Like entity = Like.builder().sender(userId).recipient(memberId).whether(0).build();
+			likeRepository.save(entity);
 		}
 		
 		return result;
