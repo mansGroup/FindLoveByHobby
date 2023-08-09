@@ -4,10 +4,12 @@ import com.fin.love.repository.note.NoteNumber;
 import com.fin.love.repository.note.NoteNumberRepository;
 import com.fin.love.repository.note.NoteRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class NoteNumberService {
@@ -38,5 +40,15 @@ public class NoteNumberService {
             noteCount = entity.getNoteCount() - entity.getCheckCount();
         }
         return noteCount;
+    }
+
+    @Transactional
+    public boolean checkedNote(String id) {
+        NoteNumber number = noteNumberRepository.findById(id).orElseGet(NoteNumber::new);
+        if (number.getUserid() == null) return false;
+
+        number.checkedNote(number.getNoteCount());
+
+        return true;
     }
 }

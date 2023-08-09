@@ -3,6 +3,8 @@ package com.fin.love.service.chatting;
 import com.fin.love.dto.chatting.ChattingListDto;
 import com.fin.love.repository.chat.ChattingRoom;
 import com.fin.love.repository.chat.ChattingRoomRepository;
+import com.fin.love.respository.member.Member;
+import com.fin.love.respository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,7 @@ import java.util.List;
 public class ChattingRoomService {
 
     private final ChattingRoomRepository chattingRoomRepository;
+    private final MemberRepository memberRepository;
 
     public List<ChattingListDto> getChattingRoomListById(String userId, int sex) {
 
@@ -47,5 +50,20 @@ public class ChattingRoomService {
     @Transactional
     public void deleteRoom(Long roomId) {
         chattingRoomRepository.deleteById(roomId);
+    }
+
+    public void makeChattingRoomm(String senderId, String user) {
+        Member sender = memberRepository.findById(senderId).orElseThrow();
+        if (sender.getSex() == 1) {
+            chattingRoomRepository.save(ChattingRoom.builder()
+                    .maleId(senderId)
+                    .femaleId(user)
+                    .build());
+        } else {
+            chattingRoomRepository.save(ChattingRoom.builder()
+                    .maleId(user)
+                    .femaleId(senderId)
+                    .build());
+        }
     }
 }

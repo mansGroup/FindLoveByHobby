@@ -25,4 +25,8 @@ public class NoteNumber {
         this.noteCount++;
         return this;
     }
+
+    public void checkedNote(Long noteNumber) {
+        this.checkCount = noteNumber;
+    }
 }

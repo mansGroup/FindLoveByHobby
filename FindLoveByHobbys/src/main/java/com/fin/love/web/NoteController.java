@@ -1,6 +1,7 @@
 package com.fin.love.web;
 
 import com.fin.love.dto.note.NoteContentDto;
+import com.fin.love.service.note.NoteNumberService;
 import com.fin.love.service.note.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,14 +19,22 @@ import java.util.List;
 public class NoteController {
 
     private final NoteService noteService;
+    private final NoteNumberService noteNumberService;
 
     @GetMapping("/note")
     public void note(Model model) {
         // TODO 시큐리티 id 바꿔주기
-        String id = "user2";
-        List<NoteContentDto> noteContentDtos = noteService.getMyNoteContent(id);
-        log.info(noteContentDtos.get(0).getSender() + "");
-        model.addAttribute("userId", id);
-        model.addAttribute("noteContentList", noteContentDtos);
+        String id = "user1";
+        // 쪽지창 들어오면 알람 개수 없애주기
+        boolean haveNoteNumber = noteNumberService.checkedNote(id);
+
+        // NoteNumber 테이블에 해당 아이디가 없으면 아래 문장을 실행할 경우 오류가 발생하기 때문에 조건문은 둠
+        if (haveNoteNumber) {
+            // 쪽지 내용 불러오기
+            List<NoteContentDto> noteContentDtos = noteService.getMyNoteContent(id);
+            log.info(noteContentDtos.get(0).getSender() + "");
+            model.addAttribute("noteContentList", noteContentDtos);
+        }
+
     }
 }
