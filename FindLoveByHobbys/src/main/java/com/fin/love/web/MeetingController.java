@@ -14,6 +14,7 @@ import com.fin.love.dto.meeting.MeetingMakeDto;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.location.Location;
 import com.fin.love.repository.meeting.Meeting;
+import com.fin.love.repository.profile.Age;
 import com.fin.love.service.MeetingService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,9 +43,11 @@ public class MeetingController {
 		
 		List<Hobby> list = meetingservice.loadhobby();
 		List<Location> list2 = meetingservice.loadloc();
+		List<Age> list3 = meetingservice.loadage();
 		
 		model.addAttribute("list",list);
 		model.addAttribute("list2", list2);
+		model.addAttribute("list3", list3);
 		
 		log.info("meetcreate()");
 		

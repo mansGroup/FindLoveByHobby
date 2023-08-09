@@ -15,11 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
 	const btnFront = document.querySelector('button#btnFront');
 	const btnBackPr = document.querySelector('div#btnBackPr');
 	const btnFrontPr = document.querySelector('div#btnFrontPr');
-	
+	const mainbody = document.querySelector('main#mainbody');
+
 	let nowcount = 0;
 	// 검색 결과 리스트 저장하는 곳.
 	let list = '';
-	
+
 	optionselect.addEventListener('change', async () => {
 
 		let selection = optionselect.value;
@@ -150,6 +151,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		e.preventDefault();
 
+		if (ageId.value == '' || locationId.value == '' || hobbyId.value == '') {
+
+			alert('원하시는 조건을 입력하셔야 검색할 수 있습니다.');
+			return;
+
+		}
+
+
+		mainbody.style.opacity = "0";
+		mainbody.style.transition = "opacity 3s ease-in-out";
+
 		let reqUrl = '/api/meeting/search';
 		let data = {
 
@@ -161,42 +173,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		let response = await axios.post(reqUrl, data);
 		list = response.data;
-		
-		if(list.length != 0){
-			
+
+		if (list.length != 0) {
+
 			btnBackPr.classList.remove('d-none');
 			btnFrontPr.classList.remove('d-none');
-			
+
 		} else {
-			
+
 			btnBackPr.classList.add('d-none');
 			btnFrontPr.classList.add('d-none');
 		}
-		
+
 		console.log(list);
-		searchResult(list,3,0);
-		
+		searchResult(list, 3, 0);
+
 	})
-	
+
 	function searchResult(list, endcount, startcount) {
-		
+
 		let html = '';
 		searchresult.innerHTML = '';
-		
-		
-		
+
+
+
 		let count = startcount;
 		let end = endcount;
 		nowcount = count;
 		for (let x of list) {
-			if(count == end){
-				
+			if (count == end) {
+
 				return;
-				
+
 			}
-			count+=1;
+			let date = new Date(x.meetingdate);
+			let meettime = date.toLocaleString();
+			count += 1;
 			html += `
 				<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+					<input class="d-none" value="${x.id}" />
 						<div class="image-hover-thumb">
 							<img src="data:image/jpeg;base64,${x.image1}"
 								class="img-fluid" alt="이미지 없음">
@@ -208,7 +223,9 @@ document.addEventListener('DOMContentLoaded', () => {
 							<p class="mb-2" >
 								${x.location.locationname}</p>
 
-							<p>${x.meetingdate}</p>
+							<p>${meettime}</p>
+							
+							
 						</div>
 					</div>
 
@@ -218,42 +235,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		}
 		searchresult.innerHTML = html;
-		
+		mainbody.style.opacity = "1";
+		mainbody.style.transition = "opacity 1s ease-in-out";
 	}
-	
-	btnBack.addEventListener('click',()=>{
-		
-		if(nowcount!=0){
-			
-			nowcount-=3;
-			searchResult(list,nowcount+3,nowcount);
+
+	btnBack.addEventListener('click', (e) => {
+
+		e.preventDefault();
+
+		if (nowcount != 0) {
+			mainbody.style.opacity = "0";
+			mainbody.style.transition = "opacity 3s ease-in-out";
+			nowcount -= 3;
+			searchResult(list, nowcount + 3, nowcount);
 			console.log("뒤로 가기");
 		} else {
-			
-			if(list == ''){
+
+			if (list == '') {
 				console.log("검색 안한 상태");
 				return;
-				
+
 			}
 			console.log("더 이상 뒤로 갈 수 없음.");
 		}
-		
+
 	})
-	
-	btnFront.addEventListener('click',()=>{
-		
-		if(nowcount+3>list.length-1){
+
+	btnFront.addEventListener('click', (e) => {
+
+		e.preventDefault();
+
+		if (nowcount + 3 > list.length - 1) {
 			console.log("더 이상 길이가 안되는 상황");
 			return;
-			
+
 		} else {
-			nowcount+=3;
-			searchResult(list,nowcount+3,nowcount);
+			mainbody.style.opacity = "0";
+			mainbody.style.transition = "opacity 3s ease-in-out";
+			nowcount += 3;
+			searchResult(list, nowcount + 3, nowcount);
 			console.log("앞으로");
 		}
-		
+
 	})
-	
-	
+
+
 
 })

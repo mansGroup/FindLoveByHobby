@@ -62,8 +62,16 @@ public class MeetingService {
 		if (len > startcheck && len >= num * 6) {
 
 			for (int i = start * 6; i < num * 6; i++) {
-
-				list2.add(list.get(i));
+				Deque<String> deq = new ArrayDeque<>();
+				Meeting met = list.get(i);
+				
+				deq.push(imageToBase64(met.getImage1()));
+				deq.push(imageToBase64(met.getImage2()));
+				deq.push(imageToBase64(met.getImage3()));
+				
+				met.makePhoto(deq);
+				
+				list2.add(met);
 
 			}
 
@@ -71,7 +79,16 @@ public class MeetingService {
 
 			for (int i = startcheck; i < len; i++) {
 
-				list2.add(list.get(i));
+				Deque<String> deq = new ArrayDeque<>();
+				Meeting met = list.get(i);
+				
+				deq.push(imageToBase64(met.getImage1()));
+				deq.push(imageToBase64(met.getImage2()));
+				deq.push(imageToBase64(met.getImage3()));
+				
+				met.makePhoto(deq);
+				
+				list2.add(met);
 
 			}
 
@@ -79,7 +96,16 @@ public class MeetingService {
 
 			for (int i = startcheck; i < len; i++) {
 
-				list2.add(list.get(i));
+				Deque<String> deq = new ArrayDeque<>();
+				Meeting met = list.get(i);
+				
+				deq.push(imageToBase64(met.getImage1()));
+				deq.push(imageToBase64(met.getImage2()));
+				deq.push(imageToBase64(met.getImage3()));
+				
+				met.makePhoto(deq);
+				
+				list2.add(met);
 
 			}
 
