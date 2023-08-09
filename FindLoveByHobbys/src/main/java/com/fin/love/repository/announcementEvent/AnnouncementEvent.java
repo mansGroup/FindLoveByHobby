@@ -18,14 +18,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "ANNOUNCEMENT_EVENT")
+@Entity // JPA 엔터티 클래스 - 데이터베이스 테이블과 매핑되는 클래스.
+@Table(name = "ANNOUNCEMENT_EVENT") // 엔터티 클래스 이름이 데이터베이스 테이블 이름과 다른 경우, 테이블 이름을 명시.
 @SequenceGenerator(name = "ANNOUNCEMENT_EVENT_SEQ_GEN", sequenceName = "ANNOUNCEMENT_EVENT_SEQ", allocationSize = 1)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
-@Setter
 @ToString
 public class AnnouncementEvent extends BaseTimeEntity {
 	
