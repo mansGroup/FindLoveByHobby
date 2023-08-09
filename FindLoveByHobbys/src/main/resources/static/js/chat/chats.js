@@ -150,12 +150,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
         function otherMessage(data) {
             let time = formatDateTime(data.createdTime);
-            let str = "<li className=\"clearfix\" style='margin-bottom: -15px; height: 5px; font-size: 12px; margin-top: 71px;'>";
-            str += '<div className=\"message-data\" style="margin-bottom: -15px; height: 5px; font-size: 12px;">';
+            let str = "<li>";
+            str += '<div class=\"message-data\" >';
             str += `<span className=\"message-data-name\">${otherNickname}</span>`;
-            str += `<span className=\"message-data-time\" style="padding-left: 6px;">${time}</span> &nbsp; &nbsp;`;
+            str += `<span className=\"message-data-time\" >${time}</span> &nbsp; &nbsp;`;
             str += '</div>';
-            str += '<div className=\"message other-message float-right\" style="color: white; padding: 8px 20px; line-height: 18px; font-size: 15px; border-radius: 7px; margin-bottom: 3px; margin-top: 30px; width: 57%; position: relative; background: #94C2ED;">';
+            str += '<div className=\"message other-message float-right\"    >';
             str += `${data.message}`;
             str += '</div>';
             str += '</li>';
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
         function myMessage(data) {
             let time = formatDateTime(data.createdTime);
-            let str = "<li className=\"clearfix\" style='margin-bottom: -15px; height: 5px; font-size: 12px; margin-top: 71px;'>";
+            let str = "<li className=\"clearfix\" style='margin-bottom: -15px; height: 5px; font-size: 12px;'>";
             str += '<div className=\"message-data\" style="margin-bottom: -15px; height: 5px; font-size: 12px; text-align: right;">';
             str += `<span className=\"message-data-time\">${time}</span> &nbsp; &nbsp;`;
             str += `<span className=\"message-data-name\">${myNickname}</span>`;

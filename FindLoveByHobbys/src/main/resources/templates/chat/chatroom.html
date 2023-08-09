@@ -63,7 +63,7 @@
                 <!-- 메세지 영역 -->
                 <ul class="list" id="msgArea" >
                     <div th:each="chat : ${chatList}">
-                        <li th:if="${myNickname} == ${chat.nickname}" class="clearfix align-right">
+                        <li th:if="${myNickname} == ${chat.nickname}" class="align-right">
                             <div class="message-data">
                                 <span class="message-data-time " th:text="${#temporals.format(chat.createdTime,'a hh:mm')}" >10:10 AM, Today</span> &nbsp; &nbsp;
                                 <span class="message-data-name" th:text="${myNickname}">Olia</span>

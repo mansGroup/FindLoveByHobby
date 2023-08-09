@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.codehaus.groovy.transform.LogASTTransformation;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.Format;
 import java.util.ArrayList;
@@ -81,6 +82,7 @@ public class NoteService {
         return dtos;
     }
 
+    @Transactional
     public void deleteNote(String senderId, String recipientId) {
         noteRepository.deleteBySenderAndRecipient(senderId, recipientId);
     }

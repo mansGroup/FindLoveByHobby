@@ -22,11 +22,11 @@ public class MatchingConnectionController {
     private final NoteNumberService noteNumberService;
     private final ChattingRoomService chattingRoomService;
 
-    private String user = "user1";  // TODO 세션연결
+    private String user = "user2";  // TODO 세션연결
 
     @GetMapping("/profile/{senderId}")
     public String conectionDetail(@PathVariable String senderId) {
-        
+
         return "";
     }
 
