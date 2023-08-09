@@ -11,12 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fin.love.dto.meeting.MeetingMakeDto;
+import com.fin.love.dto.meeting.MeetingSearchDto;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.hobby.HobbyRepository;
 import com.fin.love.repository.location.Location;
 import com.fin.love.repository.location.LocationRepository;
 import com.fin.love.repository.meeting.Meeting;
 import com.fin.love.repository.meeting.MeetingRepository;
+import com.fin.love.repository.meetingmember.MeetingMember;
+import com.fin.love.repository.meetingmember.MeetingMemberRepository;
 import com.fin.love.repository.profile.Age;
 import com.fin.love.repository.profile.AgeRepository;
 
@@ -37,6 +40,9 @@ public class MeetingService {
 
 	@Autowired
 	private AgeRepository agerepository;
+	
+	@Autowired
+	private MeetingMemberRepository mtmemrepository;
 
 	public List<Meeting> makelist(int num) {
 
@@ -150,4 +156,82 @@ public class MeetingService {
 		
 	}
 
+	public List<Meeting> search(MeetingSearchDto dto) {
+		
+		List<Meeting> list2 = meetingrepository.findAll();
+		List<Meeting> list = new ArrayList<>();
+	
+		
+		return list;
+	}
+	
+	public List<Meeting> findByHobby(List<Meeting> unlist, long hobbyId){
+		List<Meeting> list = new ArrayList<>();
+		
+		for(Meeting x : unlist) {
+			
+			if(x.getHobby().getHobbyId()==hobbyId) {
+				
+				list.add(x);
+				
+			}
+			
+		}
+		
+		
+		return list;
+	}
+	
+	public List<Meeting> findbyLocation(List<Meeting> unlist, long locationId){
+		List<Meeting> list = new ArrayList<>();
+		
+		for(Meeting x : unlist) {
+			
+			if(x.getLocation().getId()==locationId) {
+				
+				list.add(x);
+				
+			}
+			
+		}
+		
+		
+		return list;
+	}
+	
+	public List<Meeting> findByAge(List<Meeting> unlist, long ageId){
+		List<Meeting> list = new ArrayList<>();
+		
+		for(Meeting x : unlist) {
+			
+			long age = mtmemrepository.findAverageProfileUserAgeByMeeting(x);
+			
+			if(age==ageId) {
+				
+				list.add(x);
+				
+			}
+			
+		}
+		
+		// 만약 원하는 나이대의 이성이 부족한 경우 비슷한 연령대 추가.
+		if(list.size()<6) {
+			
+			for(Meeting x : unlist) {
+				long age = mtmemrepository.findAverageProfileUserAgeByMeeting(x);
+				if(age!=ageId && (ageId-age<1 || age-ageId<1)) {
+					
+					list.add(x);
+					
+				}
+				
+			}
+			
+		}
+		
+		
+		return list;
+	}
+	
+	
 }

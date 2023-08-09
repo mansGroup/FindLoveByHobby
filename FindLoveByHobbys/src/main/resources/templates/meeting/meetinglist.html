@@ -8,21 +8,60 @@
 	<div style="margin: 0px 30px;">
 
 		<div id="selectors" class="row">
-			<select id="optionselect" style="display: flex; flex-direction: row; height: 50px;"
+			<select id="optionselect"
+				style="display: flex; flex-direction: row; height: 50px;"
 				class="card col-2">
+				<option value="-1" selected="selected">조건을 선택하세요</option>
 				<option value="0">지역</option>
 				<option value="1">취미</option>
 				<option value="2">연령대</option>
-			</select> 
-			<select id="optionvalue" style="display: flex; flex-direction: row; height: 50px; width: 82%;"
+			</select> <select id="optionvalue"
+				style="display: flex; flex-direction: row; height: 50px; width: 82%;"
 				class="card col-2">
-				
-			</select> 
+
+			</select>
 			
-			
+				<div class="row card-body my-3"
+					style="display: flex; justify-content: center; align-content: center;">
+					<div class="col-3 row mx-1">
+						<label
+							style="border: none; display: flex; justify-content: center;"
+							class="card col-4" for="location">희망 지역</label> <input
+							style="border: none; border-bottom: 1px solid black; text-align: center;"
+							class="col-8" readonly="readonly" required="required" type="text"
+							id="location" name="location" />
+					</div>
+					<div class="col-3 row">
+						<label
+							style="border: none; display: flex; justify-content: center;"
+							class="card col-4" for="hobby">희망 취미</label> <input
+							style="border: none; border-bottom: 1px solid black; text-align: center;"
+							class="col-8" readonly="readonly" required="required" type="text"
+							id="hobby" name="hobby" />
+					</div>
+					<div class="col-3 row mx-1">
+						<label
+							style="border: none; display: flex; justify-content: center;"
+							class="card col-4" for="age">희망 연령</label> <input
+							style="border: none; border-bottom: 1px solid black; text-align: center;"
+							class="col-8" readonly="readonly" required="required" type="text"
+							id="age" name="age" />
+					</div>
+					<div class="col-3 row" style="justify-content: center;">
+						<button class="btn btn-outline-primary col-10" id="btnsearch">검색</button>
+					</div>
+				</div>
+			<form id="searchform">
+				<input class="d-none" type="text" name="hobbyId" id="hobbyId"/>
+				<input class="d-none" type="text" name="locationid" id="locationId" />
+				<input class="d-none" type="text" name="ageId" id="ageId" />
+			</form>
 		</div>
 	</div>
 	<div>
+		<section id="searchresult">
+			<!-- 검색 결과 표출 페이지 -->
+		</section>
 
 		<section style="background-color: white;"
 			class="the-wedding-section section-bg section-padding" id="section_3">
@@ -38,7 +77,7 @@
 					</div>
 
 
-					<div th:each = "list : ${list}"
+					<div th:each="list : ${list}"
 						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 						<div class="image-hover-thumb">
 							<img src="images/decorated-table-setting-wedding-celebration.jpg"
@@ -49,14 +88,11 @@
 							<h3 class="my-3" th:text="${ list.title }">The Reception</h3>
 
 							<p class="mb-2" th:text="${ list.location.locationname }">
-								5th Avenue at, Central Park S
-							</p>
+								5th Avenue at, Central Park S</p>
 
-							<p th:text="${ list.meetingdate }">
-								5:00 PM
-							</p>
+							<p th:text="${ list.meetingdate }">5:00 PM</p>
 						</div>
-					</div>			
+					</div>
 
 				</div>
 
@@ -67,6 +103,6 @@
 
 
 <th:block layout:fragment="myscripts">
-
+	<script th:src="@{/js/meeting/mtlist.js}"></script>
 </th:block>
 </html>

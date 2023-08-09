@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.location.Location;
 import com.fin.love.repository.meeting.Meeting;
+import com.fin.love.repository.profile.Profile;
 import com.fin.love.respository.member.Member;
 
 import jakarta.persistence.Column;
@@ -39,7 +40,7 @@ public class MeetingMember {
 	
 	@JoinColumn(name = "userid")
 	@ManyToOne
-	private Member member;
+	private Profile profile;
 	
 	
 }
