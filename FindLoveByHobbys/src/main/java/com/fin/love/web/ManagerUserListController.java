@@ -28,6 +28,7 @@ public class ManagerUserListController {
 	@GetMapping("/user/list")
 	public String managerUserList(Model model) {
 		log.info("managerUserList()");
+		
 		List<ManagerUserListDto> dtos = new LinkedList<>();
 		List<Member> members = memberRepository.findAll();
 		
