@@ -24,11 +24,11 @@ public class MatchingListLikeTest {
 	private AssessmentRepository assessmentRepository;
 	
 //	@Test
-	public void findHobby() {
-		
+//	public void findHobby() {
+//		
 //		List<MatchingDetailDto> mat = assessmentRepository.findByHobbyise("a");
 //		log.info("{}",mat);
-	}
+//	}
 	
 	
 //	@Test

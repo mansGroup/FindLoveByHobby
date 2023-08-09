@@ -24,6 +24,7 @@ import com.fin.love.repository.profile.Jobs;
 import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.Religion;
 import com.fin.love.repository.profile.Smoker;
+import com.fin.love.repository.profile.UserHobby;
 import com.fin.love.service.profile.AcademicService;
 import com.fin.love.service.profile.AgeService;
 import com.fin.love.service.profile.DringsService;
@@ -117,7 +118,12 @@ public class ProfileController {
 		List<Hobby> hobby = hobbyService.readHobbyList();
 		List<Age> age = ageService.readAgeList();
 		List<Height> height = heightService.readHeightList();
-				
+		
+		List<UserHobby> hobbys = hobbyService.findById(userId);		
+		model.addAttribute("hobbys1", hobbys.get(0));
+		model.addAttribute("hobbys2", hobbys.get(1));
+		model.addAttribute("hobbys3", hobbys.get(2));
+		
 		model.addAttribute("profile", profile);
 		model.addAttribute("hobbys", hobby);
 		model.addAttribute("ages", age);
@@ -158,15 +164,5 @@ public class ProfileController {
 		return "redirect:/profile/profiles?id=" + dto.getUserId();
 	}
 	
-	
-	// 프로필 삭제
-	@PostMapping("/delete")
-	public String profileDelete(String userId) {
-		log.info("profileDelete(userId={})", userId);
-		
-		profileService.profileDelete(userId);
-		
-		return "redirect:/profile/profiles";
-	}
 	
 }
