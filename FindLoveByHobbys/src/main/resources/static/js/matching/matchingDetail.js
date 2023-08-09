@@ -150,8 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			})
 			.catch((errer) => console.log(errer));
+			
 
 	});
+	
 
 	btnWonderful.addEventListener('click', () => {
 		const assessmentName = spanMemberWonderful.innerHTML;
@@ -209,62 +211,4 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 			.catch((errer) => console.log(errer));
 	});
-	
-	// 이벤트 적용할 버튼
-	const member1LikeBtn = document.querySelector('button#member1LikeBtn');
-	const member2LikeBtn = document.querySelector('button#member2LikeBtn');
-	
-	const member1LikeEvent = () => {
-		console.log('button1')
-		
-		// 로그인 유저 아이디
-		const userId = getterId.value;
-		
-		// 프로필 유저 아이디
-		const member1UserId = senderId.value;
-		
-		const url = `/api/matching/member1/likesend/${userId}/${member1UserId}`;
-		
-		axios.post(url)
-			.then((responce) => {
-				console.log(responce);
-				
-				if (responce.data == 1) {
-					alert('호감을 표시했습니다.');
-				} else {
-					alert('이미 호감을 표시한 상대입니다.')
-				}
-				
-			}).catch((error) => console.log(error));
-		
-	};
-	
-	const member2LikeEvent = () => {
-		console.log('button2')
-		
-		// 로그인 유저 아이디
-		const userId = gettter.value;
-		
-		// 프로필 유저 아이디
-		const member2UserId = senderId.value;
-		
-		const url = `/api/matching/member2/likesend/${userId}/${member2UserId}`;
-		
-		axios.post(url)
-			.then((responce) => {
-				console.log(responce);
-				
-				if (responce.data == 1) {
-					alert('호감을 표시했습니다.');
-				} else {
-					alert('이미 호감을 표시한 상대입니다.')
-				}
-				
-			}).catch((error) => console.log(error));
-		
-	};
-	
-	
-	member1LikeBtn.addEventListener('click', member1LikeEvent);
-	member2LikeBtn.addEventListener('click', member2LikeEvent);
 });

@@ -130,7 +130,7 @@ public class MatchingDetailController {
 	@GetMapping("/detailTest")
 	public void detailTest(Model model) {
 		// DB에 있는 Id를 넣어서 임시로 Id값을 넘겨줌.
-		String code = "a";
+		String code = "b";
 		model.addAttribute("id", code);
 	}
 
