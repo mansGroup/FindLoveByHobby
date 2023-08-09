@@ -21,7 +21,7 @@
 
 		<h2>취미 (최대 3개 선택 가능)</h2>
 		<div th:each="hobby, idx : ${hobbys}" style="float: left; margin: 5px;">
-			<span th:text="${hobby.hobbyName}" th:value="${idx.count}"></span>
+			<button type="button" class="btn btn-light" th:text="${hobby.hobbyName}"></button>
 		</div>
 	</div>
 
