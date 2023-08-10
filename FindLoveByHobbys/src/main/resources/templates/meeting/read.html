@@ -1,0 +1,100 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+<th:block layout:fragment="css">
+<style>
+.image{
+	
+	width: 450px;
+	height: 450px;	
+}
+
+.imgdiv{
+	margin: 0px 50px;
+
+}
+.labeldiv{
+
+display: flex;
+justify-content: center;
+flex-direction: column;
+align-content: center;
+align-items: center;
+}
+</style>
+</th:block>
+<main id="mainbody" style="height: 100%;" layout:fragment="main">
+
+	<form id="partyForm">
+		<div class="row">
+			<div class="col-12">
+				<h2 th:text="${meet.meeting.title}"></h2>
+			</div>
+			<!-- 2row -->
+			<div class="col-4 labeldiv" style="display: flex; justify-content: center;">
+				<div>
+					<label for="content1">미팅 코스는요?</label>
+				</div>
+				<div>
+					<span th:text="${meet.meeting.content1}"></span>
+				</div>
+			</div>
+			<div class="col-4 labeldiv" style="display: flex; justify-content: center;">
+				<div>
+					<label for="content2">주최자는요?</label>
+				</div>
+				<div>
+					<span th:text="${meet.meeting.content2}"></span>
+				</div>
+			</div>
+			<div class="col-4 labeldiv" style="display: flex; justify-content: center;">
+				<div>
+					<label for="content3">분위기는요?</label>
+				</div>
+				<div>
+					<span th:text="${meet.meeting.content3}"></span>
+				</div>
+			</div>
+			<!-- 3row -->
+			<div class="col-3 labeldiv" style="display: flex; justify-content: center;"></div>
+			<div class="col-6">
+			<div style="display: flex; justify-content: center;"><label for="contents">그래서 우리 모임은 어떤 모임이죠?</label></div>
+			<div>
+			<textarea style="width: 100%;" rows="5" th:text="${meet.meeting.contents}"></textarea>
+			</div>
+			</div>
+			<div class="col-3"></div>
+			<!-- 4row -->
+			<div class="col-1"></div>
+			<div class="row col-10">
+				<div class="col-3 imgdiv"><img class="image" th:src="'data:image/jpg;base64,' + ${meet.meeting.image1}" alt="이미지 없음" /></div>
+				<div class="col-3 imgdiv"><img class="image" th:src="'data:image/jpg;base64,' + ${meet.meeting.image2}" alt="이미지 없음" /></div>
+				<div class="col-3 imgdiv"><img class="image" th:src="'data:image/jpg;base64,' + ${meet.meeting.image3}" alt="이미지 없음" /></div>
+			</div>
+			<div class="col-1"></div>
+			<!-- 5row -->
+			<div class="col-3"></div>
+			<div class="col-6"><h4>우리는 이런 활동들을 진행해요</h4></div>
+			<div class="col-3"></div>
+			<!-- 6row -->
+			<div class="col-3"></div>
+			<div class="col-3">
+				<span>남자</span>
+				
+			</div>
+			<div class="col-3">
+				<span>여자</span>
+			</div>
+			<div class="col-3"></div>
+			
+		</div>
+	
+	</form>
+
+</main>
+
+<th:block layout:fragment="myscripts">
+	
+</th:block>
+
+</html>

@@ -64,5 +64,11 @@ public class QuestionService {
 		return questrepository.findById(id).orElseThrow();
 	}
 	
+	public Member readbyUserId(String userid) {
+		
+		return memberrepository.findById(userid).orElseThrow();
+		
+	}
+	
 	
 }
