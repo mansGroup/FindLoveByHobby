@@ -11,6 +11,15 @@
 		<input class="d-none" th:value="b" id="senderId" /> <input
 			class="d-none" th:value="${id}" id="getterId" />
 
+		
+		<div class="btn-toolbar mb-3" role="toolbar"
+			aria-label="Toolbar with button groups">
+			<div class="btn-group me-2" role="group" aria-label="First group">
+				<a type="button" class="btn btn-outline-secondary" th:href="@{/matching/matchingList/{id} (id = ${#authentication.name}) }">메인</a>
+			</div>
+		</div>
+		
+		
 		<section class="about-section section-padding" id="section_2">
 			<div class="container">
 
@@ -228,7 +237,7 @@
 							</div>
 							<div class="col-lg-4 col-12">
 								<div class="gallery-thumb image-hover-thumb">
-									 <img th:src="${hobbyPic3}"
+									 <a href="#" class="popup-image"><img th:src="${hobbyPic3}"
 										class="gallery-image img-fluid" alt="">
 									</a>
 								</div>

@@ -28,8 +28,6 @@ public class AnnouncementEvent extends BaseTimeEntity {
 	
 	@Id // Primary key 제약조건
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANNOUNCEMENT_EVENT_SEQ_GEN")
-	
-	@Column(nullable = false)
 	private Long id;
 	
     @Column(nullable = false)
@@ -41,6 +39,12 @@ public class AnnouncementEvent extends BaseTimeEntity {
     @Column(nullable = false)
 	private String content;
 	
+    @Column(nullable = false)
+    private int category;
+    
+    @Column(nullable = false)
+    private int divide;
+    
     // Setter 메서드의 역할을 한다.
     // AnnouncementEvent 엔터티의 title과 content를 수정해서 리턴하는 메서드:
     public AnnouncementEvent update(AnnouncementEventDto dto) {

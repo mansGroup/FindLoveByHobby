@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+<body>
+	<main layout:fragment="main">
+
+
+		<div>
+			<h1>상세보기 페이지</h1>
+		</div>
+		<div class="btn-toolbar mb-3" role="toolbar"
+			aria-label="Toolbar with button groups">
+			<div class="btn-group me-2" role="group" aria-label="First group">
+				<a type="button" class="btn btn-outline-secondary" th:href="@{/announcementEvent/eventMain}">메인</a>
+				<a type="button" class="btn btn-outline-secondary" th:href="@{/announcementEvent/eventCreate}">작성하기</a>
+			
+			</div>
+		</div>
+		<div>
+			<form>
+
+				<div>
+					<label for="divide">공지&이벤트</label>
+					<br /> 
+					<h6 th:if="${post.divide == 0}">이벤트</h6>
+					<h6 th:if="${post.divide == 1}">공지</h6>
+				</div>
+				<div>
+					<label for="id">번호</label> <input id="id" name="id"
+						th:value="${post.id}" readonly />
+				</div>
+				<div>
+					<label for="title">제목</label> <input id="title" name="title"
+						th:value="${post.title}" readonly />
+				</div>
+				<div>
+					<label for="author">작성자</label> <input id="author" name="author"
+						th:value="${post.author}" readonly />
+				</div>
+				<div>
+					<label for="content">내용</label>
+					<textarea id="content" name="content" th:text="${post.content}" readonly ></textarea>
+				</div>
+				<div>
+					<label for="createTime">작성시간</label> <input id="createTime"
+						name="createTime"
+						th:value="${ #temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm:ss') }" />
+				</div>
+				<div>
+					<label for="modifiedTime">수정시간</label> <input id="modifiedTime"
+						name="modifiedTime"
+						th:value="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" />
+				</div>
+			</form>
+			<div>
+				<a class="btn btn-outline-primary" th:href="@{/announcementEvent/eventModify?id={id} (id = ${post.id} ) }">수정하기</a>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
