@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", ()=>{
+document.addEventListener("DOMContentLoaded", () => {
     const myNickname = document.querySelector('div#myNickname').getAttribute('value');
     const otherNickname = document.querySelector('div#otherNickname').getAttribute('value');
     const btnSend = document.querySelector('button#button-send');
@@ -11,8 +11,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const femaleId = document.querySelector('div#femaleID');
     const goChat = document.querySelector('form#goChat');
     const myId = document.querySelector('div#myId').getAttribute('value');
+    let mySex = '';
+    if (maleId == myId) {
+        mySex = 1;
+    } else {
+        mySex = 2;
+    }
 
-    console.log('방번호'+roomId);
+    console.log('방번호' + roomId);
 
     // 웹소켓 생성
     let websocket = new WebSocket('wss://' + location.host + `/ws/chat?roomId=${roomId}`);
@@ -37,9 +43,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     function sendFaceChat() {
         const Data = {
-            "message" : `${myNickname}님에게서 화상채팅 요청이 왔어요!`,
-            "textType" : "faceChat",
-            "nickname" : myNickname
+            "message": `${myNickname}님에게서 화상채팅 요청이 왔어요!`,
+            "textType": "faceChat",
+            "nickname": myNickname
         }
 
         const jsonData = JSON.stringify(Data);
@@ -49,35 +55,28 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 
     // 보내기 버튼 이벤트 리스너
-    btnSend.addEventListener('click', ()=>{
+    btnSend.addEventListener('click', () => {
         send();
     });
 
 
-    function send(){
+    function send() {
         let msg = document.getElementById("msg");
         console.log(myNickname + ":" + msg.value);
         const curDate = new Date();
 
         const Data = {
-            "message" :  msg.value,
-            "createdTime" : curDate,
-            "nickname" : myNickname,
-            "textType" : "message"
+            "message": msg.value,
+            "createdTime": curDate,
+            "nickname": myNickname,
+            "textType": "message"
         }
 
         const jsonData = JSON.stringify(Data);
         websocket.send(jsonData);
         msg.value = '';
 
-        let mySex = '';
-
-        if (maleId == myId) {
-            mySex = 1;
-        } else {
-            mySex = 2;
-        }
-
+        // chatCount 올려주기
         const url = "/chatCount/upCount" + roomId + "/" + myId + "/" + mySex;
 
         axios.get(url)
@@ -87,9 +86,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
     //채팅창에서 나갔을 때
     function onClose(evt) {
         let str = {
-            "message" : + `${myNickname}님이 방을 나가셨습니다.`,
-            "nickname" : myNickname,
-            "textType" : "bye"
+            "message": +`${myNickname}님이 방을 나가셨습니다.`,
+            "nickname": myNickname,
+            "textType": "bye"
         };
 
         let jsonData = JSON.stringify(str);
@@ -100,7 +99,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     //채팅창에 들어왔을 때
     function onOpen(evt) {
-        console.log(roomId+'로 접속함');
+        console.log(roomId + '로 접속함');
     }
 
     function onMessage(msg) {
@@ -150,13 +149,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
         function callFaceChat(data) {
             if (confirm(data.message)) {
                 // 화상채팅 연결 메세지 뿌려주기
-                let data = {"textType" : "accept"}
+                let data = {"textType": "accept"}
                 websocket.send(JSON.stringify(data));
             } else {
                 // 상대방 거절메세지
                 let data = {
-                    "textType" : "refuse",
-                    "nickname" : myNickname
+                    "textType": "refuse",
+                    "nickname": myNickname
                 }
                 websocket.send(JSON.stringify(data));
             }
@@ -174,6 +173,12 @@ document.addEventListener("DOMContentLoaded", ()=>{
             str += '</div>';
             str += '</li>';
             msgArea.innerHTML += str;
+
+            // 실시간으로 채팅을 보고 있음으로 chatCount를 내림
+            const url = "/chatcount/downCount/" + roomId + "/" + myId + "/" + mySex;
+
+            axios.get(url)
+                .catch((error) => console.log(error));
         }
 
         function myMessage(data) {
@@ -220,4 +225,4 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const date = new Date(dateTimeString);
         return new Intl.DateTimeFormat('ko-KR', options).format(date);
     }
-})
+});

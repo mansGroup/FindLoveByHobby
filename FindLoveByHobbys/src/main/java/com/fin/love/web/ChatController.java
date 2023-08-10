@@ -43,6 +43,7 @@ public class ChatController {
 
         // 나의 성별 찾기
         Member member = memberService.getSexById(userId);
+        model.addAttribute("mySex", member.getSex());
 
         // id로 상대방 id, 채팅방 정보 가져오기
         List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId, member.getSex());
@@ -76,6 +77,7 @@ public class ChatController {
         } else {
             femaleId = userId;
         }
+
 
         // userId로 채팅방번호 상대방 ID 리스트 가져오기
         List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId, member.getSex());

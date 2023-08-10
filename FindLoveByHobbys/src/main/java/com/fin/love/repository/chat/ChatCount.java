@@ -29,4 +29,25 @@ public class ChatCount {
 
     @Column
     private Long female_checkcount;
+
+    @Column
+    private String maleid;
+
+    @Column
+    private String femaleid;
+
+    public void upMaleChatCount() {
+        ++this.male_chatcount;
+    }
+
+    public void upFemaleChatCount() {
+        ++this.female_chatcount;
+    }
+
+    public void downMaleChatCount() {
+        ++this.male_checkcount;
+    }
+    public void downFemaleChatCount() {
+        ++this.female_checkcount;
+    }
 }
