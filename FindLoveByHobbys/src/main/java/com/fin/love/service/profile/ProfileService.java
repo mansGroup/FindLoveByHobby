@@ -68,10 +68,11 @@ public class ProfileService {
 //		
 //		List<Profile> list = null;
 //		switch(dto.getType()) {
+//		case "":
+//			
 //		
 //		}
-//		
-//	}
+//}
 
 	@Transactional(readOnly = true)
 	public Profile findById(String userid) {

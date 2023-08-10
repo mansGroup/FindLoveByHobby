@@ -91,97 +91,10 @@
 	left: 50%; /* 가로 중앙에 위치 */
 	transform: translate(-50%, -50%); /* 중앙 정렬을 위한 이동 변환 */
 }
-
-.hobby {
-	width: 100px;
-    height: 50px;
-    font-size: 10px;
-}
-
-.age {
-	max-width: 100px;
-    height: 50px;
-    font-size: 10px;
-}
-
-.height {
-	width: 100px;
-    height: 50px;
-    font-size: 10px;
-}
-
-.academic {
-	width: 100px;
-    height: 50px;
-    font-size: 10px;
-}
-
-.job {
-	width: 100px;
-    height: 50px;
-    font-size: 10px;
-}
-
-.income {
-	width: 100px;
-    height: 50px;
-    font-size: 10px;
-}
 </style>
 </th:block>
 
 <main layout:fragment="main">
-	<!-- 검색(임시 경로) -->
-	<div class="card-footer">
-		<form method="get" th:action="@{/profile/search}">
-			<div class="row">
-			
-				<div class="hobby">
-					<select class="form-control" name="type">
-						<option value="">취미</option>
-						<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
-					</select>
-				</div>
-				<div class="age">
-					<select class="form-control" name="type">
-						<option value="">나이</option>
-						<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
-					</select>
-				</div>
-				<div class="height">
-					<select class="form-control" name="type">
-						<option value="">키</option>
-						<option th:each="height , idx : ${heights}" th:text="${height.heightName}" th:value="${idx.count}"></option>
-					</select>
-				</div>
-				<div class="academic">
-					<select class="form-control" name="type">
-						<option value="">학력</option>
-					</select>
-				</div>
-				<div class="job">
-					<select class="form-control" name="type">
-						<option value="">직업</option>
-					</select>
-				</div>
-				<div class="income">
-					<select class="form-control" name="type">
-						<option value="">연봉</option>
-					</select>
-				</div>
-							
-				<div class="col-8">
-					<input class="form-control" name="keyword" type="text" placeholder="검색어 입력" required />
-				</div>
-				
-				<div class="col-1">
-					<input class="form-control btn btn-outline-dark" type="submit" value="검색" />
-				</div>	
-							
-			</div>
-		</form>
-	</div>
-
 	<div class="half-container">
 		<div class="half-box1"
 			style="background-image: url('/images/landing/part1/7a3b757eaa037.jpg');">
@@ -250,6 +163,5 @@
 			clearInterval(intervalId2);
 		});
 	</script>
-
 </main>
 </html>
