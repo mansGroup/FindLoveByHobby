@@ -891,4 +891,10 @@ strong {
   .hero-container {
     padding: 30px;
   }
+
+}
+
+.noteNumber {
+  margin-bottom: -16px;
+  margin-left: 22px;
 }

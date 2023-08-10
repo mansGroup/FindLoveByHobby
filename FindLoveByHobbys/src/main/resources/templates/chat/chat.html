@@ -15,7 +15,7 @@
             <ul  class="list">
                 <div th:each="list : ${dtoList}">
                     <li class="clearfix">
-                        <a th:href="@{'/chat/chatroom/' + ${list.contentId}}">
+                        <a th:href="@{'/chat/chatroom/' + ${list.contentId} + '/' + ${id}}">
                             <div class="about">
                                 <div class="name" th:text="${list.nickname}">${list}</div>
                             </div>

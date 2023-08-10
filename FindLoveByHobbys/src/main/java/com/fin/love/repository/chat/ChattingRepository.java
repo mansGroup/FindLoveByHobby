@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface ChattingRepository extends JpaRepository<Chatting, Long> {
 
-    List<Chatting> findByContentid(Long contentid);
+    List<Chatting> findByContentidOrderByChatid(Long contentid);
 
+    void deleteByContentid(Long contentid);
 }
