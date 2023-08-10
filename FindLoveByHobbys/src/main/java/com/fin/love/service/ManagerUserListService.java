@@ -66,7 +66,7 @@ public class ManagerUserListService {
 
 		Member member = memberRepository.findById(userId).orElseThrow();
 		String gender = "";
-		if (member.getSex() == 0) {
+		if (member.getSex() == 2) {
 			gender = "여자";
 		} else {
 			gender = "남자";

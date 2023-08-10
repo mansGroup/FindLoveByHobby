@@ -4,6 +4,8 @@ package com.fin.love.dto.member;
 
 import java.time.LocalDate;
 
+import com.fin.love.respository.member.Role;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -25,7 +27,7 @@ public class MemberSignUpDto {
 	@NotBlank(message = "이름을 입력하세요.")
     private String username;
     
-	private int role;
+	private Role role;
     private LocalDate birthdate;
     private int sex;
     

@@ -28,7 +28,7 @@ public class ProfileDataTest {
 	@Autowired
 	private AgeRepository ager;
 	
-//	@Test
+	@Test
 	public void profileData() {
 		log.info("데이터 들어간다.");
 		
@@ -37,13 +37,13 @@ public class ProfileDataTest {
 		String[] incomeArr = "1000만원 이하/1,000만원 ~ 2,000만원/2,000만원 ~ 3,000만원/3,000만원 ~ 4,000만원/4,000만원 ~ 5,000만원/5,000만원 ~ 6,000만원/6,000만원 ~ 7,000만원/7,000만원 ~ 8,000만원/8,000만원 ~ 9,000만원/9,000만원 ~ 10,000만원/10,000만원 이상".split("/");
 		String[] religionArr = "기독교,천주교,불교,무교".split(",");
 		
-//		for (String academic : academicArr) {
-//			log.info(academic);
-//			
-//			Academic ac = Academic.builder().academicName(academic).build();/
-//			
-//			ar.save(ac);
-//		}
+		for (String academic : academicArr) {
+			log.info(academic);
+			
+			Academic ac = Academic.builder().academicName(academic).build();
+			
+			ar.save(ac);
+		}
 		
 		for (String job : jobArr) {
 			log.info(job);
@@ -75,7 +75,7 @@ public class ProfileDataTest {
 	// 키: 120cm이하, 121cm, ..., 199cm, 200cm이상
 	// 나이 : 20살, ... 50살
 	
-	@Test
+//	@Test
 	public void HADTest() {
 		log.info("시작");
 		

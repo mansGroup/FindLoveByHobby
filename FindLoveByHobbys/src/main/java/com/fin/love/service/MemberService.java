@@ -14,6 +14,7 @@ import com.fin.love.dto.member.MemberLogInDto;
 import com.fin.love.dto.member.MemberSignUpDto;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
+import com.fin.love.respository.member.Role;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +29,11 @@ public class MemberService implements UserDetailsService {
 	private final MemberRepository memberRepository;
 
 	public String signUp(MemberSignUpDto dto) {
-		log.info("signUp{dto=()}", dto);
+		log.info("signUp(dto={})", dto);
 
 		Member entity = Member.builder().id(dto.getUserid()).name(dto.getUsername())
 				.password(passwordEncoder.encode(dto.getPassword())).email(dto.getEmail()).nickname(dto.getNickname())
-				.sex(dto.getSex()).phone(dto.getPhone()).address(dto.getAddress()).birthday(dto.getBirthdate()).build();
+				.role(dto.getRole()).sex(dto.getSex()).phone(dto.getPhone()).address(dto.getAddress()).birthday(dto.getBirthdate()).build();
 		log.info("save 전: entity={}", entity);
 
 		memberRepository.save(entity);

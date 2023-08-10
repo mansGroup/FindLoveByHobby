@@ -14,9 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fin.love.dto.member.MemberLogInDto;
 import com.fin.love.dto.member.MemberSignUpDto;
+import com.fin.love.repository.profile.Profile;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.Role;
 import com.fin.love.service.MemberService;
+import com.fin.love.service.profile.ProfileService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -30,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	
 	private final MemberService memberService;
-	
+	private final ProfileService profileService;
 
 	
 	@GetMapping("/login")
@@ -59,7 +61,8 @@ public class MemberController {
 		// 주소 api 정보 합치기
 		String combinedAddress = userAddress + " " + userDetailAddress + " " + userAddressNotes;
 		log.info("combinedAddress=({})",combinedAddress);
-		dto.setRole(Role.USER.ordinal());
+		dto.setRole(Role.UNVARIFIED_USER);
+		log.info(combinedAddress);
 		dto.setAddress(combinedAddress);
 		
 		String id = memberService.signUp(dto);
@@ -79,7 +82,21 @@ public class MemberController {
         session.setAttribute("userid", userid);
 		log.info("userid=({})",userid);
         
-		return "redirect:/"; 
+		Profile profile = profileService.findById(userid);
+		Member member = memberService.login(userid);
+		
+		if (profile == null) {
+			return "redirect:/profile/profiles";
+		}
+		
+		log.info("member.getRole() >> " + member.getRole());
+		
+		if (member.getRole() == Role.UNVARIFIED_USER || member.getRole() == Role.RIP_USER) {
+			
+			return "redirect:/member/unvarified";
+		}
+		
+		return "redirect:/matching/matchingList/" + userid; 
 		
 	}
 	
