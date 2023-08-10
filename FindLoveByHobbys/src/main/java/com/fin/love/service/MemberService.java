@@ -71,7 +71,7 @@ public class MemberService implements UserDetailsService {
 			log.info("user(user={})", user);
 			return user; // 로그인 성공한 경우 UserDetails 객체 반환
 		}
-
+		log.info("logInFail");
 		throw new UsernameNotFoundException(id + "가 존재하지 않습니다.");
 	}
 
@@ -84,6 +84,11 @@ public class MemberService implements UserDetailsService {
 
 	public Member getSexById(String session) {
 		return memberRepository.findById(session).orElseThrow();
+	}
+
+	public Member login(String username) {
+	
+		return memberRepository.findById(username).orElseThrow();
 	}
 
 }

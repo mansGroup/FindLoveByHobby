@@ -1,17 +1,24 @@
 package com.fin.love.web;
 
 
+import org.springframework.security.config.authentication.UserServiceBeanDefinitionParser;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fin.love.dto.member.MemberLogInDto;
 import com.fin.love.dto.member.MemberSignUpDto;
-
+import com.fin.love.respository.member.Member;
+import com.fin.love.respository.member.Role;
 import com.fin.love.service.MemberService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,15 +30,12 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	
 	private final MemberService memberService;
+	
 
 	
 	@GetMapping("/login")
-	public void login(Model model, HttpSession session) {
-		
-		log.info("login() GET");
-		String userid = (String) session.getAttribute("username");
-		log.info("userid=({})",userid);
-		model.addAttribute("userid",userid);
+	public void login() {
+	log.info("login() GET");
 	}
 	
 	@GetMapping("/signup")
@@ -40,6 +44,10 @@ public class MemberController {
 		
 	}
 	
+	@GetMapping("/searchid")
+	public void searchId () {
+		log.info("searchId() GET");
+	}
 
 	@PostMapping("/signup")
 	public String createId(MemberSignUpDto dto, 
@@ -51,7 +59,7 @@ public class MemberController {
 		// 주소 api 정보 합치기
 		String combinedAddress = userAddress + " " + userDetailAddress + " " + userAddressNotes;
 		log.info("combinedAddress=({})",combinedAddress);
-		
+		dto.setRole(Role.USER.ordinal());
 		dto.setAddress(combinedAddress);
 		
 		String id = memberService.signUp(dto);
@@ -60,7 +68,20 @@ public class MemberController {
 		return "/member/login";
 	}
 	
-	
+	@GetMapping("/loginsuccess")
+	public String loginscs(HttpSession session) {
+		
+		log.info("로그인 완료");
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
+        
+        session.setAttribute("userid", userid);
+		log.info("userid=({})",userid);
+        
+		return "redirect:/"; 
+		
+	}
 	
 
 }

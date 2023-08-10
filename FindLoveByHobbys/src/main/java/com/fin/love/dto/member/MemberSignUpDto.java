@@ -25,6 +25,7 @@ public class MemberSignUpDto {
 	@NotBlank(message = "이름을 입력하세요.")
     private String username;
     
+	private int role;
     private LocalDate birthdate;
     private int sex;
     

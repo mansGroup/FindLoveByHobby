@@ -45,15 +45,16 @@ public class SecurityConfig {
 					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 //					.requestMatchers("/member/signup", "landing/index") // 로그인 하지 않아도 접근 가능한 주소 설정
 //					.requestMatchers("/", "/login", "/css/**", "/images/**", "/js/**", "/fonts/**", "/member/login", "/matching/matchingList", "/member/signup","/api/member/**").permitAll()
-					.anyRequest().permitAll()//authenticated()
+					.anyRequest().permitAll() //authenticated()
 				);
 		
 		http.formLogin(login -> login
 				.loginPage("/member/login")	// 커스텀 로그인 페이지 지정
-//				.loginProcessingUrl("/member/signin") // submit받을 url
+				.failureUrl("/member/login?error=true")
+//				.loginProcessingUrl("/member/login2") // submit받을 url
 				.usernameParameter("username") // submit할 아이디
 				.passwordParameter("password") // submit할 패스워드
-				.defaultSuccessUrl("/matching/matchingList", true) // 로그인 성공 시 이동할 페이지
+				.defaultSuccessUrl("/member/loginsuccess", true) // 로그인 성공 시 이동할 페이지
 				);
 		
 		http.logout((logout) -> logout.logoutSuccessUrl("/"));
