@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,10 +16,11 @@ import lombok.ToString;
 
 @Entity
 @Table(name = "USER_ASSESSMENT")
-@SequenceGenerator(name = "USERID_SEQ_GEN", sequenceName = "USERID_SEQ", allocationSize = 1)
+@SequenceGenerator(name = "USERID_SEQ_GEN", sequenceName = "USER_ASSESSMENT_SEQ", allocationSize = 1)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Builder
 @Setter
 @ToString
 public class UserAssessment {

@@ -30,29 +30,30 @@ public class MatchingListController {
 		log.info("listHome()");
 
 		// 매칭 유저 뽑기
-//		List<MatchingListDto> memberList = matchingService.matching(userId);
+		List<MatchingListDto> memberList = matchingService.matching(userId);
 
 		// 매칭 유저에서 2명 선정하기
-//        List<MatchingListDto> bestMember = matchingService.matchingBest(memberList);
-//        
-//        MatchingListDto member1 = bestMember.get(0);
-//        MatchingListDto member2 = bestMember.get(1);
-//        
-//        Picture member1Pic = pictureService.findById(member1.getUserId());
-//        String member1UsualPic = matchingService.imageChange(member1Pic.getPic1());
-//        
-//        Picture member2Pic = pictureService.findById(member2.getUserId());
-//        String member2UsualPic = matchingService.imageChange(member2Pic.getPic1());
+        List<MatchingListDto> bestMember = matchingService.matchingBest(memberList);
+        
+        MatchingListDto member1 = bestMember.get(0);
+        MatchingListDto member2 = bestMember.get(1);
+        
+        Picture member1Pic = pictureService.findById(member1.getUserId());
+        String member1UsualPic = matchingService.imageChange(member1Pic.getPic1());
+        
+        Picture member2Pic = pictureService.findById(member2.getUserId());
+        String member2UsualPic = matchingService.imageChange(member2Pic.getPic1());
 
-		// 임시 값
-		Picture member1Pic = pictureService.findById("member1");
-		String member1UsualPic = matchingService.imageChange(member1Pic.getPic1());
-
-		Picture member2Pic = pictureService.findById("member2");
-		String member2UsualPic = matchingService.imageChange(member2Pic.getPic1());
-
-//		model.addAttribute("member1", member1); // member1
-//		model.addAttribute("member2", member2); // member2
+//		// 임시 값
+//		Picture member1Pic = pictureService.findById("member1");
+//		String member1UsualPic = matchingService.imageChange(member1Pic.getPic1());
+//
+//		Picture member2Pic = pictureService.findById("member2");
+//		String member2UsualPic = matchingService.imageChange(member2Pic.getPic1());
+        
+        model.addAttribute("loginUserId", userId);
+		model.addAttribute("member1", member1); // member1
+		model.addAttribute("member2", member2); // member2
 		model.addAttribute("member1Pic", member1UsualPic); // member1 사진
 		model.addAttribute("member2Pic", member2UsualPic); // member2 사진
 

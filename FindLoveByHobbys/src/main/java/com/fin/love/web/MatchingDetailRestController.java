@@ -1,8 +1,8 @@
 package com.fin.love.web;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,17 +18,63 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/matchingDetail")
 
 public class MatchingDetailRestController {
-	
+
 	private final MatchingDetailService detailService;
-	
-//	@GetMapping("/assessment/{assessmentId}{inputUserId}")
-//	public ResponseEntity<Integer> assessment(
-//			@PathVariable String memberId) {
-//		log.info("assessment(memberId = {})", memberId);
-//		
-//		int result = detailService.assessment(memberId);
-//		log.info("result = {}", result);
-//
-//		return ResponseEntity.ok(null);
-//	}
+
+	@PostMapping("/assessment/{assessmentName}/{senderId}/{getterId}")
+	public ResponseEntity<Integer> assessment(
+			@PathVariable String assessmentName,
+			@PathVariable String senderId, 
+			@PathVariable String getterId) {
+		log.info("assessment(senderId = {}, getterId = {})", getterId, senderId);
+		
+		int count = 0;
+		
+		Assessment assessment = detailService.findById(getterId);
+		log.info("assessment = {}", assessment);
+		
+		if (assessmentName.equals("sexy")) {
+		    detailService.sexyCountUp(getterId);
+		    count = assessment.getSexy();
+		    
+		} 
+		
+		if (assessmentName.equals("beautiful")) {
+		    detailService.beautifulCountUp(getterId);
+		    count = assessment.getBeautiful();
+		} 
+		
+		if (assessmentName.equals("cute")) {
+		    detailService.cuteCountUp(getterId);
+		    count = assessment.getCute();		    
+		} 
+		
+		if (assessmentName.equals("wonderful")) {
+		    detailService.wonderfulCoubtUp(getterId);
+		    count = assessment.getWonderful();	    
+		} 
+		
+		if (assessmentName.equals("handsome")) { 
+		    detailService.handsomeCountUp(getterId);
+		    count = assessment.getHandsome();
+		}
+
+
+	return ResponseEntity.ok(count);
+
+	}
+
+	// 호감 보낼 때 중복체크하는 코드
+	@PostMapping("/assessment/chack/{senderId}/{getterId}")
+	public ResponseEntity<Integer> chack(
+			@PathVariable String senderId, 
+			@PathVariable String getterId) {
+		log.info("chack(setterId = {}, getterId = {})", senderId, getterId);
+		
+		int result = detailService.assessment(senderId, getterId);
+		log.info("result = {}", result);
+
+		return ResponseEntity.ok(result);
+	}
+
 }
