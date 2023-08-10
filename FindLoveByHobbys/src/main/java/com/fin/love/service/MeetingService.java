@@ -374,7 +374,7 @@ public class MeetingService {
 			long age = 0;
 			for (MeetingMember y : list2) {
 
-				age += (Long.parseLong(y.getProfile().getUserAge()) + 19);
+				age += ((y.getProfile().getUserAge()) + 19);
 
 			}
 			if(age==0) {
@@ -403,7 +403,7 @@ public class MeetingService {
 				long age = 0;
 				for (MeetingMember y : list2) {
 
-					age += (Long.parseLong(y.getProfile().getUserAge()) + 19);
+					age += ((y.getProfile().getUserAge()) + 19);
 
 				}
 				if(age==0) {

@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +38,9 @@ public class FaceChatController {
 	public String facechatroom(Model model, MakeFaceChatRoomDto dto, HttpSession session) {
 		log.info("dto = {}", dto);
 		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userid = authentication.getName();
+		
 		long roomId = dto.getRoomId();
 		int result = faceservice.makeRoom(dto);
 		if (result == 0) {
@@ -47,7 +52,7 @@ public class FaceChatController {
 
 		for (Member x : list) {
 			// TODO 로그인 하면 여기에 아이디 담겨야 함.
-			if (x.getId().equals(session.getAttribute("userid").toString())) {
+			if (x.getId().equals(userid)) {
 
 				model.addAttribute("speakmember1", x.getName());
 

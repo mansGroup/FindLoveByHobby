@@ -3,6 +3,8 @@ package com.fin.love.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -64,7 +66,10 @@ public class MeetingController {
 		
 		log.info("meetmake({})",dto);
 		
-		dto.setLeader((String)session.getAttribute("userid"));
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userid = authentication.getName();
+		
+		dto.setLeader(userid);
 		
 		meetingservice.create(dto);
 		
@@ -120,7 +125,8 @@ public class MeetingController {
 	public void mylist(HttpSession session, Model model) {
 		
 		log.info("mymeetinglist()");
-		String userid = (String) session.getAttribute("userid");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userid = authentication.getName();
 		List<Meeting> list = meetingservice.myLeaderList(userid);
 		List<Meeting> list2 = meetingservice.myMeetList(userid);
 		
