@@ -83,8 +83,6 @@ public class Meeting extends BaseTimeEntity {
 	@Column
 	private LocalDateTime meetingdate;
 	
-	@OneToMany(mappedBy = "meeting")
-	private List<MeetingMember> members;
 	
 	public void update(MeetingMakeDto dto, Hobby hobby, Location loc, int member) {
 		
