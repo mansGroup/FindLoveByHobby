@@ -36,7 +36,7 @@ public class NoteService {
 
     public List<NoteContentDto> getMyNoteContent(String id) {
         List<NoteContentDto> dtos = new ArrayList<>();
-        List<Note> notes = noteRepository.findAll();
+        List<Note> notes = noteRepository.findAllByOrderByIdDesc();
         for (Note n : notes) {
             NoteContentDto dto = new NoteContentDto();
             Member senderMemberInfo = memberRepository.findById(n.getSender()).orElseThrow();
@@ -51,16 +51,19 @@ public class NoteService {
                     if (like.getWhether() == 0) {
                         dto.setMessage(String.format("%s님에게 좋아요를 보냈어요. 응답을 기다리는 중이에요.",recipientMemberInfo.getNickname()));
                         dto.setSender("두근두근");
+                        dtos.add(dto);
 
                     } else if (like.getWhether() == 2) {
                         dto.setMessage(String.format("%s님이 거절하셨습니다 ㅠㅠ", recipientMemberInfo.getNickname()));
                         dto.setSender("다음 인연을 만들어요!");
+                        dtos.add(dto);
                     }
 
                 } else if (n.getRecipient().equals(id)) {
                     dto.setMessage(String.format("%s님이 좋아요를 보냈어요. 인연이 맺어지길 바래요!",senderMemberInfo.getNickname()));
                     dto.setSender("두근두근");
                     dto.setLink(String.format("/matching/profile/%s", n.getSender()));
+                    dtos.add(dto);
                 }
 
             } else if (n.getType().equals("notice")){
@@ -68,6 +71,7 @@ public class NoteService {
                     dto.setSender("관리자");
                     dto.setMessage("문의사항에 답변이 달렸어요!");
                      // TODO 문의 응답
+                    dtos.add(dto);
                 }
 
             } else if (n.getType().equals("connected")) {
@@ -75,16 +79,17 @@ public class NoteService {
                     dto.setSender(String.format("%s님과 매칭되었어요.", recipientMemberInfo.getNickname()));
                     dto.setMessage("어서 채팅하러 가보세요! 쪽지를 누르면 카톡방으로 이동해요.");
                     dto.setLink("/chat/chat");
+                    dtos.add(dto);
                 }
             }
-            dtos.add(dto);
+
         }
         return dtos;
     }
 
     @Transactional
-    public void deleteNote(String senderId, String recipientId) {
-        noteRepository.deleteBySenderAndRecipient(senderId, recipientId);
+    public void deleteNote(String senderId, String recipientId, String type) {
+        noteRepository.deleteBySenderAndRecipientAndType(senderId, recipientId, type);
     }
 
     public void noticeConnected(String senderId, String recipientId) {

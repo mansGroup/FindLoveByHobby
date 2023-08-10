@@ -32,7 +32,7 @@ public class NoteController {
         if (haveNoteNumber) {
             // 쪽지 내용 불러오기
             List<NoteContentDto> noteContentDtos = noteService.getMyNoteContent(id);
-            log.info(noteContentDtos.get(0).getSender() + "");
+            log.info(noteContentDtos.size() + "");
             model.addAttribute("noteContentList", noteContentDtos);
         }
 
