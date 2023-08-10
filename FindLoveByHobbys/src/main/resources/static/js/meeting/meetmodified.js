@@ -4,8 +4,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-	const createForm = document.querySelector('form#createForm');
-	const btnCreate = document.querySelector('button#btnCreate');
+	const modifyForm = document.querySelector('form#modifiedForm');
+	const btnModify = document.querySelector('button#btnModify');
 	const title = document.querySelector('input#title');
 	const content1 = document.querySelector('input#content1');
 	const content2 = document.querySelector('input#content2');
@@ -26,6 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	const image1path = document.querySelector('input#image1path');
 	const image2path = document.querySelector('input#image2path');
 	const image3path = document.querySelector('input#image3path');
+	const btnDelete = document.querySelector('button#btnDelete');
+	const formDelete = document.querySelector('form#formDelete');
+	
+	const locations = document.querySelector('input#locations');
+	const hobbys = document.querySelector('input#hobbys');
+	
+	hobbyid.value = hobbys.value;
+	locationid.value = locations.value;
 	
 	function checkValue(){
 		
@@ -100,7 +108,18 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 	}
 	
-	btnCreate.addEventListener('click', (e) => {
+	btnDelete.addEventListener('click',(e)=>{
+		
+		e.preventDefault();
+		
+		formDelete.method='get';
+		formDelete.action='/meeting/delete';
+		formDelete.submit();
+		
+		
+	})
+	
+	btnModify.addEventListener('click', (e) => {
 
 		e.preventDefault();
 		
@@ -119,9 +138,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 		}
 		
-		createForm.method='post';
-		createForm.action='/meeting/create';
-		createForm.submit();
+		modifyForm.method='post';
+		modifyForm.action='/meeting/modify';
+		modifyForm.submit();
 
 	})
 
@@ -139,7 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 
 	}
-
+	
+	
+	
 	meetingtime.min = mindate();
 
 	const imgupload = async (img, imgview, icon, imgpath) => {

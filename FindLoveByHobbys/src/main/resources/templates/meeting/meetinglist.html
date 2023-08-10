@@ -113,8 +113,8 @@
 					<div th:each="list : ${list}"
 						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 						<div class="image-hover-thumb">
-							<img th:src="'data:image/jpg;base64,' + ${list.image1}"
-								class="img-fluid" alt="">
+							<a th:href="@{'/meeting/read?id='+${list.id}}"><img th:src="'data:image/jpg;base64,' + ${list.image1}"
+								class="img-fluid" alt=""></a>
 						</div>
 						<input class="d-none" id="meetid" name="meetid"
 							th:value="${list.id}" />

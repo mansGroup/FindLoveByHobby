@@ -1,0 +1,95 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+
+<main id="mainbody" style="height: 100%;" layout:fragment="main">
+
+	<section style="background-color: white;"
+			class="the-wedding-section section-bg section-padding" id="section_3">
+			<div class="container">
+				<div class="row">
+				<div class="row">
+					<div class="col-lg-12 col-10">
+						<div class="section-title-wrap mb-5">
+							<h2 class="section-title">내가 개최한 모임들</h2>
+
+							<div class="section-title-bottom"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-1"></div>
+				<div class="row col-10">
+					<div th:each="list : ${list}"
+						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+						<div class="image-hover-thumb">
+							<a th:href="@{'/meeting/modify?id='+${list.id}}"><img th:src="'data:image/jpg;base64,' + ${list.image1}"
+								class="img-fluid" alt=""></a>
+						</div>
+						<input class="d-none" id="meetid" name="meetid"
+							th:value="${list.id}" />
+
+
+						<div class="section-block">
+							<h3 class="my-3" th:text="${ list.title }">The Reception</h3>
+
+							<p class="mb-2" th:text="${ list.location.locationname }">
+								5th Avenue at, Central Park S</p>
+
+							<p th:text="${ #temporals.format(list.meetingdate, 'YYYY. M. d a h:mm:ss') }">5:00 PM</p>
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-1"></div>
+				</div>
+			</div>
+		</section>
+		
+		<section style="background-color: white;"
+			class="the-wedding-section section-bg section-padding" id="section_3">
+			<div class="container">
+				<div class="row">
+				<div class="row">
+					<div class="col-lg-12 col-10">
+						<div class="section-title-wrap mb-5">
+							<h2 class="section-title">내가 참가하는 모임들</h2>
+
+							<div class="section-title-bottom"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-1"></div>
+				<div class="row col-10">
+					<div th:each="list2 : ${list2}"
+						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+						<div class="image-hover-thumb">
+							<a th:href="@{'/meeting/modify?id='+${list2.id}}"><img th:src="'data:image/jpg;base64,' + ${list2.image1}"
+								class="img-fluid" alt=""></a>
+						</div>
+						<input class="d-none" id="meetid" name="meetid"
+							th:value="${list2.id}" />
+
+
+						<div class="section-block">
+							<h3 class="my-3" th:text="${ list2.title }">The Reception</h3>
+
+							<p class="mb-2" th:text="${ list2.location.locationname }">
+								5th Avenue at, Central Park S</p>
+
+							<p th:text="${ #temporals.format(list2.meetingdate, 'YYYY. M. d a h:mm:ss') }">5:00 PM</p>
+						</div>
+					</div>
+					
+				</div>
+				<div class="col-1"></div>
+				</div>
+			</div>
+		</section>
+
+</main>
+
+<th:block layout:fragment="myscripts">
+	
+</th:block>
+
+</html>

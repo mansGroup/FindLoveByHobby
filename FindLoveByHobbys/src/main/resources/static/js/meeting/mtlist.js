@@ -213,8 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
 				<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 					<input class="d-none" value="${x.id}" />
 						<div class="image-hover-thumb">
-							<img src="data:image/jpeg;base64,${x.image1}"
-								class="img-fluid" alt="이미지 없음">
+							<a th:href="/meeting/modify?id=${x.id}"><img src="data:image/jpeg;base64,${x.image1}"
+								class="img-fluid" alt="이미지 없음"></a>
 						</div>
 
 						<div class="section-block">

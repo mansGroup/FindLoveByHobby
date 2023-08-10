@@ -1,6 +1,7 @@
 package com.fin.love.dto.meeting;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.location.Location;
@@ -29,12 +30,12 @@ public class MeetingMakeDto {
 	private String contents;
 	private long locationid;
 	private int status;
-	private Timestamp meetingtime;
+	private LocalDateTime meetingtime;
 	
 	
 	public Meeting toEntity(Location loc, Hobby hobby) {
 		// TODO Auto-generated method stub
-		return Meeting.builder().content1(content1).content2(content2).content3(content3).contents(contents).leader(leader).title(title).location(loc).hobby(hobby).image1(image1).image2(image2).image3(image3).title(title).status(status).meetingdate(meetingtime.toLocalDateTime()).build();
+		return Meeting.builder().content1(content1).content2(content2).content3(content3).contents(contents).leader(leader).title(title).location(loc).hobby(hobby).image1(image1).image2(image2).image3(image3).title(title).status(status).meetingdate(meetingtime).build();
 	}
 	
 }

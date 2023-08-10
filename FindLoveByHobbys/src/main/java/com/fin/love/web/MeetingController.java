@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fin.love.dto.meeting.MeetingMakeDto;
+import com.fin.love.dto.meeting.MeetingModifyDto;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.location.Location;
 import com.fin.love.repository.meeting.Meeting;
+import com.fin.love.repository.meetingmember.MeetingMember;
 import com.fin.love.repository.profile.Age;
 import com.fin.love.service.MeetingService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -26,6 +29,7 @@ public class MeetingController {
 	
 	@Autowired
 	private MeetingService meetingservice;
+	
 	
 	@GetMapping("/meetinglist")
 	public void readlist(@RequestParam int pagenum, Model model) {
@@ -43,24 +47,95 @@ public class MeetingController {
 		
 		List<Hobby> list = meetingservice.loadhobby();
 		List<Location> list2 = meetingservice.loadloc();
-		List<Age> list3 = meetingservice.loadage();
+		
+		String iconimg = meetingservice.imageToBase64("C:/IMA/icon.png");
 		
 		model.addAttribute("list",list);
 		model.addAttribute("list2", list2);
-		model.addAttribute("list3", list3);
+		
+		model.addAttribute("icon",iconimg);
 		
 		log.info("meetcreate()");
 		
 	}
 	
 	@PostMapping("/create")
-	public String meetcreate(MeetingMakeDto dto) {
+	public String meetcreate(MeetingMakeDto dto, HttpSession session) {
 		
 		log.info("meetmake({})",dto);
 		
+		dto.setLeader((String)session.getAttribute("userid"));
+		
 		meetingservice.create(dto);
 		
-		return "redirect:/meeting/meetinglist";
+		
+		return "redirect:/meeting/meetinglist?pagenum=1";
+		
+	}
+	
+	@GetMapping("/modify")
+	public void modify(@RequestParam long id, Model model) {
+		
+		List<Hobby> list = meetingservice.loadhobby();
+		List<Location> list2 = meetingservice.loadloc();
+		model.addAttribute("list",list);
+		model.addAttribute("list2", list2);
+		String iconimg = meetingservice.imageToBase64("C:/IMA/icon.png");
+		MeetingModifyDto meet = meetingservice.readMyMeeting(id);
+		model.addAttribute("icon",iconimg);
+		model.addAttribute("meet", meet);
+		
+	}
+	
+	@PostMapping("/modify")
+	public String modify(MeetingMakeDto dto, @RequestParam long id) {
+		log.info("update(dto = {})",dto);
+		
+		meetingservice.update(dto,id);
+		
+		
+		return "redirect:/meeting/mymeeting";
+		
+		
+	}
+	
+	
+	@PostMapping("/delete")
+	public String delete(@RequestParam long deleteId) {
+		
+		log.info("delete(id = {})",deleteId);
+		
+		int result = meetingservice.delete(deleteId);
+		if(result == 1) {
+		log.info("삭제 성공");
+		} else {
+			log.info("삭제 실패");
+			
+		}
+		return "redirect:/meeting/mymeeting";
+		
+	}
+	
+	@GetMapping("/mymeeting")
+	public void mylist(HttpSession session, Model model) {
+		
+		log.info("mymeetinglist()");
+		String userid = (String) session.getAttribute("userid");
+		List<Meeting> list = meetingservice.myLeaderList(userid);
+		List<Meeting> list2 = meetingservice.myMeetList(userid);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("list2", list2);
+		
+	}
+	
+	@GetMapping("/read")
+	public void read(@RequestParam long id, Model model) {
+		
+		log.info("read(id = {})",id);
+		
+		MeetingModifyDto meet = meetingservice.readMyMeeting(id);
+		model.addAttribute("meet", meet);
 		
 	}
 	

@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface MeetingRepository extends JpaRepository<Meeting, Long>{
 
-	
+	List<Meeting> findByLeader(String leader);
 	
 }
