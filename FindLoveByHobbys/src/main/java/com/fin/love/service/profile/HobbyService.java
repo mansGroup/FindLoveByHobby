@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fin.love.dto.profile.ProfileUpdateDto;
 import com.fin.love.dto.profile.UserHobbyDto;
+import com.fin.love.dto.profile.UserHobbyUpdateDto;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.hobby.HobbyRepository;
+import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.UserHobby;
 import com.fin.love.repository.profile.UserHobbyRepository;
 
@@ -43,4 +46,12 @@ public class HobbyService {
 		log.info("userHobby= {}", uhEntity);
 	}
 	
+	
+	@Transactional
+	public void userHobbyUpdate(UserHobbyUpdateDto dto) {
+		log.info("userHobbyUpdate(dto={})", dto);
+		
+		//UserHobby entity = userHobbyRepository.findById(dto.getUserid()).orElseThrow();
+		//entity.userHobbyUpdate(dto);
+	}
 }

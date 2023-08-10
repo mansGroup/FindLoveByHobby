@@ -4,6 +4,19 @@
 	layout:decorate="~{layout/base_layout}">
 
 <th:block layout:fragment="css">
+	<style>
+/* <td> 태그 위에 마우스 올렸을 때의 배경색 변경 */
+.bodyTr:hover {
+	background-color: #F1C522;
+	color: #FFFFFF;
+}
+
+img {
+	max-width: 100%;
+	max-height: 500px;
+	object-fit: contain; /* 또는 'cover' 등을 사용하여 이미지가 잘 맞도록 조절 */
+}
+</style>
 </th:block>
 
 <th:block layout:fragment="main">
@@ -11,15 +24,16 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th id="colNumber">#</th>
-					<th id="colName">Name</th>
-					<th id="colNickname">Nickname</th>
-					<th id="colGender">Gender</th>
-					<th id="colRole">Role</th>
+					<th id="colNumber"><span style="color: #FF5500;">#</span></th>
+					<th id="colName"><span style="color: #FF5500;">Name</span></th>
+					<th id="colNickname"><span style="color: #FF5500;">Nickname</span></th>
+					<th id="colGender"><span style="color: #FF5500;">Gender</span></th>
+					<th id="colRole"><span style="color: #FF5500;">Role</span></th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="member, idx : ${members}" data-bs-toggle="offcanvas"
+					class="bodyTr"
 					th:data-bs-target="'#offcanvasScrolling' + ${idx.index}">
 					<td th:text="${idx.index + 1}"></td>
 					<td th:text="${member.name}"></td>
@@ -39,58 +53,118 @@
 				<div class="offcanvas-header">
 					<h5 class="offcanvas-title"
 						th:id="'offcanvasScrollingLabel' + ${idx.index}">
-						Details for <span th:text="${member.name}"></span>
+						<span th:text="${member.userId}" style="color: #FF5500;"></span>
 					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
 						aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body">
-
+					<div style="display: flex;justify-content: center;">
+						<h4>Usual Image</h4>
+					</div>
 					<!-- 이미지 -->
-					<div id="carouselExample" class="carousel slide">
-						<div class="carousel-inner">
-							<div class="carousel-item active" >
-								<img src="..." class="d-block w-100" alt="...">
+					<div>
+						<div class="d-flex justify-content-center align-items-center">
+							<div th:id="'carouselExample1' + ${idx.index}"
+								class="carousel slide" data-bs-interval="0">
+								<div class="carousel-inner">
+									<div class="carousel-item active">
+										<img th:src="${member.pic1}" class="d-block mx-auto img-fluid"
+											alt="..." style="max-width: 100%; max-height: 100%;">
+									</div>
+									<div class="carousel-item">
+										<img th:src="${member.pic2}" class="d-block mx-auto img-fluid"
+											alt="..." style="max-width: 100%; max-height: 100%;">
+									</div>
+									<div class="carousel-item">
+										<img th:src="${member.pic3}" class="d-block mx-auto img-fluid"
+											alt="..." style="max-width: 100%; max-height: 100%;">
+									</div>
+								</div>
+								<button class="carousel-control-prev" type="button"
+									th:data-bs-target="'#carouselExample1' + ${idx.index}"
+									data-bs-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="visually-hidden">Previous</span>
+								</button>
+								<button class="carousel-control-next" type="button"
+									th:data-bs-target="'#carouselExample1' + ${idx.index}"
+									data-bs-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="visually-hidden">Next</span>
+								</button>
 							</div>
 						</div>
-						<button class="carousel-control-prev" type="button"
-							data-bs-target="#carouselExample" data-bs-slide="prev">
-							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Previous</span>
-						</button>
-						<button class="carousel-control-next" type="button"
-							data-bs-target="#carouselExample" data-bs-slide="next">
-							<span class="carousel-control-next-icon" aria-hidden="true"></span>
-							<span class="visually-hidden">Next</span>
-						</button>
+						
+						<div style="display: flex;justify-content: center;">
+							<h4>Hobby Image</h4>
+						</div>
+						<!-- 이미지 -->
+						<div>
+							<div class="d-flex justify-content-center align-items-center"
+								style="height: 100%;">
+								<div th:id="'carouselExample2' + ${idx.index}"
+									class="carousel slide" data-bs-interval="0">
+									<div class="carousel-inner">
+										<div class="carousel-item active">
+											<img th:src="${member.hobbyPic1}" class="d-block w-100"
+												alt="...">
+										</div>
+										<div class="carousel-item">
+											<img th:src="${member.hobbyPic2}" class="d-block w-100"
+												alt="...">
+										</div>
+										<div class="carousel-item">
+											<img th:src="${member.hobbyPic3}" class="d-block w-100"
+												alt="...">
+										</div>
+									</div>
+									<button class="carousel-control-prev" type="button"
+										th:data-bs-target="'#carouselExample2' + ${idx.index}"
+										data-bs-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Previous</span>
+									</button>
+									<button class="carousel-control-next" type="button"
+										th:data-bs-target="'#carouselExample2' + ${idx.index}"
+										data-bs-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Next</span>
+									</button>
+								</div>
+							</div>
+						</div>
+						
+						<div style="margin-top: 5px;">Name: <span th:text="${member.name}"></span></div>
+						<div>Age : <span th:text="${member.age}"></span></div>
+						<div>Nickname : <span th:text="${member.nickname}"></span></div>
+						<div>Email : <span th:text="${member.email}"></span></div>
+						<div>Gender : <span th:text="${member.sex}"></span></div>
+						<div>Role : <span th:text="${member.role}"></span></div>
+						<div>Phone : <span th:text="${member.phone}"></span></div>
+						<div>Address : <span th:text="${member.address}"></span></div>
+						<div>Birthday : <span th:text="${member.birthday}"></span></div>
+						<div>CreatedTime : <span th:text="${member.createdTime}"></span></div>
+						<div>ModifiedTime : <span th:text="${member.modifiedTime}"></span></div>
+						
 					</div>
-
-					<p>
-						Name: <span th:text="${member.name}"></span>
-					</p>
-					<p>
-						Email: <span th:text="${member.email}"></span>
-					</p>
-					<!-- 추가적인 정보를 표시할 수 있습니다. -->
 				</div>
 			</div>
 		</div>
-	</div>
 
 
 
 
-	<!-- 페이지 네이션 -->
-	<nav aria-label="Page navigation example">
-		<ul class="pagination justify-content-center">
-			<li class="page-item disabled"><a class="page-link">이전</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">다음</a></li>
-		</ul>
-	</nav>
-
+		<!-- 페이지 네이션 -->
+		<nav aria-label="Page navigation example">
+			<ul class="pagination justify-content-center">
+				<li class="page-item disabled"><a class="page-link">이전</a></li>
+				<li class="page-item"><a class="page-link" href="#">1</a></li>
+				<li class="page-item"><a class="page-link" href="#">2</a></li>
+				<li class="page-item"><a class="page-link" href="#">3</a></li>
+				<li class="page-item"><a class="page-link" href="#">다음</a></li>
+			</ul>
+		</nav>
 </th:block>
 
 <th:block layout:fragment="myscripts">

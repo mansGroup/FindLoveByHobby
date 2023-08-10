@@ -16,7 +16,7 @@ public class ManagerUserListDto {
 	private String name;
 	private String nickname;
 	private String email;
-	private int sex;
+	private String sex;
 	private Role role;
 	private String phone;
 	private String address;
