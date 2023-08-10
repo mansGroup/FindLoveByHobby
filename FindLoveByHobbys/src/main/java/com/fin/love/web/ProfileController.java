@@ -103,7 +103,7 @@ public class ProfileController {
 		hobbyService.hobbySave(hobbyDto3);
 		log.info("hobbyDto= {}", hobbyDto3);
 		
-		return "/profile/profileimage";
+		return "redirect:/profile/profileimage";
 	}
 
 	

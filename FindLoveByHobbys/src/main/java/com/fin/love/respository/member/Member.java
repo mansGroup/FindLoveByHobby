@@ -66,7 +66,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.password = password;
         this.email = email;
         this.sex = sex;
-        this.role = Role.USER;
+        this.role = role;
         this.phone = phone;
         this.nickname = nickname;
         this.address = address;

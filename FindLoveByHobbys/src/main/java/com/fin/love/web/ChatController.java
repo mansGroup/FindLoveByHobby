@@ -7,8 +7,13 @@ import com.fin.love.respository.member.Member;
 import com.fin.love.service.MemberService;
 import com.fin.love.service.chatting.ChattingRoomService;
 import com.fin.love.service.chatting.ChattingService;
+
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,16 +36,18 @@ public class ChatController {
     private final MemberService memberService;
 
     @GetMapping("/chat")
-    public void chat(Model model) {
+    public void chat(Model model, HttpSession session) {
         log.info("chat()");
 
         // TODO spring security session 적용
         // 세션에서 id 찾아오기
+        
         String userId = "user1";
 
         // 나의 성별 찾기
         Member member = memberService.getSexById(userId);
-
+        log.info("member=({})",member);
+        
         // id로 상대방 id, 채팅방 정보 가져오기
         List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId, member.getSex());
 

@@ -48,12 +48,22 @@ img {
 	color: #fff;
 	transform: translateY(-7px);
 }
+
+.pagination .page-link {
+    color: black; /* 기본 링크 색상 */
+}
+
+.pagination .page-link:hover {
+    color: #fff; /* 마우스 오버 시 링크 색상 변경 */
+    background-color: #F1C522; /* 마우스 오버 시 배경색상 변경 */
+    border-color: #C70039; /* 마우스 오버 시 테두리 색상 변경 */
+}
 </style>
 </th:block>
 
 <th:block layout:fragment="main">
 
-	<div class="container">
+	<div class="container" style="margin-bottom: 50px;">
 
 		<div style="margin-bottom: 10px;">
 			<h2>User List</h2>
@@ -70,7 +80,7 @@ img {
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="member, idx : ${members}" data-bs-toggle="offcanvas"
+				<tr th:each="member, idx : ${members}" th:if="${idx.index >= 5 * (pageCount - 1) and idx.index < 5 * pageCount}" data-bs-toggle="offcanvas"
 					class="bodyTr"
 					th:data-bs-target="'#offcanvasScrolling' + ${idx.index}">
 					<td th:text="${idx.index + 1}"></td>
@@ -83,7 +93,7 @@ img {
 			</tbody>
 		</table>
 
-		<div th:each="member, idx : ${members}">
+		<div th:each="member, idx : ${members}" >
 			<div class="offcanvas offcanvas-end" data-bs-scroll="true"
 				data-bs-backdrop="false" tabindex="-1"
 				th:id="'offcanvasScrolling' + ${idx.index}"
@@ -308,6 +318,34 @@ img {
 			</div>
 		</div>
 	</div>
+
+	<!-- 페이지네이션 -->
+	<nav aria-label="Page navigation example" style="display: flex; justify-content: center;">
+		<ul class="pagination">
+			<li class="page-item">
+				<a class="page-link" th:href="@{/manager/user/list/{pageCount} (pageCount = ${pageCount} - 1)}" th:if="${pageCount > 1}" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+				<a class="page-link" th:href="@{/manager/user/list/1}" th:unless="${pageCount > 1}" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			
+			<li class="page-item" th:each="i : ${#numbers.sequence(1 + (5 * (pageCount / 5 - 1)), 5 * (pageCount / 5))}" th:if="${pageCount % 5 == 0}">
+				<a class="page-link" th:href="@{/manager/user/list/{pageCount} (pageCount = ${i})}" th:text="${i}"></a>
+			</li>
+			
+			<li class="page-item" th:each="i : ${#numbers.sequence(1 + (5 * (pageCount / 5)), 5 * ((pageCount / 5) + 1))}" th:unless="${pageCount % 5 == 0}">
+				<a class="page-link" th:href="@{/manager/user/list/{pageCount} (pageCount = ${i})}" th:text="${i}"></a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" th:href="@{/manager/user/list/{pageCount} (pageCount = ${pageCount} + 1)}" aria-label="Next">
+					<span aria-hidden="true">&raquo;</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+
 
 </th:block>
 

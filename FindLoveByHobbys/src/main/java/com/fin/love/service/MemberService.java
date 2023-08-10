@@ -14,6 +14,7 @@ import com.fin.love.dto.member.MemberLogInDto;
 import com.fin.love.dto.member.MemberSignUpDto;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
+import com.fin.love.respository.member.Role;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,11 +29,11 @@ public class MemberService implements UserDetailsService {
 	private final MemberRepository memberRepository;
 
 	public String signUp(MemberSignUpDto dto) {
-		log.info("signUp{dto=()}", dto);
+		log.info("signUp(dto={})", dto);
 
 		Member entity = Member.builder().id(dto.getUserid()).name(dto.getUsername())
 				.password(passwordEncoder.encode(dto.getPassword())).email(dto.getEmail()).nickname(dto.getNickname())
-				.sex(dto.getSex()).phone(dto.getPhone()).address(dto.getAddress()).birthday(dto.getBirthdate()).build();
+				.role(dto.getRole()).sex(dto.getSex()).phone(dto.getPhone()).address(dto.getAddress()).birthday(dto.getBirthdate()).build();
 		log.info("save 전: entity={}", entity);
 
 		memberRepository.save(entity);
@@ -71,7 +72,7 @@ public class MemberService implements UserDetailsService {
 			log.info("user(user={})", user);
 			return user; // 로그인 성공한 경우 UserDetails 객체 반환
 		}
-
+		log.info("logInFail");
 		throw new UsernameNotFoundException(id + "가 존재하지 않습니다.");
 	}
 
@@ -84,6 +85,11 @@ public class MemberService implements UserDetailsService {
 
 	public Member getSexById(String session) {
 		return memberRepository.findById(session).orElseThrow();
+	}
+
+	public Member login(String username) {
+	
+		return memberRepository.findById(username).orElseThrow();
 	}
 
 }

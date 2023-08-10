@@ -73,4 +73,11 @@ public class ProfileService {
 //		
 //	}
 
+	@Transactional(readOnly = true)
+	public Profile findById(String userid) {
+		log.info("findById(userId={})", userid);
+		
+		return profileRepository.findById(userid).orElse(null);
+	}
+
 }
