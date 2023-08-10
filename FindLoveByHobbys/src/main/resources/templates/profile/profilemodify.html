@@ -3,13 +3,20 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layout/base_layout}">
     
-    <th:block layout:fragment="css">
-    </th:block>
+<th:block layout:fragment="css">
+	<style>
+		.modifybtn {
+			 text-align: right;
+			 padding: 10px;
+		}
+		
+	</style>
+</th:block>
     
 <main layout:fragment="main">
 	<h1>프로필 수정 페이지</h1>
 	
-	<form id="profileModifyForm">
+<form id="profileModifyForm">
 	<div class="memberInfo">
 		<div>
 			<label class="form-label" for="userId">사용자 아이디</label>
@@ -22,7 +29,6 @@
 				name="userIntroduce" th:text="${profile.userIntroduce}" required autofocus>
 			</textarea>
 		</div>
-
 		<h2>취미 (최대 3개 선택 가능)</h2>
 		<div th:each="hobby, idx : ${hobbys}" style="float: left; margin: 5px;">
 			<span th:if="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
@@ -32,8 +38,7 @@
 			<span th:unless="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
    				<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);">
 			<label th:text="${hobby.hobbyName}"></label>
-			</span>
-			
+			</span>			
 		</div>
 	</div>
 
@@ -116,10 +121,10 @@
 		</select>
 	</div>
 				
-		<div>
-			<button class="btn btn-outline-success" id="btnUpdate">수정완료</button>
-		</div>
-	</form>
+	<div class="modifybtn">
+		<button class="btn btn-outline-dark" id="btnUpdate">수정완료</button>
+	</div>
+</form>
 	
 	<!-- profile 자바스크립트 경로 -->
 	<th:block layout:fragment="myscripts">

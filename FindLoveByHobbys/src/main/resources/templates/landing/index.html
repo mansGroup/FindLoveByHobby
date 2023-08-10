@@ -91,10 +91,97 @@
 	left: 50%; /* 가로 중앙에 위치 */
 	transform: translate(-50%, -50%); /* 중앙 정렬을 위한 이동 변환 */
 }
+
+.hobby {
+	width: 100px;
+    height: 50px;
+    font-size: 10px;
+}
+
+.age {
+	max-width: 100px;
+    height: 50px;
+    font-size: 10px;
+}
+
+.height {
+	width: 100px;
+    height: 50px;
+    font-size: 10px;
+}
+
+.academic {
+	width: 100px;
+    height: 50px;
+    font-size: 10px;
+}
+
+.job {
+	width: 100px;
+    height: 50px;
+    font-size: 10px;
+}
+
+.income {
+	width: 100px;
+    height: 50px;
+    font-size: 10px;
+}
 </style>
 </th:block>
 
 <main layout:fragment="main">
+	<!-- 검색(임시 경로) -->
+	<div class="card-footer">
+		<form method="get" th:action="@{/profile/search}">
+			<div class="row">
+			
+				<div class="hobby">
+					<select class="form-control" name="type">
+						<option value="">취미</option>
+						<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
+					</select>
+				</div>
+				<div class="age">
+					<select class="form-control" name="type">
+						<option value="">나이</option>
+						<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
+					</select>
+				</div>
+				<div class="height">
+					<select class="form-control" name="type">
+						<option value="">키</option>
+						<option th:each="height , idx : ${heights}" th:text="${height.heightName}" th:value="${idx.count}"></option>
+					</select>
+				</div>
+				<div class="academic">
+					<select class="form-control" name="type">
+						<option value="">학력</option>
+					</select>
+				</div>
+				<div class="job">
+					<select class="form-control" name="type">
+						<option value="">직업</option>
+					</select>
+				</div>
+				<div class="income">
+					<select class="form-control" name="type">
+						<option value="">연봉</option>
+					</select>
+				</div>
+							
+				<div class="col-8">
+					<input class="form-control" name="keyword" type="text" placeholder="검색어 입력" required />
+				</div>
+				
+				<div class="col-1">
+					<input class="form-control btn btn-outline-dark" type="submit" value="검색" />
+				</div>	
+							
+			</div>
+		</form>
+	</div>
+
 	<div class="half-container">
 		<div class="half-box1"
 			style="background-image: url('/images/landing/part1/7a3b757eaa037.jpg');">
@@ -107,65 +194,62 @@
 	</div>
 
 	<script>
-	 // half-box1의 이미지 배열 생성
-    const images1 = [
-        "/images/landing/part1/SSI_20190618131159_V.jpg",
-        "/images/landing/part1/7a3b757eaa037.jpg",
-        "/images/landing/part1/a-couple-in-a-venice-beach-vacation_873925-40582.jpg",
-        "/images/landing/part1/couple-spending-time-together-outdoors.jpg"
-    ];
-    let currentImage1 = 0; // 현재 half-box1의 이미지 인덱스
-    let intervalId1; // half-box1의 setInterval 함수의 반환값을 저장할 변수
+		// half-box1의 이미지 배열 생성
+		const images1 = [
+				"/images/landing/part1/SSI_20190618131159_V.jpg",
+				"/images/landing/part1/7a3b757eaa037.jpg",
+				"/images/landing/part1/a-couple-in-a-venice-beach-vacation_873925-40582.jpg",
+				"/images/landing/part1/couple-spending-time-together-outdoors.jpg" ];
+		let currentImage1 = 0; // 현재 half-box1의 이미지 인덱스
+		let intervalId1; // half-box1의 setInterval 함수의 반환값을 저장할 변수
 
-    function changeImage1() {
-        // 다음 이미지로 변경
-        currentImage1 = (currentImage1 + 1) % images1.length;
-        const imageUrl = images1[currentImage1];
-        const halfBox1 = document.querySelector(".half-box1");
-        halfBox1.style.backgroundImage = `url(${imageUrl})`;
-    }
+		function changeImage1() {
+			// 다음 이미지로 변경
+			currentImage1 = (currentImage1 + 1) % images1.length;
+			const imageUrl = images1[currentImage1];
+			const halfBox1 = document.querySelector(".half-box1");
+			halfBox1.style.backgroundImage = `url(${imageUrl})`;
+		}
 
-    // half-box2의 이미지 배열 생성
-    const images2 = [
-        "/images/landing/part2/back-view-couple-holding-hands.jpg",
-        "/images/landing/part2/joyful-young-man-making-selfie-with-his-beautiful-girlfriend-at-home-couple-with-smile-and-joy-in-their-eyes.jpg",
-        "/images/landing/part2/beautiful-and-stylish-couple-in-a-field-with-sunflowers_1157-25952.jpg",
-        "/images/landing/part2/happy-young-couple-drinking-tea-at-home_651396-3228.jpg"
-    ];
-    let currentImage2 = 0; // 현재 half-box2의 이미지 인덱스
-    let intervalId2; // half-box2의 setInterval 함수의 반환값을 저장할 변수
+		// half-box2의 이미지 배열 생성
+		const images2 = [
+				"/images/landing/part2/back-view-couple-holding-hands.jpg",
+				"/images/landing/part2/joyful-young-man-making-selfie-with-his-beautiful-girlfriend-at-home-couple-with-smile-and-joy-in-their-eyes.jpg",
+				"/images/landing/part2/beautiful-and-stylish-couple-in-a-field-with-sunflowers_1157-25952.jpg",
+				"/images/landing/part2/happy-young-couple-drinking-tea-at-home_651396-3228.jpg" ];
+		let currentImage2 = 0; // 현재 half-box2의 이미지 인덱스
+		let intervalId2; // half-box2의 setInterval 함수의 반환값을 저장할 변수
 
-    function changeImage2() {
-        // 다음 이미지로 변경
-        currentImage2 = (currentImage2 + 1) % images2.length;
-        const imageUrl = images2[currentImage2];
-        const halfBox2 = document.querySelector(".half-box2");
-        halfBox2.style.backgroundImage = `url(${imageUrl})`;
-    }
+		function changeImage2() {
+			// 다음 이미지로 변경
+			currentImage2 = (currentImage2 + 1) % images2.length;
+			const imageUrl = images2[currentImage2];
+			const halfBox2 = document.querySelector(".half-box2");
+			halfBox2.style.backgroundImage = `url(${imageUrl})`;
+		}
 
-    // half-box1에 대한 마우스 이벤트 설정
-    const halfBox1 = document.querySelector(".half-box1");
-    halfBox1.addEventListener("mouseenter", function() {
-        clearInterval(intervalId1);
-        intervalId1 = setInterval(changeImage1, 3000);
-    });
+		// half-box1에 대한 마우스 이벤트 설정
+		const halfBox1 = document.querySelector(".half-box1");
+		halfBox1.addEventListener("mouseenter", function() {
+			clearInterval(intervalId1);
+			intervalId1 = setInterval(changeImage1, 3000);
+		});
 
-    halfBox1.addEventListener("mouseleave", function() {
-        clearInterval(intervalId1);
-    });
+		halfBox1.addEventListener("mouseleave", function() {
+			clearInterval(intervalId1);
+		});
 
-    // half-box2에 대한 마우스 이벤트 설정
-    const halfBox2 = document.querySelector(".half-box2");
-    halfBox2.addEventListener("mouseenter", function() {
-        clearInterval(intervalId2);
-        intervalId2 = setInterval(changeImage2, 3000);
-    });
+		// half-box2에 대한 마우스 이벤트 설정
+		const halfBox2 = document.querySelector(".half-box2");
+		halfBox2.addEventListener("mouseenter", function() {
+			clearInterval(intervalId2);
+			intervalId2 = setInterval(changeImage2, 3000);
+		});
 
-    halfBox2.addEventListener("mouseleave", function() {
-        clearInterval(intervalId2);
-    });
+		halfBox2.addEventListener("mouseleave", function() {
+			clearInterval(intervalId2);
+		});
 	</script>
 
 </main>
-
 </html>

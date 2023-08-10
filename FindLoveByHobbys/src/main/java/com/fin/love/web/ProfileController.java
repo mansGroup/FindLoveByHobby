@@ -110,7 +110,7 @@ public class ProfileController {
 	// DB에 저장되어 있는 사용자 데이터를 수정페이지로 읽기
 	@GetMapping({"/profilemodify", "/testmodifybutton"})
 	public void profileModify(Model model) {
-		String userId = "member2";
+		String userId = "daehan";
 		log.info("profileModify(userId={})", userId);
 
 		Profile profile = profileService.profileModify(userId);
