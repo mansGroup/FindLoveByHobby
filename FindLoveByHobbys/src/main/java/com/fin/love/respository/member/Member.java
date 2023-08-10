@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-@lombok.ToString
+@ToString
 @Entity
 @Table(name = "USERINFO")
 public class Member extends BaseTimeEntity implements UserDetails {
@@ -74,6 +74,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
         		
     }
 	
+    public String getEmail() {
+    	return this.email;
+    }
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // ROLE_USER 권한을 갖음.

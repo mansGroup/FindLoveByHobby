@@ -14,7 +14,7 @@
 			<th style="text-align: center;">문의내용</th>
 			<th style="text-align: center;">최종작성시간</th>
 			<th style="text-align: center;">처리상태</th>
-			
+			<th style="text-align: center;"></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -25,6 +25,8 @@
 							th:href="@{/question/qsread?id={id}(id=${list.id})}" th:text="${list.questioncontent}"></a></td>
 			<td th:text="${ #temporals.format(list.modifiedTime, 'YYYY-MM-dd HH:mm:ss') }"></td>
 			<td id="status" th:text="${list.status}"></td>
+			<td class="ellipsis"><a
+							th:text='답변하기' th:href="@{/questionrep/qrepcreate}"> </a></td>
 		</tr>
 		</tbody>
 	</table>

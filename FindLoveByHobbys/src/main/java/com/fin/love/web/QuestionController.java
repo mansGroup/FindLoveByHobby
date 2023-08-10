@@ -3,6 +3,8 @@ package com.fin.love.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import com.fin.love.repository.question.Question;
 import com.fin.love.respository.member.Member;
 import com.fin.love.service.QuestionService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -66,10 +69,12 @@ public class QuestionController {
 	}
 	
 	@GetMapping("/qslist")
-	public void qslist(String userid, Model model) {
+	public void qslist(Model model, HttpSession session) {
 		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
 		log.info("qslist()");
-		userid = "희영";
+		
 		List<Question> list = questionservice.read(userid);
 		
 		model.addAttribute("list", list);
