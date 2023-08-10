@@ -52,7 +52,7 @@
 <main layout:fragment="main">
 
 	<!-- 유저 아이디 -->
-	<input class="" th:value="${userPic.id}" id="userId" name="userId" />
+	<input class="d-none" th:value="${ #authentication.name }" id="userId" name="userId" />
 
 	<section class="the-wedding-section section-bg section-padding"
 		id="section_3">
@@ -152,7 +152,7 @@
 
 	<div class="section-bg" style="display: flex; justify-content: center;">
 		<div>
-			<a th:href="@{/matching/matchingList/{userId} (userId = ${userPic.id})}" class="matchingPage">매칭 시작</a>
+			<a th:href="@{/matching/matchingList/{userId} (userId = ${ #authentication.name })}" class="matchingPage">매칭 시작</a>
 		</div>
 	</div>
 </main>

@@ -47,14 +47,14 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<a href="index.html" class="navbar-brand mx-auto mx-lg-0"> <span>Bratt</span>
-				<i class="bi-heart brand-icon"></i> <span>Jolie</span>
+			<a th:href="@{/matching/matchingList/{userId} (userId = ${#authentication.name})}" class="navbar-brand mx-auto mx-lg-0">
+				<span>Chwi</span><img src="/images/mypage/icons8-사랑의-메시지.gif" /><span>Meet</span>
 			</a>
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link click-scroll"
-						href="#section_1">Homepage</a></li>
+						th:href="@{/matching/matchingList/{userId} (userId = ${#authentication.name})}">Matching</a></li>
 
 					<li class="nav-item"><a class="nav-link click-scroll"
 						href="#section_2">Our Story</a></li>
@@ -69,10 +69,7 @@
 						href="#section_5">Gallery</a></li>
 
 					<li class="nav-item"><a class="nav-link click-scroll"
-						href="#section_6">Rsvp</a></li>
-
-					<li class="nav-item"><a class="nav-link click-scroll"
-						href="#section_7">Contact Us</a></li>
+						th:href="@{/mypage/{userId} (userId = ${#authentication.name})}">MyPage</a></li>
 						
 					<!-- 인증된 사용자이면(로그인 상태이면) -->
 					<th:block sec:authorize="isAuthenticated()">
@@ -117,10 +114,9 @@
 
 				<div class="col-lg-4 col-md-6 col-12">
 					<h4 class="mb-4">Visit Us</h4>
-
+ 
 					<p>
-						5th Avenue at, Central Park S, <br> New York, NY 10019,
-						United States
+						1244 Teheran-ro, Gangnam-gu, <br> Seoul, Republic of Korea
 					</p>
 				</div>
 
@@ -168,8 +164,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-3 col-12 mx-auto">
-					<a href="index.html" class="navbar-brand mx-auto mx-lg-0"> <span>Bratt</span>
-						<i class="bi-heart brand-icon"></i> <span>Jolie</span>
+					<a th:href="@{/matching/matchingList/{userId} (userId = ${#authentication.name})}" class="navbar-brand mx-auto mx-lg-0">
+						<span>Chwi</span><img src="/images/mypage/4171270_day_heart_love_valentine_valentines_icon.png" /><span>Meet</span>
 					</a>
 				</div>
 

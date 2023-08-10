@@ -90,7 +90,20 @@ public class ManagerUserListService {
 		List<Smoker> smokers = smokerRepository.findAll();
 		String smoker = smokers.get(profile.getUserSmoker() - 1).getSmokerName();
 		
-		Assessment assessment = assessmentRepository.findById(userId).orElseThrow();
+		Assessment assessment = assessmentRepository.findById(userId).orElse(null);
+		int sexy = 0;
+		int beautiful = 0;
+		int cute = 0;
+		int handsome = 0;
+		int wonderful = 0;
+		
+		if (assessment != null) {
+			sexy = assessment.getSexy();
+			beautiful = assessment.getBeautiful();
+			cute = assessment.getCute();
+			handsome = assessment.getHandsome();
+			wonderful = assessment.getWonderful();
+		}
 		
 		Picture pic = pictureRepository.findById(userId).orElseThrow();
 		HobbyPicture hobbyPic = hobbyPictureRepository.findById(userId).orElseThrow();
@@ -137,11 +150,11 @@ public class ManagerUserListService {
 				userJob,  // 직업
 				religion,  // 종교
 				profile.getUserIntroduce(),  // 소개글
-				assessment.getSexy(),  // sexy 카운트
-				assessment.getBeautiful(), // Beautiful 카운트
-				assessment.getCute(), // Cute 카운트
-				assessment.getHandsome(), // Handsome 카운트
-				assessment.getWonderful(),// Wonderful 카운트
+				sexy,  // sexy 카운트
+				beautiful, // Beautiful 카운트
+				cute, // Cute 카운트
+				handsome, // Handsome 카운트
+				wonderful,// Wonderful 카운트
 				hobby1, // 취미 1
 				hobby2, // 취미 2
 				hobby3, // 취미 3

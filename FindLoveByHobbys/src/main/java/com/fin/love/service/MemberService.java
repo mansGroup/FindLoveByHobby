@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fin.love.dto.member.MemberLogInDto;
 import com.fin.love.dto.member.MemberSignUpDto;
@@ -91,5 +92,15 @@ public class MemberService implements UserDetailsService {
 	
 		return memberRepository.findById(username).orElseThrow();
 	}
-
+	
+	@Transactional
+	public void updateRole(String userId) {
+		log.info("updateRole(userId = {})", userId);
+		
+		Member member = memberRepository.findById(userId).orElseThrow();
+		log.info("member >>> " + member);
+		
+		member.updateRole(Role.USER);
+	}
+	
 }
