@@ -115,6 +115,7 @@ public class ChatController {
         model.addAttribute("otherNickname", otherNickname);
         model.addAttribute("maleId", maleID);
         model.addAttribute("femaleId", femaleId);
+        model.addAttribute("myId", userId);
         log.info(myNickname);
         log.info(otherNickname);
         return "/chat/chatroom";

@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const maleId = document.querySelector('div#maleID');
     const femaleId = document.querySelector('div#femaleID');
     const goChat = document.querySelector('form#goChat');
+    const myId = document.querySelector('div#myId').getAttribute('value');
 
     console.log('방번호'+roomId);
 
@@ -68,6 +69,19 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const jsonData = JSON.stringify(Data);
         websocket.send(jsonData);
         msg.value = '';
+
+        let mySex = '';
+
+        if (maleId == myId) {
+            mySex = 1;
+        } else {
+            mySex = 2;
+        }
+
+        const url = "/chatCount/upCount" + roomId + "/" + myId + "/" + mySex;
+
+        axios.get(url)
+            .catch((error) => console.log(error));
     }
 
     //채팅창에서 나갔을 때
