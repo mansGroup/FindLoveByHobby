@@ -43,7 +43,7 @@
 }
 </style>
 </th:block>
-<main id="mainbody" layout:fragment="main" style="height: 100%; background-image: url('C:/IMA/skydom.png');  background-size: cover; background-repeat: no-repeat;">
+<main id="mainbody" layout:fragment="main" style="height: 100%; background-image: url('C:\IMA\skydom.png');  background-size: cover; background-repeat: no-repeat;">
 
 	<form id="partyForm">
 		<div class="row">
@@ -98,7 +98,7 @@
 					<div>
 						<textarea
 							style="font-size: medium; width: 100%; border-radius: 5cm; text-align: center;"
-							rows="5" th:text="${meet.meeting.contents}"></textarea>
+							rows="5" th:text="${meet.meeting.contents}" readonly="readonly"></textarea>
 					</div>
 				</div>
 				<div class="col-2"></div>
@@ -173,7 +173,7 @@
 						</div>
 						<div>
 							<span th:each="list2 : ${woman}" style="font-size: large;"
-								th:text="${ list2.profile.userId}"></span>
+								th:text="${ list2.profile.userId}+ ' 님'"></span>
 						</div>
 					</div>
 				</div>
@@ -182,11 +182,20 @@
 		</div>
 
 	</form>
+	<form id="inviteForm">
+		<div th:if="${status}==0" class="row">
+			<div class="col-4"></div>
+			<input class="d-none" id="colid" name="id" value="${meet.meeting.id}" />
+			<div th:if="${invite}==0" class="col-4"><button class="btn btn-outline-primary" style="width: 100%;" data-id="0" id="inviteBtn">참여하기</button></div>
+			<div th:if="${invite}==1" class="col-4"><button class="btn btn-outline-primary" style="width: 100%;" data-id="1" id="inviteBtn">참여취소</button></div>
+			<div class="col-4"></div>
+		</div>
+	</form>
 
 </main>
 
 <th:block layout:fragment="myscripts">
-
+	<script th:src="@{/js/meeting/meetingread.js}"></script>
 </th:block>
 
 </html>

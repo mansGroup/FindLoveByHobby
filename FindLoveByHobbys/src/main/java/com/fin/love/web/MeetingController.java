@@ -137,14 +137,28 @@ public class MeetingController {
 	}
 	
 	@GetMapping("/read")
-	public void read(@RequestParam long id, Model model) {
+	public void read(@RequestParam long id, Model model, HttpSession session) {
 		
 		log.info("read(id = {})",id);
-		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userid = authentication.getName();
 		List<List<MeetingMember>> list = meetingservice.readMyMember(id);
+		
+		int result = meetingservice.checkInvited(list, userid);
+		
+		if(result == 1) {
+			
+			model.addAttribute("invite", 1);
+			
+		} else {
+			
+			model.addAttribute("invite", 0);
+			
+		}
 		
 		List<MeetingMember> list1 = list.get(1);
 		List<MeetingMember> list2 = list.get(0);
+		
 		List<String> img1 = new ArrayList<>();
 		List<String> img2 = new ArrayList<>();
 		try {
@@ -156,6 +170,9 @@ public class MeetingController {
 		}
 		
 		MeetingModifyDto meet = meetingservice.readMyMeeting(id);
+		
+		model.addAttribute("status", meet.getMeeting().getStatus());
+		
 		model.addAttribute("meet", meet);
 		model.addAttribute("man", list1);
 		model.addAttribute("woman", list2);
@@ -163,4 +180,21 @@ public class MeetingController {
 		model.addAttribute("womanimg", img2);
 	}
 	
+	@GetMapping("/invite")
+	public String invite(@RequestParam int invite, @RequestParam long id, HttpSession session) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userid = authentication.getName();
+		if(invite == 0) {
+			
+			meetingservice.updateAddMember(id,userid);
+			
+		} else {
+			
+			meetingservice.updateRemove(id,userid);
+			
+		}
+		
+		return "redirect:/meeting/read?id="+id;
+		
+	}
 }

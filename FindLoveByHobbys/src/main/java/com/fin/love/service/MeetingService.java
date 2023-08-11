@@ -44,7 +44,7 @@ public class MeetingService {
 
 	@Autowired
 	private MemberRepository memberrepository;
-	
+
 	@Autowired
 	private MeetingRepository meetingrepository;
 
@@ -62,10 +62,10 @@ public class MeetingService {
 
 	@Autowired
 	private ProfileRepository profilerepository;
-	
+
 	@Autowired
 	private PictureRepository picrepository;
-	
+
 	@Autowired
 	private PictureService picservice;
 
@@ -388,57 +388,112 @@ public class MeetingService {
 		List<MeetingMember> woman = new ArrayList<>();
 		List<MeetingMember> man = new ArrayList<>();
 		List<List<MeetingMember>> list2 = new ArrayList<>();
-		for(MeetingMember x : list) {
-			
+		for (MeetingMember x : list) {
+
 			String userid = x.getProfile().getUserId();
 			Member member = memberrepository.findById(userid).orElseThrow();
-			
-			if(member.getSex()==0) {
-				
+
+			if (member.getSex() == 0) {
+
 				woman.add(x);
-				
+
 			} else {
-				
+
 				man.add(x);
-				
+
 			}
-			
+
 		}
-		
+
 		list2.add(woman);
 		list2.add(man);
-		
+
 		return list2;
-		
+
 	}
-	
-	public List<String> imagePrint(List<MeetingMember> list, int gender) throws Exception{
-		
+
+	public List<String> imagePrint(List<MeetingMember> list, int gender) throws Exception {
+
 		List<String> img = new ArrayList<>();
-		
-		for(MeetingMember x : list) {
-			
-			
-			if(gender == 0) {
-				
+
+		for (MeetingMember x : list) {
+
+			if (gender == 0) {
+
 				img.add(imageToBase64("C:\\IMA\\neo.gif"));
-				
+
 			} else {
-				
+
 				img.add(imageToBase64("C:\\IMA\\prodo.gif"));
+
+			}
+
+		}
+
+		return img;
+
+	}
+
+	public void updateAddMember(long id, String userid) {
+		// TODO Auto-generated method stub
+
+		Meeting meet = meetingrepository.findById(id).orElseThrow();
+
+		meet.memberChange(1);
+
+		meetingrepository.save(meet);
+
+		Profile profile = profilerepository.findById(userid).orElseThrow();
+
+		MeetingMember meetmem = MeetingMember.builder().meeting(meet).profile(profile).build();
+
+		mtmemrepository.save(meetmem);
+
+	}
+
+	public void updateRemove(long id, String userid) {
+		Meeting meet = meetingrepository.findById(id).orElseThrow();
+
+		meet.memberChange(-1);
+
+		meetingrepository.save(meet);
+
+		Profile profile = profilerepository.findById(userid).orElseThrow();
+
+		List<MeetingMember> meetmem = mtmemrepository.findByMeetingId(id);
+		MeetingMember delmem = null;
+		for(MeetingMember x : meetmem) {
+			
+			if(userid.equals(x.getProfile().getUserId())) {
+				
+				delmem = x;
+				break;
 				
 			}
 			
+		}
+
+		mtmemrepository.deleteById(delmem.getId());
+
+	}
+
+	public int checkInvited(List<List<MeetingMember>> list, String userid) {
+	
+		for(List<MeetingMember> x : list) {
 			
-			
-			
-			
+			for(MeetingMember y : x) {
+				
+				if(userid.equals(y.getProfile().getUserId())) {
+					
+					return 1;
+					
+				}
+				
+			}
 			
 		}
 		
-		return img;
-		
-		
+		return 0;
 	}
 
 }
