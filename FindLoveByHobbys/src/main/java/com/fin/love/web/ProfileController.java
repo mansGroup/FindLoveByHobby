@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fin.love.dto.profile.ProfileCreateDto;
+import com.fin.love.dto.profile.ProfileSearchDto;
 import com.fin.love.dto.profile.ProfileUpdateDto;
 import com.fin.love.dto.profile.UserHobbyDto;
 import com.fin.love.repository.hobby.Hobby;
@@ -75,6 +76,29 @@ public class ProfileController {
 
 		return "/profile/profiles";
 	}
+	
+	@GetMapping("/profilesearch")
+	public String search(ProfileSearchDto dto, Model model, @RequestParam(value = "keyword") String keyword) {
+		log.info("search(dto= {})", dto);
+		
+		// 조건 검색할 리스트 불러옴
+		List<Hobby> hobby = hobbyService.readHobbyList();
+		List<Age> age = ageService.readAgeList();
+		List<Height> height = heightService.readHeightList();
+		List<Jobs> jobs = jobService.readJobsList();
+
+		model.addAttribute("hobbys", hobby);
+		model.addAttribute("ages", age);
+		model.addAttribute("heights", height);
+		model.addAttribute("jobs", jobs);
+		
+//		// ** 실제 검색할 코드 **
+//		List<Profile> list = profileService.search(dto);
+//		model.addAttribute("profiles", list);
+		
+		
+		return "/profile/profilesearch";
+	}
 
 	
 	// 클라이언트에서 받은 데이터를 DB로 넘겨줌
@@ -108,9 +132,9 @@ public class ProfileController {
 
 	
 	// DB에 저장되어 있는 사용자 데이터를 수정페이지로 읽기
-	@GetMapping({"/profilemodify", "/testmodifybutton"})
+	@GetMapping("/profilemodify")
 	public void profileModify(Model model) {
-		String userId = "member2";
+		String userId = "daehan";
 		log.info("profileModify(userId={})", userId);
 
 		Profile profile = profileService.profileModify(userId);

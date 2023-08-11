@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+<th:block layout:fragment="css">
+	<style>
+	</style>
+</th:block>
+
+<main layout:fragment="main">
+	<!-- 검색(임시 경로) -->
+	<div class="card-body">
+		<form method="get" th:action="@{/profile/profilesearch}">
+			<h2>조건에 맞는 이상형 검색하기</h2>
+			<div class="row">
+
+				<div class="hobby">
+					<h2>원하는 이상형의 취미를 선택하세요. (최대 3개 선택 가능)</h2>
+					<div th:each="hobby, idx : ${hobbys}" style="float: left; margin: 5px;">
+						<span th:if="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
+							<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);" checked>
+							<label th:text="${hobby.hobbyName}"></label>
+						</span>
+						<span th:unless="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
+							<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);">
+							<label th:text="${hobby.hobbyName}"></label>
+						</span>
+					</div>
+				</div>
+				
+				<div class="age">
+				<p>원하는 이상형의 나이를 선택하세요</p>
+					<select class="form-select" name="type">
+						<option value="">나이</option>
+						<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
+					</select>
+				</div>
+				
+				<div class="height">
+				<p>원하는 이상형의 키를 선택하세요</p>
+					<select class="form-select" name="type">
+						<option value="">키</option>
+						<option th:each="height , idx : ${heights}" th:text="${height.heightName}" th:value="${idx.count}"></option>
+					</select>
+				</div>
+				
+				<div class="job">
+				<p>원하는 이상형의 직종을 선택하세요</p>
+					<select class="form-select" name="type">
+						<option value="">직업</option>
+						<option th:each="job , idx : ${jobs}" th:text="${job.jobName}" th:value="${idx.count}"></option>
+					</select>
+				</div>
+
+				<div class="col-8">
+					<input class="form-control" name="keyword" type="text" placeholder="검색어 입력" />
+				</div>
+
+				<div class="col-1">
+					<input class="form-control btn btn-outline-dark" type="submit" value="검색" />
+				</div>
+
+			</div>
+		</form>
+	</div>
+	
+	<th:block layout:fragment="myscripts">
+        <script src="..\js\profile\profiles.js"></script>
+	</th:block>
+</main>
+</html>
