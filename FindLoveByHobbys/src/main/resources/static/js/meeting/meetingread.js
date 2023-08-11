@@ -10,9 +10,13 @@
 	 
 	 inviteBtn.addEventListener('click',(e)=>{
 		 
+		 
 		 e.preventDefault();
 		 
-		 inviteForm.action = "/meeting/invite";
+		 let invite = inviteBtn.getAttribute('data-id');
+		 let id = colid.value;
+		 
+		 inviteForm.action = `/meeting/invite?party=${invite}&id=${id}`;
 		 inviteForm.method = "get";
 		 inviteForm.submit();
 		 

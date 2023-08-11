@@ -181,10 +181,10 @@ public class MeetingController {
 	}
 	
 	@GetMapping("/invite")
-	public String invite(@RequestParam int invite, @RequestParam long id, HttpSession session) {
+	public String invite(@RequestParam int party, @RequestParam long id, HttpSession session) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String userid = authentication.getName();
-		if(invite == 0) {
+		if(party == 0) {
 			
 			meetingservice.updateAddMember(id,userid);
 			
