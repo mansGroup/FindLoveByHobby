@@ -45,12 +45,12 @@
 				<div>
 					<label for="createTime">작성시간</label> <input id="createTime"
 						name="createTime"
-						th:value="${ #temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm:ss') }" />
+						th:value="${ #temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm:ss') }" readonly />
 				</div>
 				<div>
 					<label for="modifiedTime">수정시간</label> <input id="modifiedTime"
 						name="modifiedTime"
-						th:value="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" />
+						th:value="${ #temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss') }" readonly />
 				</div>
 			</form>
 			<div>

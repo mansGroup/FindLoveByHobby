@@ -52,7 +52,7 @@ public class AnnouncementEventController {
 	}
 
 	// "/eventDetails", "/eventModify" 요청 주소들을 처리하는 컨트롤러 메서드
-	@GetMapping({ "/eventDetails", "/eventModify" })
+	@GetMapping({ "/eventDetails", "/eventModify", "/eventUser" })
 	public void read(Long id, Model model) {
 		log.info("read(id={}", id);
 
@@ -89,5 +89,6 @@ public class AnnouncementEventController {
 		return "redirect:/announcementEvent/eventDetails?id=" + dto.getId();
 		// 쿼리스트링에선 공백이 있으면 안된다.
 	}
+	
 
 }

@@ -42,12 +42,14 @@ public class AnnouncementEventService {
 
 	}
 	
-    @Transactional(readOnly = true)
-    public AnnouncementEvent read(Long id) {
-        log.info("read(id={})", id);
-        
-        return announcementEventRepository.findById(id).orElseThrow();
-    }
+	@Transactional(readOnly = true)
+	public AnnouncementEvent read(Long id) {
+	    log.info("read(id={})", id);
+	    
+	    AnnouncementEvent event = announcementEventRepository.findById(id).orElseThrow();
+
+	    return event;
+	}
     
     
     public void delete(Long id) {

@@ -18,9 +18,9 @@
 		<div>
 			<form method="post">
 				<div>
-					<select>
-						<option value="0" id="divide">이벤트</option>
-						<option value="1" id="divide">공지</option>
+					<select name="divide">
+						<option value="0">이벤트</option>
+						<option value="1">공지</option>
 					</select>
 				</div>
 				<div>
@@ -35,8 +35,10 @@
 				</div>
 				<!-- 이지미 업로드 -->
 				<div>
-					<img>
-					<button id="btnImeage">첨부파일</button>
+					<label for="files">
+						<img src="/images/Adding_a_Person_Image.png" />
+					</label>
+					<input type="file" id="files" class="d-none"/>
 				</div>
 				<div>
 					<label for="content">내용</label> 

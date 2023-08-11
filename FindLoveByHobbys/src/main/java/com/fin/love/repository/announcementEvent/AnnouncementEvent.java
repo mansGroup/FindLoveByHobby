@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Entity // JPA 엔터티 클래스 - 데이터베이스 테이블과 매핑되는 클래스.
@@ -22,6 +23,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 @ToString
 public class AnnouncementEvent extends BaseTimeEntity {
@@ -50,7 +52,7 @@ public class AnnouncementEvent extends BaseTimeEntity {
     public AnnouncementEvent update(AnnouncementEventDto dto) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
-        
+        this.divide = dto.getDivide();
         return this;
     }
 }

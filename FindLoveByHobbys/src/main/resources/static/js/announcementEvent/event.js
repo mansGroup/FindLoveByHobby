@@ -7,18 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
 	const btnDelete = document.querySelector('button#btnDelete');
 
 	const title = document.querySelector('input#title');
-	const conotent = document.querySelector('content');
+	const content = document.querySelector('#content');
 	const modifyForm = document.querySelector('#modifyForm');
 
 	let titleVal = title.value;
-	let contenteVal = conotent.value;
+	let contentVal = content.value;
 
 	if (titleVal === '') {
 		alert('제목을 입력해주세요');
 		return;
 	}
 
-	if (contenteVal === '') {
+	if (contentVal === '') {
 		alert('내용을 입력해주세요');
 		return;
 	}
