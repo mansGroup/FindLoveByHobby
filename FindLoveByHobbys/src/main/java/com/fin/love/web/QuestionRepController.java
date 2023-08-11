@@ -28,7 +28,8 @@ public class QuestionRepController {
 		
 		log.info("qrepcreate()");
 		
-
+	}
+	
 	@Autowired
 	private QuestReplyService questReplyService;
 	@Autowired
