@@ -30,10 +30,11 @@ public class UserHobby {
 	private Long id;
 	
 	@Column(nullable = false)
-	private String userid;
+	private Long hobbyId;
 	
 	@Column(nullable = false)
-	private Long hobbyId;
+	private String userid;
+	
 	
 	public UserHobby updateData(Long id, String userid, Long hobbyId) {
 		this.id = id;

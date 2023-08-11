@@ -32,8 +32,14 @@ public class ManagerUserListDto {
 	private String userJob;
 	private String religion;
 	private String introduce;
-	private String assessment;
-	private int assessmentCount;
+	private int sexyCount;
+	private int beautifulCount;
+	private int cuteCount;
+	private int handsomeCount;
+	private int wonderfulCount;
+	private String hobby1;
+	private String hobby2;
+	private String hobby3;
 	private String pic1;
 	private String pic2;
 	private String pic3;

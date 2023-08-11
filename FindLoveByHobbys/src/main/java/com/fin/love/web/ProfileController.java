@@ -24,6 +24,7 @@ import com.fin.love.repository.profile.Jobs;
 import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.Religion;
 import com.fin.love.repository.profile.Smoker;
+import com.fin.love.repository.profile.UserHobby;
 import com.fin.love.service.profile.AcademicService;
 import com.fin.love.service.profile.AgeService;
 import com.fin.love.service.profile.DringsService;
@@ -102,22 +103,27 @@ public class ProfileController {
 		hobbyService.hobbySave(hobbyDto3);
 		log.info("hobbyDto= {}", hobbyDto3);
 		
-		return "/profile/profileimage";
+		return "redirect:/profile/profileimage";
 	}
 
 	
 	// DB에 저장되어 있는 사용자 데이터를 수정페이지로 읽기
 	@GetMapping({"/profilemodify", "/testmodifybutton"})
-	public void profileModify(Model model, String userId) {
+	public void profileModify(Model model) {
+		String userId = "member2";
 		log.info("profileModify(userId={})", userId);
 
-		userId = "11111";
-
-		Profile profile = profileService.profileModify(userId);		
+		Profile profile = profileService.profileModify(userId);
+		log.info("profile >>> " + profile);
 		List<Hobby> hobby = hobbyService.readHobbyList();
 		List<Age> age = ageService.readAgeList();
 		List<Height> height = heightService.readHeightList();
-				
+		
+		List<UserHobby> hobbys = hobbyService.findById(userId);		
+		model.addAttribute("hobbys1", hobbys.get(0).getHobbyId());
+		model.addAttribute("hobbys2", hobbys.get(1).getHobbyId());
+		model.addAttribute("hobbys3", hobbys.get(2).getHobbyId());
+		
 		model.addAttribute("profile", profile);
 		model.addAttribute("hobbys", hobby);
 		model.addAttribute("ages", age);
@@ -137,7 +143,9 @@ public class ProfileController {
 		String userReligion = religion.get(profile.getUserReligion() -1).getReligionName();
 		String userDrings = drings.get(profile.getUserDrinks() -1).getDringsName();
 		String userSmoker = smoker.get(profile.getUserSmoker() -1).getSmokerName();
+		String userHeight = height.get(profile.getUserHeight() - 1).getHeightName(); 
 		
+		model.addAttribute("userHeight", userHeight);
 		model.addAttribute("userAge", userAge);
 		model.addAttribute("userAcademic", userAcademic);
 		model.addAttribute("userJob", userJob);
@@ -150,23 +158,33 @@ public class ProfileController {
 	
 	// 프로필 수정 후 업데이트
 	@PostMapping("/update")
-	public String profileUpdate(ProfileUpdateDto dto) {
+	public String profileUpdate(ProfileUpdateDto dto, @RequestParam(value = "hobbyId") String hobbyID) {
 		log.info("profileUpdate({})", dto);
 		
 		profileService.profileUpdate(dto);
 		
-		return "redirect:/profile/profiles?id=" + dto.getUserId();
+		StringTokenizer st = new StringTokenizer(hobbyID, ",");
+		Long hobbyId1 = Long.valueOf(st.nextToken());
+		Long hobbyId2 = Long.valueOf(st.nextToken());
+		Long hobbyId3 = Long.valueOf(st.nextToken());
+		
+		UserHobbyDto hobbyDto1 = new UserHobbyDto(dto.getUserId(), hobbyId1);
+		UserHobbyDto hobbyDto2 = new UserHobbyDto(dto.getUserId(), hobbyId2);
+		UserHobbyDto hobbyDto3 = new UserHobbyDto(dto.getUserId(), hobbyId3);
+		
+		hobbyService.hobbyByIdAllDelete(dto.getUserId());
+		
+		hobbyService.hobbySave(hobbyDto1);
+		log.info("hobbyDto= {}", hobbyDto1);
+		
+		hobbyService.hobbySave(hobbyDto2);
+		log.info("hobbyDto= {}", hobbyDto2);
+		
+		hobbyService.hobbySave(hobbyDto3);
+		log.info("hobbyDto= {}", hobbyDto3);
+		
+		return "redirect:/mypage/" + dto.getUserId();
 	}
 	
-	
-	// 프로필 삭제
-	@PostMapping("/delete")
-	public String profileDelete(String userId) {
-		log.info("profileDelete(userId={})", userId);
-		
-		profileService.profileDelete(userId);
-		
-		return "redirect:/profile/profiles";
-	}
 	
 }

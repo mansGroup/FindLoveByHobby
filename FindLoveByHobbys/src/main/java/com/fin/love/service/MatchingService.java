@@ -58,7 +58,7 @@ public class MatchingService {
 		log.info("사용자 성별 >>>> " + userInfo.getSex());
 		
 		if (userInfo.getSex() == 1) { // 1인지 모르겠지만 남자라면
-			members = memberRepository.findBySex(0); // 여자만 검색
+			members = memberRepository.findBySex(2); // 여자만 검색
 		} else { // 여자라면
 			members = memberRepository.findBySex(1); // 남자만 검색
 		}

@@ -1,5 +1,7 @@
 package com.fin.love.web;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import com.fin.love.repository.image.HobbyPicture;
 import com.fin.love.repository.image.Picture;
 import com.fin.love.service.PictureService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,8 +31,11 @@ public class FileUploadController {
 	}
 	
 	@GetMapping("/profileimage")
-	public String image(Model model) {
-		String userId = "user1"; // 유저 아이디 나중에 받아오기
+	public String image(HttpSession session, Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
+        
+
 		log.info("imageUploadPage(userId = {})", userId);
 		
 		// 데이터가 있는지 확인

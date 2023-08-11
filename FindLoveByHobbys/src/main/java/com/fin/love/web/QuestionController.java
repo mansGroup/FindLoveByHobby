@@ -1,5 +1,6 @@
 package com.fin.love.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import com.fin.love.repository.question.Question;
 import com.fin.love.respository.member.Member;
 import com.fin.love.service.QuestionService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -27,24 +29,28 @@ public class QuestionController {
 
 	@Autowired
 	private QuestionService questionservice;
-	
+
 	@GetMapping("/qscreate")
-	public void qscreate() {
+	public void qscreate(HttpSession session, Model model) {
+
+		String userid = (String) session.getAttribute("userid");
+		
+		Member member = questionservice.readbyUserId(userid);
+		
+		model.addAttribute("user", member);
 		
 		log.info("qscreate()");
-		
+
 	}
-	
+
 	// TODO 나중에 리스트 페이지 완성 시 변경 필요함.
 	@PostMapping("/qscreate")
 	public String qscreate(CreateQuestDto dto) {
-		
-		log.info("qscreate({})",dto);
-		
-		questionservice.write(dto);
-<<<<<<< Updated upstream
-=======
 
+		log.info("qscreate({})", dto);
+
+		questionservice.write(dto);
+    
 		return "redirect:/question/qslist";
 
 	}
@@ -72,12 +78,10 @@ public class QuestionController {
 	@GetMapping("/qslist")
 	public void qslist(Model model, HttpSession session) {
 		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userid = authentication.getName();
 		log.info("qslist()");
 		
 		// TODO 로그인 하면 여기에 아이디 담겨야 함.
-		
+		String userid = (String) session.getAttribute("userid");
 		
 		List<Question> list2 = questionservice.read(userid);
 		List<Question> list = new ArrayList<>();
@@ -113,58 +117,24 @@ public class QuestionController {
 	public String demo(@RequestParam String userid, HttpSession session) {
 		
 		session.setAttribute("userid", userid);
->>>>>>> Stashed changes
 		
 		return "redirect:/question/qslist";
 		
 	}
 	
-	@GetMapping("/qsmodify")
-	public void qsmodify(@RequestParam long numid, Model model) {
+	@GetMapping("/demologin")
+	public void demo() {
 		
-		log.info("qsmodify()");
 		
-		Question quest = readAndModify(numid);
 		
-		model.addAttribute("quest", quest);
-	}
-	
-	@PostMapping("/qsmodify")
-	public String qsmodify(UpdateQuestDto dto) {
 		
-		log.info("qsmodify(update={})",dto);
-		
-		questionservice.update(dto);
-		
-		return "redirect:/question/qslist";
-	}
-	
-	@GetMapping("/qslist")
-	public void qslist(String userid, Model model) {
-		
-		log.info("qslist()");
-		userid = "희영";
-		List<Question> list = questionservice.read(userid);
-		
-		model.addAttribute("list", list);
-		
-	}
-	
-	@GetMapping("/qsread")
-	public void read(@RequestParam long id, Model model) {
-		
-		log.info("qsread(id={})",id);
-	
-		Question quest = readAndModify(id);
-		
-		model.addAttribute("quest", quest);
 		
 	}
 	
 	public Question readAndModify(long id) {
-		
+
 		return questionservice.readbyId(id);
-		
+
 	}
-	
+
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.fin.love.dto.member.ManagerUserListDto;
 import com.fin.love.repository.assessment.Assessment;
 import com.fin.love.repository.assessment.AssessmentRepository;
+import com.fin.love.repository.hobby.HobbyRepository;
 import com.fin.love.repository.image.HobbyPicture;
 import com.fin.love.repository.image.HobbyPictureRepository;
 import com.fin.love.repository.image.Picture;
@@ -30,6 +31,8 @@ import com.fin.love.repository.profile.Religion;
 import com.fin.love.repository.profile.ReligionRepository;
 import com.fin.love.repository.profile.Smoker;
 import com.fin.love.repository.profile.SmokerRepository;
+import com.fin.love.repository.profile.UserHobby;
+import com.fin.love.repository.profile.UserHobbyRepository;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
 
@@ -55,13 +58,15 @@ public class ManagerUserListService {
 	private final HeightRepository heightRepository;
 	private final SmokerRepository smokerRepository;
 	private final DringsRepository dringsRepository;
+	private final HobbyRepository hobbyRepository;
+	private final UserHobbyRepository userHobbyRepository;
 	
 	public ManagerUserListDto dtoCreate(String userId) {
 		log.info("dtoCreate(userId = {})", userId);
 
 		Member member = memberRepository.findById(userId).orElseThrow();
 		String gender = "";
-		if (member.getSex() == 0) {
+		if (member.getSex() == 2) {
 			gender = "여자";
 		} else {
 			gender = "남자";
@@ -86,9 +91,6 @@ public class ManagerUserListService {
 		String smoker = smokers.get(profile.getUserSmoker() - 1).getSmokerName();
 		
 		Assessment assessment = assessmentRepository.findById(userId).orElseThrow();
-		StringTokenizer st = new StringTokenizer(assessmentMaxValue(assessment), "/");
-		String assessmentName = st.nextToken();
-		int assessmentCount = Integer.parseInt(st.nextToken());
 		
 		Picture pic = pictureRepository.findById(userId).orElseThrow();
 		HobbyPicture hobbyPic = hobbyPictureRepository.findById(userId).orElseThrow();
@@ -98,6 +100,21 @@ public class ManagerUserListService {
 		String hobbyPic1 = pictureService.imageChange(hobbyPic.getHobbyPic1());
 		String hobbyPic2 = pictureService.imageChange(hobbyPic.getHobbyPic2());
 		String hobbyPic3 = pictureService.imageChange(hobbyPic.getHobbyPic3());
+		
+		List<UserHobby> userHobbys = userHobbyRepository.findByUserid(userId);
+		
+		String hobby1 = hobbyRepository.findById(userHobbys.get(0).getHobbyId()).orElse(null).getHobbyName();
+		String hobby2 = "";
+		String hobby3 = "";
+		
+		if (userHobbys.size() >= 2) {
+			hobby2 = hobbyRepository.findById(userHobbys.get(1).getHobbyId()).orElse(null).getHobbyName();
+		}
+		
+		if (userHobbys.size() >= 3) {
+			hobby3 = hobbyRepository.findById(userHobbys.get(2).getHobbyId()).orElse(null).getHobbyName();
+		}
+		
 		
 		ManagerUserListDto dto = new ManagerUserListDto(
 				userId,  // 아이디
@@ -120,8 +137,14 @@ public class ManagerUserListService {
 				userJob,  // 직업
 				religion,  // 종교
 				profile.getUserIntroduce(),  // 소개글
-				assessmentName,  // 호감도
-				assessmentCount,  // 호감도 카운트
+				assessment.getSexy(),  // sexy 카운트
+				assessment.getBeautiful(), // Beautiful 카운트
+				assessment.getCute(), // Cute 카운트
+				assessment.getHandsome(), // Handsome 카운트
+				assessment.getWonderful(),// Wonderful 카운트
+				hobby1, // 취미 1
+				hobby2, // 취미 2
+				hobby3, // 취미 3
 				pic1,  // usual 사진1
 				pic2,  // usual 사진2
 				pic3,  // usual 사진3
@@ -132,43 +155,5 @@ public class ManagerUserListService {
 		return dto;
 	}
 	
-	// 호감도가 제일 높은 걸 찾기 위한 메서드
-		private String assessmentMaxValue(Assessment assessment) {
-			String str = "";
-			int max = 0;
-			
-			if (assessment.getBeautiful() > assessment.getHandsome() && assessment.getBeautiful() > assessment.getSexy()
-					&& assessment.getBeautiful() >= assessment.getWonderful() && assessment.getBeautiful() >= assessment.getCute()) {
-				str = "Beautiful";
-				max = assessment.getBeautiful();
-			} else if (assessment.getCute() >= assessment.getBeautiful() && assessment.getCute() >= assessment.getHandsome()
-					&& assessment.getCute() >= assessment.getSexy() && assessment.getCute() >= assessment.getWonderful()) {
-				str = "Cute";
-				max = assessment.getCute();
-			} else if (assessment.getHandsome() > assessment.getBeautiful() && assessment.getHandsome() >= assessment.getCute()
-					&& assessment.getHandsome() > assessment.getSexy() && assessment.getHandsome() >= assessment.getWonderful()) {
-				str = "Handsome";
-				max = assessment.getHandsome();
-			} else if (assessment.getSexy() >= assessment.getBeautiful() && assessment.getSexy() >= assessment.getCute()
-					&& assessment.getSexy() >= assessment.getHandsome() && assessment.getSexy() >= assessment.getWonderful()) {
-				str = "Sexy";
-				max = assessment.getSexy();
-			} else if (assessment.getWonderful() >= assessment.getBeautiful() && assessment.getWonderful() >= assessment.getCute()
-					&& assessment.getWonderful() >= assessment.getHandsome() && assessment.getWonderful() >= assessment.getSexy()) {
-				str = "Wonderful";
-				max = assessment.getWonderful();
-			}
-			
-			if (max == 0) {
-				return null;
-			}
-			
-			str += "/";
-			str += String.valueOf(max);
-			
-			return str;
-		}
-		
-		
 	
 }

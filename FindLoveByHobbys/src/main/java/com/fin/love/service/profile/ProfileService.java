@@ -23,7 +23,6 @@ public class ProfileService {
 	public final UserHobbyRepository userHobbyRepository;
 	
 	
-	// 컨트롤러에서 받은 클라이언트 정보를 DB에 insert
 	public void createProfile(ProfileCreateDto dto) {
 		log.info("createProfile(dto= {})", dto);
 		
@@ -59,6 +58,11 @@ public class ProfileService {
 		profileRepository.deleteById(userId);
 	}
 
+	@Transactional(readOnly = true)
+	public Profile findById(String userid) {
+		log.info("findById(userId={})", userid);
+		
+		return profileRepository.findById(userid).orElse(null);
+	}
 
-	
 }

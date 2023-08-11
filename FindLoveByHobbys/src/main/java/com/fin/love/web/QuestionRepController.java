@@ -1,5 +1,6 @@
 package com.fin.love.web;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import com.fin.love.repository.question.Question;
 import com.fin.love.repository.questreply.QuestionReply;
 import com.fin.love.service.QuestReplyService;
 import com.fin.love.service.QuestionService;
-
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -22,6 +22,13 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/questionrep")
 public class QuestionRepController {
 	
+
+	@GetMapping("/qrepcreate")
+	public void qrepcreate() {
+		
+		log.info("qrepcreate()");
+		
+
 	@Autowired
 	private QuestReplyService questReplyService;
 	@Autowired
@@ -36,6 +43,7 @@ public class QuestionRepController {
 		List<Question> list = questReplyService.read();
 		
 		model.addAttribute("list", list);
+
 	}
 	
 }

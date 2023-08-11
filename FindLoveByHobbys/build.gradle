@@ -70,6 +70,9 @@ dependencies {
 	// 회원가입 입력값 유효성 검사 라이브러리
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	
+	// 로그인 메일 인증
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
+	
 	}
 
 tasks.named('test') {
