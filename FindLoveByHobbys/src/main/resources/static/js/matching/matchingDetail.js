@@ -66,35 +66,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	};
 
-	btnSexy.addEventListener('click', () => {
-		const assessmentName = spanMemberSexy.innerHTML;
+	if (btnSexy) { // 버튼이 있을 때만 이벤트 핸들러 등록.
+		btnSexy.addEventListener('click', () => {
+			const assessmentName = spanMemberSexy.innerHTML;
+	
+			console.log('assessmentName >>>> ', assessmentName);
+			console.log('들어옴');
+	
+			const checkUrl = `/api/matchingDetail/assessment/chack/${senderId}/${getterId}`;
+	
+			axios.post(checkUrl)
+				.then((responce) => {
+					console.log('responce 중복 체크 >>>> ', responce);
+					if (responce.data == 0) {
+						axios.post(`/api/matchingDetail/assessment/${assessmentName}/${senderId}/${getterId}`)
+							.then((response) => {
+								console.log(response.data);
+								makeSexyElements(response.data);
+							})
+							.catch((error) => console.log(error));
+	
+					} else {
+						alert('호감 표시는 한번밖에 할 수 없습니다.')
+						return;
+					}
+	
+				})
+				.catch((errer) => console.log(errer));
+	
+		});
+	}
 
-		console.log('assessmentName >>>> ', assessmentName);
-		console.log('들어옴');
-
-		const checkUrl = `/api/matchingDetail/assessment/chack/${senderId}/${getterId}`;
-
-		axios.post(checkUrl)
-			.then((responce) => {
-				console.log('responce 중복 체크 >>>> ', responce);
-				if (responce.data == 0) {
-					axios.post(`/api/matchingDetail/assessment/${assessmentName}/${senderId}/${getterId}`)
-						.then((response) => {
-							console.log(response.data);
-							makeSexyElements(response.data);
-						})
-						.catch((error) => console.log(error));
-
-				} else {
-					alert('호감 표시는 한번밖에 할 수 없습니다.')
-					return;
-				}
-
-			})
-			.catch((errer) => console.log(errer));
-
-	});
-
+	if (btnBeautiful) { // 버튼이 있을 때만 이벤트 핸들러 등록.
 	btnBeautiful.addEventListener('click', () => {
 		const assessmentName = spanMemberBeautiful.innerHTML;
 
@@ -123,7 +126,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			.catch((errer) => console.log(errer));
 
 	});
-
+	}
+	if (btnCute) { // 버튼이 있을 때만 이벤트 핸들러 등록.
 	btnCute.addEventListener('click', () => {
 		const assessmentName = spanMemberCute.innerHTML;
 
@@ -150,9 +154,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			})
 			.catch((errer) => console.log(errer));
+			
 
 	});
-
+	}
+	
+	if (btnWonderful) { // 버튼이 있을 때만 이벤트 핸들러 등록.
 	btnWonderful.addEventListener('click', () => {
 		const assessmentName = spanMemberWonderful.innerHTML;
 
@@ -181,7 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			.catch((errer) => console.log(errer));
 
 	});
-
+	}
+	if (btnHandsome) { // 버튼이 있을 때만 이벤트 핸들러 등록.
 	btnHandsome.addEventListener('click', () => {
 		const assessmentName = spanMemberHandsome.innerHTML;
 
@@ -209,62 +217,5 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 			.catch((errer) => console.log(errer));
 	});
-	
-	// 이벤트 적용할 버튼
-	const member1LikeBtn = document.querySelector('button#member1LikeBtn');
-	const member2LikeBtn = document.querySelector('button#member2LikeBtn');
-	
-	const member1LikeEvent = () => {
-		console.log('button1')
-		
-		// 로그인 유저 아이디
-		const userId = getterId.value;
-		
-		// 프로필 유저 아이디
-		const member1UserId = senderId.value;
-		
-		const url = `/api/matching/member1/likesend/${userId}/${member1UserId}`;
-		
-		axios.post(url)
-			.then((responce) => {
-				console.log(responce);
-				
-				if (responce.data == 1) {
-					alert('호감을 표시했습니다.');
-				} else {
-					alert('이미 호감을 표시한 상대입니다.')
-				}
-				
-			}).catch((error) => console.log(error));
-		
-	};
-	
-	const member2LikeEvent = () => {
-		console.log('button2')
-		
-		// 로그인 유저 아이디
-		const userId = gettter.value;
-		
-		// 프로필 유저 아이디
-		const member2UserId = senderId.value;
-		
-		const url = `/api/matching/member2/likesend/${userId}/${member2UserId}`;
-		
-		axios.post(url)
-			.then((responce) => {
-				console.log(responce);
-				
-				if (responce.data == 1) {
-					alert('호감을 표시했습니다.');
-				} else {
-					alert('이미 호감을 표시한 상대입니다.')
-				}
-				
-			}).catch((error) => console.log(error));
-		
-	};
-	
-	
-	member1LikeBtn.addEventListener('click', member1LikeEvent);
-	member2LikeBtn.addEventListener('click', member2LikeEvent);
+	}
 });

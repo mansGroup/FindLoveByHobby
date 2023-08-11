@@ -11,6 +11,7 @@ public class AnnouncementEventDto {
 	private String author;
 	private String content;
 	private Long id;
+	private int divide;
 	
 	public AnnouncementEvent toEntity() {
 		return AnnouncementEvent.builder()
@@ -18,6 +19,7 @@ public class AnnouncementEventDto {
 				.author(author)
 				.content(content)
 				.id(id)
+				.divide(divide)
 				.build();
 	}
 }

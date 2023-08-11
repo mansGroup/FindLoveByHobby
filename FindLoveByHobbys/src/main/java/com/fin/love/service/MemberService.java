@@ -36,7 +36,6 @@ public class MemberService implements UserDetailsService {
 				.password(passwordEncoder.encode(dto.getPassword())).email(dto.getEmail()).nickname(dto.getNickname())
 				.role(dto.getRole()).sex(dto.getSex()).phone(dto.getPhone()).address(dto.getAddress()).birthday(dto.getBirthdate()).build();
 		log.info("save 전: entity={}", entity);
-
 		memberRepository.save(entity);
 		log.info("save 후: entity={}", entity);
 

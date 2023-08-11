@@ -7,11 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.fin.love.dto.matching.MatchingListDto;
 import com.fin.love.repository.assessment.Assessment;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.image.HobbyPicture;
-import com.fin.love.repository.image.HobbyPictureRepository;
 import com.fin.love.repository.image.Picture;
 import com.fin.love.repository.profile.Profile;
 import com.fin.love.respository.member.Member;
@@ -130,7 +128,7 @@ public class MatchingDetailController {
 	@GetMapping("/detailTest")
 	public void detailTest(Model model) {
 		// DB에 있는 Id를 넣어서 임시로 Id값을 넘겨줌.
-		String code = "a";
+		String code = "b";
 		model.addAttribute("id", code);
 	}
 

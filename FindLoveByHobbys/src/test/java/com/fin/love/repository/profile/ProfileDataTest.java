@@ -39,9 +39,11 @@ public class ProfileDataTest {
 		
 		for (String academic : academicArr) {
 			log.info(academic);
-			
+
+
 			Academic ac = Academic.builder().academicName(academic).build();
-			
+
+
 			ar.save(ac);
 		}
 		
@@ -75,7 +77,9 @@ public class ProfileDataTest {
 	// 키: 120cm이하, 121cm, ..., 199cm, 200cm이상
 	// 나이 : 20살, ... 50살
 	
-//	@Test
+
+	//@Test
+
 	public void HADTest() {
 		log.info("시작");
 		

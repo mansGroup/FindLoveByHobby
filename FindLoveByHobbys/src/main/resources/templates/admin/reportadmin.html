@@ -1,0 +1,67 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+
+<main style="height:700px; margin:0px 30px;" layout:fragment="main">
+	
+	<div style="height: 1000px; max-height: 500px; overflow-y: auto; margin-top:50px;">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>신고자</th>
+					<th>피신고자</th>
+					<th>신고일시</th>
+					<th>상태</th>
+					<th>음성 파일</th>
+					<th>상태 변경</th>
+				</tr>
+			</thead>
+			<tbody id="datalist">
+				<tr th:each="list : ${list}">
+					<td th:text="${ list.id }"></td>
+					<td th:text="${ list.reporter }"></td>
+					<td th:text="${ list.respondent }"></td>
+					<td
+						th:text="${ #temporals.format(list.createdTime, 'YYYY. M. d. HH:mm:ss') }"></td>
+					<td class="reports" th:text="${ list.report }"></td>
+					<td><audio id="audioPlayer" controls>
+							<source th:src="'data:audio/wav;base64,'+${ list.audio }"
+								type="audio/wav">
+						</audio></td>
+
+					<td th:if="${ list.report } == 1"><button
+							class="btnChange btn" th:sts="${ list.report }"
+							th:id="${ list.id }">처리</button></td>
+					<td th:if="${ list.report } == 2"><button
+							class="btnChange btn" th:sts="${ list.report }"
+							th:id="${ list.id }">처리 취소</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<nav style="display: flex;
+    margin-top: 50px;
+    justify-content: center;">
+		<input type="number" th:value="${ check }" th:class="d-none"
+			id="checknum" name="checknum" />
+		<div th:if="${ check } == 1">
+			<a style="margin-right:50px;" class="btn btn-outline-dark" href="/admin/reportcheck">신고 처리 전</a> <a class="btn btn-outline-dark" href="/admin/reportend">신고
+				처리 완료</a>
+		</div>
+		<div th:if="${ check } == 2">
+			<a style="margin-right:50px;" class="btn btn-outline-dark" href="/admin/reportlist">신고 전체 리스트</a> <a class="btn btn-outline-dark" href="/admin/reportend">신고
+				처리 완료</a>
+		</div>
+		<div th:if="${ check } == 3">
+			<a style="margin-right:50px;" class="btn btn-outline-dark" href="/admin/reportlist">신고 전체 리스트</a> <a class="btn btn-outline-dark"
+				href="/admin/reportcheck">신고 처리 전</a>
+		</div>
+	</nav>
+</main>
+
+<th:block layout:fragment="myscripts">
+
+	<script th:src="@{/js/admin/reportlist.js}"></script>
+</th:block>
+</html>

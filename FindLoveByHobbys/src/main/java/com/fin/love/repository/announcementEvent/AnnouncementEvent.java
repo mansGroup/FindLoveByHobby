@@ -3,7 +3,6 @@ package com.fin.love.repository.announcementEvent;
 import com.fin.love.dto.announcementEvent.AnnouncementEventDto;
 import com.fin.love.repository.BaseTimeEntity;
 
-import io.micrometer.core.annotation.Counted;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,21 +17,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@Entity
-@Table(name = "ANNOUNCEMENT_EVENT")
+@Entity // JPA 엔터티 클래스 - 데이터베이스 테이블과 매핑되는 클래스.
+@Table(name = "ANNOUNCEMENT_EVENT") // 엔터티 클래스 이름이 데이터베이스 테이블 이름과 다른 경우, 테이블 이름을 명시.
 @SequenceGenerator(name = "ANNOUNCEMENT_EVENT_SEQ_GEN", sequenceName = "ANNOUNCEMENT_EVENT_SEQ", allocationSize = 1)
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Builder
 @Setter
+@Builder
 @ToString
 public class AnnouncementEvent extends BaseTimeEntity {
 	
 	@Id // Primary key 제약조건
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ANNOUNCEMENT_EVENT_SEQ_GEN")
-	
-	@Column(nullable = false)
 	private Long id;
 	
     @Column(nullable = false)
@@ -44,12 +41,18 @@ public class AnnouncementEvent extends BaseTimeEntity {
     @Column(nullable = false)
 	private String content;
 	
+    @Column(nullable = false)
+    private int category;
+    
+    @Column(nullable = false)
+    private int divide;
+    
     // Setter 메서드의 역할을 한다.
     // AnnouncementEvent 엔터티의 title과 content를 수정해서 리턴하는 메서드:
     public AnnouncementEvent update(AnnouncementEventDto dto) {
         this.title = dto.getTitle();
         this.content = dto.getContent();
-        
+        this.divide = dto.getDivide();
         return this;
     }
 }

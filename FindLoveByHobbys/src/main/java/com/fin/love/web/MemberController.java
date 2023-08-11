@@ -83,7 +83,7 @@ public class MemberController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userid = authentication.getName();
         
-        session.setAttribute("userid", userid);
+        
 		log.info("userid=({})",userid);
         
 		Profile profile = profileService.findById(userid);
@@ -95,7 +95,7 @@ public class MemberController {
 		
 		log.info("member.getRole() >> " + member.getRole());
 		
-		if (member.getRole() == Role.UNVARIFIED_USER || member.getRole() == Role.RIP_USER) {
+		if (member.getRole()== Role.UNVARIFIED_USER || member.getRole() == Role.RIP_USER) {
 			
 			return "redirect:/member/unvarified";
 		}
@@ -104,5 +104,10 @@ public class MemberController {
 		
 	}
 	
+	@GetMapping("/unvarified") 
+	public void unvarified() {
+		log.info("GET UNVARIFIED");
+		
+	}
 
 }

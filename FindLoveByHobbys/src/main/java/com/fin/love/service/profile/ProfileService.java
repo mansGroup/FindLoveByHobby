@@ -1,9 +1,12 @@
 package com.fin.love.service.profile;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fin.love.dto.profile.ProfileCreateDto;
+import com.fin.love.dto.profile.ProfileSearchDto;
 import com.fin.love.dto.profile.ProfileUpdateDto;
 import com.fin.love.dto.profile.UserHobbyDto;
 import com.fin.love.repository.profile.Profile;
@@ -57,6 +60,19 @@ public class ProfileService {
 		
 		profileRepository.deleteById(userId);
 	}
+	
+	
+//	@Transactional
+//	public List<Profile> search(ProfileSearchDto dto) {
+//		log.info("search(dto= {})", dto);
+//		
+//		List<Profile> list = null;
+//		switch(dto.getType()) {
+//		case "":
+//			
+//		
+//		}
+//}
 
 	@Transactional(readOnly = true)
 	public Profile findById(String userid) {

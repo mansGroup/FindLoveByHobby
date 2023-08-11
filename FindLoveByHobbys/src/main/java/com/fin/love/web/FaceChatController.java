@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,11 +32,14 @@ public class FaceChatController {
 
 	@Autowired
 	private FaceChatService faceservice;
-
+	
 	// 화상채팅 방으로 입장하는 메서드
 	@PostMapping("/room")
-	public String facechatroom(Model model, MakeFaceChatRoomDto dto) {
+	public String facechatroom(Model model, MakeFaceChatRoomDto dto, HttpSession session) {
 		log.info("dto = {}", dto);
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userid = authentication.getName();
 		
 		long roomId = dto.getRoomId();
 		int result = faceservice.makeRoom(dto);
@@ -46,8 +51,8 @@ public class FaceChatController {
 		List<Member> list = faceservice.loadMemberName(dto);
 
 		for (Member x : list) {
-
-			if (x.getId().equals(dto.getSpeakmember1())) {
+			// TODO 로그인 하면 여기에 아이디 담겨야 함.
+			if (x.getId().equals(userid)) {
 
 				model.addAttribute("speakmember1", x.getName());
 
@@ -75,8 +80,11 @@ public class FaceChatController {
 
 	// 신고 처리 메서드
 	@PostMapping("/report")
-	public String facechatreport(ReportFaceChatDto dto) {
+	public String facechatreport(@RequestParam String audios, ReportFaceChatDto dto, HttpSession session) {
 		log.info("doReport({})",dto);
+		log.info("{}",audios);
+		dto.setAudios(audios);
+		
 		faceservice.doReport(dto);
 		
 		return "redirect:/facechat/chatroom";

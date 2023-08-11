@@ -44,8 +44,10 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(request -> request
 					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 					// 로그인 하지 않아도 접근 가능한 주소 설정
-					//.requestMatchers("/", "/login", "/css/**", "/images/**", "/js/**", "/fonts/**", "/member/login", "/member/signup","/api/member/**").permitAll()
-					.anyRequest().permitAll()//authenticated()
+
+					.requestMatchers("/", "/login", "/css/**", "/images/**", "/js/**", "/fonts/**", "/member/login", "/member/signup","/api/member/**","/api/**").permitAll()
+					.anyRequest().authenticated()
+
 				);
 		
 		http.formLogin(login -> login

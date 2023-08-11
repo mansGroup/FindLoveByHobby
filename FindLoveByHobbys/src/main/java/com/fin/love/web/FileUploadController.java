@@ -35,6 +35,7 @@ public class FileUploadController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userId = authentication.getName();
         
+
 		log.info("imageUploadPage(userId = {})", userId);
 		
 		// 데이터가 있는지 확인
