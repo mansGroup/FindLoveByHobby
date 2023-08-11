@@ -63,6 +63,7 @@
 										<h6 class="about-tag ms-4" id="memberJob" th:text="${job}"></h6>										
 									</div>
 								</div>
+
 								<div class="about-info-wrap d-flex flex-column">
 									<!-- 자기소개 -->
 									<h6>자기소개</h6>
@@ -70,63 +71,23 @@
 										id="memberIntroduce"></span>
 								</div>
 
-								<!-- 호감도 표시를 -->
-								<div class="about-info-wrap d-flex flex-column" style="margin: 40px;">
-									<!-- 여자일 경우 -->
-									<div th:if="${member.sex} == 0">
-										<h6 style="padding-bottom: 15px;">호감 보내기</h6>
-										<br />
-										<button type="button" class="btn btn-warning btn-lg" id="btnSexy">sexy
-										<span id="memberSexyCount"> 
-										<span th:text="${assessment.sexy}" id="sexyCount" class="badge text-bg-secondary"></span>
-										</span> 
-										<span id="memberSexy" class="d-none">sexy</span>
-										</button>
-										
-										<button type="button" id="btnBeautiful" class="btn btn-warning btn-lg">beautiful
-										<span id="memberBeautifulCount"> 
-										<span th:text="${assessment.beautiful}" id="beautifulCount" class="badge text-bg-secondary"></span>
-										</span> 
-										<span id="memberBeautiful" class="d-none">beautiful</span>
-										</button>
-										
-										<button type="button" id="btnCute" class="btn btn-warning btn-lg">cute
-										<span id="memberCuteCount"> 
-										<span th:text="${assessment.cute}" id="cuteCount" class="badge text-bg-secondary"></span>
-										</span> 
-										<span id="memberCute" class="d-none">cute</span>
-										</button>
-									</div>
-									
-									<!-- 남자일 경우 -->
-									<div th:if="${member.sex} == 1">
-									
-										<h6 style="padding-bottom: 15px;">호감 보내기</h6>
-										<br />
-										<button type="button" id="btnCute" class="btn btn-warning btn-lg">cute
-										<span id="memberCuteCount">
-										<span th:text="${assessment.cute}" id="cuteCount" class="badge text-bg-secondary"></span>
-										</span>
-										<span id="memberCute" class="d-none">cute</span>
-										</button>
+								<div class="about-info-wrap d-flex flex-column" style="display: flex !important; flex-wrap: wrap; align-content: center; margin: 40px; margin-bottom: 0px; ">
+									<div style="margin-bottom: 22px;">친구신청 요청</div>
+									<div>
+										<a th:href="@{/matching/connected/{id}(id=${id})}">
+											<span class="btn btn-warning btn-lg">
+												수락
+											</span>
+										</a>
 
-										<button type="button" id="btnWonderful" class="btn btn-warning btn-lg">wonderful
-										<span id="memberWonderfulCount">
-										<span th:text="${assessment.wonderful}" id="wonderfulCount" class="badge text-bg-secondary"></span>
-										</span>
-										<span id="memberWonderful" class="d-none">wonderful</span>
-										</button>
-										
-
-										<button type="button" id="btnHandsome" class="btn btn-warning btn-lg">handsome
-										<span id="handsomeCount">
-										<span th:text="${assessment.handsome}" id="handsomeCount" class="badge text-bg-secondary"></span>
-										</span>
-										<span id="memberHandsome" class="d-none">handsome</span>
-										</button>
-										
+										<a th:href="@{/matching/disconnected/{id}(id=${id})}">
+											<span class="btn btn-warning btn-lg">
+												거절
+											</span>
+										</a>
 									</div>
 								</div>
+
 
 							</div>
 						</div>

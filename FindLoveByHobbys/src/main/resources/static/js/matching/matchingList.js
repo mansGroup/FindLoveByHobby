@@ -3,18 +3,19 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-	
+	console.log('matchingList.js 로드됨');
 	// 이벤트 적용할 버튼
 	const member1LikeBtn = document.querySelector('button#member1LikeBtn');
 	const member2LikeBtn = document.querySelector('button#member2LikeBtn');
 	
 	// 로그인한 아이디
 	const inputUserId = document.querySelector('input#loginUserId');
-	
+
 	// 프로필 유저 아이디
 	const inputMember1UserId = document.querySelector('input#member1Id');
 	const inputMember2UserId = document.querySelector('input#member2Id');
-	
+
+
 	const member1LikeEvent = () => {
 		console.log('button1')
 		
@@ -39,9 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 				
 			}).catch((error) => console.log(error));
-		
+
 	};
-	
+
+
 	const member2LikeEvent = () => {
 		console.log('button2')
 		
