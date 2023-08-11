@@ -1,5 +1,7 @@
 package com.fin.love.repository.profile;
 
+import com.fin.love.dto.profile.UserHobbyUpdateDto;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,23 @@ public class UserHobby {
 	private String userid;
 	
 	@Column(nullable = false)
-	private int hobbyId;
+	private Long hobbyId;
+	
+	public UserHobby updateData(Long id, String userid, Long hobbyId) {
+		this.id = id;
+		this.userid = userid;
+		this.hobbyId = hobbyId;
+		
+		return this;
+	}
+	
+	
+	public UserHobby userHobbyUpdate(UserHobbyUpdateDto dto) {
+		this.id = dto.getId();
+		this.userid = dto.getUserid();
+		this.hobbyId = dto.getHobbyId();
+		
+		return this;
+	}
 	
 }

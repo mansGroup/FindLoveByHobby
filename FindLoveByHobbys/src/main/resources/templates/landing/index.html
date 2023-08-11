@@ -1,16 +1,171 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="~{layout/base_layout}">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
 
-<meta charset="UTF-8">
-	
-	<main layout:fragment="main">
-		<h1 th:text="|현재: ${now}|">현재 시간</h1>
-		<a th:href="@{/member/login}"> 로그인 </a>
-		<div>
-		<a th:href="@{/member/signup}"> 지금 회원가입 하기 </a>
+<th:block layout:fragment="css">
+	<style>
+.half-container {
+	width: 100%;
+	height: 600px;
+	display: flex;
+}
+
+.half-box1 {
+	width: 50%;
+	height: 100%;
+	background-size: cover;
+	opacity: 0.5;
+	transition: opacity 0.3s ease; /* 투명도 변화에 애니메이션 효과 추가 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.half-box2 {
+	width: 50%;
+	height: 100%;
+	background-size: cover;
+	opacity: 0.5;
+	transition: opacity 0.3s ease; /* 투명도 변화에 애니메이션 효과 추가 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.half-box1:hover {
+	width: 70%;
+	opacity: 1; /* 마우스를 올렸을 때 투명도 1로 설정 */
+	transition: background-image 0.5s ease; /* 배경 이미지 변경에 애니메이션 효과 추가 */
+}
+
+.half-box2:hover {
+	width: 70%;
+	opacity: 1; /* 마우스를 올렸을 때 투명도 1로 설정 */
+	transition: background-image 0.5s ease; /* 배경 이미지 변경에 애니메이션 효과 추가 */
+}
+
+.half-box1 a {
+	width: 50%; /* 이미지의 크기에 맞게 조정 */
+	height: auto; /* 높이를 자동으로 조정하여 이미지 비율 유지 */
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+	padding: 10px 20px;
+	position: absolute; /* 부모 요소에 상대적으로 위치 설정 */
+	top: 50%; /* 세로 중앙에 위치 */
+	left: 50%; /* 가로 중앙에 위치 */
+	transform: translate(-50%, -50%); /* 중앙 정렬을 위한 이동 변환 */
+}
+
+.half-box1 a {
+	width: 50%; /* 이미지의 크기에 맞게 조정 */
+	height: auto; /* 높이를 자동으로 조정하여 이미지 비율 유지 */
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+	padding: 10px 20px;
+	position: absolute; /* 부모 요소에 상대적으로 위치 설정 */
+	top: 50%; /* 세로 중앙에 위치 */
+	left: 50%; /* 가로 중앙에 위치 */
+	transform: translate(-50%, -50%); /* 중앙 정렬을 위한 이동 변환 */
+}
+
+.half-box2 a {
+	width: 50%; /* 이미지의 크기에 맞게 조정 */
+	height: auto; /* 높이를 자동으로 조정하여 이미지 비율 유지 */
+	text-align: center;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.7);
+	padding: 10px 20px;
+	position: absolute; /* 부모 요소에 상대적으로 위치 설정 */
+	top: 50%; /* 세로 중앙에 위치 */
+	left: 50%; /* 가로 중앙에 위치 */
+	transform: translate(-50%, -50%); /* 중앙 정렬을 위한 이동 변환 */
+}
+</style>
+</th:block>
+
+<main layout:fragment="main">
+	<div class="half-container">
+		<div class="half-box1"
+			style="background-image: url('/images/landing/part1/7a3b757eaa037.jpg');">
+			<a th:href="@{/member/login}">로그인</a>
 		</div>
-	</main>
-	
+		<div class="half-box2"
+			style="background-image: url('/images/landing/part2/joyful-young-man-making-selfie-with-his-beautiful-girlfriend-at-home-couple-with-smile-and-joy-in-their-eyes.jpg');">
+			<a th:href="@{/member/signup}">회원가입</a>
+		</div>
+	</div>
+
+	<script>
+	 // half-box1의 이미지 배열 생성
+    const images1 = [
+        "/images/landing/part1/SSI_20190618131159_V.jpg",
+        "/images/landing/part1/7a3b757eaa037.jpg",
+        "/images/landing/part1/a-couple-in-a-venice-beach-vacation_873925-40582.jpg",
+        "/images/landing/part1/couple-spending-time-together-outdoors.jpg"
+    ];
+    let currentImage1 = 0; // 현재 half-box1의 이미지 인덱스
+    let intervalId1; // half-box1의 setInterval 함수의 반환값을 저장할 변수
+
+    function changeImage1() {
+        // 다음 이미지로 변경
+        currentImage1 = (currentImage1 + 1) % images1.length;
+        const imageUrl = images1[currentImage1];
+        const halfBox1 = document.querySelector(".half-box1");
+        halfBox1.style.backgroundImage = `url(${imageUrl})`;
+    }
+
+    // half-box2의 이미지 배열 생성
+    const images2 = [
+        "/images/landing/part2/back-view-couple-holding-hands.jpg",
+        "/images/landing/part2/joyful-young-man-making-selfie-with-his-beautiful-girlfriend-at-home-couple-with-smile-and-joy-in-their-eyes.jpg",
+        "/images/landing/part2/beautiful-and-stylish-couple-in-a-field-with-sunflowers_1157-25952.jpg",
+        "/images/landing/part2/happy-young-couple-drinking-tea-at-home_651396-3228.jpg"
+    ];
+    let currentImage2 = 0; // 현재 half-box2의 이미지 인덱스
+    let intervalId2; // half-box2의 setInterval 함수의 반환값을 저장할 변수
+
+    function changeImage2() {
+        // 다음 이미지로 변경
+        currentImage2 = (currentImage2 + 1) % images2.length;
+        const imageUrl = images2[currentImage2];
+        const halfBox2 = document.querySelector(".half-box2");
+        halfBox2.style.backgroundImage = `url(${imageUrl})`;
+    }
+
+    // half-box1에 대한 마우스 이벤트 설정
+    const halfBox1 = document.querySelector(".half-box1");
+    halfBox1.addEventListener("mouseenter", function() {
+        clearInterval(intervalId1);
+        intervalId1 = setInterval(changeImage1, 3000);
+    });
+
+    halfBox1.addEventListener("mouseleave", function() {
+        clearInterval(intervalId1);
+    });
+
+    // half-box2에 대한 마우스 이벤트 설정
+    const halfBox2 = document.querySelector(".half-box2");
+    halfBox2.addEventListener("mouseenter", function() {
+        clearInterval(intervalId2);
+        intervalId2 = setInterval(changeImage2, 3000);
+    });
+
+    halfBox2.addEventListener("mouseleave", function() {
+        clearInterval(intervalId2);
+    });
+	</script>
+
+</main>
+
 </html>

@@ -1,5 +1,6 @@
 package com.fin.love.config;
 
+import com.fin.love.handler.NoteSocketHandler;
 import com.fin.love.handler.SocketHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,15 @@ public class WebSocketConfig implements WebSocketConfigurer{
     @Autowired
     private SocketHandler socketHandler;
 
+    @Autowired
+    private NoteSocketHandler noteSocketHandler;
+
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
         registry.addHandler(socketHandler, "/ws/chat")
+                .setAllowedOrigins("*");
+
+        registry.addHandler(noteSocketHandler, "/ws/note")
                 .setAllowedOrigins("*");
         log.info("registerWebSocketHandlers()");
     }

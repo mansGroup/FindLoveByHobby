@@ -35,5 +35,8 @@ public class Like {
 	
 	@Column(columnDefinition = "CHECK(value BETWEEN 0 AND 1)") // 필드 값이 0과 1 사이인지를 체크하는 제약조건을 설정
 	private int whether; // 수락여부, (0 = 수락 안함, 1 = 수락 확인)
-	
+
+	public void chageWhether(int i) {
+		this.whether = i;
+	}
 }
