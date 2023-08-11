@@ -95,7 +95,7 @@ public class MemberController {
 		
 		log.info("member.getRole() >> " + member.getRole());
 		
-		if (member.getRole()== Role.UNVARIFIED_USER || member.getRole() == Role.RIP_USER) {
+		if (member.getRole() == Role.UNVARIFIED_USER || member.getRole() == Role.RIP_USER) {
 			
 			return "redirect:/member/unvarified";
 		}

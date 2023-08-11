@@ -15,6 +15,9 @@ import com.fin.love.service.note.NoteNumberService;
 import com.fin.love.service.note.NoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -133,32 +136,36 @@ public class MatchingConnectionController {
 
     @GetMapping("/connected/{senderId}")
     public String connected(@PathVariable String senderId) {
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
         // LIKES 테이블 whether값 0 -> 1
-        likeService.chageWhether(senderId, user, 1);
+        likeService.chageWhether(senderId, userid, 1);
 
         // 매칭되어 알림이 불필요하여 삭제
         String type = "likes";
-        noteService.deleteNote(senderId, user, type);
+        noteService.deleteNote(senderId, userid, type);
 
         // 채팅방 오픈
-        chattingRoomService.makeChattingRoomm(senderId, user);
+        chattingRoomService.makeChattingRoomm(senderId, userid);
 
         // 상대방에게 연결됨을 쪽지로 알림
-        noteService.noticeConnected(senderId, user);
+        noteService.noticeConnected(senderId, userid);
 
         // 상대방 noteCount 올림
         noteNumberService.upNoteCount(senderId);
 
-        return "/chat/chat";
+        return "redirect:/chat/chat";
     }
 
     @GetMapping("/disconnected/{senderId}")
     public String disconnected(@PathVariable String senderId) {
+    	 Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+         String userid = authentication.getName();
         // LIKES 테이블 whether값 0 -> 2로 바꾸기
-        likeService.chageWhether(senderId, user, 2);
+        likeService.chageWhether(senderId, userid, 2);
 
         // sender알람 Notecount 올리기
         noteNumberService.upNoteCount(senderId);
-        return "redirect:/matching/matchingList/"+user;
+        return "redirect:/matching/matchingList/"+userid;
     }
 }

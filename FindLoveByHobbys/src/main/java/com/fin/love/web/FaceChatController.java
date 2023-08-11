@@ -32,15 +32,15 @@ public class FaceChatController {
 
 	@Autowired
 	private FaceChatService faceservice;
-	
+
 	// 화상채팅 방으로 입장하는 메서드
 	@PostMapping("/room")
 	public String facechatroom(Model model, MakeFaceChatRoomDto dto, HttpSession session) {
 		log.info("dto = {}", dto);
-		
+
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    String userid = authentication.getName();
-		
+		String userid = authentication.getName();
+
 		long roomId = dto.getRoomId();
 		int result = faceservice.makeRoom(dto);
 		if (result == 0) {
@@ -70,6 +70,36 @@ public class FaceChatController {
 		return "/facechat/room";
 	}
 
+	@GetMapping("/room")
+	public String facechatroom(MakeFaceChatRoomDto dto, Model model) {
+
+		log.info("dto = {}", dto);
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userid = authentication.getName();
+		
+		List<Member> list = faceservice.loadMemberName(dto);
+
+		for (Member x : list) {
+			// TODO 로그인 하면 여기에 아이디 담겨야 함.
+			if (x.getId().equals(userid)) {
+
+				model.addAttribute("speakmember1", x.getName());
+
+			} else {
+
+				model.addAttribute("speakmember2", x.getName());
+
+			}
+
+		}
+		
+		model.addAttribute("roomId",dto.getRoomId());
+
+		return "/facechat/room";
+		
+	}
+
 	// 임시 입장 메서드
 	@GetMapping("/chatroom")
 	public void chatroom() {
@@ -81,24 +111,24 @@ public class FaceChatController {
 	// 신고 처리 메서드
 	@PostMapping("/report")
 	public String facechatreport(@RequestParam String audios, ReportFaceChatDto dto, HttpSession session) {
-		log.info("doReport({})",dto);
-		log.info("{}",audios);
+		log.info("doReport({})", dto);
+		log.info("{}", audios);
 		dto.setAudios(audios);
-		
+
 		faceservice.doReport(dto);
-		
+
 		return "redirect:/facechat/chatroom";
 
 	}
-	
+
 	// 리폿 당했을 경우 강제로 사이트 이동
 	@GetMapping("/report")
 	public String facechatreport() {
-		
+
 		log.info("report 당함");
-		
+
 		return "redirect:/facechat/chatroom";
-		
+
 	}
 
 }

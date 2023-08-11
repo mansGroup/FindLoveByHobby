@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -134,16 +136,18 @@ public class ProfileController {
 	// DB에 저장되어 있는 사용자 데이터를 수정페이지로 읽기
 	@GetMapping("/profilemodify")
 	public void profileModify(Model model) {
-		String userId = "daehan";
-		log.info("profileModify(userId={})", userId);
+//		String userId = "daehan";
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userid = authentication.getName();
+		log.info("profileModify(userId={})", userid);
 
-		Profile profile = profileService.profileModify(userId);
+		Profile profile = profileService.profileModify(userid);
 		log.info("profile >>> " + profile);
 		List<Hobby> hobby = hobbyService.readHobbyList();
 		List<Age> age = ageService.readAgeList();
 		List<Height> height = heightService.readHeightList();
 		
-		List<UserHobby> hobbys = hobbyService.findById(userId);		
+		List<UserHobby> hobbys = hobbyService.findById(userid);		
 		model.addAttribute("hobbys1", hobbys.get(0).getHobbyId());
 		model.addAttribute("hobbys2", hobbys.get(1).getHobbyId());
 		model.addAttribute("hobbys3", hobbys.get(2).getHobbyId());

@@ -136,7 +136,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 break;
             case 'accept':
-                acceptFaceChat(data);
+				if (sessionId != cur_session) {
+                    acceptFaceChat(data);
+                } else {
+					
+					faceChatForm.method = 'get';
+					faceChatForm.submit();
+				}
+                
                 break;
             case 'refuse':
                 if (sessionId != cur_session) {
@@ -149,6 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         function acceptFaceChat() {
+			
             faceChatForm.submit();
         }
 

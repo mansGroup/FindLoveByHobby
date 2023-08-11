@@ -41,7 +41,7 @@ public class ChatController {
     }
 
     @GetMapping("/chat")
-    public void chat(@RequestParam String id, Model model) {
+    public void chat(Model model) {
 
         log.info("chat()");
 
@@ -63,12 +63,12 @@ public class ChatController {
 
         // 모델에 리스트 실어주기
         model.addAttribute("dtoList", dtoList);
-        model.addAttribute("id", id);
+        model.addAttribute("id", userid);
         log.info("채팅방 정보 리스트 사이즈 from chatController {}", dtoList.size());
     }
 
     @GetMapping("/chatroom/{room}")
-    public String chatByLove(@PathVariable Long room, @PathVariable String id, Model model) {
+    public String chatByLove(@PathVariable Long room, Model model) {
         log.info("chatByLove({})", room);
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
