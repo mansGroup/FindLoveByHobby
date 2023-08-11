@@ -4,7 +4,7 @@
 	layout:decorate="~{layout/base_layout}">
 <th:block layout:fragment="css">
 	<style>
-</style>
+	</style>
 </th:block>
 
 <main layout:fragment="main">
@@ -45,18 +45,10 @@
 				</div>
 				
 				<div class="job">
-				<p>원하는 이상형의 직업을 선택하세요</p>
+				<p>원하는 이상형의 직종을 선택하세요</p>
 					<select class="form-select" name="type">
 						<option value="">직업</option>
 						<option th:each="job , idx : ${jobs}" th:text="${job.jobName}" th:value="${idx.count}"></option>
-					</select>
-				</div>
-				
-				<div class="income">
-				<p>원하는 이상형의 연봉을 선택하세요</p>
-					<select class="form-select" name="type">
-						<option value="">연봉</option>
-						<option th:each="income , idx : ${incomes}" th:text="${income.income}" th:value="${idx.count}"></option>
 					</select>
 				</div>
 

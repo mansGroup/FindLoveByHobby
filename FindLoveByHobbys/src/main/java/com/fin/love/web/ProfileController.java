@@ -78,22 +78,24 @@ public class ProfileController {
 	}
 	
 	@GetMapping("/profilesearch")
-	public String search(ProfileSearchDto dto, Model model) {
+	public String search(ProfileSearchDto dto, Model model, @RequestParam(value = "keyword") String keyword) {
 		log.info("search(dto= {})", dto);
 		
-		//List<Profile> list = profileService.search(dto);
+		// 조건 검색할 리스트 불러옴
 		List<Hobby> hobby = hobbyService.readHobbyList();
 		List<Age> age = ageService.readAgeList();
 		List<Height> height = heightService.readHeightList();
 		List<Jobs> jobs = jobService.readJobsList();
-		List<Income> income = incomeService.readIncomeList();
 
-		//model.addAttribute("profiles", list);
 		model.addAttribute("hobbys", hobby);
 		model.addAttribute("ages", age);
 		model.addAttribute("heights", height);
 		model.addAttribute("jobs", jobs);
-		model.addAttribute("incomes", income);
+		
+//		// ** 실제 검색할 코드 **
+//		List<Profile> list = profileService.search(dto);
+//		model.addAttribute("profiles", list);
+		
 		
 		return "/profile/profilesearch";
 	}
