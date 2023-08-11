@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+
+<main layout:fragment="main">
+	<table class="table">
+		<thead>
+			<tr>
+				<th style="text-align: center;">문의글 번호</th>
+				<th style="text-align: center;">문의자</th>
+				<th style="text-align: center;">문의내용</th>
+				<th style="text-align: center;">문의작성시간</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="list : ${list}">
+					<td th:text="${list.id}"></td>
+					<td th:text="${list.member.id}"></td>
+					<td th:text="${list.questioncontent}"></td>
+					<td th:text="${list.modifiedTime}"></td>
+			</tr>
+		</tbody>
+	</table>
+		<div>
+			<button class="form-control btn btn-outline-success"
+                            id="btnBack">문의목록으로</button>
+		</div>
+</main>
+</html>

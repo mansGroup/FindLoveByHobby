@@ -3,6 +3,8 @@ package com.fin.love.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,78 @@ public class QuestionController {
 		log.info("qscreate({})",dto);
 		
 		questionservice.write(dto);
+<<<<<<< Updated upstream
+=======
+
+		return "redirect:/question/qslist";
+
+	}
+
+	@GetMapping("/qsmodify")
+	public void qsmodify(@RequestParam long numid, Model model) {
+
+		log.info("qsmodify()");
+
+		Question quest = readAndModify(numid);
+
+		model.addAttribute("quest", quest);
+	}
+
+	@PostMapping("/qsmodify")
+	public String qsmodify(UpdateQuestDto dto) {
+
+		log.info("qsmodify(update={})", dto);
+
+		questionservice.update(dto);
+
+		return "redirect:/question/qslist";
+	}
+
+	@GetMapping("/qslist")
+	public void qslist(Model model, HttpSession session) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
+		log.info("qslist()");
+		
+		// TODO 로그인 하면 여기에 아이디 담겨야 함.
+		
+		
+		List<Question> list2 = questionservice.read(userid);
+		List<Question> list = new ArrayList<>();
+		int count = 0;
+		for (Question x : list2) {
+
+			if (count == 3) {
+
+				break;
+
+			} else {
+				list.add(x);
+			}
+			count++;
+		}
+		model.addAttribute("userid", userid);
+		model.addAttribute("list", list);
+
+	}
+
+	@GetMapping("/qsread")
+	public void read(@RequestParam long id, Model model) {
+
+		log.info("qsread(id={})", id);
+
+		Question quest = readAndModify(id);
+
+		model.addAttribute("quest", quest);
+
+	}
+
+	@GetMapping("/demo")
+	public String demo(@RequestParam String userid, HttpSession session) {
+		
+		session.setAttribute("userid", userid);
+>>>>>>> Stashed changes
 		
 		return "redirect:/question/qslist";
 		
