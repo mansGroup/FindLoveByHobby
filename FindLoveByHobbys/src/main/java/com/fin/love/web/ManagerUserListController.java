@@ -32,34 +32,13 @@ public class ManagerUserListController {
 	private final MemberRepository memberRepository;
 	private final MemberService memberService;
 	
-	@GetMapping("/user/list/{sorting}/{pageCount}")
-	public String managerUserList(@PathVariable int pageCount, @PathVariable String sorting, Model model) {
+	@GetMapping("/user/list/{pageCount}")
+	public String managerUserList(@PathVariable int pageCount, Model model) {
 		log.info("managerUserList()");
 		
 		Role[] roles = Role.values();
 		List<ManagerUserListDto> dtos = new LinkedList<>();
-		List<Member> members = new ArrayList<>();
-		
-		if (sorting.equals("basic")) {
-			members = memberRepository.findByOrderByIdDesc();
-		} else if (sorting.equals("nameUp")) {
-			members = memberRepository.findByOrderByName();
-		} else if (sorting.equals("nameDown")) {
-			members = memberRepository.findByOrderByNameDesc();
-		} else if(sorting.equals("nicknameUp")) {
-			members = memberRepository.findByOrderByNickname();
-		} else if (sorting.equals("nicknameDown")) {
-			members = memberRepository.findByOrderByNicknameDesc();
-		} else if (sorting.equals("genderMan")) {
-			members = memberRepository.findByOrderBySex();
-		} else if (sorting.equals("genderWoman")) {
-			members = memberRepository.findByOrderBySexDesc();
-		} else if (sorting.equals("roleUp")) {
-			members = memberRepository.findByOrderByRole();
-		} else if (sorting.equals("roleDown")) {
-			members = memberRepository.findByOrderByRoleDesc();
-		}
-		
+		List<Member> members = memberRepository.findByOrderByIdDesc();
 		
 		for (int i = 0; i < members.size(); i++) {
 			ManagerUserListDto dto = mamagerUserListService.dtoCreate(members.get(i).getId());
