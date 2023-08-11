@@ -33,7 +33,8 @@ public class QuestionController {
 	@GetMapping("/qscreate")
 	public void qscreate(HttpSession session, Model model) {
 
-		String userid = (String) session.getAttribute("userid");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userid = authentication.getName();
 		
 		Member member = questionservice.readbyUserId(userid);
 		
@@ -81,7 +82,8 @@ public class QuestionController {
 		log.info("qslist()");
 		
 		// TODO 로그인 하면 여기에 아이디 담겨야 함.
-		String userid = (String) session.getAttribute("userid");
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userid = authentication.getName();
 		
 		List<Question> list2 = questionservice.read(userid);
 		List<Question> list = new ArrayList<>();
@@ -113,23 +115,23 @@ public class QuestionController {
 
 	}
 
-	@GetMapping("/demo")
-	public String demo(@RequestParam String userid, HttpSession session) {
-		
-		session.setAttribute("userid", userid);
-		
-		return "redirect:/question/qslist";
-		
-	}
-	
-	@GetMapping("/demologin")
-	public void demo() {
-		
-		
-		
-		
-		
-	}
+//	@GetMapping("/demo")
+//	public String demo(@RequestParam String userid, HttpSession session) {
+//		
+//		session.setAttribute("userid", userid);
+//		
+//		return "redirect:/question/qslist";
+//		
+//	}
+//	
+//	@GetMapping("/demologin")
+//	public void demo() {
+//		
+//		
+//		
+//		
+//		
+//	}
 	
 	public Question readAndModify(long id) {
 

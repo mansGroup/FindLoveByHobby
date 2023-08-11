@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 		mainbody.style.opacity = "0";
-		mainbody.style.transition = "opacity 3s ease-in-out";
+		mainbody.style.transition = "opacity 1s ease-in-out";
 
 		let reqUrl = '/api/meeting/search';
 		let data = {
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		if (nowcount != 0) {
 			mainbody.style.opacity = "0";
-			mainbody.style.transition = "opacity 3s ease-in-out";
+			mainbody.style.transition = "opacity 1s ease-in-out";
 			nowcount -= 3;
 			searchResult(list, nowcount + 3, nowcount);
 			console.log("뒤로 가기");
@@ -271,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		} else {
 			mainbody.style.opacity = "0";
-			mainbody.style.transition = "opacity 3s ease-in-out";
+			mainbody.style.transition = "opacity 1s ease-in-out";
 			nowcount += 3;
 			searchResult(list, nowcount + 3, nowcount);
 			console.log("앞으로");

@@ -2,99 +2,200 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
 <th:block layout:fragment="css">
-<style>
-.image{
-	
+	<style>
+.image {
 	width: 450px;
-	height: 450px;	
+	height: 450px;
+	border-radius: 85%;
 }
 
-.imgdiv{
+.imgdiv {
 	margin: 0px 50px;
-
 }
-.labeldiv{
 
-display: flex;
-justify-content: center;
-flex-direction: column;
-align-content: center;
-align-items: center;
+.labeldiv {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-content: center;
+	align-items: center;
+}
+
+.row div {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.lab {
+	font-size: x-large;
+	font-style: oblique;
+	font-weight: 400;
+}
+
+.con {
+	font-size: large;
+}
+
+.peopleimg {
+	width: 100px;
+	height: 100px;
+	border-radius: 10%;
 }
 </style>
 </th:block>
-<main id="mainbody" style="height: 100%;" layout:fragment="main">
+<main id="mainbody" layout:fragment="main" style="height: 100%; background-image: url('C:\IMA\skydom.png');  background-size: cover; background-repeat: no-repeat;">
 
 	<form id="partyForm">
 		<div class="row">
-			<div class="col-12">
+			<div style="display: flex; justify-content: center;" class="col-12">
 				<h2 th:text="${meet.meeting.title}"></h2>
 			</div>
 			<!-- 2row -->
-			<div class="col-4 labeldiv" style="display: flex; justify-content: center;">
-				<div>
-					<label for="content1">미팅 코스는요?</label>
+			<div class="row">
+				<div class="col-4 labeldiv"
+					style="display: flex; justify-content: center;">
+					<div>
+						<label class="lab" for="content1">코스는 어떻게 되죠?</label>
+					</div>
+					<div>
+						<span class="con" th:text="${meet.meeting.content1}"></span>
+					</div>
 				</div>
-				<div>
-					<span th:text="${meet.meeting.content1}"></span>
+				<div class="col-4 labeldiv"
+					style="display: flex; justify-content: center;">
+					<div>
+						<label class="lab" for="content2">주최자는 어떤분이죠?</label>
+					</div>
+					<div>
+						<span class="con" th:text="${meet.meeting.content2}"></span>
+					</div>
 				</div>
-			</div>
-			<div class="col-4 labeldiv" style="display: flex; justify-content: center;">
-				<div>
-					<label for="content2">주최자는요?</label>
-				</div>
-				<div>
-					<span th:text="${meet.meeting.content2}"></span>
-				</div>
-			</div>
-			<div class="col-4 labeldiv" style="display: flex; justify-content: center;">
-				<div>
-					<label for="content3">분위기는요?</label>
-				</div>
-				<div>
-					<span th:text="${meet.meeting.content3}"></span>
+				<div class="col-4 labeldiv"
+					style="display: flex; justify-content: center;">
+					<div>
+						<label class="lab" for="content3">선호하는 분위기는요?</label>
+					</div>
+					<div>
+						<span class="con" th:text="${meet.meeting.content3}"></span>
+					</div>
 				</div>
 			</div>
 			<!-- 3row -->
-			<div class="col-3 labeldiv" style="display: flex; justify-content: center;"></div>
-			<div class="col-6">
-			<div style="display: flex; justify-content: center;"><label for="contents">그래서 우리 모임은 어떤 모임이죠?</label></div>
-			<div>
-			<textarea style="width: 100%;" rows="5" th:text="${meet.meeting.contents}"></textarea>
+			<div class="row" style="margin-bottom: 0px; height: 80px;">
+				<div class="col-3 labeldiv"
+					style="margin-bottom: 0px; display: flex; justify-content: center;"></div>
+				<div class="col-6">
+					<div style="display: flex; justify-content: center;">
+						<label class="lab" for="contents">그래서 우리 모임은 어떤 모임이죠?</label>
+					</div>
+
+				</div>
+				<div class="col-3"></div>
 			</div>
+			<div class="row" style="margin-top: 0px;">
+				<div class="col-2"></div>
+				<div style="margin-top: 0px;" class="col-8">
+					<div>
+						<textarea
+							style="font-size: medium; width: 100%; border-radius: 5cm; text-align: center;"
+							rows="5" th:text="${meet.meeting.contents}" readonly="readonly"></textarea>
+					</div>
+				</div>
+				<div class="col-2"></div>
 			</div>
-			<div class="col-3"></div>
 			<!-- 4row -->
-			<div class="col-1"></div>
-			<div class="row col-10">
-				<div class="col-3 imgdiv"><img class="image" th:src="'data:image/jpg;base64,' + ${meet.meeting.image1}" alt="이미지 없음" /></div>
-				<div class="col-3 imgdiv"><img class="image" th:src="'data:image/jpg;base64,' + ${meet.meeting.image2}" alt="이미지 없음" /></div>
-				<div class="col-3 imgdiv"><img class="image" th:src="'data:image/jpg;base64,' + ${meet.meeting.image3}" alt="이미지 없음" /></div>
+			<div class="row">
+				<div class="col-1"></div>
+				<div class="row col-10">
+					<div class="col-3 imgdiv">
+						<img class="image"
+							th:src="'data:image/jpg;base64,' + ${meet.meeting.image1}"
+							alt="이미지 없음" />
+					</div>
+					<div class="col-3 imgdiv">
+						<img class="image"
+							th:src="'data:image/jpg;base64,' + ${meet.meeting.image2}"
+							alt="이미지 없음" />
+					</div>
+					<div class="col-3 imgdiv">
+						<img class="image"
+							th:src="'data:image/jpg;base64,' + ${meet.meeting.image3}"
+							alt="이미지 없음" />
+					</div>
+				</div>
+				<div class="col-1"></div>
 			</div>
-			<div class="col-1"></div>
 			<!-- 5row -->
-			<div class="col-3"></div>
-			<div class="col-6"><h4>우리는 이런 활동들을 진행해요</h4></div>
-			<div class="col-3"></div>
+			<div class="row">
+				<div class="col-3"></div>
+				<div class="col-6" style="display: flex; justify-content: center;">
+					<h4>우리는 이런 활동들을 진행해요</h4>
+				</div>
+				<div class="col-3"></div>
+			</div>
 			<!-- 6row -->
-			<div class="col-3"></div>
-			<div class="col-3">
-				<span>남자</span>
-				
+			<div class="row">
+				<div class="col-3"></div>
+				<div class="col-3" style="display: flex; justify-content: center;">
+					<h3>남자</h3>
+
+				</div>
+				<div class="col-3" style="display: flex; justify-content: center;">
+					<h3>여자</h3>
+				</div>
+				<div class="col-3"></div>
 			</div>
-			<div class="col-3">
-				<span>여자</span>
+			<!-- 7row -->
+			<div class="row">
+				<div class="col-3"></div>
+				<div class="col-3"
+					style="display: flex; justify-content: center; flex-direction: column;">
+
+					<div style="display: flex; justify-content: center; border: 1px blue solid; border-radius: 10%;">
+						<div>
+							<img class="peopleimg" th:each="man : ${manimg}"
+								th:src="'data:image/gif;base64,' + ${man}" alt="no img" />
+						</div>
+						<div
+							style="align-items: center; display: flex; justify-content: center;">
+							<span th:each="list1 : ${man}" style="font-size: large;"
+								th:text="${ list1.profile.userId}+' 님'"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-3"
+					style="display: flex; justify-content: center; flex-direction: column;">
+
+					<div style="display: flex; justify-content: center;">
+						<div>
+							<img class="peopleimg" th:each="woman : ${womanimg}"
+								th:src="'data:image/gif;base64,' + ${woman}" alt="no img" />
+						</div>
+						<div>
+							<span th:each="list2 : ${woman}" style="font-size: large;"
+								th:text="${ list2.profile.userId}+ ' 님'"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-3"></div>
 			</div>
-			<div class="col-3"></div>
-			
 		</div>
-	
+
+	</form>
+	<form id="inviteForm">
+		<div th:if="${status}==0" class="row">
+			<div class="col-4"></div>
+			<input class="d-none" id="colid" name="id" value="${meet.meeting.id}" />
+			<div th:if="${invite}==0" class="col-4"><button class="btn btn-outline-primary" style="width: 100%;" data-id="0" id="inviteBtn">참여하기</button></div>
+			<div th:if="${invite}==1" class="col-4"><button class="btn btn-outline-primary" style="width: 100%;" data-id="1" id="inviteBtn">참여취소</button></div>
+			<div class="col-4"></div>
+		</div>
 	</form>
 
 </main>
 
 <th:block layout:fragment="myscripts">
-	
+	<script th:src="@{/js/meeting/meetingread.js}"></script>
 </th:block>
 
 </html>

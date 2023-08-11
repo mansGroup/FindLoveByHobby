@@ -21,6 +21,8 @@ import com.fin.love.dto.meeting.MeetingModifyDto;
 import com.fin.love.dto.meeting.MeetingSearchDto;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.hobby.HobbyRepository;
+import com.fin.love.repository.image.Picture;
+import com.fin.love.repository.image.PictureRepository;
 import com.fin.love.repository.location.Location;
 import com.fin.love.repository.location.LocationRepository;
 import com.fin.love.repository.meeting.Meeting;
@@ -31,13 +33,17 @@ import com.fin.love.repository.profile.Age;
 import com.fin.love.repository.profile.AgeRepository;
 import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.ProfileRepository;
-
+import com.fin.love.respository.member.Member;
+import com.fin.love.respository.member.MemberRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
 public class MeetingService {
+
+	@Autowired
+	private MemberRepository memberrepository;
 
 	@Autowired
 	private MeetingRepository meetingrepository;
@@ -56,65 +62,69 @@ public class MeetingService {
 
 	@Autowired
 	private ProfileRepository profilerepository;
-	
-	public List<Meeting> myLeaderList(String userid){
-		
+
+	@Autowired
+	private PictureRepository picrepository;
+
+	@Autowired
+	private PictureService picservice;
+
+	public List<Meeting> myLeaderList(String userid) {
+
 		List<Meeting> list = meetingrepository.findByLeader(userid);
 		List<Meeting> list2 = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
-			
+
 			Meeting met = list.get(i);
 
-			String[] deq = new String[] {imageToBase64(met.getImage1()),imageToBase64(met.getImage2()),imageToBase64(met.getImage3())};
+			String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
+					imageToBase64(met.getImage3()) };
 
 			met.makePhoto(deq);
 
 			list2.add(met);
 
 		}
-		
-		
+
 		return list2;
 	}
-	
-	public List<Meeting> myMeetList(String userid){
-		
+
+	public List<Meeting> myMeetList(String userid) {
+
 		List<Meeting> list = meetingrepository.findAll();
 		List<Meeting> list2 = new ArrayList<>();
-		for(Meeting x : list) {
-			
-			if(userid.equals(x.getLeader()) || x.getMember() == 1) {
-				
+		for (Meeting x : list) {
+
+			if (userid.equals(x.getLeader()) || x.getMember() == 1) {
+
 				continue;
-				
+
 			}
-			
-			for(MeetingMember y : x.getMembers()) {
-				
-				if(userid.equals(y.getProfile().getUserId())) {
-					
+			List<MeetingMember> list3 = mtmemrepository.findByMeetingId(x.getId());
+			for (MeetingMember y : list3) {
+
+				if (userid.equals(y.getProfile().getUserId())) {
+
 					Meeting met = x;
 
-					String[] deq = new String[] {imageToBase64(met.getImage1()),imageToBase64(met.getImage2()),imageToBase64(met.getImage3())};
+					String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
+							imageToBase64(met.getImage3()) };
 
 					met.makePhoto(deq);
 
 					list2.add(met);
-					
+
 					break;
-					
+
 				}
-				
+
 			}
-			
+
 		}
 		return list2;
-		
+
 	}
-	
-	
-	
-	
+
 	public List<Meeting> makelist(int num) {
 
 		log.info("read All");
@@ -128,10 +138,11 @@ public class MeetingService {
 		if (len > startcheck && len >= num * 6) {
 
 			for (int i = start * 6; i < num * 6; i++) {
-				
+
 				Meeting met = list.get(i);
 
-				String[] deq = new String[] {imageToBase64(met.getImage1()),imageToBase64(met.getImage2()),imageToBase64(met.getImage3())};
+				String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
+						imageToBase64(met.getImage3()) };
 
 				met.makePhoto(deq);
 
@@ -143,12 +154,10 @@ public class MeetingService {
 
 			for (int i = startcheck; i < len; i++) {
 
-				
 				Meeting met = list.get(i);
-				
-				String[] deq = new String[] {imageToBase64(met.getImage1()),imageToBase64(met.getImage2()),imageToBase64(met.getImage3())};
-				
-				
+
+				String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
+						imageToBase64(met.getImage3()) };
 
 				met.makePhoto(deq);
 
@@ -162,7 +171,8 @@ public class MeetingService {
 
 				Meeting met = list.get(i);
 
-				String[] deq = new String[] {imageToBase64(met.getImage1()),imageToBase64(met.getImage2()),imageToBase64(met.getImage3())};
+				String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
+						imageToBase64(met.getImage3()) };
 				met.makePhoto(deq);
 
 				list2.add(met);
@@ -181,14 +191,11 @@ public class MeetingService {
 		Location loc = locrepository.findById(dto.getLocationid()).orElseThrow();
 		log.info("create(dto = {}, hobby = {}, loc = {})", dto, hobby, loc);
 		Meeting meeting = dto.toEntity(loc, hobby);
-		
+
 		Meeting meet = meetingrepository.save(meeting);
 		Profile profile = profilerepository.findById(dto.getLeader()).orElseThrow();
-		
+
 		mtmemrepository.save(MeetingMember.builder().profile(profile).meeting(meet).build());
-		
-		
-		
 
 	}
 
@@ -257,93 +264,53 @@ public class MeetingService {
 
 		List<Meeting> list2 = meetingrepository.findAll();
 
-		if (list2 == null) {
+		if (list2 == null || list2.size() == 0) {
 
 			return new ArrayList<Meeting>();
 
 		}
 
-		List<Meeting> listh = findByHobby(list2, dto.getHobbyId());
-		List<Meeting> listl = findbyLocation(listh, dto.getLocationId());
-		List<Meeting> lista = findByAge(listl, dto.getAgeId());
-		List<Meeting> list = new ArrayList<>();
-		Random random = new Random(42);
-		int end = lista.size() >= 6 ? 6 : lista.size();
-		List<Integer> nums = new ArrayList<>();
-
-		for (int i = 0; i < end;) {
-			int index = random.nextInt(0, lista.size());
-			boolean check = false;
-			for (int j = 0; j < nums.size(); j++) {
-
-				if (nums.get(j) == index) {
-					check = true;
-					break;
-
-				}
-
-			}
-			if (check == true) {
-
-				continue;
-
-			}
-
-			list.add(lista.get(index));
-			nums.add(index);
-			i++;
-
-		}
+		List<Meeting> listh = findByHobbyAndLocation(list2, dto);
+		List<Meeting> list = findByAge(listh, dto.getAgeId());
+		List<Meeting> lists = new ArrayList<>();
 
 		for (int i = 0; i < list.size(); i++) {
 			String[] deq = new String[3];
-			log.info("image = {}", list.get(i).getImage1());
-			if (list.get(i).getImage1() != null) {
-				log.info("이미지 {}", list.get(i).getImage1());
-				deq[0] = imageToBase64(list.get(i).getImage1());
+			Meeting meet = list.get(i);
+			log.info("image = {}", meet.getImage1());
+			if (meet.getImage1() != null) {
+				log.info("이미지 {}", meet.getImage1());
+				String img = imageToBase64(meet.getImage1());
+				deq[0] = img;
+				log.info("이미지 {}", img);
 
 			}
 
-			if (list.get(i).getImage2() != null) {
-
-				deq[1] = imageToBase64(list.get(i).getImage2());
-
+			if (meet.getImage2() != null) {
+				String img = imageToBase64(meet.getImage2());
+				deq[1] = img;
+				log.info("이미지 {}", img);
 			}
 
-			if (list.get(i).getImage3() != null) {
-
-				deq[2] = imageToBase64(list.get(i).getImage3());
-
+			if (meet.getImage3() != null) {
+				String img = imageToBase64(meet.getImage3());
+				deq[2] = img;
+				log.info("이미지 {}", img);
 			}
-			list.get(i).makePhoto(deq);
+
+			meet.makePhoto(deq);
+			lists.add(meet);
 		}
 
-		return list;
+		return lists;
 	}
 
-	public List<Meeting> findByHobby(List<Meeting> unlist, long hobbyId) {
+	public List<Meeting> findByHobbyAndLocation(List<Meeting> unlist, MeetingSearchDto dto) {
 		List<Meeting> list = new ArrayList<>();
 
 		for (Meeting x : unlist) {
 
-			if (x.getHobby().getHobbyId() == hobbyId) {
-
-				list.add(x);
-
-			}
-
-		}
-
-		return list;
-	}
-
-	public List<Meeting> findbyLocation(List<Meeting> unlist, long locationId) {
-
-		List<Meeting> list = new ArrayList<>();
-
-		for (Meeting x : unlist) {
-
-			if (x.getLocation().getId() == locationId) {
+			if (x.getHobby().getHobbyId() == dto.getHobbyId() && x.getLocation().getId() == dto.getLocationId()) {
 
 				list.add(x);
 
@@ -357,12 +324,6 @@ public class MeetingService {
 	public List<Meeting> findByAge(List<Meeting> unlist, long ageId) {
 		List<Meeting> list = new ArrayList<>();
 
-		if (unlist.size() == 0 || unlist == null) {
-
-			return list;
-
-		}
-
 		int count = 0;
 		for (Meeting x : unlist) {
 			if (count > 5) {
@@ -370,55 +331,27 @@ public class MeetingService {
 				break;
 
 			}
+
 			List<MeetingMember> list2 = mtmemrepository.findByMeetingId(x.getId());
 			long age = 0;
+
 			for (MeetingMember y : list2) {
 
-				age += (Long.parseLong(y.getProfile().getUserAge()) + 19);
+				age += ((y.getProfile().getUserAge()) + 19);
 
 			}
-			if(age==0) {
-				
+			if (age == 0) {
+
 				return list;
-				
+
 			}
-			
+
 			age = ((age / list2.size()) / 10) * 10;
 
-			if (age == ageId) {
+			if (age - 10 <= ageId && age + 10 >= ageId) {
 
 				list.add(x);
 				count++;
-			}
-
-		}
-		
-		
-
-		// 만약 원하는 나이대의 이성이 부족한 경우 비슷한 연령대 추가.
-		if (count < 6) {
-
-			for (Meeting x : unlist) {
-				List<MeetingMember> list2 = mtmemrepository.findByMeetingId(x.getId());
-				long age = 0;
-				for (MeetingMember y : list2) {
-
-					age += (Long.parseLong(y.getProfile().getUserAge()) + 19);
-
-				}
-				if(age==0) {
-					
-					return list;
-					
-				}
-				
-				age = ((age / list2.size()) / 10) * 10;
-				if (age != ageId && (age == ageId + 10 || age == ageId - 10)) {
-
-					list.add(x);
-
-				}
-
 			}
 
 		}
@@ -428,28 +361,139 @@ public class MeetingService {
 
 	@Transactional(readOnly = true)
 	public MeetingModifyDto readMyMeeting(long id) {
-		
 
 		Meeting meet = meetingrepository.findById(id).orElseThrow();
-		log.info("meet = {}",meet);
+		log.info("meet = {}", meet);
 		MeetingModifyDto dto = MeetingModifyDto.builder().build();
-		
+
 		dto.imgMake(meet);
-		
+
 		String img1 = imageToBase64(meet.getImage1());
 		String img2 = imageToBase64(meet.getImage2());
 		String img3 = imageToBase64(meet.getImage3());
-		
-		String[] s1 = new String[] {img1, img2, img3};
-		
-		
-		
+
+		String[] s1 = new String[] { img1, img2, img3 };
+
 		meet.makePhoto(s1);
-		
+
 		dto.entityMake(meet);
-		
+
 		return dto;
+
+	}
+
+	public List<List<MeetingMember>> readMyMember(long id) {
+		// TODO Auto-generated method stub
+		List<MeetingMember> list = mtmemrepository.findByMeetingId(id);
+		List<MeetingMember> woman = new ArrayList<>();
+		List<MeetingMember> man = new ArrayList<>();
+		List<List<MeetingMember>> list2 = new ArrayList<>();
+		for (MeetingMember x : list) {
+
+			String userid = x.getProfile().getUserId();
+			Member member = memberrepository.findById(userid).orElseThrow();
+
+			if (member.getSex() == 0) {
+
+				woman.add(x);
+
+			} else {
+
+				man.add(x);
+
+			}
+
+		}
+
+		list2.add(woman);
+		list2.add(man);
+
+		return list2;
+
+	}
+
+	public List<String> imagePrint(List<MeetingMember> list, int gender) throws Exception {
+
+		List<String> img = new ArrayList<>();
+
+		for (MeetingMember x : list) {
+
+			if (gender == 0) {
+
+				img.add(imageToBase64("C:\\IMA\\neo.gif"));
+
+			} else {
+
+				img.add(imageToBase64("C:\\IMA\\prodo.gif"));
+
+			}
+
+		}
+
+		return img;
+
+	}
+
+	public void updateAddMember(long id, String userid) {
+		// TODO Auto-generated method stub
+
+		Meeting meet = meetingrepository.findById(id).orElseThrow();
+
+		meet.memberChange(1);
+
+		meetingrepository.save(meet);
+
+		Profile profile = profilerepository.findById(userid).orElseThrow();
+
+		MeetingMember meetmem = MeetingMember.builder().meeting(meet).profile(profile).build();
+
+		mtmemrepository.save(meetmem);
+
+	}
+
+	public void updateRemove(long id, String userid) {
+		Meeting meet = meetingrepository.findById(id).orElseThrow();
+
+		meet.memberChange(-1);
+
+		meetingrepository.save(meet);
+
+		Profile profile = profilerepository.findById(userid).orElseThrow();
+
+		List<MeetingMember> meetmem = mtmemrepository.findByMeetingId(id);
+		MeetingMember delmem = null;
+		for(MeetingMember x : meetmem) {
+			
+			if(userid.equals(x.getProfile().getUserId())) {
+				
+				delmem = x;
+				break;
+				
+			}
+			
+		}
+
+		mtmemrepository.deleteById(delmem.getId());
+
+	}
+
+	public int checkInvited(List<List<MeetingMember>> list, String userid) {
+	
+		for(List<MeetingMember> x : list) {
+			
+			for(MeetingMember y : x) {
+				
+				if(userid.equals(y.getProfile().getUserId())) {
+					
+					return 1;
+					
+				}
+				
+			}
+			
+		}
 		
+		return 0;
 	}
 
 }

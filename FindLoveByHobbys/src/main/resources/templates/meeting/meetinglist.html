@@ -6,7 +6,8 @@
 
 <main id="mainbody" style="height: 100%;" layout:fragment="main">
 	<div style="margin: 0px 30px;">
-		<div class="form-control my-2" style="border: none; text-align: center;">
+		<div class="form-control my-2"
+			style="border: none; text-align: center;">
 			<h2>취+Meet 만남의 장</h2>
 		</div>
 		<div id="selectors" class="row">
@@ -99,43 +100,61 @@
 			class="the-wedding-section section-bg section-padding" id="section_3">
 			<div class="container">
 				<div class="row">
-				<div class="row">
-					<div class="col-lg-12 col-10">
-						<div class="section-title-wrap mb-5">
-							<h2 class="section-title">이런 모임은 어떠세요?</h2>
+					<div class="row">
+						<div class="col-lg-12 col-10">
+							<div class="section-title-wrap mb-5">
+								<h2 class="section-title">이런 모임은 어떠세요?</h2>
 
-							<div class="section-title-bottom"></div>
+								<div class="section-title-bottom"></div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-1"></div>
-				<div class="row col-10">
-					<div th:each="list : ${list}"
-						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
-						<div class="image-hover-thumb">
-							<a th:href="@{'/meeting/read?id='+${list.id}}"><img th:src="'data:image/jpg;base64,' + ${list.image1}"
-								class="img-fluid" alt=""></a>
+					<div class="col-1"></div>
+					<div class="row col-10">
+						<div th:each="list : ${list}"
+							class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+							<div class="image-hover-thumb">
+								<a th:href="@{'/meeting/read?id='+${list.id}}"><img
+									th:src="'data:image/jpg;base64,' + ${list.image1}"
+									class="img-fluid" alt=""></a>
+							</div>
+							<input class="d-none" id="meetid" name="meetid"
+								th:value="${list.id}" />
+
+
+							<div class="section-block">
+								<h3 class="my-3" th:text="${ list.title }">The Reception</h3>
+
+								<p class="mb-2" th:text="${ list.location.locationname }">
+									5th Avenue at, Central Park S</p>
+
+								<p
+									th:text="${ #temporals.format(list.meetingdate, 'YYYY. M. d a h:mm:ss') }">5:00
+									PM</p>
+							</div>
 						</div>
-						<input class="d-none" id="meetid" name="meetid"
-							th:value="${list.id}" />
 
-
-						<div class="section-block">
-							<h3 class="my-3" th:text="${ list.title }">The Reception</h3>
-
-							<p class="mb-2" th:text="${ list.location.locationname }">
-								5th Avenue at, Central Park S</p>
-
-							<p th:text="${ #temporals.format(list.meetingdate, 'YYYY. M. d a h:mm:ss') }">5:00 PM</p>
-						</div>
 					</div>
-					
-				</div>
-				<div class="col-1"></div>
+					<div class="col-1"></div>
 				</div>
 			</div>
 		</section>
 	</div>
+	<div class="row">
+		<div class="col-lg-12 col-10">
+			<div class="section-title-wrap mb-5">
+				<h2 class="section-title">마음에 드는 모임이 없다면? 직접 만들어 보세요</h2>
+
+				<div class="section-title-bottom"></div>
+			</div>
+		</div>
+	</div>
+	<div style="display: flex; justify-content: center;" class="my-4">
+		<a class="btn btn-outline-dark"
+			style="width: 300px; height: 40px; font-weight: bold;"
+			th:href="@{/meeting/create}">내가 직접 만들어보기</a>
+	</div>
+
 </main>
 
 

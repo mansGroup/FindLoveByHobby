@@ -83,8 +83,11 @@ public class Meeting extends BaseTimeEntity {
 	@Column
 	private LocalDateTime meetingdate;
 	
-	@OneToMany(mappedBy = "meeting")
-	private List<MeetingMember> members;
+	public void updateStatus(int status) {
+		
+		this.status = status;
+		
+	}
 	
 	public void update(MeetingMakeDto dto, Hobby hobby, Location loc, int member) {
 		
@@ -108,6 +111,12 @@ public class Meeting extends BaseTimeEntity {
 		this.image1 = photo[0];
 		this.image2 = photo[1];
 		this.image3 = photo[2];
+		
+	}
+	
+	public void memberChange(int member) {
+		
+		this.member += member;
 		
 	}
 	
