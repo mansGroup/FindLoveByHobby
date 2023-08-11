@@ -24,9 +24,9 @@
 <main layout:fragment="main">
 
 	<!-- 로그인 / 프로필 유저 아이디 -->
-	<input class="d-none" th:value="${loginUserId}" id="loginUserId" />
-	<input calss="d-none" th:value="${member1.userId}" id="member1Id" />
-	<input calss="d-none" th:value="${member2.userId}" id="member2Id" />
+	<input class="d-none" th:value="${ #authentication.name }" id="loginUserId" />
+	<input class="d-none" th:value="${member1.userId}" id="member1Id" />
+	<input class="d-none" th:value="${member2.userId}" id="member2Id" />
 	
 	<section class="about-section section-padding" id="section_2">
 		<div class="container">

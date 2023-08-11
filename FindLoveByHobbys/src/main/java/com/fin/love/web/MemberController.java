@@ -17,6 +17,7 @@ import com.fin.love.dto.member.MemberSignUpDto;
 import com.fin.love.repository.profile.Profile;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.Role;
+import com.fin.love.service.MatchingDetailService;
 import com.fin.love.service.MemberService;
 import com.fin.love.service.profile.ProfileService;
 
@@ -33,6 +34,7 @@ public class MemberController {
 	
 	private final MemberService memberService;
 	private final ProfileService profileService;
+	private final MatchingDetailService matchingDetailService;
 
 	
 	@GetMapping("/login")
@@ -67,6 +69,8 @@ public class MemberController {
 		
 		String id = memberService.signUp(dto);
 		log.info("signup id = {}", id);
+		
+		matchingDetailService.newCreat(dto.getUserid());
 		
 		return "/member/login";
 	}

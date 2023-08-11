@@ -89,10 +89,11 @@ public class FileUploadController {
 	}
 	
 	@GetMapping("/image_modify")
-	public String imageModify(Model model) {
+	public String imageModify(HttpSession session, Model model) {
 		log.info("imageModify()");
 		
-		String userId = "member2"; // 유저 아이디 나중에 받아오기
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userId = authentication.getName();
 		log.info("imageUploadPage(userId = {})", userId);
 		
 		Picture pic = pictureService.baseUploadImage(userId);

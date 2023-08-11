@@ -15,6 +15,8 @@ import com.fin.love.repository.assessment.Assessment;
 import com.fin.love.repository.assessment.AssessmentRepository;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.hobby.HobbyRepository;
+import com.fin.love.repository.profile.Age;
+import com.fin.love.repository.profile.AgeRepository;
 import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.ProfileRepository;
 import com.fin.love.repository.profile.UserHobby;
@@ -35,14 +37,19 @@ public class MatchingService {
 	private final HobbyRepository hobbyRepository;
 	private final ProfileRepository profileRepository;
 	private final AssessmentRepository assessmentRepository;
+	private final AgeRepository ageRepository;
 
 	@Transactional(readOnly = true)
 	public List<MatchingListDto> matching(String id) {
 		log.info("matching()");
 
 		// 로그인한 사용자 profile 들고오기
-		Profile userProfile = profileRepository.findById(id).orElseThrow();
+		Profile userProfile = profileRepository.findById(id).orElse(null);
 		
+		if (userProfile == null) {
+			return null;
+		}
+
 		// 로그인한 사용자 userInfo 들고오기
 		Member userInfo = memberRepository.findById(id).orElseThrow();
 
@@ -55,8 +62,11 @@ public class MatchingService {
 		// 전체 회원 검색을 위한 list
 		List<Member> members = null;
 		
+		// 나이 리스트
+		List<Age> ages = ageRepository.findAll();
+
 		log.info("사용자 성별 >>>> " + userInfo.getSex());
-		
+
 		if (userInfo.getSex() == 1) { // 1인지 모르겠지만 남자라면
 			members = memberRepository.findBySex(2); // 여자만 검색
 		} else { // 여자라면
@@ -89,9 +99,9 @@ public class MatchingService {
 		// 취미 매칭하기
 		for (int i = 0; i < members.size(); i++) {
 			int matchingMemberScore = 0;
-			
+
 			log.info("members >>>>>> " + members.get(i).toString());
-			
+
 			// 취미
 			List<UserHobby> matchingMemberHobby = userHobbyRepository.findByUserid(members.get(i).getId());
 
@@ -99,16 +109,16 @@ public class MatchingService {
 				// 같은 취미를 가지는지 확인을 위한 객체 생성.
 				Long num = matchingMemberHobby.get(j).getHobbyId();
 				int number = Integer.parseInt(String.valueOf(num));
-				
+
 				if (hobbyScore.get(number) == 1) { // 1이면 같은 취미
 					matchingMemberScore += 10;
 				}
 			}
 
 			Profile memberProfile = profileRepository.findById(members.get(i).getId()).orElseThrow();
-			
+
 			log.info("memberProfile >>>> " + memberProfile);
-			
+
 			// 직업
 			matchingMemberScore += jobCalculation(userProfile.getUserJob(), memberProfile.getUserJob());
 
@@ -127,123 +137,141 @@ public class MatchingService {
 				first = members.get(i).getId();
 			}
 		}
-		
+
 		log.info("first >>> " + first);
 		log.info("second >>> " + second);
 		log.info("third >>> " + third);
 		log.info("fourth >>> " + fourth);
 		log.info("fifth >>> " + fifth);
-		
+
 		// 리터할 List
 		List<MatchingListDto> list = new LinkedList<>();
-		
-		//TODO
+
 		// 첫번째 매칭 유저
 		if (!first.equals("")) {
-			Assessment assessmentFirst = assessmentRepository.findById(first).orElseThrow();
-			String assessmentFirstStr = assessmentMaxValue(assessmentFirst);
+			Assessment assessmentFirst = assessmentRepository.findById(first).orElse(null);
 			String assessmentFirtsName = "";
 			int assessmentFirtsCount = 0;
-			if (assessmentFirstStr != null) {
+			String assessmentFirstStr = assessmentMaxValue(assessmentFirst);
+			
+			if (assessmentFirst.getBeautiful() == 0 && assessmentFirst.getCute() == 0 && assessmentFirst.getHandsome() == 0 
+					&& assessmentFirst.getSexy() == 0 && assessmentFirst.getWonderful() == 0) {
+				assessmentFirtsName = "Commonness";
+			} else if (assessmentFirstStr != null) {
 				StringTokenizer st = new StringTokenizer(assessmentFirstStr, "/");
 				assessmentFirtsName = st.nextToken();
 				assessmentFirtsCount = Integer.parseInt(st.nextToken());
 			}
-			
 			String memberNickname1 = memberRepository.findById(first).orElseThrow().getNickname(); // 첫번째 매칭된 유저 닉네임
-			int memberage1 = profileRepository.findById(first).orElseThrow().getUserAge(); // 첫번째 매칭된 유저 나이
-			String memberIntrodus1 = profileRepository.findById(first).orElseThrow().getUserIntroduce(); // 첫번째 매칭된 유저 소개
+			String memberage1 = ages.get(profileRepository.findById(first).orElseThrow().getUserAge() - 1).getAgeName(); // 첫번째 매칭된 유저 나이
+			String memberIntrodus1 = profileRepository.findById(first).orElseThrow().getUserIntroduce(); // 첫번째 매칭된 유저
 			
-			MatchingListDto firstDto = new MatchingListDto(first, memberNickname1, memberage1, memberIntrodus1, assessmentFirtsName, assessmentFirtsCount);
+			MatchingListDto firstDto = new MatchingListDto(first, memberNickname1, memberage1, memberIntrodus1,
+					assessmentFirtsName, assessmentFirtsCount);
 			list.add(firstDto);
 		}
-		
+
 		// 두번째 매칭 유저
 		if (!second.equals("")) {
-			Assessment assessmentSecond = assessmentRepository.findById(second).orElseThrow();
-			String assessmentSecondStr = assessmentMaxValue(assessmentSecond);
+			Assessment assessmentSecond = assessmentRepository.findById(second).orElse(null);
 			String assessmentSecondName = "";
 			int assessmentSecondCount = 0;
-			if (assessmentSecondStr != null) {
+			String assessmentSecondStr = assessmentMaxValue(assessmentSecond);
+			if (assessmentSecond.getBeautiful() == 0 && assessmentSecond.getCute() == 0 && assessmentSecond.getHandsome() == 0 
+					&& assessmentSecond.getSexy() == 0 && assessmentSecond.getWonderful() == 0) {
+				assessmentSecondName = "Commonness";
+			} else if (assessmentSecondStr != null) {
 				StringTokenizer st = new StringTokenizer(assessmentSecondStr, "/");
 				assessmentSecondName = st.nextToken();
 				assessmentSecondCount = Integer.parseInt(st.nextToken());
 			}
-			
 			String memberNickname2 = memberRepository.findById(second).orElseThrow().getNickname(); // 두번째 매칭된 유저 닉네임
-			int memberage2 = profileRepository.findById(second).orElseThrow().getUserAge(); // 두번째 매칭된 유저 나이
-			String memberIntrodus2 = profileRepository.findById(second).orElseThrow().getUserIntroduce(); // 두번째 매칭된 유저 소개
-			
-			MatchingListDto secondDto = new MatchingListDto(second, memberNickname2, memberage2, memberIntrodus2, assessmentSecondName, assessmentSecondCount);
+			String memberage2 = ages.get(profileRepository.findById(second).orElseThrow().getUserAge() - 1).getAgeName(); // 두번째 매칭된 유저 나이
+			String memberIntrodus2 = profileRepository.findById(second).orElseThrow().getUserIntroduce(); // 두번째 매칭된 유저
+																											// 소개
+
+			MatchingListDto secondDto = new MatchingListDto(second, memberNickname2, memberage2, memberIntrodus2,
+					assessmentSecondName, assessmentSecondCount);
 			list.add(secondDto);
 		}
-		
+
 		// 세번째 매칭 유저
 		if (!third.equals("")) {
-			Assessment assessmentThird = assessmentRepository.findById(third).orElseThrow();
-			String assessmentThirdStr = assessmentMaxValue(assessmentThird);
+			Assessment assessmentThird = assessmentRepository.findById(third).orElse(null);
 			String assessmentThirdName = "";
 			int assessmentThirdCount = 0;
-			if (assessmentThirdStr != null) {
+			String assessmentThirdStr = assessmentMaxValue(assessmentThird);
+			if (assessmentThird.getBeautiful() == 0 && assessmentThird.getCute() == 0 && assessmentThird.getHandsome() == 0 
+					&& assessmentThird.getSexy() == 0 && assessmentThird.getWonderful() == 0) {
+				assessmentThirdName = "Commonness";
+			} else if (assessmentThirdStr != null) {
 				StringTokenizer st = new StringTokenizer(assessmentThirdStr, "/");
 				assessmentThirdName = st.nextToken();
 				assessmentThirdCount = Integer.parseInt(st.nextToken());
 			}
-			
 			String memberNickname3 = memberRepository.findById(third).orElseThrow().getNickname(); // 세번째 매칭된 유저 닉네임
-			int memberage3 = profileRepository.findById(third).orElseThrow().getUserAge(); // 세번째 매칭된 유저 나이
-			String memberIntrodus3 = profileRepository.findById(third).orElseThrow().getUserIntroduce(); // 세번째 매칭된 유저 소개
-			
-			MatchingListDto thirdDto = new MatchingListDto(third, memberNickname3, memberage3, memberIntrodus3, assessmentThirdName, assessmentThirdCount);
+			String memberage3 = ages.get(profileRepository.findById(third).orElseThrow().getUserAge() - 1).getAgeName(); // 세번째 매칭된 유저 나이
+			String memberIntrodus3 = profileRepository.findById(third).orElseThrow().getUserIntroduce(); // 세번째 매칭된 유저
+																											// 소개
+
+			MatchingListDto thirdDto = new MatchingListDto(third, memberNickname3, memberage3, memberIntrodus3,
+					assessmentThirdName, assessmentThirdCount);
 			list.add(thirdDto);
 		}
-		
+
 		// 네번째 매칭 유저
 		if (!fourth.equals("")) {
-			Assessment assessmentFourth = assessmentRepository.findById(fourth).orElseThrow();
-			log.info("assessmentFourth ==>>> " + assessmentFourth);
-			String assessmentFourthStr = assessmentMaxValue(assessmentFourth);
+			Assessment assessmentFourth = assessmentRepository.findById(fourth).orElse(null);
 			String assessmentFourthName = "";
 			int assessmentFourthCount = 0;
-			if (assessmentFourthStr != null) {
+			String assessmentFourthStr = assessmentMaxValue(assessmentFourth);
+			if (assessmentFourth.getBeautiful() == 0 && assessmentFourth.getCute() == 0 && assessmentFourth.getHandsome() == 0 
+					&& assessmentFourth.getSexy() == 0 && assessmentFourth.getWonderful() == 0) {
+				assessmentFourthName = "Commonness";
+			} else if (assessmentFourthStr != null) {
 				StringTokenizer st = new StringTokenizer(assessmentFourthStr, "/");
 				assessmentFourthName = st.nextToken();
 				assessmentFourthCount = Integer.parseInt(st.nextToken());
 			}
-			
 			String memberNickname4 = memberRepository.findById(fourth).orElseThrow().getNickname(); // 네번째 매칭된 유저 닉네임
-			int memberage4 = profileRepository.findById(fourth).orElseThrow().getUserAge(); // 네번째 매칭된 유저 나이
-			String memberIntrodus4 = profileRepository.findById(fourth).orElseThrow().getUserIntroduce(); // 네번째 매칭된 유저 소개
-			
-			MatchingListDto fourthDto = new MatchingListDto(fourth, memberNickname4, memberage4, memberIntrodus4, assessmentFourthName, assessmentFourthCount);
+			String memberage4 = ages.get(profileRepository.findById(fourth).orElseThrow().getUserAge() - 1).getAgeName(); // 네번째 매칭된 유저 나이
+			String memberIntrodus4 = profileRepository.findById(fourth).orElseThrow().getUserIntroduce(); // 네번째 매칭된 유저
+																											// 소개
+
+			MatchingListDto fourthDto = new MatchingListDto(fourth, memberNickname4, memberage4, memberIntrodus4,
+					assessmentFourthName, assessmentFourthCount);
 			list.add(fourthDto);
 		}
-		
+
 		// 다섯 번재 매칭 유저
 		if (!fifth.equals("")) {
-			Assessment assessmentFifth = assessmentRepository.findById(fifth).orElseThrow();
-			String assessmentFifthStr = assessmentMaxValue(assessmentFifth);
+			Assessment assessmentFifth = assessmentRepository.findById(fifth).orElse(null);
 			String assessmentFifthName = "";
 			int assessmentFifthCount = 0;
-			if (assessmentFifthStr != null) {
+			String assessmentFifthStr = assessmentMaxValue(assessmentFifth);
+			if (assessmentFifth.getBeautiful() == 0 && assessmentFifth.getCute() == 0 && assessmentFifth.getHandsome() == 0 
+					&& assessmentFifth.getSexy() == 0 && assessmentFifth.getWonderful() == 0) {
+				assessmentFifthName = "Commonness";
+			} else if (assessmentFifthStr != null) {
 				StringTokenizer st = new StringTokenizer(assessmentFifthStr, "/");
 				assessmentFifthName = st.nextToken();
 				assessmentFifthCount = Integer.parseInt(st.nextToken());
 			}
-			
 			String memberNickname5 = memberRepository.findById(fifth).orElseThrow().getNickname(); // 다섯번째 매칭된 유저 닉네임
-			int memberage5 = profileRepository.findById(fifth).orElseThrow().getUserAge(); // 다섯번째 매칭된 유저 나이
-			String memberIntrodus5 = profileRepository.findById(fifth).orElseThrow().getUserIntroduce(); // 다섯번째 매칭된 유저 소개
-			
-			MatchingListDto fifthDto = new MatchingListDto(fifth, memberNickname5, memberage5, memberIntrodus5, assessmentFifthName, assessmentFifthCount);
+			String memberage5 = ages.get(profileRepository.findById(fifth).orElseThrow().getUserAge() - 1).getAgeName(); // 다섯번째 매칭된 유저 나이
+			String memberIntrodus5 = profileRepository.findById(fifth).orElseThrow().getUserIntroduce(); // 다섯번째 매칭된 유저
+																											// 소개
+
+			MatchingListDto fifthDto = new MatchingListDto(fifth, memberNickname5, memberage5, memberIntrodus5,
+					assessmentFifthName, assessmentFifthCount);
 			list.add(fifthDto);
 		}
-		
+
 		// 검색 대상이 없을 경우
 		if (first.equals("") && second.equals("") && third.equals("") && fourth.equals("") && fifth.equals("")) {
 			if (userInfo.getSex() == 1) { // 1인지 모르겠지만 남자라면
 				members = memberRepository.findBySex(0); // 여자만 검색
-				
+
 				for (int i = 0; i < members.size(); i++) {
 					Assessment assessmentMember = assessmentRepository.findById(members.get(i).getId()).orElseThrow();
 					String assessmentMemberStr = assessmentMaxValue(assessmentMember);
@@ -254,17 +282,22 @@ public class MatchingService {
 						assessmentMemberName = st.nextToken();
 						assessmentMemberCount = Integer.parseInt(st.nextToken());
 					}
+
+					String memberNickname = memberRepository.findById(members.get(i).getId()).orElseThrow()
+							.getNickname(); // 다섯번째 매칭된 유저 닉네임
+					String memberage = ages.get(profileRepository.findById(members.get(i).getId()).orElseThrow().getUserAge() - 1).getAgeName(); 
 					
-					String memberNickname = memberRepository.findById(members.get(i).getId()).orElseThrow().getNickname(); // 다섯번째 매칭된 유저 닉네임
-					int memberage = profileRepository.findById(members.get(i).getId()).orElseThrow().getUserAge(); // 다섯번째 매칭된 유저 나이
-					String memberIntrodus = profileRepository.findById(members.get(i).getId()).orElseThrow().getUserIntroduce(); // 다섯번째 매칭된 유저 소개
 					
-					MatchingListDto member  = new MatchingListDto(members.get(i).getId(), memberNickname, memberage, memberIntrodus, assessmentMemberName, assessmentMemberCount);
+					String memberIntrodus = profileRepository.findById(members.get(i).getId()).orElseThrow()
+							.getUserIntroduce(); // 다섯번째 매칭된 유저 소개
+
+					MatchingListDto member = new MatchingListDto(members.get(i).getId(), memberNickname, memberage,
+							memberIntrodus, assessmentMemberName, assessmentMemberCount);
 					list.add(member);
 				}
 			} else { // 여자라면
 				members = memberRepository.findBySex(1); // 남자만 검색
-				
+
 				for (int i = 0; i < members.size(); i++) {
 					Assessment assessmentMember = assessmentRepository.findById(members.get(i).getId()).orElseThrow();
 					String assessmentMemberStr = assessmentMaxValue(assessmentMember);
@@ -275,54 +308,62 @@ public class MatchingService {
 						assessmentMemberName = st.nextToken();
 						assessmentMemberCount = Integer.parseInt(st.nextToken());
 					}
-					
-					String memberNickname = memberRepository.findById(members.get(i).getId()).orElseThrow().getNickname(); // 다섯번째 매칭된 유저 닉네임
-					int memberage = profileRepository.findById(members.get(i).getId()).orElseThrow().getUserAge(); // 다섯번째 매칭된 유저 나이
-					String memberIntrodus = profileRepository.findById(members.get(i).getId()).orElseThrow().getUserIntroduce(); // 다섯번째 매칭된 유저 소개
-					
-					MatchingListDto member  = new MatchingListDto(members.get(i).getId(), memberNickname, memberage, memberIntrodus, assessmentMemberName, assessmentMemberCount);
+
+					String memberNickname = memberRepository.findById(members.get(i).getId()).orElseThrow()
+							.getNickname(); // 다섯번째 매칭된 유저 닉네임
+					String memberage = ages.get(profileRepository.findById(members.get(i).getId()).orElseThrow().getUserAge()).getAgeName();
+					String memberIntrodus = profileRepository.findById(members.get(i).getId()).orElseThrow()
+							.getUserIntroduce(); // 다섯번째 매칭된 유저 소개
+
+					MatchingListDto member = new MatchingListDto(members.get(i).getId(), memberNickname, memberage,
+							memberIntrodus, assessmentMemberName, assessmentMemberCount);
 					list.add(member);
 				}
 			}
 		}
-		
+
 		return list;
 	}
-	
+
 	// 호감도가 제일 높은 걸 찾기 위한 메서드
 	private String assessmentMaxValue(Assessment assessment) {
 		String str = "";
 		int max = 0;
-		
+
 		if (assessment.getBeautiful() > assessment.getHandsome() && assessment.getBeautiful() > assessment.getSexy()
-				&& assessment.getBeautiful() >= assessment.getWonderful() && assessment.getBeautiful() >= assessment.getCute()) {
+				&& assessment.getBeautiful() >= assessment.getWonderful()
+				&& assessment.getBeautiful() >= assessment.getCute()) {
 			str = "Beautiful";
 			max = assessment.getBeautiful();
 		} else if (assessment.getCute() >= assessment.getBeautiful() && assessment.getCute() >= assessment.getHandsome()
 				&& assessment.getCute() >= assessment.getSexy() && assessment.getCute() >= assessment.getWonderful()) {
 			str = "Cute";
 			max = assessment.getCute();
-		} else if (assessment.getHandsome() > assessment.getBeautiful() && assessment.getHandsome() >= assessment.getCute()
-				&& assessment.getHandsome() > assessment.getSexy() && assessment.getHandsome() >= assessment.getWonderful()) {
+		} else if (assessment.getHandsome() > assessment.getBeautiful()
+				&& assessment.getHandsome() >= assessment.getCute() && assessment.getHandsome() > assessment.getSexy()
+				&& assessment.getHandsome() >= assessment.getWonderful()) {
 			str = "Handsome";
 			max = assessment.getHandsome();
 		} else if (assessment.getSexy() >= assessment.getBeautiful() && assessment.getSexy() >= assessment.getCute()
-				&& assessment.getSexy() >= assessment.getHandsome() && assessment.getSexy() >= assessment.getWonderful()) {
+				&& assessment.getSexy() >= assessment.getHandsome()
+				&& assessment.getSexy() >= assessment.getWonderful()) {
 			str = "Sexy";
 			max = assessment.getSexy();
-		} else if (assessment.getWonderful() >= assessment.getBeautiful() && assessment.getWonderful() >= assessment.getCute()
-				&& assessment.getWonderful() >= assessment.getHandsome() && assessment.getWonderful() >= assessment.getSexy()) {
+		} else if (assessment.getWonderful() >= assessment.getBeautiful()
+				&& assessment.getWonderful() >= assessment.getCute()
+				&& assessment.getWonderful() >= assessment.getHandsome()
+				&& assessment.getWonderful() >= assessment.getSexy()) {
 			str = "Wonderful";
 			max = assessment.getWonderful();
 		}
-		
+
 		if (max == 0) {
 			return null;
 		}
-		
+
 		str += "/";
 		str += String.valueOf(max);
-		
+
 		return str;
 	}
 
@@ -608,32 +649,32 @@ public class MatchingService {
 
 		return score;
 	}
-	
+
 	// 출력하는 사진으로 변경시키기
 	public String imageChange(String picture) {
 		log.info("imageChange(picture = {})", picture);
-		
+
 		if (picture.equals("/images/Adding_a_Person_Image.png")) {
 			return picture;
 		}
-		
+
 		String result = "/images/uploadImages/";
 		result += picture;
-		
+
 		return result;
 	}
-	
+
 	// 매칭 리스트에서 랜덤으로 2명을 선정하는 매서드
-	public List<MatchingListDto> matchingBest (List<MatchingListDto> list) {
+	public List<MatchingListDto> matchingBest(List<MatchingListDto> list) {
 		List<MatchingListDto> result = new ArrayList<>();
-		
+
 		Random ran = new Random();
-		
+
 		int number = 0;
-		
+
 		for (int i = 0; i < 2; i++) {
 			int randomInt = ran.nextInt(list.size());
-			
+
 			if (number != randomInt) {
 				number = randomInt;
 				result.add(list.get(randomInt));
@@ -641,7 +682,7 @@ public class MatchingService {
 				i--;
 			}
 		}
-		
+
 		return result;
 	}
 

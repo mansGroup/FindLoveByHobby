@@ -111,6 +111,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
 		return this.id;
 	}
 	
-	
+	public Member updateRole(Role role) {
+		this.role = role;
+		
+		return this;
+	}
 	
 }

@@ -273,5 +273,13 @@ public class MatchingDetailService {
 		return result;
 	}
 
+	public void newCreat(String userId) {
+		log.info("newCreat(userId = {})", userId);
+		
+		Assessment assessment = new Assessment(userId, 0, 0, 0, 0, 0);
+		
+		assessmentRepository.save(assessment);
+	}
+
 	
 }

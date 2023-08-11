@@ -31,7 +31,11 @@ public class MatchingListController {
 
 		// 매칭 유저 뽑기
 		List<MatchingListDto> memberList = matchingService.matching(userId);
-
+		
+		if (memberList == null) {
+			return "redirect:/matching/matching/none";
+		}
+		
 		// 매칭 유저에서 2명 선정하기
         List<MatchingListDto> bestMember = matchingService.matchingBest(memberList);
         
@@ -51,7 +55,6 @@ public class MatchingListController {
 //		Picture member2Pic = pictureService.findById("member2");
 //		String member2UsualPic = matchingService.imageChange(member2Pic.getPic1());
         
-        model.addAttribute("loginUserId", userId);
 		model.addAttribute("member1", member1); // member1
 		model.addAttribute("member2", member2); // member2
 		model.addAttribute("member1Pic", member1UsualPic); // member1 사진
@@ -64,5 +67,13 @@ public class MatchingListController {
 	public void sssss() {
 
 	}
-
+	
+	@GetMapping("/matching/none")
+	public String matchingNone() {
+		log.info("matchingNone()");
+		
+		return "/matching/matching_list_none";
+	}
+	
+	
 }
