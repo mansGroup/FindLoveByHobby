@@ -5,6 +5,7 @@ import com.fin.love.repository.chat.Chatting;
 import com.fin.love.repository.chat.ChattingRoom;
 import com.fin.love.respository.member.Member;
 import com.fin.love.service.MemberService;
+import com.fin.love.service.chatting.ChatCountService;
 import com.fin.love.service.chatting.ChattingRoomService;
 import com.fin.love.service.chatting.ChattingService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class ChatController {
     private final ChattingService chattingService;
     private final ChattingRoomService chattingRoomService;
     private final MemberService memberService;
+    private final ChatCountService chatCountService;
 
     @GetMapping("/demo")
     public void demo() {
@@ -59,7 +61,7 @@ public class ChatController {
         log.info("채팅방 정보 리스트 사이즈 from chatController {}", dtoList.size());
     }
 
-    @GetMapping("/chatroom/{room}/{id}")
+    @GetMapping("/chatroom/{room}")
     public String chatByLove(@PathVariable Long room, @PathVariable String id, Model model) {
         log.info("chatByLove({})", room);
 
@@ -68,9 +70,15 @@ public class ChatController {
         String userId = id;
         String maleID = "";
         String femaleId = "";
+
+
+
         // 나의 성별 찾기
         Member member = memberService.getSexById(userId);
 
+        chattingService.checkAllChatCount(room, maleID, member.getSex());
+
+        model.addAttribute("mySex", member.getSex());
         // 성별에 따라 maleid, femaleid 넣어주기
         if (member.getSex() == 1) {
             maleID = userId;

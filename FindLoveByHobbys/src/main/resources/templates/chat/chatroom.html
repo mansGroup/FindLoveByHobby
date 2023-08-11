@@ -14,6 +14,7 @@
     <div id="maleID" class="d-none" th:value="${maleId}"></div>
     <div id="femaleID" class="d-none" th:value="${femaleId}"></div>
     <div id="myId" class="d-none" th:value="${myId}"></div>
+    <div id="mySex" class="d-none" th:value="${mySex}"></div>
 
     <!-- d-none form -->
     <form id="goChat" class="d-none" action="/chat/demo"></form>
@@ -33,13 +34,18 @@
         <div class="people-list" id="people-list">
             <!-- 상대방 리스트 -->
             <ul  class="list">
-                <li class="clearfix" th:each="dto : ${dtoList}">
-                    <a th:href="@{'/chat/chatroom/' + ${dto.contentId}}">
-                        <div class="about">
-                            <div class="name" th:text="${dto.nickname}">${list}</div>
-                        </div>
-                    </a>
-                </li>
+                <div th:each="list : ${dtoList}">
+                    <li class="clearfix">
+                        <a th:href="@{'/chat/chatroom/' + ${list.contentId}}">
+                            <div class="about" style="display: flex;">
+                                <div class="name" th:text="${list.nickname}">${list}</div>
+                                <div th:if="${list.nickname != otherNickname} ">
+                                    <div class="chatCount" th:value="${list.contentId}" style="font-size: 15px; margin-left: 3px; "></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </div>
             </ul>
         </div>
         <!-- 방번호 -->
@@ -106,8 +112,9 @@
 </main>
 
     <th:block layout:fragment="myscripts">
-        <script src="\js\chat\chats.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/chat/chats.js"></script>
+        <script src="/js/chat/chatCount.js"></script>
     </th:block>
 
 </html>

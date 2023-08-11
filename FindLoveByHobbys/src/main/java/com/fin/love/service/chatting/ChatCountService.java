@@ -15,16 +15,20 @@ public class ChatCountService {
     private final ChatCountRepository chatCountRepository;
 
     @Transactional
-    public void upChatCount(Long roomId, String myId, int mySex) {
+    public void upChatCount(Long roomId, String maleId, String femaleId, int mySex) {
         ChatCount chatCount = chatCountRepository.findById(roomId).orElseGet(ChatCount::new);
 
         if (mySex == 1) {
             if (chatCount.getRoomid() == null) {
                 chatCountRepository.save(ChatCount.builder()
-                                                .roomid(roomId)
-                                                .male_chatcount(1L)
-                                                .maleid(myId)
-                                                .build());
+                        .roomid(roomId)
+                        .maleChatcount(0L)
+                        .maleCheckcount(0L)
+                        .femaleChatcount(1L)
+                        .femaleCheckcount(0L)
+                        .maleid(maleId)
+                        .femaleid(femaleId)
+                        .build());
                 return;
             }
 
@@ -33,10 +37,14 @@ public class ChatCountService {
         } else {
             if (chatCount.getRoomid() == null) {
                 chatCountRepository.save(ChatCount.builder()
-                                                .roomid(roomId)
-                                                .female_chatcount(1L)
-                                                .femaleid(myId)
-                                                .build());
+                        .roomid(roomId)
+                        .maleChatcount(1L)
+                        .maleCheckcount(0L)
+                        .femaleChatcount(0L)
+                        .femaleCheckcount(0L)
+                        .maleid(maleId)
+                        .femaleid(femaleId)
+                        .build());
                 return;
             }
 
@@ -45,7 +53,7 @@ public class ChatCountService {
     }
 
     @Transactional
-    public void downChatCount(Long roomId, String myId, int mySex) {
+    public void downChatCount(Long roomId, String maleId, String femaleId, int mySex) {
         ChatCount chatCount = chatCountRepository.findById(roomId).orElseGet(ChatCount::new);
 
         if (mySex == 1) {

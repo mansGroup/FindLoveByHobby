@@ -19,20 +19,22 @@ import java.util.List;
 public class ChatCountController {
 
     private final ChatCountService chatCountService;
-    @GetMapping("upCount/{roomId}/{myId}/{mySex}")
+    @GetMapping("upCount/{roomId}/{maleId}/{femaleId}/{mySex}")
     public void upChatCount(@PathVariable Long roomId,
-                            @PathVariable String myId,
+                            @PathVariable String maleId,
+                            @PathVariable String femaleId,
                             @PathVariable int mySex) {
 
-        chatCountService.upChatCount(roomId, myId, mySex);
+        chatCountService.upChatCount(roomId, maleId, femaleId, mySex);
     }
 
-    @GetMapping("downCount/{roomId}/{myId}/{mySex}")
+    @GetMapping("downCount/{roomId}/{maleId}/{femaleId}/{mySex}")
     public void downChatCount(@PathVariable Long roomId,
-                            @PathVariable String myId,
+                            @PathVariable String maleId,
+                            @PathVariable String femaleId,
                             @PathVariable int mySex) {
 
-        chatCountService.downChatCount(roomId, myId, mySex);
+        chatCountService.downChatCount(roomId, maleId, femaleId, mySex);
     }
 
     @GetMapping("/countList/{myId}/{mySex}")

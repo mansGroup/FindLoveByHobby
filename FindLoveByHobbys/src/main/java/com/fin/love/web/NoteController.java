@@ -24,7 +24,7 @@ public class NoteController {
     @GetMapping("/note")
     public void note(Model model) {
         // TODO 시큐리티 id 바꿔주기
-        String id = "user1";
+        String id = "user3";
         // 쪽지창 들어오면 알람 개수 없애주기
         boolean haveNoteNumber = noteNumberService.checkedNote(id);
 

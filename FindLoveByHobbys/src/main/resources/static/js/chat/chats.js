@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatOutForm = document.querySelector('form#chatOutForm');
     const btnFaceChat = document.querySelector('span#btnFaceChat');
     const faceChatForm = document.querySelector('form#faceChatForm')
-    const maleId = document.querySelector('div#maleID');
-    const femaleId = document.querySelector('div#femaleID');
+    const maleId = document.querySelector('div#maleID').getAttribute('value');
+    const femaleId = document.querySelector('div#femaleID').getAttribute('value');
     const goChat = document.querySelector('form#goChat');
     const myId = document.querySelector('div#myId').getAttribute('value');
     let mySex = '';
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         msg.value = '';
 
         // chatCount 올려주기
-        const url = "/chatCount/upCount" + roomId + "/" + myId + "/" + mySex;
+        const url = "/chatCount/upCount/" + roomId + "/" + maleId + "/" + femaleId + "/" + mySex;
 
         axios.get(url)
             .catch((error) => console.log(error));
@@ -95,6 +95,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         websocket.send(jsonData);
         websocket.close();
+
+        // chatCount 올려주기
+        const url = "/chatCount/upCount/" + roomId + "/" + maleId + "/" + femaleId + "/" + mySex;
+
+        axios.get(url)
+            .catch((error) => console.log(error));
     }
 
     //채팅창에 들어왔을 때
@@ -175,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
             msgArea.innerHTML += str;
 
             // 실시간으로 채팅을 보고 있음으로 chatCount를 내림
-            const url = "/chatcount/downCount/" + roomId + "/" + myId + "/" + mySex;
+            const url = "/chatcount/downCount/" + roomId + "/" + maleId + "/" + femaleId + "/" + mySex;
 
             axios.get(url)
                 .catch((error) => console.log(error));

@@ -19,16 +19,16 @@ public class ChatCount {
     private Long roomid;
 
     @Column
-    private Long male_chatcount;
+    private Long maleChatcount;
 
     @Column
-    private Long male_checkcount;
+    private Long maleCheckcount;
 
     @Column
-    private Long female_chatcount;
+    private Long femaleChatcount;
 
     @Column
-    private Long female_checkcount;
+    private Long femaleCheckcount;
 
     @Column
     private String maleid;
@@ -37,17 +37,25 @@ public class ChatCount {
     private String femaleid;
 
     public void upMaleChatCount() {
-        ++this.male_chatcount;
+        ++this.maleChatcount;
     }
 
     public void upFemaleChatCount() {
-        ++this.female_chatcount;
+        ++this.femaleChatcount;
     }
 
     public void downMaleChatCount() {
-        ++this.male_checkcount;
+        ++this.maleCheckcount;
     }
     public void downFemaleChatCount() {
-        ++this.female_checkcount;
+        ++this.femaleCheckcount;
+    }
+
+    public void maleCheckAllChatCount() {
+         this.maleChatcount = 0L;
+    }
+
+    public void femaleCheckAllChatCount() {
+        this.femaleChatcount = 0L;
     }
 }

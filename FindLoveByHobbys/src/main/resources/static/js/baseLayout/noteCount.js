@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const noteNumber = document.querySelector('p.noteNumber');
 
     setInterval(function () {
-        console.log('인터벌 실행중');
+        console.log('note인터벌 실행중');
         const url = `/api/note/count/${id}`;
         axios.get(url)
             .then((response) => {
@@ -12,5 +12,5 @@ document.addEventListener('DOMContentLoaded', () => {
                     noteNumber.innerHTML = ''+response.data;
                 }
             }).catch((error) => console.log(error));
-    }, 10000);
+    }, 3000);
 });
