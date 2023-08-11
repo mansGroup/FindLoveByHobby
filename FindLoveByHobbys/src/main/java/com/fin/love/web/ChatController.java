@@ -45,18 +45,16 @@ public class ChatController {
 
         log.info("chat()");
 
-        // TODO spring security session 적용
-        // 세션에서 id 찾아오기
-
-        String userId = id;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
 
         // 나의 성별 찾기
-        Member member = memberService.getSexById(userId);
+        Member member = memberService.getSexById(userid);
         model.addAttribute("mySex", member.getSex());
 
 
         // id로 상대방 id, 채팅방 정보 가져오기
-        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId, member.getSex());
+        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userid, member.getSex());
 
         // 상대방 id로 닉네임 리스트 가져오기
         for (ChattingListDto dto : dtoList) {
@@ -73,30 +71,29 @@ public class ChatController {
     public String chatByLove(@PathVariable Long room, @PathVariable String id, Model model) {
         log.info("chatByLove({})", room);
 
-        // TODO spring security session 적용
-        // 세션에서 id 찾아오기
-        String userId = id;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
         String maleID = "";
         String femaleId = "";
 
 
 
         // 나의 성별 찾기
-        Member member = memberService.getSexById(userId);
+        Member member = memberService.getSexById(userid);
 
         chattingService.checkAllChatCount(room, maleID, member.getSex());
 
         model.addAttribute("mySex", member.getSex());
         // 성별에 따라 maleid, femaleid 넣어주기
         if (member.getSex() == 1) {
-            maleID = userId;
+            maleID = userid;
         } else {
-            femaleId = userId;
+            femaleId = userid;
         }
 
 
         // userId로 채팅방번호 상대방 ID 리스트 가져오기
-        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId, member.getSex());
+        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userid, member.getSex());
 
         // 상대방 ID로 상대방 nickname 가져오기
         for (ChattingListDto dto : dtoList) {
@@ -115,7 +112,7 @@ public class ChatController {
         log.info("chatList size({})", chatList.size());
 
         // 내 id로 내 nickname 찾아오기
-        String myNickname = memberService.getNicknameById(userId);
+        String myNickname = memberService.getNicknameById(userid);
         log.info(myNickname + "내 닉네이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ");
         // 내 id로 내 nickname 찾아오기
         String otherNickname = "";
@@ -133,7 +130,7 @@ public class ChatController {
         model.addAttribute("otherNickname", otherNickname);
         model.addAttribute("maleId", maleID);
         model.addAttribute("femaleId", femaleId);
-        model.addAttribute("myId", userId);
+        model.addAttribute("myId", userid);
         log.info(myNickname);
         log.info(otherNickname);
         return "/chat/chatroom";

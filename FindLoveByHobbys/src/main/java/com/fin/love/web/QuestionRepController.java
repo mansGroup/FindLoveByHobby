@@ -25,9 +25,9 @@ public class QuestionRepController {
 
 	@GetMapping("/qrepcreate")
 	public void qrepcreate() {
-		
+
 		log.info("qrepcreate()");
-		
+	}
 
 	@Autowired
 	private QuestReplyService questReplyService;
