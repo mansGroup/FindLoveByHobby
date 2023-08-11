@@ -21,6 +21,8 @@ import com.fin.love.dto.meeting.MeetingModifyDto;
 import com.fin.love.dto.meeting.MeetingSearchDto;
 import com.fin.love.repository.hobby.Hobby;
 import com.fin.love.repository.hobby.HobbyRepository;
+import com.fin.love.repository.image.Picture;
+import com.fin.love.repository.image.PictureRepository;
 import com.fin.love.repository.location.Location;
 import com.fin.love.repository.location.LocationRepository;
 import com.fin.love.repository.meeting.Meeting;
@@ -31,6 +33,8 @@ import com.fin.love.repository.profile.Age;
 import com.fin.love.repository.profile.AgeRepository;
 import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.ProfileRepository;
+import com.fin.love.respository.member.Member;
+import com.fin.love.respository.member.MemberRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +42,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MeetingService {
 
+	@Autowired
+	private MemberRepository memberrepository;
+	
 	@Autowired
 	private MeetingRepository meetingrepository;
 
@@ -55,6 +62,12 @@ public class MeetingService {
 
 	@Autowired
 	private ProfileRepository profilerepository;
+	
+	@Autowired
+	private PictureRepository picrepository;
+	
+	@Autowired
+	private PictureService picservice;
 
 	public List<Meeting> myLeaderList(String userid) {
 
@@ -367,6 +380,65 @@ public class MeetingService {
 
 		return dto;
 
+	}
+
+	public List<List<MeetingMember>> readMyMember(long id) {
+		// TODO Auto-generated method stub
+		List<MeetingMember> list = mtmemrepository.findByMeetingId(id);
+		List<MeetingMember> woman = new ArrayList<>();
+		List<MeetingMember> man = new ArrayList<>();
+		List<List<MeetingMember>> list2 = new ArrayList<>();
+		for(MeetingMember x : list) {
+			
+			String userid = x.getProfile().getUserId();
+			Member member = memberrepository.findById(userid).orElseThrow();
+			
+			if(member.getSex()==0) {
+				
+				woman.add(x);
+				
+			} else {
+				
+				man.add(x);
+				
+			}
+			
+		}
+		
+		list2.add(woman);
+		list2.add(man);
+		
+		return list2;
+		
+	}
+	
+	public List<String> imagePrint(List<MeetingMember> list, int gender) throws Exception{
+		
+		List<String> img = new ArrayList<>();
+		
+		for(MeetingMember x : list) {
+			
+			
+			if(gender == 0) {
+				
+				img.add(imageToBase64("C:\\IMA\\neo.gif"));
+				
+			} else {
+				
+				img.add(imageToBase64("C:\\IMA\\prodo.gif"));
+				
+			}
+			
+			
+			
+			
+			
+			
+		}
+		
+		return img;
+		
+		
 	}
 
 }

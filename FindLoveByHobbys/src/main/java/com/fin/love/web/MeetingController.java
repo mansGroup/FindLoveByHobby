@@ -1,5 +1,6 @@
 package com.fin.love.web;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,9 +141,26 @@ public class MeetingController {
 		
 		log.info("read(id = {})",id);
 		
+		List<List<MeetingMember>> list = meetingservice.readMyMember(id);
+		
+		List<MeetingMember> list1 = list.get(1);
+		List<MeetingMember> list2 = list.get(0);
+		List<String> img1 = new ArrayList<>();
+		List<String> img2 = new ArrayList<>();
+		try {
+			img1 = meetingservice.imagePrint(list1, 1);
+			img2 = meetingservice.imagePrint(list2, 0);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		MeetingModifyDto meet = meetingservice.readMyMeeting(id);
 		model.addAttribute("meet", meet);
-		
+		model.addAttribute("man", list1);
+		model.addAttribute("woman", list2);
+		model.addAttribute("manimg", img1);
+		model.addAttribute("womanimg", img2);
 	}
 	
 }

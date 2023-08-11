@@ -33,6 +33,7 @@ public class QuestionReply extends BaseTimeEntity {
 	@ManyToOne
 	@JoinColumn(name="questionid")
 	private Question question;
+	
 	@Column
 	private String replycontent;
 	
