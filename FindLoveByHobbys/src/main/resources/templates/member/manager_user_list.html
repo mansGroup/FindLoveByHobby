@@ -62,7 +62,9 @@ img {
 </th:block>
 
 <th:block layout:fragment="main">
-
+	
+	<input th:value="${sorting}" class="d-none" id="sortingInput" />
+	
 	<div class="container" style="margin-bottom: 50px;">
 
 		<div style="margin-bottom: 10px;">
@@ -73,13 +75,13 @@ img {
 			<thead>
 				<tr>
 					<th id="colNumber"><span style="color: #FF5500;">#</span></th>
-					<th id="colName"><span style="color: #FF5500;">Name</span></th>
-					<th id="colNickname"><span style="color: #FF5500;">Nickname</span></th>
-					<th id="colGender"><span style="color: #FF5500;">Gender</span></th>
-					<th id="colRole"><span style="color: #FF5500;">Role</span></th>
+					<th><span style="color: #FF5500;" id="spanColName">Name</span><img src="" id="colNameImg"/></th>
+					<th id="colNickname"><span style="color: #FF5500;">Nickname</span><img src="" id="colNicknameImg"/></th>
+					<th id="colGender"><span style="color: #FF5500;">Gender</span><img src="" id="colGenderImg"/></th>
+					<th id="colRole"><span style="color: #FF5500;">Role</span><img src="" id="colRoleImg"/></th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody id="tableBody">
 				<tr th:each="member, idx : ${members}"
 					th:if="${idx.index >= 5 * (pageCount - 1) and idx.index < 5 * pageCount}"
 					data-bs-toggle="offcanvas" class="bodyTr"
@@ -89,9 +91,9 @@ img {
 					<td th:text="${member.nickname}"></td>
 					<td><span th:text="${member.sex}"></span></td>
 					<td><span th:if="${member.role == role[0]}">심사 완료</span> <span
-						th:if="${member.role == role[1]}">심사 대기중</span> <span
-						th:if="${member.role == role[2]}">휴면 계정</span> <span
-						th:if="${member.role == role[3]}">관리자</span></td>
+						th:if="${member.role == role[1]}" style="color: #FF5500;">심사 대기중</span> <span
+						th:if="${member.role == role[2]}" style="color: red;">휴면 계정</span> <span
+						th:if="${member.role == role[3]}" style="color: blue;">관리자</span></td>
 				</tr>
 			</tbody>
 		</table>
@@ -362,7 +364,7 @@ img {
 </th:block>
 
 <th:block layout:fragment="myscripts">
-	<script src="/js/manager/user_list.js"></script>
+	<!-- <script src="/js/manager/user_list.js"></script>  -->
 </th:block>
 
 </html>

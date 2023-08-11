@@ -1,5 +1,6 @@
 package com.fin.love.web;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,13 +32,34 @@ public class ManagerUserListController {
 	private final MemberRepository memberRepository;
 	private final MemberService memberService;
 	
-	@GetMapping("/user/list/{pageCount}")
-	public String managerUserList(@PathVariable int pageCount, Model model) {
+	@GetMapping("/user/list/{sorting}/{pageCount}")
+	public String managerUserList(@PathVariable int pageCount, @PathVariable String sorting, Model model) {
 		log.info("managerUserList()");
 		
 		Role[] roles = Role.values();
 		List<ManagerUserListDto> dtos = new LinkedList<>();
-		List<Member> members = memberRepository.findAll();
+		List<Member> members = new ArrayList<>();
+		
+		if (sorting.equals("basic")) {
+			members = memberRepository.findByOrderByIdDesc();
+		} else if (sorting.equals("nameUp")) {
+			members = memberRepository.findByOrderByName();
+		} else if (sorting.equals("nameDown")) {
+			members = memberRepository.findByOrderByNameDesc();
+		} else if(sorting.equals("nicknameUp")) {
+			members = memberRepository.findByOrderByNickname();
+		} else if (sorting.equals("nicknameDown")) {
+			members = memberRepository.findByOrderByNicknameDesc();
+		} else if (sorting.equals("genderMan")) {
+			members = memberRepository.findByOrderBySex();
+		} else if (sorting.equals("genderWoman")) {
+			members = memberRepository.findByOrderBySexDesc();
+		} else if (sorting.equals("roleUp")) {
+			members = memberRepository.findByOrderByRole();
+		} else if (sorting.equals("roleDown")) {
+			members = memberRepository.findByOrderByRoleDesc();
+		}
+		
 		
 		for (int i = 0; i < members.size(); i++) {
 			ManagerUserListDto dto = mamagerUserListService.dtoCreate(members.get(i).getId());
@@ -47,6 +69,7 @@ public class ManagerUserListController {
 		
 		model.addAttribute("role", roles);
 		model.addAttribute("members", dtos);
+		model.addAttribute("sorting", sorting);
 		
 		// 페이지 네이션
 		int onePageFirstCount = 1;

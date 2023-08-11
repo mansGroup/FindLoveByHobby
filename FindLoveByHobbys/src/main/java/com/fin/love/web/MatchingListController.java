@@ -32,8 +32,8 @@ public class MatchingListController {
 		// 매칭 유저 뽑기
 		List<MatchingListDto> memberList = matchingService.matching(userId);
 		
-		if (memberList.size() == 0) {
-			
+		if (memberList == null) {
+			return "redirect:/matching/matching/none";
 		}
 		
 		// 매칭 유저에서 2명 선정하기
@@ -67,5 +67,13 @@ public class MatchingListController {
 	public void sssss() {
 
 	}
-
+	
+	@GetMapping("/matching/none")
+	public String matchingNone() {
+		log.info("matchingNone()");
+		
+		return "/matching/matching_list_none";
+	}
+	
+	
 }

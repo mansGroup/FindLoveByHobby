@@ -44,7 +44,11 @@ public class MatchingService {
 		log.info("matching()");
 
 		// 로그인한 사용자 profile 들고오기
-		Profile userProfile = profileRepository.findById(id).orElseThrow();
+		Profile userProfile = profileRepository.findById(id).orElse(null);
+		
+		if (userProfile == null) {
+			return null;
+		}
 
 		// 로그인한 사용자 userInfo 들고오기
 		Member userInfo = memberRepository.findById(id).orElseThrow();
