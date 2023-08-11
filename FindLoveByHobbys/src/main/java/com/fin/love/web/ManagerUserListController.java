@@ -48,7 +48,6 @@ public class ManagerUserListController {
 		
 		model.addAttribute("role", roles);
 		model.addAttribute("members", dtos);
-		model.addAttribute("sorting", sorting);
 		
 		// 페이지 네이션
 		int onePageFirstCount = 1;
