@@ -21,6 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 검색 결과 리스트 저장하는 곳.
 	let list = '';
 
+	const makelists = document.querySelector('div#makelists');
+
 	optionselect.addEventListener('change', async () => {
 
 		let selection = optionselect.value;
@@ -60,9 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
 					for (let x of data) {
 
 						const optionElement = document.createElement('option');
-						optionElement.setAttribute('selname', x.content);
+						optionElement.setAttribute('selname', x.hobbyName);
 						optionElement.value = x.hobbyId;
-						optionElement.textContent = x.content;
+						optionElement.textContent = x.hobbyName;
 						optionvalue.appendChild(optionElement);
 
 					}
@@ -160,7 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 		mainbody.style.opacity = "0";
-		mainbody.style.transition = "opacity 1s ease-in-out";
+		setTimeout(function() {
+			mainbody.style.transition = "opacity 1s ease-in-out";
+		}, 0); // 0ms 후에 실행되도록 설정
+
 
 		let reqUrl = '/api/meeting/search';
 		let data = {
@@ -187,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		console.log(list);
 		searchResult(list, 3, 0);
-
+		
 	})
 
 	function searchResult(list, endcount, startcount) {
@@ -236,7 +241,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 		searchresult.innerHTML = html;
 		mainbody.style.opacity = "1";
-		mainbody.style.transition = "opacity 1s ease-in-out";
+		setTimeout(function() {
+			mainbody.style.transition = "opacity 2s ease-in-out";
+		}, 0); // 0ms 후에 실행되도록 설정
 	}
 
 	btnBack.addEventListener('click', (e) => {
@@ -245,7 +252,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		if (nowcount != 0) {
 			mainbody.style.opacity = "0";
-			mainbody.style.transition = "opacity 1s ease-in-out";
+			setTimeout(function() {
+				mainbody.style.transition = "opacity 1s ease-in-out";
+			}, 0); // 0ms 후에 실행되도록 설정
 			nowcount -= 3;
 			searchResult(list, nowcount + 3, nowcount);
 			console.log("뒤로 가기");
@@ -271,7 +280,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		} else {
 			mainbody.style.opacity = "0";
-			mainbody.style.transition = "opacity 1s ease-in-out";
+			setTimeout(function() {
+				mainbody.style.transition = "opacity 1s ease-in-out";
+			}, 0); // 0ms 후에 실행되도록 설정
 			nowcount += 3;
 			searchResult(list, nowcount + 3, nowcount);
 			console.log("앞으로");
@@ -279,6 +290,101 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	})
 
+	setInterval(async () => {
+		makelists.style.opacity = "0";
 
+		setTimeout(function() {
+			
+			makelists.style.transition = "opacity 1.5s ease-in-out";
+		}, 1); // 0ms 후에 실행되도록 설정
+		let pagenum = document.querySelector('input#pagenum');
+		let pages = parseInt(pagenum.value);
+		console.log(pages);
+		let reqUrl2 = `/api/meeting/listrefresh`;
+
+		try {
+			let response1 = await axios.get(reqUrl2);
+			let listsize = response1.data;
+			console.log("listsize = " + listsize);
+
+			if (pages * 3 < listsize) {
+
+				refreshList(pages);
+				pagenum.value = pages + 1;
+
+			} else if (pages * 3 >= listsize) {
+
+				refreshList(0);
+				pagenum.value = 1;
+			}
+
+			makelists.style.opacity = 1;
+			
+			setTimeout(function() {
+				
+				makelists.style.transition = "opacity 2s ease-in-out";
+			}, 1); // 0ms 후에 실행되도록 설정
+
+
+
+
+		} catch (error) {
+
+			console.log(error);
+
+		}
+
+	}, 10000)
+
+
+	async function refreshList(paging) {
+		console.log(paging);
+
+		let reqUrl1 = `/api/meeting/listrefresh/${paging + 1}`;
+		let response2 = await axios.get(reqUrl1);
+
+		let data = response2.data;
+		let html = '';
+		makelists.innerHTML = '';
+		console.log(data);
+		for (let x of data) {
+
+			let date = new Date(x.meetingdate);
+			let dates = date.toLocaleString();
+
+			html += `
+					<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+							<div class="image-hover-thumb">
+								<a href="/meeting/read?id=${x.id}"><img
+									src="data:image/jpg;base64,${x.image1}"
+									class="img-fluid" alt=""></a>
+							</div>
+							<input class="d-none" id="meetid" name="meetid"
+								value="${x.id}" />
+
+
+							<div class="section-block">
+								<h3 class="my-3">${x.title}</h3>
+
+								<p class="mb-2" >
+									${x.location.locationname}</p>
+
+								<p
+									>${dates}</p>
+							</div>
+						</div>
+				
+				`
+
+
+		}
+
+		makelists.innerHTML = html;
+
+
+		console.log("완성");
+
+
+	}
 
 })

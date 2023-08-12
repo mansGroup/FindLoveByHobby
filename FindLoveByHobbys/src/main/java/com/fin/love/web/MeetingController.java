@@ -43,7 +43,7 @@ public class MeetingController {
 		List<Meeting> list = meetingservice.makelist(pagenum);
 		
 		model.addAttribute("list", list);
-		
+		model.addAttribute("pagenum",pagenum);
 	}
 	
 	@GetMapping("/create")
@@ -144,6 +144,14 @@ public class MeetingController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String userid = authentication.getName();
 		List<List<MeetingMember>> list = meetingservice.readMyMember(id);
+		MeetingModifyDto meet = meetingservice.readMyMeeting(id);
+		
+		int status = meet.getMeeting().getStatus();
+		if(userid.equals(meet.getMeeting().getLeader())) {
+			
+			status = 1;
+			
+		}
 		
 		int result = meetingservice.checkInvited(list, userid);
 		
@@ -164,15 +172,16 @@ public class MeetingController {
 		List<String> img2 = new ArrayList<>();
 		try {
 			img1 = meetingservice.imagePrint(list1, 1);
-			img2 = meetingservice.imagePrint(list2, 0);
+			img2 = meetingservice.imagePrint(list2, 2);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		MeetingModifyDto meet = meetingservice.readMyMeeting(id);
+		log.info("list2 = {}", list2);
+		log.info("list1 = {}", list1);
 		
-		model.addAttribute("status", meet.getMeeting().getStatus());
+		model.addAttribute("status", status);
 		
 		model.addAttribute("meet", meet);
 		model.addAttribute("man", list1);

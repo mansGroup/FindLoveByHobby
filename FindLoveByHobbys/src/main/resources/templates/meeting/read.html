@@ -151,7 +151,7 @@
 				<div class="col-3"
 					style="display: flex; justify-content: center; flex-direction: column;">
 
-					<div style="display: flex; justify-content: center; border: 1px blue solid; border-radius: 10%;">
+					<div style="display: flex; justify-content: center; border: 1px black solid; border-radius: 10%;">
 						<div>
 							<img class="peopleimg" th:each="man : ${manimg}"
 								th:src="'data:image/gif;base64,' + ${man}" alt="no img" />
@@ -164,9 +164,9 @@
 					</div>
 				</div>
 				<div class="col-3"
-					style="display: flex; justify-content: center; flex-direction: column;">
+					style="display: flex; justify-content: center; flex-direction: column; ">
 
-					<div style="display: flex; justify-content: center;">
+					<div style="display: flex; justify-content: center; border: 1px black solid; border-radius: 10%;">
 						<div>
 							<img class="peopleimg" th:each="woman : ${womanimg}"
 								th:src="'data:image/gif;base64,' + ${woman}" alt="no img" />
@@ -185,7 +185,7 @@
 	<form id="inviteForm">
 		<div th:if="${status}==0" class="row">
 			<div class="col-4"></div>
-			<input class="d-none" id="colid" name="id" value="${meet.meeting.id}" />
+			<input class="d-none" id="colid" name="id" th:value="${meet.meeting.id}" />
 			<div th:if="${invite}==0" class="col-4"><button class="btn btn-outline-primary" style="width: 100%;" data-id="0" id="inviteBtn">참여하기</button></div>
 			<div th:if="${invite}==1" class="col-4"><button class="btn btn-outline-primary" style="width: 100%;" data-id="1" id="inviteBtn">참여취소</button></div>
 			<div class="col-4"></div>

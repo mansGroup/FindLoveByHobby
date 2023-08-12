@@ -112,5 +112,26 @@ public class MeetingRestController {
 		
 		
 	}
+	
+	@GetMapping("/listrefresh/{page}")
+	public ResponseEntity<List<Meeting>> listrefresh(@PathVariable int page){
+		
+		List<Meeting> list = meetservice.makelist(page);
+		
+		log.info("new List Call");
+		
+		return ResponseEntity.ok(list);
+	}
+	
+	@GetMapping("/listrefresh")
+	public ResponseEntity<Integer> listrefresh(){
+		
+		List<Meeting> list2 = meetservice.findAll();
+		
+		log.info("number");
+		
+		return ResponseEntity.ok(list2.size());
+	}
+	
 
 }

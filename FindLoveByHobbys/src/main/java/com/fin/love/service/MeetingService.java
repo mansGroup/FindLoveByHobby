@@ -128,31 +128,20 @@ public class MeetingService {
 	public List<Meeting> makelist(int num) {
 
 		log.info("read All");
-
+		
 		List<Meeting> list = meetingrepository.findAll();
-
+		
+		
+		
 		int len = list.size();
 		int start = num - 1 >= 0 ? num - 1 : 0;
-		int startcheck = start * 6 > len ? (len / 6) * 6 : start * 6;
+		int end = num * 3 >= list.size() ? list.size() : num * 3;  
+		
+		
 		List<Meeting> list2 = new ArrayList<>();
-		if (len > startcheck && len >= num * 6) {
+		
 
-			for (int i = start * 6; i < num * 6; i++) {
-
-				Meeting met = list.get(i);
-
-				String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
-						imageToBase64(met.getImage3()) };
-
-				met.makePhoto(deq);
-
-				list2.add(met);
-
-			}
-
-		} else if (len < startcheck) {
-
-			for (int i = startcheck; i < len; i++) {
+			for (int i = start * 3; i < end; i++) {
 
 				Meeting met = list.get(i);
 
@@ -165,21 +154,7 @@ public class MeetingService {
 
 			}
 
-		} else if (len > startcheck && len < num * 6) {
-
-			for (int i = startcheck; i < len; i++) {
-
-				Meeting met = list.get(i);
-
-				String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
-						imageToBase64(met.getImage3()) };
-				met.makePhoto(deq);
-
-				list2.add(met);
-
-			}
-
-		}
+		
 
 		return list2;
 
@@ -393,7 +368,7 @@ public class MeetingService {
 			String userid = x.getProfile().getUserId();
 			Member member = memberrepository.findById(userid).orElseThrow();
 
-			if (member.getSex() == 0) {
+			if (member.getSex() == 2) {
 
 				woman.add(x);
 
@@ -404,9 +379,11 @@ public class MeetingService {
 			}
 
 		}
-
 		list2.add(woman);
 		list2.add(man);
+		
+		log.info("list2 = {}", list2.get(0));
+		log.info("list2 = {}", list2.get(1));
 
 		return list2;
 
@@ -418,7 +395,7 @@ public class MeetingService {
 
 		for (MeetingMember x : list) {
 
-			if (gender == 0) {
+			if (gender == 2) {
 
 				img.add(imageToBase64("C:\\IMA\\neo.gif"));
 
@@ -462,15 +439,15 @@ public class MeetingService {
 
 		List<MeetingMember> meetmem = mtmemrepository.findByMeetingId(id);
 		MeetingMember delmem = null;
-		for(MeetingMember x : meetmem) {
-			
-			if(userid.equals(x.getProfile().getUserId())) {
-				
+		for (MeetingMember x : meetmem) {
+
+			if (userid.equals(x.getProfile().getUserId())) {
+
 				delmem = x;
 				break;
-				
+
 			}
-			
+
 		}
 
 		mtmemrepository.deleteById(delmem.getId());
@@ -478,22 +455,26 @@ public class MeetingService {
 	}
 
 	public int checkInvited(List<List<MeetingMember>> list, String userid) {
-	
-		for(List<MeetingMember> x : list) {
-			
-			for(MeetingMember y : x) {
-				
-				if(userid.equals(y.getProfile().getUserId())) {
-					
+
+		for (List<MeetingMember> x : list) {
+
+			for (MeetingMember y : x) {
+
+				if (userid.equals(y.getProfile().getUserId())) {
+
 					return 1;
-					
+
 				}
-				
+
 			}
-			
+
 		}
-		
+
 		return 0;
 	}
 
+	public List<Meeting> findAll() {
+		// TODO Auto-generated method stub
+		return meetingrepository.findAll();
+	}
 }

@@ -29,11 +29,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	const btnDelete = document.querySelector('button#btnDelete');
 	const formDelete = document.querySelector('form#formDelete');
 	
+	
+	
 	const locations = document.querySelector('input#locations');
 	const hobbys = document.querySelector('input#hobbys');
 	
 	hobbyid.value = hobbys.value;
 	locationid.value = locations.value;
+	
+	
 	
 	function checkValue(){
 		
@@ -112,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		e.preventDefault();
 		
-		formDelete.method='get';
+		formDelete.method='post';
 		formDelete.action='/meeting/delete';
 		formDelete.submit();
 		

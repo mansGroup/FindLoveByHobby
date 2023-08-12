@@ -110,7 +110,9 @@
 						</div>
 					</div>
 					<div class="col-1"></div>
-					<div class="row col-10">
+					<input class="d-none" type="number" id="pagenum" th:value="${pagenum}" />
+					<div id="makelists" class="row col-10">
+						
 						<div th:each="list : ${list}"
 							class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 							<div class="image-hover-thumb">
