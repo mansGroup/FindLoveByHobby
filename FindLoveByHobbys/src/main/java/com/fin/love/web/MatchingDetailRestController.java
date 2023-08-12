@@ -1,13 +1,23 @@
 package com.fin.love.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fin.love.repository.assessment.Assessment;
 import com.fin.love.service.MatchingDetailService;
+import com.fin.love.service.PictureService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +28,17 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/matchingDetail")
 
 public class MatchingDetailRestController {
-
+	
+	@Value("${com.example.eventUpload.path}") // application.properties의 변수
+	private String eventUploadPath;
+	
 	private final MatchingDetailService detailService;
+	private final PictureService pictureService;
 
+	
+	
+	
+	
 	@PostMapping("/assessment/{assessmentName}/{senderId}/{getterId}")
 	public ResponseEntity<Integer> assessment(
 			@PathVariable String assessmentName,

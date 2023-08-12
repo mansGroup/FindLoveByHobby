@@ -32,6 +32,13 @@
 				<div>
 					<label for="author">작성자</label> <input id="author" name="author" th:value="${post.author}" readonly />
 				</div>
+				<!-- 이지미 업로드 -->
+				<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer" >
+					<label for="filesModify">
+						<img src="/images/Adding_a_Person_Image.png" class="img-fluid imageThumnail" id="image" />
+					</label>
+					<button  id="bthFilesModify" class="d-none">삭제하기</button>
+				</div>
 				<div>
 					<label for="content">내용</label> 
 					<textarea id="content" name="content" th:text="${post.content}"></textarea>

@@ -21,7 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 public class AnnouncementEventController {
 
 	private final AnnouncementEventService announcementEventService;
-
+	
+	
+	
 	@GetMapping("/eventMain")
 	public void read(Model model) {
 		log.info("post()");
