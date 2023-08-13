@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	let list = '';
 
 	const makelists = document.querySelector('div#makelists');
-
+	const section_3 = document.querySelector('section#section_3');
+	
 	optionselect.addEventListener('change', async () => {
 
 		let selection = optionselect.value;
@@ -161,10 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 
+		mainbody.style.transition = "opacity 1s ease-in-out";
 		mainbody.style.opacity = "0";
-		setTimeout(function() {
-			mainbody.style.transition = "opacity 1s ease-in-out";
-		}, 0); // 0ms 후에 실행되도록 설정
+
+
 
 
 		let reqUrl = '/api/meeting/search';
@@ -192,7 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		console.log(list);
 		searchResult(list, 3, 0);
-		
+		mainbody.style.transition = "opacity 2s ease-in-out";
+		mainbody.style.opacity = "1";
 	})
 
 	function searchResult(list, endcount, startcount) {
@@ -218,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 					<input class="d-none" value="${x.id}" />
 						<div class="image-hover-thumb">
-							<a th:href="/meeting/modify?id=${x.id}"><img src="data:image/jpeg;base64,${x.image1}"
+							<a href="/meeting/read?id=${x.id}"><img style="height: 450px; width: 450px;" src="data:image/jpeg;base64,${x.image1}"
 								class="img-fluid" alt="이미지 없음"></a>
 						</div>
 
@@ -240,10 +242,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		}
 		searchresult.innerHTML = html;
-		mainbody.style.opacity = "1";
-		setTimeout(function() {
-			mainbody.style.transition = "opacity 2s ease-in-out";
-		}, 0); // 0ms 후에 실행되도록 설정
+
+
+
 	}
 
 	btnBack.addEventListener('click', (e) => {
@@ -251,13 +252,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		e.preventDefault();
 
 		if (nowcount != 0) {
+
+			mainbody.style.transition = "opacity 1s ease-in-out";
 			mainbody.style.opacity = "0";
-			setTimeout(function() {
-				mainbody.style.transition = "opacity 1s ease-in-out";
-			}, 0); // 0ms 후에 실행되도록 설정
+
+
+
 			nowcount -= 3;
 			searchResult(list, nowcount + 3, nowcount);
 			console.log("뒤로 가기");
+			mainbody.style.transition = "opacity 2s ease-in-out";
+			mainbody.style.opacity = "1";
 		} else {
 
 			if (list == '') {
@@ -279,24 +284,24 @@ document.addEventListener('DOMContentLoaded', () => {
 			return;
 
 		} else {
+
+			mainbody.style.transition = "opacity 1s ease-in-out";
 			mainbody.style.opacity = "0";
-			setTimeout(function() {
-				mainbody.style.transition = "opacity 1s ease-in-out";
-			}, 0); // 0ms 후에 실행되도록 설정
 			nowcount += 3;
 			searchResult(list, nowcount + 3, nowcount);
 			console.log("앞으로");
+			mainbody.style.transition = "opacity 2s ease-in-out";
+			mainbody.style.opacity = "1";
 		}
 
 	})
 
 	setInterval(async () => {
-		makelists.style.opacity = "0";
+		section_3.style.transition = "opacity 1.5s ease-in-out";
+		section_3.style.opacity = "0";
 
-		setTimeout(function() {
-			
-			makelists.style.transition = "opacity 1.5s ease-in-out";
-		}, 1); // 0ms 후에 실행되도록 설정
+
+
 		let pagenum = document.querySelector('input#pagenum');
 		let pages = parseInt(pagenum.value);
 		console.log(pages);
@@ -317,13 +322,10 @@ document.addEventListener('DOMContentLoaded', () => {
 				refreshList(0);
 				pagenum.value = 1;
 			}
+			section_3.style.transition = "opacity 2s ease-in-out";
+			section_3.style.opacity = "1";
 
-			makelists.style.opacity = 1;
-			
-			setTimeout(function() {
-				
-				makelists.style.transition = "opacity 2s ease-in-out";
-			}, 1); // 0ms 후에 실행되도록 설정
+
 
 
 
@@ -341,21 +343,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		console.log(paging);
 
 		let reqUrl1 = `/api/meeting/listrefresh/${paging + 1}`;
-		let response2 = await axios.get(reqUrl1);
+		try {
+			let response2 = await axios.get(reqUrl1);
 
-		let data = response2.data;
-		let html = '';
-		makelists.innerHTML = '';
-		console.log(data);
-		for (let x of data) {
+			let data = response2.data;
+			let html = '';
+			makelists.innerHTML = '';
+			console.log(data);
+			for (let x of data) {
 
-			let date = new Date(x.meetingdate);
-			let dates = date.toLocaleString();
+				let date = new Date(x.meetingdate);
+				let dates = date.toLocaleString();
 
-			html += `
+				html += `
 					<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 							<div class="image-hover-thumb">
-								<a href="/meeting/read?id=${x.id}"><img
+								<a href="/meeting/read?id=${x.id}"><img style="height: 450px; width: 450px;"
 									src="data:image/jpg;base64,${x.image1}"
 									class="img-fluid" alt=""></a>
 							</div>
@@ -377,13 +380,17 @@ document.addEventListener('DOMContentLoaded', () => {
 				`
 
 
+			}
+
+			makelists.innerHTML = html;
+
+
+			console.log("완성");
+		} catch (error) {
+
+			console.log(error);
+
 		}
-
-		makelists.innerHTML = html;
-
-
-		console.log("완성");
-
 
 	}
 

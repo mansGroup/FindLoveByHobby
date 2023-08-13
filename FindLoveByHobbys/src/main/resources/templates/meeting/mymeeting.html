@@ -22,7 +22,7 @@
 					<div th:each="list : ${list}"
 						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 						<div class="image-hover-thumb">
-							<a th:href="@{'/meeting/modify?id='+${list.id}}"><img th:src="'data:image/jpg;base64,' + ${list.image1}"
+							<a th:href="@{'/meeting/modify?id='+${list.id}}"><img style="height: 450px; width: 450px;" th:src="'data:image/jpg;base64,' + ${list.image1}"
 								class="img-fluid" alt=""></a>
 						</div>
 						<input class="d-none" id="meetid" name="meetid"
@@ -63,7 +63,7 @@
 					<div th:each="list2 : ${list2}"
 						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 						<div class="image-hover-thumb">
-							<a th:href="@{'/meeting/modify?id='+${list2.id}}"><img th:src="'data:image/jpg;base64,' + ${list2.image1}"
+							<a th:href="@{'/meeting/read?id='+${list2.id}}"><img style="height: 450px; width: 450px;" th:src="'data:image/jpg;base64,' + ${list2.image1}"
 								class="img-fluid" alt=""></a>
 						</div>
 						<input class="d-none" id="meetid" name="meetid"

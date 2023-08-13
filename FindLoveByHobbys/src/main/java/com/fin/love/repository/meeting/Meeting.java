@@ -83,6 +83,12 @@ public class Meeting extends BaseTimeEntity {
 	@Column
 	private LocalDateTime meetingdate;
 	
+	@Column
+	private int malecount;
+	
+	@Column
+	private int femalecount;
+	
 	public void updateStatus(int status) {
 		
 		this.status = status;

@@ -4,13 +4,24 @@
 <th:block layout:fragment="css">
 	<style>
 .image {
-	width: 450px;
-	height: 450px;
+	width: 100%;
+	height: auto;
+	display: block;
 	border-radius: 85%;
 }
 
 .imgdiv {
-	margin: 0px 50px;
+	width:450px;
+	height:450px;
+	margin: 0px 10px;
+}
+
+.img-container {
+	max-width: 100%;
+	max-height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start; /* 이미지들을 왼쪽 정렬 */
 }
 
 .labeldiv {
@@ -43,7 +54,8 @@
 }
 </style>
 </th:block>
-<main id="mainbody" layout:fragment="main" style="height: 100%; background-image: url('C:\IMA\skydom.png');  background-size: cover; background-repeat: no-repeat;">
+<main id="mainbody" layout:fragment="main"
+	style="height: 100%; background-image: url('C:\IMA\skydom.png'); background-size: cover; background-repeat: no-repeat;">
 
 	<form id="partyForm">
 		<div class="row">
@@ -106,19 +118,19 @@
 			<!-- 4row -->
 			<div class="row">
 				<div class="col-1"></div>
-				<div class="row col-10">
-					<div class="col-3 imgdiv">
-						<img class="image"
+				<div class="row col-10 img-container">
+					<div class="col-3 imgdiv" style="height: 450px; width: 450px;">
+						<img style="height: 450px; width: 450px;" class="image"
 							th:src="'data:image/jpg;base64,' + ${meet.meeting.image1}"
 							alt="이미지 없음" />
 					</div>
-					<div class="col-3 imgdiv">
-						<img class="image"
+					<div class="col-3 imgdiv" style="height: 450px; width: 450px;">
+						<img style="height: 450px; width: 450px;" class="image"
 							th:src="'data:image/jpg;base64,' + ${meet.meeting.image2}"
 							alt="이미지 없음" />
 					</div>
-					<div class="col-3 imgdiv">
-						<img class="image"
+					<div class="col-3 imgdiv" style="height: 450px; width: 450px;">
+						<img style="height: 450px; width: 450px;" class="image"
 							th:src="'data:image/jpg;base64,' + ${meet.meeting.image3}"
 							alt="이미지 없음" />
 					</div>
@@ -151,7 +163,8 @@
 				<div class="col-3"
 					style="display: flex; justify-content: center; flex-direction: column;">
 
-					<div style="display: flex; justify-content: center; border: 1px black solid; border-radius: 10%;">
+					<div
+						style="display: flex; justify-content: center; border: 1px black solid; border-radius: 10%;">
 						<div>
 							<img class="peopleimg" th:each="man : ${manimg}"
 								th:src="'data:image/gif;base64,' + ${man}" alt="no img" />
@@ -164,14 +177,16 @@
 					</div>
 				</div>
 				<div class="col-3"
-					style="display: flex; justify-content: center; flex-direction: column; ">
+					style="display: flex; justify-content: center; flex-direction: column;">
 
-					<div style="display: flex; justify-content: center; border: 1px black solid; border-radius: 10%;">
+					<div
+						style="display: flex; justify-content: center; border: 1px black solid; border-radius: 10%;">
 						<div>
 							<img class="peopleimg" th:each="woman : ${womanimg}"
 								th:src="'data:image/gif;base64,' + ${woman}" alt="no img" />
 						</div>
-						<div>
+						<div
+							style="align-items: center; display: flex; justify-content: center;">
 							<span th:each="list2 : ${woman}" style="font-size: large;"
 								th:text="${ list2.profile.userId}+ ' 님'"></span>
 						</div>
@@ -185,9 +200,16 @@
 	<form id="inviteForm">
 		<div th:if="${status}==0" class="row">
 			<div class="col-4"></div>
-			<input class="d-none" id="colid" name="id" th:value="${meet.meeting.id}" />
-			<div th:if="${invite}==0" class="col-4"><button class="btn btn-outline-primary" style="width: 100%;" data-id="0" id="inviteBtn">참여하기</button></div>
-			<div th:if="${invite}==1" class="col-4"><button class="btn btn-outline-primary" style="width: 100%;" data-id="1" id="inviteBtn">참여취소</button></div>
+			<input class="d-none" id="colid" name="id"
+				th:value="${meet.meeting.id}" />
+			<div th:if="${invite}==0" class="col-4">
+				<button class="btn btn-outline-primary" style="width: 100%;"
+					data-id="0" id="inviteBtn">참여하기</button>
+			</div>
+			<div th:if="${invite}==1" class="col-4">
+				<button class="btn btn-outline-primary" style="width: 100%;"
+					data-id="1" id="inviteBtn">참여취소</button>
+			</div>
 			<div class="col-4"></div>
 		</div>
 	</form>

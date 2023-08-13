@@ -84,7 +84,7 @@ public class MeetingRestController {
 			// 파일 저장 경로 설정
 			String savePath = "C:/IMA/";
 			UUID uid = UUID.randomUUID();
-			String fileName = uid + file.getOriginalFilename() + ".jpg";
+			String fileName = uid + file.getOriginalFilename();
 			File filenew = new File(savePath, fileName);
 			log.info("파일화 성공 = {}",file.toString());
 			// 파일 저장

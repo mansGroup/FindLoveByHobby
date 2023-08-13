@@ -1,5 +1,6 @@
 package com.fin.love.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
@@ -37,6 +38,7 @@ import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
 
 import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Service
 @Slf4j
@@ -189,14 +191,14 @@ public class MeetingService {
 		Meeting meet;
 
 		meet = meetingrepository.findById(id).orElseThrow();
-		mtmemrepository.deleteByMeetingId(meet.getId());
+		mtmemrepository.deleteAllByMeetingId(meet.getId());
 		if (meet.getStatus() != 0) {
 
 			return 0;
 
 		}
 
-		meetingrepository.delete(meet);
+		meetingrepository.deleteById(id);
 		return 1;
 
 	}
@@ -220,12 +222,24 @@ public class MeetingService {
 	}
 
 	public String imageToBase64(String imagePath) {
-		log.info(imagePath);
-
+		log.info("imgpt = {}",imagePath);		
+		
 		try {
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			Path path = Paths.get(imagePath);
-			byte[] imageBytes = Files.readAllBytes(path);
+			
+			String filename = path.getFileName().toString();
+			String fileExtension = filename.substring(filename.lastIndexOf(".") + 1);
+			
+			
+			Thumbnails.of(path.toFile())
+	                .size(450, 450) // 원하는 크기로 변경
+	                .outputFormat(fileExtension) 
+	                .toOutputStream(baos);
+			log.info("img size() = 450, 450");
+			byte[] imageBytes = baos.toByteArray();
 			return Base64.getEncoder().encodeToString(imageBytes);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -413,11 +427,53 @@ public class MeetingService {
 
 	public void updateAddMember(long id, String userid) {
 		// TODO Auto-generated method stub
-
+		
 		Meeting meet = meetingrepository.findById(id).orElseThrow();
-
+		
+		List<MeetingMember> lists = mtmemrepository.findByMeetingId(id);
+		
+		int mans = 0;
+		int womans = 0;
+		Member mem2 = memberrepository.findById(userid).orElseThrow();
+		for(MeetingMember x : lists) {
+			
+			Member mem = memberrepository.findById(x.getProfile().getUserId()).orElseThrow();
+			
+			if(mem.getSex()==1) {
+				
+				mans++;
+				
+			} else {
+				
+				womans++;
+				
+			}
+			
+		}
+		
+		int manlimit = meet.getMalecount();
+		int womanlimit = meet.getFemalecount();
+		
+		if(mem2.getSex()==1) {
+			
+			if(manlimit-mans<=0) {
+				
+				return;
+				
+			}
+			
+		} else {
+			
+			if(womanlimit-womans<=0) {
+				
+				return;
+				
+			}
+			
+		}
+		
 		meet.memberChange(1);
-
+		
 		meetingrepository.save(meet);
 
 		Profile profile = profilerepository.findById(userid).orElseThrow();
