@@ -25,7 +25,6 @@ import com.fin.love.repository.profile.Age;
 import com.fin.love.service.MeetingService;
 
 import lombok.extern.slf4j.Slf4j;
-import oracle.jdbc.proxy.annotation.Post;
 
 @RestController
 @Slf4j
