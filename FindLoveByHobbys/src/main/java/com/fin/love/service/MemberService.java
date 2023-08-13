@@ -101,5 +101,8 @@ public class MemberService implements UserDetailsService {
 		
 		member.updateRole(Role.USER);
 	}
-	
+
+    public Member getMemberInfo(String id) {
+		return memberRepository.findById(id).orElseThrow();
+    }
 }
