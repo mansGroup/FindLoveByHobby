@@ -47,6 +47,7 @@ public class ChatController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userid = authentication.getName();
+        model.addAttribute("id", userid);
 
         // 나의 성별 찾기
         Member member = memberService.getSexById(userid);
@@ -60,10 +61,8 @@ public class ChatController {
         for (ChattingListDto dto : dtoList) {
             dto.setNickname(memberService.getNicknameById(dto.getId()));
         }
-
-        // 모델에 리스트 실어주기
         model.addAttribute("dtoList", dtoList);
-        model.addAttribute("id", userid);
+
         log.info("채팅방 정보 리스트 사이즈 from chatController {}", dtoList.size());
     }
 
@@ -93,7 +92,7 @@ public class ChatController {
             femaleId = userid;
         }
 
-        // userId로 채팅방번호 상대방 ID 리스트 가져오기
+        // userId로 채팅방번호, 상대방 ID 리스트 가져오기
         List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userid, member.getSex());
         model.addAttribute("dtoList", dtoList);
 

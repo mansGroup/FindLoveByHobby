@@ -53,7 +53,7 @@ public class ChatCountService {
     }
 
     @Transactional
-    public void downChatCount(Long roomId, String maleId, String femaleId, int mySex) {
+    public void downChatCount(Long roomId, int mySex) {
         ChatCount chatCount = chatCountRepository.findById(roomId).orElseGet(ChatCount::new);
 
         if (mySex == 1) {

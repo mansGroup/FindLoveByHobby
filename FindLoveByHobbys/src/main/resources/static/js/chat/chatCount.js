@@ -17,9 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                 if (count.femeleChatcount - count.femaleCheckcount != 0
                                     && count.maleChatcount - count.maleCheckcount != 0) {
                                     if (mySex == 1) {
-                                        htmlCount.innerHTML = count.femeleChatcount - count.femaleCheckcount;
-                                    } else {
                                         htmlCount.innerHTML = count.maleChatcount - count.maleCheckcount;
+                                    } else {
+                                        htmlCount.innerHTML = count.femeleChatcount - count.femaleCheckcount;
                                     }
                                 }
                             }

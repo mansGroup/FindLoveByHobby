@@ -101,6 +101,7 @@ public class MatchingService {
 			int matchingMemberScore = 0;
 
 			log.info("members >>>>>> " + members.get(i).toString());
+			log.info("members.get({}).getId({})", members.get(i), members.get(i).getId());
 
 			// 취미
 			List<UserHobby> matchingMemberHobby = userHobbyRepository.findByUserid(members.get(i).getId());
