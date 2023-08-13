@@ -19,7 +19,7 @@ public class AnnouncementEventService {
 
 	private final AnnouncementEventRepository announcementEventRepository;
 
-	// DB POSTS 테이블에서 전체 검색한 결과를 리턴:
+	// DB ANNOUNCEMENT_EVENT 테이블에서 전체 검색한 결과를 리턴:
 	@Transactional(readOnly = true)
 	public List<AnnouncementEvent> read() {
 		log.info("read()");
