@@ -1,12 +1,18 @@
 package com.fin.love.service;
 
+import java.io.File;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fin.love.dto.announcementEvent.AnnouncementEventDto;
 import com.fin.love.repository.announcementEvent.AnnouncementEvent;
+import com.fin.love.repository.announcementEvent.AnnouncementEventPicture;
+import com.fin.love.repository.announcementEvent.AnnouncementEventPictureRepository;
 import com.fin.love.repository.announcementEvent.AnnouncementEventRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -16,9 +22,44 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Service
 public class AnnouncementEventService {
-
+	
+	@Value("${com.example.eventUpload.path}") // application.properties의 변수
+	private String eventUploadPath;
+	
 	private final AnnouncementEventRepository announcementEventRepository;
+	private final AnnouncementEventPictureRepository announcementEventPictureRepository;
+	
+	// 날짜별로 폴더 생성하는 메서드.
+		public String makeFolder() {
+			log.info("makeForder()");
 
+			String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+
+			String folderPath = str.replace("/", File.separator);
+
+			// make folder ----
+			File uploadPatheFolder = new File(eventUploadPath, folderPath);
+
+			if (uploadPatheFolder.exists() == false) {
+				uploadPatheFolder.mkdirs();
+			}
+
+			return folderPath;
+		}
+
+		// 업로드시 수정하는 메서드
+		@Transactional
+		public void pic1SaveImage(String id, String saveImagePathName) {
+			log.info("saveImage(UserId = {})", id);
+			log.info("path >>>>> " + saveImagePathName);
+
+			AnnouncementEventPicture pic = announcementEventPictureRepository.findById(id).orElseThrow();
+			log.info("pic >>>>> " + pic);
+
+			pic.picUpdate(saveImagePathName);
+		}
+	
+	
 	// DB ANNOUNCEMENT_EVENT 테이블에서 전체 검색한 결과를 리턴:
 	@Transactional(readOnly = true)
 	public List<AnnouncementEvent> read() {

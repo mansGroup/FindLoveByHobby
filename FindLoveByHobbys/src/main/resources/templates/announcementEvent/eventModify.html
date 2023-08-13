@@ -2,56 +2,129 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
+<head>
+<th:block layout:fragment="css">
+	<style>
+body {
+	font-family: Arial, sans-serif;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.page-header {
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.imageBoxContainer {
+	width: 500px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 40px;
+}
+
+.imageThumnail {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+textarea {
+	width: 100%;
+	height: 150px;
+	resize: vertical;
+}
+
+.btn-group {
+	margin-bottom: 20px;
+}
+
+.btn-outline-secondary {
+	border-color: #6c757d;
+	color: #6c757d;
+}
+
+.btn-outline-primary {
+	border-color: #007bff;
+	color: #007bff;
+}
+</style>
+</th:block>
+</head>
 <body>
 	<main layout:fragment="main">
-
-		<div>
-			<h1>수정페이지</h1>
-		</div>
-		<div class="btn-toolbar mb-3" role="toolbar"
-			aria-label="Toolbar with button groups">
-			<div class="btn-group me-2" role="group" aria-label="First group">
-				<a type="button" class="btn btn-outline-secondary" th:href="@{/announcementEvent/eventMain}">메인</a>
-				<a type="button" class="btn btn-outline-secondary" th:href="@{/announcementEvent/eventCreate}">작성하기</a>
+		<div class="container">
+			<div class="page-header">
+				<h2>관리자 공지&이벤트 수정페이지</h2>
 			</div>
-		</div>
-		<div>
-			<form method="post" id="modifyForm">
-				<div>
-					<select name="divide">
-						<option value="0">이벤트</option>
-						<option value="1">공지</option>
-					</select>
+			<div class="btn-toolbar mb-3" role="toolbar"
+				aria-label="Toolbar with button groups">
+				<div class="btn-group me-2" role="group" aria-label="First group">
+					<a type="button" class="btn btn-warning"
+						th:href="@{/announcementEvent/eventMain}">메인</a> <a type="button"
+						class="btn btn-warning"
+						th:href="@{/announcementEvent/eventCreate}">작성하기</a>
 				</div>
-				<div>
-					<label for="id">번호</label> <input id="id" name="id" th:value="${post.id}" readonly />
-				</div>
-				<div>
-					<label for="title">제목</label> <input id="title" name="title" th:value="${post.title}"/>
-				</div>
-				<div>
-					<label for="author">작성자</label> <input id="author" name="author" th:value="${post.author}" readonly />
-				</div>
-				<!-- 이지미 업로드 -->
-				<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer" >
-					<label for="filesModify">
-						<img src="/images/Adding_a_Person_Image.png" class="img-fluid imageThumnail" id="image" />
-					</label>
-					<button  id="bthFilesModify" class="d-none">삭제하기</button>
-				</div>
-				<div>
-					<label for="content">내용</label> 
-					<textarea id="content" name="content" th:text="${post.content}"></textarea>
-				</div>
-			</form>
+			</div>
+			<div style="display: flex;flex-wrap: nowrap;justify-content: center;">
+			<div class="imageBoxContainer">
+						<label for="filesModify"> <img
+							src="/images/Adding_a_Person_Image.png"
+							class="img-fluid imageThumnail" id="image" />
+						</label>
+						<button id="bthFilesModify" class="d-none">삭제하기</button>
+					</div>
 			<div>
-				<button id="btnDelete">삭제하기</button>
-				<button id="btnUpdate">수정하기</button>
 			</div>
+			</div>
+				<form method="post" id="modifyForm">
+					<div class="input-group mb-3">
+						<label class="input-group-text" for="divide">분류</label> <select
+							id="divide" name="divide">
+							<option value="0">이벤트</option>
+							<option value="1">공지</option>
+						</select>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-sm">번호</span>
+						<input id="id" name="id" th:value="${post.id}"
+							class="form-control" readonly>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-sm">제목</span>
+						<input id="title" name="title" th:value="${post.title}"
+							class="form-control">
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-sm">작성자</span>
+						<input id="author" name="author" th:value="${post.author}"
+							class="form-control" readonly>
+					</div>
+					<div class="form-floating mb-3">
+						<textarea class="form-control" id="content" name="content"
+							th:text="${post.content}"></textarea>
+						<label for="content">내용</label>
+					</div>
+				</form>
+				<div>
+					<button id="btnDelete" class="btn btn-danger">삭제하기</button>
+					<button id="btnUpdate" class="btn btn-warning">수정하기</button>
+				</div>
+			
 		</div>
 	</main>
 	<th:block layout:fragment="myscripts">
-        <script src="/js/announcementEvent/event.js"></script>
-    </th:block>
+		<script src="/js/announcementEvent/event.js"></script>
+	</th:block>
 </body>
 </html>

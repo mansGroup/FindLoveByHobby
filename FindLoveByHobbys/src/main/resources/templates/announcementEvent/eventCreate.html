@@ -55,9 +55,17 @@ textarea {
 	<main layout:fragment="main">
 		<div class="container">
 			<div class="page-header">
-				<h2>관리자 공지 이벤트 작성페이지</h2>
+				<h2>관리자 공지&이벤트 작성페이지</h2>
 			</div>
-
+			<div class="btn-toolbar mb-3" role="toolbar"
+				aria-label="Toolbar with button groups">
+				<div class="btn-group me-2" role="group" aria-label="First group">
+					<a type="button" class="btn btn-warning"
+						th:href="@{/announcementEvent/eventMain}">메인</a> <a type="button"
+						class="btn btn-warning"
+						th:href="@{/announcementEvent/eventCreate}">작성하기</a>
+				</div>
+			</div>
 			<div
 				style="display: flex; flex-wrap: nowrap; justify-content: space-around;">
 				<div class="imageBoxContainer">
@@ -85,7 +93,7 @@ textarea {
 					<span class="input-group-text" id="inputGroup-sizing-sm">작성자</span>
 					<input id="author" name="author" type="text" class="form-control"
 						aria-label="Sizing example input"
-						aria-describedby="inputGroup-sizing-sm">
+						aria-describedby="inputGroup-sizing-sm" value="관리자" readonly>
 				</div>
 				<div class="form-floating" style="margin-bottom: 20px">
 					<textarea class="form-control" placeholder="Leave a comment here"
@@ -94,7 +102,7 @@ textarea {
 				</div>
 				<div class="btn-group">
 					<button type="button" class="btn btn-danger">취소</button>
-					<input type="submit" value="작성완료" class="btn btn-warning btn-lg" />
+					<input type="submit" value="작성완료" class="btn btn-warning" />
 				</div>
 			</form>
 		</div>
