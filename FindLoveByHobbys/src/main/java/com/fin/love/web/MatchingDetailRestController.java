@@ -29,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 
 public class MatchingDetailRestController {
 	
-	@Value("${com.example.eventUpload.path}") // application.properties의 변수
+	@Value("${com.example.upload.path}") // application.properties의 변수
 	private String eventUploadPath;
 	
 	private final MatchingDetailService detailService;

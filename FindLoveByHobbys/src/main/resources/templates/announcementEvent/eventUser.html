@@ -8,31 +8,43 @@
 		<div>
 			<h1>공지&이벤트 유저 화면</h1>
 		</div>
+		</div>
+		<div class="btn-toolbar mb-3" role="toolbar"
+			aria-label="Toolbar with button groups">
+			<div class="btn-group me-2" role="group" aria-label="First group">
+				<a type="button" class="btn btn-warning"
+					th:href="@{/announcementEvent/eventMain}">메인</a> <a type="button"
+					class="btn btn-warning" th:href="@{/announcementEvent/eventCreate}">작성하기</a>
+			</div>
+		</div>
+
 		<div>
 			<div>
 				<h6 th:if="${post.divide} == 0">이벤트</h6>
 				<h6 th:if="${post.divide} == 1">공지</h6>
 			</div>
 			<div>
-				<label for="id">번호</label> 
-				<input id="id" name="id" th:value="${post.id}" readonly />
+				<label for="id">번호</label> <input id="id" name="id"
+					th:value="${post.id}" readonly />
 			</div>
 			<div>
-				<label for="title">제목</label> 
-				<input id="title" name="title" th:value="${post.title}" readonly />
+				<label for="title">제목</label> <input id="title" name="title"
+					th:value="${post.title}" readonly />
 			</div>
 			<div>
-				<label for="author">작성자</label> 
-				<input id="author" name="author" th:value="${post.author}" readonly />
+				<label for="author">작성자</label> <input id="author" name="author"
+					th:value="${post.author}" readonly />
 			</div>
 			<div>
 				<label for="content">내용</label>
-				<textarea id="content" name="content" th:text="${post.content}" readonly ></textarea>
+				<textarea id="content" name="content" th:text="${post.content}"
+					readonly></textarea>
 			</div>
 			<div>
-				<label for="createTime">작성시간</label> 
-				<input id="createTime" name="createTime"
-					   th:value="${ #temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm:ss') }" readonly />
+				<label for="createTime">작성시간</label> <input id="createTime"
+					name="createTime"
+					th:value="${ #temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm:ss') }"
+					readonly />
 			</div>
 		</div>
 	</main>

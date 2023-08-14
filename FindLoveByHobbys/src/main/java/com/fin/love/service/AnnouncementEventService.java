@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.fin.love.dto.announcementEvent.AnnouncementEventCreateDto;
 import com.fin.love.dto.announcementEvent.AnnouncementEventDto;
 import com.fin.love.repository.announcementEvent.AnnouncementEvent;
 import com.fin.love.repository.announcementEvent.AnnouncementEventPicture;
@@ -23,12 +24,14 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class AnnouncementEventService {
 	
-	@Value("${com.example.eventUpload.path}") // application.properties의 변수
+	@Value("${com.example.upload.path}") // application.properties의 변수
 	private String eventUploadPath;
 	
 	private final AnnouncementEventRepository announcementEventRepository;
 	private final AnnouncementEventPictureRepository announcementEventPictureRepository;
 	
+//=================================이미지 관련========================================================================================
+
 	// 날짜별로 폴더 생성하는 메서드.
 		public String makeFolder() {
 			log.info("makeForder()");
@@ -49,18 +52,29 @@ public class AnnouncementEventService {
 
 		// 업로드시 수정하는 메서드
 		@Transactional
-		public void pic1SaveImage(String id, String saveImagePathName) {
+		public void pic1SaveImage(Long id, String saveImagePathName, String name) {
 			log.info("saveImage(UserId = {})", id);
 			log.info("path >>>>> " + saveImagePathName);
-
+			
+			AnnouncementEventPicture pic = AnnouncementEventPicture.builder().picture(saveImagePathName).id(id).name(name).build();
+			log.info("pic >>>>> " + pic);
+			
+			announcementEventPictureRepository.save(pic);
+		}
+		
+		@Transactional
+		public void pic1SaveImage(Long id, String saveImagePathName) {
+			log.info("saveImage(UserId = {})", id);
+			log.info("path >>>>> " + saveImagePathName);
+			
 			AnnouncementEventPicture pic = announcementEventPictureRepository.findById(id).orElseThrow();
 			log.info("pic >>>>> " + pic);
-
+			
 			pic.picUpdate(saveImagePathName);
 		}
+//=================================이미지 관련========================================================================================
 	
-	
-	// DB ANNOUNCEMENT_EVENT 테이블에서 전체 검색한 결과를 리턴:
+		// DB ANNOUNCEMENT_EVENT 테이블에서 전체 검색한 결과를 리턴:
 	@Transactional(readOnly = true)
 	public List<AnnouncementEvent> read() {
 		log.info("read()");
@@ -68,7 +82,7 @@ public class AnnouncementEventService {
 		return announcementEventRepository.findByOrderByIdDesc();
 	}
 
-	public AnnouncementEvent create(AnnouncementEventDto dto) {
+	public AnnouncementEvent create(AnnouncementEventCreateDto dto) {
 		log.info("create(dto={})", dto);
 
 		// DTO를 Entity객체로 변환:
@@ -76,10 +90,10 @@ public class AnnouncementEventService {
 		log.info("entity={}", entity);
 
 		// DB 테이블에 저장(insert)
-		announcementEventRepository.save(entity);
-		log.info("entity={}", entity);
+		AnnouncementEvent result = announcementEventRepository.save(entity);
+		log.info("result={}", result);
 
-		return entity;
+		return result;
 
 	}
 	
@@ -111,5 +125,33 @@ public class AnnouncementEventService {
         entity.update(dto); // (3)
         
     }
+
+	public List<AnnouncementEvent> findAll() {
+		log.info("findAll()");
+
+		return announcementEventRepository.findAll();
+	}
+
+	
+	public AnnouncementEventPicture findByid(Long id) {
+		
+		AnnouncementEventPicture anep = announcementEventPictureRepository.findById(id).orElse(null);
+		
+		return anep;
+	}
+	
+	// 출력하는 사진으로 변경시키기
+		public String imageChange(String picture) {
+			log.info("imageChange(picture = {})", picture);
+
+			if (picture.equals("/images/Adding_a_Person_Image.png")) {
+				return picture;
+			}
+
+			String result = "/images/uploadImages/";
+			result += picture;
+
+			return result;
+		}
     
 }

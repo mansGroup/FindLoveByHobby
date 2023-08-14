@@ -78,13 +78,9 @@ textarea {
 			</div>
 			<div>
 				<form>
-					<div
-						style="display: flex; flex-wrap: nowrap; justify-content: space-around;">
+					<div style="display: flex; flex-wrap: nowrap; justify-content: space-around;">
 						<div class="imageBoxContainer">
-							<label for="files"> <img
-								src="/images/Adding_a_Person_Image.png"
-								class="img-fluid imageThumnail" id="image" />
-							</label> <input type="file" id="files" class="d-none" />
+							<img th:src="${pic}" class="img-fluid imageThumnail" id="image" />
 						</div>
 					</div>
 					<div>

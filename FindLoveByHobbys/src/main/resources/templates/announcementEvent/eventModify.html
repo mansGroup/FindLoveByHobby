@@ -78,11 +78,10 @@ textarea {
 			</div>
 			<div style="display: flex;flex-wrap: nowrap;justify-content: center;">
 			<div class="imageBoxContainer">
-						<label for="filesModify"> <img
-							src="/images/Adding_a_Person_Image.png"
-							class="img-fluid imageThumnail" id="image" />
+						<label for="filesModify" style="cursor:pointer;">
+						<img th:src="${pic}" class="img-fluid imageThumnail" id="imageModify" />
 						</label>
-						<button id="bthFilesModify" class="d-none">삭제하기</button>
+						<input type="file" id="filesModify" class="d-none" />
 					</div>
 			<div>
 			</div>
@@ -124,7 +123,7 @@ textarea {
 		</div>
 	</main>
 	<th:block layout:fragment="myscripts">
-		<script src="/js/announcementEvent/event.js"></script>
+		<script src="/js/announcementEvent/eventModify.js"></script>
 	</th:block>
 </body>
 </html>

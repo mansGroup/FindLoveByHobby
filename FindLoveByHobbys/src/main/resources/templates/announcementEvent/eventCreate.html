@@ -69,10 +69,10 @@ textarea {
 			<div
 				style="display: flex; flex-wrap: nowrap; justify-content: space-around;">
 				<div class="imageBoxContainer">
-					<label for="files"> <img
-						src="/images/Adding_a_Person_Image.png"
-						class="img-fluid imageThumnail" id="image" />
-					</label> <input type="file" id="files" class="d-none" />
+					<label for="files" style="cursor:pointer;"> 
+					<img src="/images/Adding_a_Person_Image.png" class="img-fluid imageThumnail" id="image" />
+					</label> 
+					<input type="file" id="files" class="d-none" />
 				</div>
 			</div>
 			<div class="input-group mb-3">
@@ -82,7 +82,7 @@ textarea {
 					<option value="1">공지</option>
 				</select>
 			</div>
-			<form method="post">
+			<form method="post" id="createForm">
 				<div class="input-group mb-3">
 					<span class="input-group-text" id="inputGroup-sizing-sm">제목</span>
 					<input id="title" name="title" type="text" class="form-control"
@@ -101,8 +101,8 @@ textarea {
 					<label for="content">내용</label>
 				</div>
 				<div class="btn-group">
-					<button type="button" class="btn btn-danger">취소</button>
-					<input type="submit" value="작성완료" class="btn btn-warning" />
+					<a class="btn btn-danger" th:href="@{/announcementEvent/eventMain}">취소</a>
+					<button class="btn btn-warning" id="btnCreate">등록하기</button>
 				</div>
 			</form>
 		</div>
@@ -110,7 +110,7 @@ textarea {
 
 	<th:block layout:fragment="myscripts">
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-		<script src="/js/announcementEvent/image.js"></script>
+		<script src="/js/announcementEvent/eventCreate.js"></script>
 	</th:block>
 </body>
 </html>
