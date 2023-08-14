@@ -9,6 +9,7 @@ import com.fin.love.dto.question.CreateQuestDto;
 import com.fin.love.dto.question.UpdateQuestDto;
 import com.fin.love.repository.question.Question;
 import com.fin.love.repository.question.QuestionRepository;
+import com.fin.love.repository.questreply.QuestionReply;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
 
@@ -69,6 +70,9 @@ public class QuestionService {
 		return memberrepository.findById(userid).orElseThrow();
 		
 	}
+
+
+	
 	
 	
 }

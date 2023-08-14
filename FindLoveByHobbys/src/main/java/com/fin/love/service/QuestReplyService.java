@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fin.love.dto.questionRep.QuestRepCreatetDto;
 import com.fin.love.repository.question.Question;
 import com.fin.love.repository.question.QuestionRepository;
 import com.fin.love.repository.questreply.QuestionRepRepository;
@@ -30,6 +31,24 @@ public class QuestReplyService {
 		 log.info("listsize=({})",list.size());
 		
 		return list;
+	}
+
+
+	public QuestionReply create(QuestRepCreatetDto dto) {
+		
+		log.info("save(dto={})", dto);
+		Question qu = questionRepository.findById(dto.getQuestid()).orElseThrow();
+		
+		QuestionReply qr = dto.toEntity(qu);
+		
+		return questionRepRepository.save(qr);
+	
+	}
+
+
+	public QuestionReply findbyQuestionId(long id) {
+		// TODO Auto-generated method stub
+		return questionRepRepository.findByQuestionId(id);
 	}
 
 }
