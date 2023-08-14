@@ -139,9 +139,12 @@ public class ChatController {
     public String chatOut(Long roomId) {
         log.info("chatOut({})", roomId);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
+
         chattingService.deleteChat(roomId);
         chattingRoomService.deleteRoom(roomId);
 
-        return "redirect:/chat/demo";
+        return "redirect:/matching/matchingList/" + userid;
     }
 }
