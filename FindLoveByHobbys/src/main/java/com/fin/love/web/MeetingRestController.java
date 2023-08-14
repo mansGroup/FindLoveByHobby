@@ -133,5 +133,14 @@ public class MeetingRestController {
 		return ResponseEntity.ok(list2.size());
 	}
 	
+	@GetMapping("checkleader")
+	public ResponseEntity<String> checkleader(@RequestParam long id){
+		log.info("who is leader()");
+		
+		Meeting meet = meetservice.readById(id);
+		
+		return ResponseEntity.ok(meet.getLeader());
+		
+	}
 
 }

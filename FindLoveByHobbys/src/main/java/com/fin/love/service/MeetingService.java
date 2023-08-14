@@ -225,19 +225,8 @@ public class MeetingService {
 		log.info("imgpt = {}",imagePath);		
 		
 		try {
-			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			Path path = Paths.get(imagePath);
-			
-			String filename = path.getFileName().toString();
-			String fileExtension = filename.substring(filename.lastIndexOf(".") + 1);
-			
-			
-			Thumbnails.of(path.toFile())
-	                .size(450, 450) // 원하는 크기로 변경
-	                .outputFormat(fileExtension) 
-	                .toOutputStream(baos);
-			log.info("img size() = 450, 450");
-			byte[] imageBytes = baos.toByteArray();
+			byte[] imageBytes = Files.readAllBytes(path);
 			return Base64.getEncoder().encodeToString(imageBytes);
 			
 		} catch (Exception e) {
@@ -532,5 +521,11 @@ public class MeetingService {
 	public List<Meeting> findAll() {
 		// TODO Auto-generated method stub
 		return meetingrepository.findAll();
+	}
+	
+	public Meeting readById(long id) {
+		
+		return meetingrepository.findById(id).orElseThrow();
+		
 	}
 }

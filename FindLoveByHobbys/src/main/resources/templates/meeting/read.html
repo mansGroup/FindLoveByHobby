@@ -148,12 +148,12 @@
 			<!-- 6row -->
 			<div class="row">
 				<div class="col-3"></div>
-				<div class="col-3" style="display: flex; justify-content: center;">
-					<h3>남자</h3>
+				<div class="col-3" style="display: flex; justify-content: center; align-items: center;">
+					<h3>남자</h3><h5 th:text="' ( ' + ${mansize}+' / '+ ${meet.meeting.malecount}+ ' )'"></h5>
 
 				</div>
-				<div class="col-3" style="display: flex; justify-content: center;">
-					<h3>여자</h3>
+				<div class="col-3" style="display: flex; justify-content: center; align-items: center;">
+					<h3>여자</h3><h5 th:text="' ( '+${womansize}+' / '+ ${meet.meeting.femalecount} + ' )'"></h5>
 				</div>
 				<div class="col-3"></div>
 			</div>
@@ -161,34 +161,34 @@
 			<div class="row">
 				<div class="col-3"></div>
 				<div class="col-3"
-					style="display: flex; justify-content: center; flex-direction: column;">
+					style="display: flex; justify-content: start; flex-direction: column;">
 
-					<div
+					<div th:data-id="${list1.meet.profile.userId}" class="inviteduser" th:each="list1 : ${man}"
 						style="display: flex; justify-content: center; border: 1px black solid; border-radius: 10%;">
 						<div>
-							<img class="peopleimg" th:each="man : ${manimg}"
-								th:src="'data:image/gif;base64,' + ${man}" alt="no img" />
+							<img class="peopleimg"
+								th:src="'data:image/gif;base64,' + ${list1.img}" alt="no img" />
 						</div>
 						<div
 							style="align-items: center; display: flex; justify-content: center;">
-							<span th:each="list1 : ${man}" style="font-size: large;"
-								th:text="${ list1.profile.userId}+' 님'"></span>
+							<span style="font-size: large;"
+								th:text="${ list1.meet.profile.userId}+' 님 / ' + ${list1.meet.profile.userAge + 19} + '세'"></span>
 						</div>
 					</div>
 				</div>
 				<div class="col-3"
-					style="display: flex; justify-content: center; flex-direction: column;">
+					style="display: flex; justify-content: start; flex-direction: column;">
 
-					<div
+					<div th:data-id="${list2.meet.profile.userId}" class="inviteduser" th:each="list2 : ${woman}"
 						style="display: flex; justify-content: center; border: 1px black solid; border-radius: 10%;">
 						<div>
-							<img class="peopleimg" th:each="woman : ${womanimg}"
-								th:src="'data:image/gif;base64,' + ${woman}" alt="no img" />
+							<img class="peopleimg"
+								th:src="'data:image/gif;base64,' + ${list2.img}" alt="no img" />
 						</div>
 						<div
 							style="align-items: center; display: flex; justify-content: center;">
-							<span th:each="list2 : ${woman}" style="font-size: large;"
-								th:text="${ list2.profile.userId}+ ' 님'"></span>
+							<span style="font-size: large;"
+								th:text="${ list2.meet.profile.userId}+ ' 님 / ' + ${list2.meet.profile.userAge + 19} + '세'"></span>
 						</div>
 					</div>
 				</div>
