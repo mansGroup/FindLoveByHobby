@@ -118,7 +118,7 @@ public class MeetingRestController {
 		
 		List<Meeting> list = meetservice.makelist(page);
 		
-		log.info("new List Call");
+		log.info("page = {}",page);
 		
 		return ResponseEntity.ok(list);
 	}
@@ -126,7 +126,7 @@ public class MeetingRestController {
 	@GetMapping("/listrefresh")
 	public ResponseEntity<Integer> listrefresh(){
 		
-		List<Meeting> list2 = meetservice.findAll();
+		List<Meeting> list2 = meetservice.findAllByStatus(0);
 		
 		log.info("number");
 		

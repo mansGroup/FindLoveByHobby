@@ -38,6 +38,7 @@ public class MyScheduler {
 					
 					x.updateStatus(1);
 					meetrepository.save(x);
+					
 				}
 				
 			}

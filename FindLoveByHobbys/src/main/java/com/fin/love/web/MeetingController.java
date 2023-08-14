@@ -36,7 +36,7 @@ public class MeetingController {
 	private MeetingService meetingservice;
 
 	@GetMapping("/meetinglist")
-	public void readlist(@RequestParam int pagenum, Model model) {
+	public void readlist(@RequestParam(defaultValue = "1") int pagenum, Model model) {
 
 		log.info("meetinglist()");
 
@@ -120,17 +120,17 @@ public class MeetingController {
 	}
 
 	@GetMapping("/mymeeting")
-	public void mylist(HttpSession session, Model model) {
+	public void mylist(HttpSession session, Model model, @RequestParam(defaultValue = "0") int status) {
 
 		log.info("mymeetinglist()");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String userid = authentication.getName();
-		List<Meeting> list = meetingservice.myLeaderList(userid);
-		List<Meeting> list2 = meetingservice.myMeetList(userid);
+		List<Meeting> list = meetingservice.myLeaderList(userid,status);
+		List<Meeting> list2 = meetingservice.myMeetList(userid,status);
 
 		model.addAttribute("list", list);
 		model.addAttribute("list2", list2);
-
+		model.addAttribute("status",status);
 	}
 
 	@GetMapping("/read")

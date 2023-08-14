@@ -162,8 +162,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 
-		mainbody.style.transition = "opacity 1s ease-in-out";
-		mainbody.style.opacity = "0";
+		setTimeout(() => {
+			makelists.style.opacity = "0";
+			makelists.style.transition = "opacity 2s ease-in-out";
+			
+		}, 1000)
 
 
 
@@ -193,8 +196,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		console.log(list);
 		searchResult(list, 3, 0);
-		mainbody.style.transition = "opacity 2s ease-in-out";
-		mainbody.style.opacity = "1";
+		setTimeout(() => {
+			makelists.style.opacity = "1";
+			makelists.style.transition = "opacity 2s ease-in-out";
+			console.log('opacity 적용');
+		}, 1000)
 	})
 
 	function searchResult(list, endcount, startcount) {
@@ -204,15 +210,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-		let count = startcount;
+		let count = 0;
 		let end = endcount;
-		nowcount = count;
+		
 		for (let x of list) {
+			if(count < startcount){
+				count += 1;
+				continue;
+				
+			}
+			
 			if (count == end) {
 
-				return;
+				break;
 
 			}
+			console.log(x);
 			let date = new Date(x.meetingdate);
 			let meettime = date.toLocaleString();
 			count += 1;
@@ -220,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 					<input class="d-none" value="${x.id}" />
 						<div class="image-hover-thumb">
-							<a href="/meeting/read?id=${x.id}"><img style="height: 450px; width: 450px;" src="data:image/jpeg;base64,${x.image1}"
+							<a href="/meeting/read?id=${x.id}"><img style="height: 270px; width: 450px;" src="data:image/jpeg;base64,${x.image1}"
 								class="img-fluid" alt="이미지 없음"></a>
 						</div>
 
@@ -231,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 								${x.location.locationname}</p>
 
 							<p>${meettime}</p>
-							
+							<p>${x.hobby.hobbyName} 모임</p>
 							
 						</div>
 					</div>
@@ -253,16 +266,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		if (nowcount != 0) {
 
-			mainbody.style.transition = "opacity 1s ease-in-out";
-			mainbody.style.opacity = "0";
+			setTimeout(() => {
+			makelists.style.opacity = "0";
+			makelists.style.transition = "opacity 2s ease-in-out";
+			
+		}, 1000)
 
 
 
 			nowcount -= 3;
 			searchResult(list, nowcount + 3, nowcount);
-			console.log("뒤로 가기");
-			mainbody.style.transition = "opacity 2s ease-in-out";
-			mainbody.style.opacity = "1";
+			console.log(nowcount);
+			setTimeout(() => {
+			makelists.style.opacity = "1";
+			makelists.style.transition = "opacity 2s ease-in-out";
+			
+		}, 1000)
 		} else {
 
 			if (list == '') {
@@ -285,20 +304,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		} else {
 
-			mainbody.style.transition = "opacity 1s ease-in-out";
-			mainbody.style.opacity = "0";
+			setTimeout(() => {
+
+			makelists.style.transition = "opacity 2s ease-in-out";
+			makelists.style.opacity = "0";
+		}, 1000)
 			nowcount += 3;
 			searchResult(list, nowcount + 3, nowcount);
-			console.log("앞으로");
-			mainbody.style.transition = "opacity 2s ease-in-out";
-			mainbody.style.opacity = "1";
+			console.log(nowcount);
+			setTimeout(() => {
+
+			makelists.style.transition = "opacity 2s ease-in-out";
+			makelists.style.opacity = "1";
+			console.log('opacity 적용');
+		}, 1000)
+			
 		}
 
 	})
 
 	setInterval(async () => {
-		section_3.style.transition = "opacity 1.5s ease-in-out";
-		section_3.style.opacity = "0";
+		setTimeout(() => {
+
+			section_3.style.transition = "opacity 2s ease-in-out";
+			section_3.style.opacity = "0";
+		}, 1000)
 
 
 
@@ -322,8 +352,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				refreshList(0);
 				pagenum.value = 1;
 			}
+			
+			setTimeout(() => {
+
 			section_3.style.transition = "opacity 2s ease-in-out";
 			section_3.style.opacity = "1";
+		}, 1000)
+			
 
 
 
@@ -358,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				html += `
 					<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 							<div class="image-hover-thumb">
-								<a href="/meeting/read?id=${x.id}"><img style="height: 450px; width: 450px;"
+								<a href="/meeting/read?id=${x.id}"><img style="height: 270px; width: 450px;"
 									src="data:image/jpg;base64,${x.image1}"
 									class="img-fluid" alt=""></a>
 							</div>
@@ -374,6 +409,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 								<p
 									>${dates}</p>
+								<p>
+									${x.hobby.hobbyName} 모임
+								</p>
 							</div>
 						</div>
 				

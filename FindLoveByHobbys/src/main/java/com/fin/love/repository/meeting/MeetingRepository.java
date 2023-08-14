@@ -9,4 +9,6 @@ public interface MeetingRepository extends JpaRepository<Meeting, Long>{
 
 	List<Meeting> findByLeader(String leader);
 	
+	List<Meeting> findByStatus(int status);
+	
 }

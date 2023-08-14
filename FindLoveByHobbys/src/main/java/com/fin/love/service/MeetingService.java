@@ -71,13 +71,19 @@ public class MeetingService {
 	@Autowired
 	private PictureService picservice;
 
-	public List<Meeting> myLeaderList(String userid) {
+	public List<Meeting> myLeaderList(String userid, int status) {
 
 		List<Meeting> list = meetingrepository.findByLeader(userid);
 		List<Meeting> list2 = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
-
+			
 			Meeting met = list.get(i);
+			
+			if(met.getStatus()!=status) {
+				
+				continue;
+				
+			}
 
 			String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
 					imageToBase64(met.getImage3()) };
@@ -91,13 +97,13 @@ public class MeetingService {
 		return list2;
 	}
 
-	public List<Meeting> myMeetList(String userid) {
+	public List<Meeting> myMeetList(String userid, int status) {
 
 		List<Meeting> list = meetingrepository.findAll();
 		List<Meeting> list2 = new ArrayList<>();
 		for (Meeting x : list) {
 
-			if (userid.equals(x.getLeader()) || x.getMember() == 1) {
+			if (userid.equals(x.getLeader()) || x.getMember() == 1 || x.getStatus()!=status) {
 
 				continue;
 
@@ -131,8 +137,20 @@ public class MeetingService {
 
 		log.info("read All");
 		
-		List<Meeting> list = meetingrepository.findAll();
-		
+		List<Meeting> lists = meetingrepository.findAll();
+		List<Meeting> list = new ArrayList<>();
+		for(int i = 0 ; i<lists.size(); i++) {
+			
+			if(lists.get(i).getStatus()==1) {
+				
+				continue;
+				
+			}
+				
+			list.add(lists.get(i));
+			
+		}
+		log.info("{}",list);
 		
 		
 		int len = list.size();
@@ -142,11 +160,11 @@ public class MeetingService {
 		
 		List<Meeting> list2 = new ArrayList<>();
 		
-
+			
 			for (int i = start * 3; i < end; i++) {
-
+					
 				Meeting met = list.get(i);
-
+				
 				String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
 						imageToBase64(met.getImage3()) };
 
@@ -527,5 +545,12 @@ public class MeetingService {
 		
 		return meetingrepository.findById(id).orElseThrow();
 		
+	}
+
+	public List<Meeting> findAllByStatus(int status) {
+		// TODO Auto-generated method stub
+		List<Meeting> list = meetingrepository.findByStatus(status);
+		
+		return list;
 	}
 }
