@@ -26,7 +26,7 @@
 <body>
 
     <!-- TODO 스프링시큐리티에서 userid 받아오기 -->
-	<span class="d-none" id="securityId" data-securityId="${ #authentication.name }"></span>
+	<span class="d-none" id="securityId" th:text="${ #authentication.name }"></span>
 
 
 	<section class="preloader">

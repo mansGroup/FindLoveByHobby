@@ -14,19 +14,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     for (const htmlCount of chatCounts) {
                         for (const count of response.data) {
                             if (count.roomid == htmlCount.getAttribute('value')) {
-                                if (count.femeleChatcount - count.femaleCheckcount != 0
-                                    && count.maleChatcount - count.maleCheckcount != 0) {
-                                    if (mySex == 1) {
-                                        htmlCount.innerHTML = count.maleChatcount - count.maleCheckcount;
-                                    } else {
-                                        htmlCount.innerHTML = count.femeleChatcount - count.femaleCheckcount;
+                                if (mySex == 1) {
+                                    if (Number(count.maleChatcount) - Number(count.maleCheckcount) != 0) {
+                                        htmlCount.innerHTML = Number(count.maleChatcount) - Number(count.maleCheckcount);
+                                    }
+                                } else {
+                                    if (Number(count.femaleChatcount) - Number(count.femaleCheckcount) != 0) {
+                                        htmlCount.innerHTML = Number(count.femaleChatcount) - Number(count.femaleCheckcount);
                                     }
                                 }
                             }
-
                         }
                     }
                 }
             }).catch((error) => console.log(error));
-    }, 2000);
+    }, 5000);
 });

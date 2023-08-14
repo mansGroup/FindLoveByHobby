@@ -32,7 +32,7 @@ public class ChatCountService {
                 return;
             }
 
-            chatCount.upMaleChatCount();
+            chatCount.upFemaleChatCount();
 
         } else {
             if (chatCount.getRoomid() == null) {
@@ -48,7 +48,7 @@ public class ChatCountService {
                 return;
             }
 
-            chatCount.upFemaleChatCount();
+            chatCount.upMaleChatCount();
         }
     }
 

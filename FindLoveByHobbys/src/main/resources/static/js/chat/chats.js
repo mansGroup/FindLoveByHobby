@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         switch (data.textType) {
             case 'bye' :
-                if (sessionId != cur_session) {
+                if (sessionId == cur_session) {
                     bye(data);
                 }
                 break;

@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/chatCount")
 @RestController
-public class ChatCountController {
+public class ChatCountRestController {
 
     private final ChatCountService chatCountService;
     @GetMapping("upCount/{roomId}/{maleId}/{femaleId}/{mySex}")

@@ -20,8 +20,8 @@ public class ChattingRoom extends BaseCreatedTimeEntity {
     private Long contentid;
 
     @Column
-    private String maleId;
+    private String maleid;
 
     @Column
-    private String femaleId;
+    private String femaleid;
 }
