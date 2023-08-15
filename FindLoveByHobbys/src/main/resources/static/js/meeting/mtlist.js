@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const makelists = document.querySelector('div#makelists');
 	const section_3 = document.querySelector('section#section_3');
-	
+
 	optionselect.addEventListener('change', async () => {
 
 		let selection = optionselect.value;
@@ -153,20 +153,21 @@ document.addEventListener('DOMContentLoaded', () => {
 	btnsearch.addEventListener('click', async (e) => {
 
 		e.preventDefault();
-
+		
+		mainbody.style.opacity = "0";
+		
 		if (ageId.value == '' || locationId.value == '' || hobbyId.value == '') {
 
 			alert('원하시는 조건을 입력하셔야 검색할 수 있습니다.');
+			
+			
+			mainbody.style.opacity = "1";
 			return;
 
 		}
 
 
-		setTimeout(() => {
-			makelists.style.opacity = "0";
-			makelists.style.transition = "opacity 2s ease-in-out";
-			
-		}, 1000)
+
 
 
 
@@ -196,11 +197,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		console.log(list);
 		searchResult(list, 3, 0);
-		setTimeout(() => {
-			makelists.style.opacity = "1";
-			makelists.style.transition = "opacity 2s ease-in-out";
-			console.log('opacity 적용');
-		}, 1000)
+		
+			
+			
+		mainbody.style.opacity = "1";
+		console.log('opacity 적용');
+		
 	})
 
 	function searchResult(list, endcount, startcount) {
@@ -212,14 +214,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		let count = 0;
 		let end = endcount;
-		
+
 		for (let x of list) {
-			if(count < startcount){
+			if (count < startcount) {
 				count += 1;
 				continue;
-				
+
 			}
-			
+
 			if (count == end) {
 
 				break;
@@ -263,72 +265,74 @@ document.addEventListener('DOMContentLoaded', () => {
 	btnBack.addEventListener('click', (e) => {
 
 		e.preventDefault();
+		
+		mainbody.style.opacity = "0";
+		
+
 
 		if (nowcount != 0) {
 
-			setTimeout(() => {
-			makelists.style.opacity = "0";
-			makelists.style.transition = "opacity 2s ease-in-out";
-			
-		}, 1000)
+
 
 
 
 			nowcount -= 3;
 			searchResult(list, nowcount + 3, nowcount);
 			console.log(nowcount);
-			setTimeout(() => {
-			makelists.style.opacity = "1";
-			makelists.style.transition = "opacity 2s ease-in-out";
-			
-		}, 1000)
+
 		} else {
 
 			if (list == '') {
+				
+					
+					
+					mainbody.style.opacity = "1";
+				
 				console.log("검색 안한 상태");
 				return;
 
 			}
 			console.log("더 이상 뒤로 갈 수 없음.");
 		}
+			
+			mainbody.style.opacity = "1";
+			
 
+		
 	})
 
 	btnFront.addEventListener('click', (e) => {
 
 		e.preventDefault();
+		
+		mainbody.style.opacity = "0";
 
 		if (nowcount + 3 > list.length - 1) {
+
+			
+			mainbody.style.opacity = "1";
 			console.log("더 이상 길이가 안되는 상황");
 			return;
 
 		} else {
 
-			setTimeout(() => {
 
-			makelists.style.transition = "opacity 2s ease-in-out";
-			makelists.style.opacity = "0";
-		}, 1000)
 			nowcount += 3;
 			searchResult(list, nowcount + 3, nowcount);
 			console.log(nowcount);
-			setTimeout(() => {
 
-			makelists.style.transition = "opacity 2s ease-in-out";
-			makelists.style.opacity = "1";
-			console.log('opacity 적용');
-		}, 1000)
-			
+
 		}
-
+		
+		mainbody.style.opacity = "1";
 	})
 
 	setInterval(async () => {
-		setTimeout(() => {
+		
 
-			section_3.style.transition = "opacity 2s ease-in-out";
-			section_3.style.opacity = "0";
-		}, 1000)
+			
+			makelists.style.opacity = "0";
+		
 
 
 
@@ -352,13 +356,13 @@ document.addEventListener('DOMContentLoaded', () => {
 				refreshList(0);
 				pagenum.value = 1;
 			}
-			
-			setTimeout(() => {
 
-			section_3.style.transition = "opacity 2s ease-in-out";
-			section_3.style.opacity = "1";
-		}, 1000)
 			
+
+				
+				makelists.style.opacity = "1";
+			
+
 
 
 

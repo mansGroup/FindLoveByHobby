@@ -4,10 +4,10 @@
 
 <main id="mainbody" style="height: 100%;" layout:fragment="main">
 	<input id="statusvalue" class="d-none" th:value="${status}" />
-	<section style="background-color: white;"
-			class="the-wedding-section section-bg section-padding" id="section_3">
-			<div class="container">
-				<div class="row">
+	<section style="background-color: white; padding-bottom: 0px;"
+		class="the-wedding-section section-bg section-padding" id="section_3">
+		<div class="container">
+			<div class="row">
 				<div class="row">
 					<div class="col-lg-12 col-10">
 						<div class="section-title-wrap mb-5">
@@ -22,7 +22,9 @@
 					<div th:each="list : ${list}"
 						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 						<div class="image-hover-thumb">
-							<a th:href="@{'/meeting/modify?id='+${list.id}}"><img style="height: 270px; width: 450px;" th:src="'data:image/jpg;base64,' + ${list.image1}"
+							<a th:href="@{'/meeting/modify?id='+${list.id}}"><img
+								style="height: 270px; width: 450px;"
+								th:src="'data:image/jpg;base64,' + ${list.image1}"
 								class="img-fluid grayimg" alt=""></a>
 						</div>
 						<input class="d-none" id="meetid" name="meetid"
@@ -35,21 +37,23 @@
 							<p class="mb-2" th:text="${ list.location.locationname }">
 								5th Avenue at, Central Park S</p>
 
-							<p th:text="${ #temporals.format(list.meetingdate, 'YYYY. M. d a h:mm:ss') }">5:00 PM</p>
+							<p
+								th:text="${ #temporals.format(list.meetingdate, 'YYYY. M. d a h:mm:ss') }">5:00
+								PM</p>
 							<p th:text="${list.hobby.hobbyName} + ' 모임'"></p>
 						</div>
 					</div>
-					
+
 				</div>
 				<div class="col-1"></div>
-				</div>
 			</div>
-		</section>
-		
-		<section style="background-color: white;"
-			class="the-wedding-section section-bg section-padding" id="section_3">
-			<div class="container">
-				<div class="row">
+		</div>
+	</section>
+
+	<section style="background-color: white; padding-top: 0px;"
+		class="the-wedding-section section-bg section-padding" id="section_3">
+		<div class="container">
+			<div class="row">
 				<div class="row">
 					<div class="col-lg-12 col-10">
 						<div class="section-title-wrap mb-5">
@@ -64,7 +68,9 @@
 					<div th:each="list2 : ${list2}"
 						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
 						<div class="image-hover-thumb">
-							<a th:href="@{'/meeting/read?id='+${list2.id}}"><img style="height: 270px; width: 450px;" th:src="'data:image/jpg;base64,' + ${list2.image1}"
+							<a th:href="@{'/meeting/read?id='+${list2.id}}"><img
+								style="height: 270px; width: 450px;"
+								th:src="'data:image/jpg;base64,' + ${list2.image1}"
 								class="img-fluid grayimg" alt=""></a>
 						</div>
 						<input class="d-none" id="meetid" name="meetid"
@@ -77,22 +83,32 @@
 							<p class="mb-2" th:text="${ list2.location.locationname }">
 								5th Avenue at, Central Park S</p>
 
-							<p th:text="${ #temporals.format(list2.meetingdate, 'YYYY. M. d a h:mm:ss') }">5:00 PM</p>
+							<p
+								th:text="${ #temporals.format(list2.meetingdate, 'YYYY. M. d a h:mm:ss') }">5:00
+								PM</p>
 							<p th:text="${list2.hobby.hobbyName} + ' 모임'"></p>
 						</div>
 					</div>
-					
+
 				</div>
 				<div class="col-1"></div>
-				</div>
 			</div>
-		</section>
-		<div class="row my-4">
-		<div class="col-3"></div>
-		<div th:if="${status}==0" class="col-6"><a class="btn btn-outline-dark" style="width: 100%;" th:href="@{/meeting/mymeeting?status=1}">이미 종료된 모임</a></div>
-		<div th:if="${status}==1" class="col-6"><a class="btn btn-outline-dark" style="width: 100%;" th:href="@{/meeting/mymeeting?status=0}">진행 중인 모임</a></div>
-		<div class="col-3"></div>
 		</div>
+	</section>
+	<div class="row my-4">
+		<div class="col-3"></div>
+		<div th:if="${status}==0" class="col-6">
+			<a class="btn btn-outline-dark"
+				style="width: 100%; height: 50px; font-size: x-large; font-weight: bolder;"
+				th:href="@{/meeting/mymeeting?status=1}">이미 종료된 모임</a>
+		</div>
+		<div th:if="${status}==1" class="col-6">
+			<a class="btn btn-outline-dark"
+				style="width: 100%; height: 50px; font-size: x-large; font-weight: bolder;"
+				th:href="@{/meeting/mymeeting?status=0}">진행 중인 모임</a>
+		</div>
+		<div class="col-3"></div>
+	</div>
 </main>
 
 <th:block layout:fragment="myscripts">
