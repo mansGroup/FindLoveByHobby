@@ -87,7 +87,7 @@
 				</div>
 			</div>
 		</section>
-		<div class="row">
+		<div class="row my-4">
 		<div class="col-3"></div>
 		<div th:if="${status}==0" class="col-6"><a class="btn btn-outline-dark" style="width: 100%;" th:href="@{/meeting/mymeeting?status=1}">이미 종료된 모임</a></div>
 		<div th:if="${status}==1" class="col-6"><a class="btn btn-outline-dark" style="width: 100%;" th:href="@{/meeting/mymeeting?status=0}">진행 중인 모임</a></div>
