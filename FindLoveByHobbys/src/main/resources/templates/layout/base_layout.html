@@ -59,7 +59,7 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<a th:href="@{/matching/matchingList/{userId} (userId = ${#authentication.name})}" class="navbar-brand mx-auto mx-lg-0">
+			<a th:href="@{/}" class="navbar-brand mx-auto mx-lg-0">
 				<span>Chwi</span><img src="/images/mypage/roundHeart.gif" /><span>Meet</span>
 			</a>
 
@@ -78,7 +78,7 @@
 						th:href="@{/meeting/meetinglist?pagenum=1}">Meeting</a></li>
 
 					<li class="nav-item"><a class="nav-link click-scroll"
-						th:href="@{/mypage/{userId} (userId = ${#authentication.name})}">MyPage</a></li>
+						th:href="@{/mypage/room}">MyPage</a></li>
 						
 					<!-- 인증된 사용자이면(로그인 상태이면) -->
 					<th:block sec:authorize="isAuthenticated()">
