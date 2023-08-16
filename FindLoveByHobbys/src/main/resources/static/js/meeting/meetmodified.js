@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	locationid.value = locations.value;
 	
 	
-	
 	function checkValue(){
 		
 		if(title.value == ''){

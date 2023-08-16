@@ -36,7 +36,7 @@ public class MeetingMakeDto {
 	
 	public Meeting toEntity(Location loc, Hobby hobby) {
 		// TODO Auto-generated method stub
-		return Meeting.builder().content1(content1).content2(content2).content3(content3).contents(contents).leader(leader).title(title).location(loc).hobby(hobby).image1(image1).image2(image2).image3(image3).title(title).status(status).meetingdate(meetingtime).member(1).malecount(membercount/2).femalecount(membercount/2).build();
+		return Meeting.builder().content1(content1).content2(content2).content3(content3).contents(contents).leader(leader).title(title).location(loc).hobby(hobby).image1(image1).image2(image2).image3(image3).title(title).status(status).meetingdate(meetingtime).member(membercount).malecount(membercount/2).femalecount(membercount/2).build();
 	}
 	
 }

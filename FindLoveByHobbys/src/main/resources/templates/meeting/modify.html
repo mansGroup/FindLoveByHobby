@@ -46,7 +46,8 @@
 		<h2>빠뜨린 내용이 없는 지 반드시 확인 부탁드립니다.</h2>
 	</div>
 	<div>
-		<form th:if="${meet.meeting.status}==0" id="modifiedForm" class="card" style="border: none;">
+		<form th:if="${meet.meeting.status}==0" id="modifiedForm" class="card"
+			style="border: none;">
 			<input type="number" class="d-none" id="id" name="id"
 				th:value="${meet.meeting.id}" readonly="readonly" /> <input
 				type="number" class="d-none" id="hobbys" readonly="readonly"
@@ -208,18 +209,32 @@
 					<div class="col-3"></div>
 				</div>
 			</div>
-			<div class="my-3" style="display: flex; justify-content: center;"
-				th:if="${meet.meeting.status} == 0">
-				<button style="width: 300px; height: 50px; font-size: large;"
-					class="btn btn-outline-dark" id="btnModify">수정하기</button>
+			<div class="my-3 row" style="display: flex; justify-content: center;">
+				<div class="col-3"></div>
+				<div class="col-2"
+					style="display: flex; justify-content: center; align-items: center;"
+					th:if="${meet.meeting.status} == 0">
+					<button style="width: 100%; height: 50px; font-size: large;"
+						class="btn btn-outline-dark" id="btnModify">수 정 하 기</button>
+				</div>
+				<div class="col-2"
+					style="display: flex; justify-content: center; align-items: center;"
+					th:if="${meet.meeting.status} == 0">
+					<button style="width: 100%; height: 50px; font-size: large;"
+						class="btn btn-outline-dark" id="btnDelete">삭 제 하 기</button>
+				</div>
+				<div class="col-2" style="display: flex; justify-content: center;">
+					<a th:href="@{/meeting/mymeeting}"
+						style="width: 100%; height: 50px; font-size: large;"
+						class="btn btn-outline-dark" id="btnList">리 스 트 가 기</a>
+				</div>
+				<div class="col-3"></div>
 			</div>
-			<div class="my-3" style="display: flex; justify-content: center;" th:if="${meet.meeting.status} == 0">
-				<button style="width: 300px; height: 50px; font-size: large;"
-					class="btn btn-outline-dark" id="btnDelete">삭제하기</button>
-			</div>
+
 		</form>
-		
-		<form th:if="${meet.meeting.status}!=0" id="modifiedForm" class="card" style="border: none;">
+
+		<form th:if="${meet.meeting.status}!=0" id="modifiedForm" class="card"
+			style="border: none;">
 			<input type="number" class="d-none" id="id" name="id"
 				th:value="${meet.meeting.id}" readonly="readonly" /> <input
 				type="number" class="d-none" id="hobbys" readonly="readonly"
@@ -235,9 +250,9 @@
 						</div>
 
 						<div class="col-5">
-							<input readonly="readonly" th:value="${meet.meeting.title}" required="required"
-								class="card tworow" type="text" id="title" name="title"
-								style="width: 100%;" />
+							<input readonly="readonly" th:value="${meet.meeting.title}"
+								required="required" class="card tworow" type="text" id="title"
+								name="title" style="width: 100%;" />
 						</div>
 						<div class="col-3"></div>
 					</div>
@@ -247,9 +262,9 @@
 							<label class="labels" for="content1">코스 소개</label>
 						</div>
 						<div class="col-5">
-							<input readonly="readonly" th:value="${meet.meeting.content1}" required="required"
-								class="card tworow" type="text" id="content1" name="content1"
-								style="width: 100%;" />
+							<input readonly="readonly" th:value="${meet.meeting.content1}"
+								required="required" class="card tworow" type="text"
+								id="content1" name="content1" style="width: 100%;" />
 						</div>
 						<div class="col-3"></div>
 					</div>
@@ -259,9 +274,9 @@
 							<label class="labels" for="content2">주최자 소개</label>
 						</div>
 						<div class="col-5">
-							<input readonly="readonly" th:value="${meet.meeting.content2}" required="required"
-								class="card tworow" type="text" id="content2" name="content2"
-								style="width: 100%;" />
+							<input readonly="readonly" th:value="${meet.meeting.content2}"
+								required="required" class="card tworow" type="text"
+								id="content2" name="content2" style="width: 100%;" />
 						</div>
 						<div class="col-3"></div>
 					</div>
@@ -271,9 +286,9 @@
 							<label class="labels" for="content3">선호 분위기</label>
 						</div>
 						<div class="col-5">
-							<input readonly="readonly" th:value="${meet.meeting.content3}" required="required"
-								class="card tworow" type="text" id="content3" name="content3"
-								style="width: 100%;" />
+							<input readonly="readonly" th:value="${meet.meeting.content3}"
+								required="required" class="card tworow" type="text"
+								id="content3" name="content3" style="width: 100%;" />
 						</div>
 						<div class="col-3"></div>
 					</div>
@@ -283,9 +298,9 @@
 							<label class="labels" for="contents">상세 소개</label>
 						</div>
 						<div class="col-5">
-							<textarea readonly="readonly" required="required" class="card contents" id="contents"
-								name="contents" style="width: 100%;" rows="5"
-								th:text="${meet.meeting.contents}"></textarea>
+							<textarea readonly="readonly" required="required"
+								class="card contents" id="contents" name="contents"
+								style="width: 100%;" rows="5" th:text="${meet.meeting.contents}"></textarea>
 						</div>
 						<div class="col-3"></div>
 					</div>
@@ -295,9 +310,9 @@
 							<label class="labels" for="meetingtime">만남일자</label>
 						</div>
 						<div class="col-5">
-							<input readonly="readonly" th:value="${meet.meeting.meetingdate}" required="required"
-								class="card dates" type="datetime-local" id="meetingtime"
-								name="meetingtime" style="width: 100%;" />
+							<input readonly="readonly" th:value="${meet.meeting.meetingdate}"
+								required="required" class="card dates" type="datetime-local"
+								id="meetingtime" name="meetingtime" style="width: 100%;" />
 
 						</div>
 						<div class="col-3"></div>
@@ -342,22 +357,25 @@
 						<div class="col-2" style="display: flex; justify-content: center;">
 							<label for="image1"> <img id="icon1" class="upload"
 								th:src="'data:image/png;base64,' + ${icon}" alt="이미지 없음">
-							</label> <input readonly="readonly" class="d-none" type="file" id="image1" value="" /> <input
-								required="required" class="d-none" type="text" id="image1path"
-								name="image1" th:value="${meet.image1}" />
+							</label> <input readonly="readonly" class="d-none" type="file"
+								id="image1" value="" /> <input required="required"
+								class="d-none" type="text" id="image1path" name="image1"
+								th:value="${meet.image1}" />
 						</div>
 
 						<div class="col-2" style="display: flex; justify-content: center;">
 							<label for="image2"> <img id="icon2" class="upload"
 								th:src="'data:image/png;base64,' + ${icon}" alt="이미지 없음">
-							</label> <input readonly="readonly" class="d-none" type="file" id="image2" value="" /> <input
-								required="required" class="d-none" type="text" id="image2path"
-								name="image2" th:value="${meet.image2}" />
+							</label> <input readonly="readonly" class="d-none" type="file"
+								id="image2" value="" /> <input required="required"
+								class="d-none" type="text" id="image2path" name="image2"
+								th:value="${meet.image2}" />
 						</div>
 						<div class="col-2" style="display: flex; justify-content: center;">
 							<label for="image3"> <img id="icon3" class="upload"
 								th:src="'data:image/png;base64,' + ${icon}" alt="이미지 없음">
-							</label> <input readonly="readonly" class="d-none" type="file" id="image3" value="" />
+							</label> <input readonly="readonly" class="d-none" type="file"
+								id="image3" value="" />
 						</div>
 						<input required="required" class="d-none" type="text"
 							id="image3path" name="image3" th:value="${meet.image3}" />
@@ -381,26 +399,29 @@
 					<div class="col-3"></div>
 				</div>
 			</div>
-			<div class="my-3" style="display: flex; justify-content: center;"
-				th:if="${meet.meeting.status} == 0">
-				<button style="width: 300px; height: 50px; font-size: large;"
-					class="btn btn-outline-dark" id="btnModify">수정하기</button>
+			<div class="my-3 row" style="display: flex; justify-content: center;">
+				<div class="col-4"></div>
+				<div class="col-4" style="display: flex; justify-content: center;">
+					<a th:href="@{/meeting/mymeeting}"
+						style="width: 100%; height: 50px; font-size: large;"
+						class="btn btn-outline-dark" id="btnList">리 스 트 가 기</a>
+				</div>
+
+				<div class="col-4"></div>
 			</div>
-			<div class="my-3" style="display: flex; justify-content: center;" th:if="${meet.meeting.status} == 0">
-				<button style="width: 300px; height: 50px; font-size: large;"
-					class="btn btn-outline-dark" id="btnDelete">삭제하기</button>
-			</div>
+
 		</form>
-		
-		
-		
-		
+
+
+
+
 	</div>
-	
+
 	<form id="formDelete">
-		<input class="d-none" type="number" name="deleteId" id="deleteId" th:value="${meet.meeting.id}" />
+		<input class="d-none" type="number" name="deleteId" id="deleteId"
+			th:value="${meet.meeting.id}" />
 	</form>
-	
+
 </main>
 
 <th:block layout:fragment="myscripts">

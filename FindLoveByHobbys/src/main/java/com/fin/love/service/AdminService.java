@@ -23,6 +23,9 @@ import com.fin.love.dto.facechat.ReportReadDto;
 import com.fin.love.repository.facechat.FaceChatRepository;
 import com.fin.love.repository.facechat.FaceReportRepository;
 import com.fin.love.repository.facechat.Speakchat;
+import com.fin.love.respository.member.Member;
+import com.fin.love.respository.member.MemberRepository;
+import com.fin.love.respository.member.Role;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +36,9 @@ public class AdminService {
 	@Autowired
 	private FaceReportRepository facerepository;
 
+	@Autowired
+	private MemberRepository memberrepository;
+	
 	public List<ReportReadDto> readlist() {
 		log.info("read all reportlist");
 
@@ -170,11 +176,24 @@ public class AdminService {
 		long id = dto.getUpdatenum();
 
 		Speakchat entity = facerepository.findById(id).orElseThrow();
-
+		
+		Member member = memberrepository.findById(entity.getRespondent()).orElseThrow();
+		
+		
+		if(dto.getStatus()==1) {
+			member.updateRole(Role.RIP_USER);
+			memberrepository.save(member);
+		
+		} else {
+			
+			member.updateRole(Role.USER);
+			memberrepository.save(member);
+			
+		}
 		entity.updateStatus(dto.getStatus());
 
 		facerepository.save(entity);
-
+		
 		log.info("update={}", dto);
 	}
 

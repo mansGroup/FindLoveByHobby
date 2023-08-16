@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		mainbody.style.opacity = "0";
 
-		if (nowcount + 3 > list.length - 1) {
+		if (nowcount + 3 > list.length) {
 
 			
 			mainbody.style.opacity = "1";

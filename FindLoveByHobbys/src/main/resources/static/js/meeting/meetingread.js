@@ -16,6 +16,7 @@
 	 const imgs1 = document.querySelector('button#imgs1');
 	 
 	 
+	 
 	 let num = 1;
 	 const imgchange = (e) => {
 		 e.preventDefault();
