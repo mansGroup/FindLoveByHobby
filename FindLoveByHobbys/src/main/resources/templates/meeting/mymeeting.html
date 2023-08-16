@@ -28,7 +28,7 @@ h3 {
 				
 				<div class="row col-12" style="display: flex; justify-content: center;">
 					<div th:each="list : ${list}"
-						class="col-lg-3 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0" style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 0px 20px;">
+						class="col-lg-3 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0" style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 10px 20px;">
 						<div class="image-hover-thumb">
 							<a th:href="@{'/meeting/modify?id='+${list.id}}"><img
 								style="height: 270px; width: 450px;"
@@ -75,7 +75,7 @@ h3 {
 				<div class="row col-12" style="display: flex; justify-content: center;">
 					<div th:each="list2 : ${list2}"
 						class="col-lg-3 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0"
-						style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 0px 20px;">
+						style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 10px 20px;">
 						<div class="image-hover-thumb">
 							<a th:href="@{'/meeting/read?id='+${list2.id}}"><img
 								style="height: 270px; width: 450px;"

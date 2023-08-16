@@ -8,22 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	let check = options.value;
 	let status = document.querySelector('input#status');
 	let statustext = document.querySelector('span#statustext');
-
-	switch(status.value){
-		
-		case 0:
-			statustext.innerHTML = '확인 전';
-			break;
-		case 1:
-			statustext.innerHTML = '처리 중';
-			break;
-		case 2:
-			statustext.innerHTML = '처리 완료';
-			break;
-		
-	}
-
-
+	
 	if (check == 1) {
 
 		options.value = '서비스 문의';
@@ -41,5 +26,22 @@ document.addEventListener('DOMContentLoaded', () => {
 		options.value = '오류 접수';
 
 	}
+	
+	switch(status.value){
+		
+		case 0:
+			statustext.innerHTML = '확인 전';
+			break;
+		case 1:
+			statustext.innerHTML = '처리 중';
+			break;
+		case 2:
+			statustext.innerHTML = '처리 완료';
+			break;
+		
+	}
+
+
+	
 
 })

@@ -73,7 +73,7 @@ public class QuestionController {
 
 		questionservice.update(dto);
 
-		return "redirect:/question/qslist";
+		return "redirect:/question/qsread?id="+dto.getNumid();
 	}
 
 	@GetMapping("/qslist")

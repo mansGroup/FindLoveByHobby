@@ -230,7 +230,7 @@
 				</div>
 				<div class="col-3"></div>
 			</div>
-
+			<div class="d-none"><input class="d-none" style="width: 100%;" required="required" type="number" max="10" min="2" id="membercount" name="membercount" th:value="${meet.meeting.member}" /></div>
 		</form>
 
 		<form th:if="${meet.meeting.status}!=0" id="modifiedForm" class="card"
@@ -409,7 +409,7 @@
 
 				<div class="col-4"></div>
 			</div>
-
+			<div><input style="width: 100%;" required="required" type="number" max="10" min="2" id="membercount" name="membercount" th:value="${meet.meeting.member}" /></div>
 		</form>
 
 

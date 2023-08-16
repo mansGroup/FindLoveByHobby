@@ -194,9 +194,9 @@ public class MeetingService {
 
 		Hobby hobby = hobbyrepository.findById(dto.getHobbyid()).orElseThrow();
 		Location loc = locrepository.findById(dto.getLocationid()).orElseThrow();
-		log.info("create(dto = {}, hobby = {}, loc = {})", dto, hobby, loc);
+		log.info("update(dto = {}, hobby = {}, loc = {})", dto, hobby, loc);
 		Meeting meeting = meetingrepository.findById(id).orElseThrow();
-		meeting.update(dto, hobby, loc, 1);
+		meeting.update(dto, hobby, loc);
 
 		meetingrepository.save(meeting);
 	}

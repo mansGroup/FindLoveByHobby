@@ -216,6 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		let end = endcount;
 
 		for (let x of list) {
+			console.log(list.length);
 			if (count < startcount) {
 				count += 1;
 				continue;
@@ -227,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				break;
 
 			}
-			console.log(x);
+			
 			let date = new Date(x.meetingdate);
 			let meettime = date.toLocaleString();
 			count += 1;
@@ -270,7 +271,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 
 
-		if (nowcount != 0) {
+		if (nowcount > 0) {
 
 
 
@@ -307,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		mainbody.style.opacity = "0";
 
-		if (nowcount + 2 > list.length) {
+		if (nowcount + 2 >= list.length) {
 
 			
 			mainbody.style.opacity = "1";
@@ -344,16 +345,21 @@ document.addEventListener('DOMContentLoaded', () => {
 		try {
 			let response1 = await axios.get(reqUrl2);
 			let listsize = response1.data;
-			console.log("listsize = " + listsize);
-
-			if (pages * 2 < listsize) {
+			
+			// pages-1 ~ pages 까지 리스트를 불러옴.
+			if ((pages-1) * 3 < listsize) {
 
 				refreshList(pages);
-				pagenum.value = pages + 1;
+				if( pages * 3 < listsize){
+					pagenum.value = pages + 1;
+				} else {
+					
+					pagenum.value = 1;
+					
+				}
+			} else if ((pages-1) * 3 >= listsize) {
 
-			} else if (pages * 2 >= listsize) {
-
-				refreshList(0);
+				refreshList(1);
 				pagenum.value = 1;
 			}
 
@@ -381,7 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	async function refreshList(paging) {
 		console.log(paging);
 
-		let reqUrl1 = `/api/meeting/listrefresh/${paging + 1}`;
+		let reqUrl1 = `/api/meeting/listrefresh/${paging}`;
 		try {
 			let response2 = await axios.get(reqUrl1);
 
