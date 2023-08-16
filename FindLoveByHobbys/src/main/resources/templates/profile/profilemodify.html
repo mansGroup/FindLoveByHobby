@@ -5,40 +5,89 @@
     
 <th:block layout:fragment="css">
 	<style>
+		my-1 {
+		    display: flex;
+		    align-items: center;
+		    gap: 10px;
+		    max-width: 300px; /* 전체 컨테이너의 최대 가로 길이 설정 */
+		}
+		
+		.form-label {
+		    flex: 1;
+		    max-width: 100px; /* 라벨의 최대 가로 길이 설정 */
+		}
+		
+		.form-control {
+		    flex: 2;
+		    max-width: 200px; /* 인풋의 최대 가로 길이 설정 */
+	    }
+		
 		.modifybtn {
 			 text-align: right;
 			 padding: 10px;
 		}
 		
+		.form-control3 {
+		    width: 450px; /* 가로 너비 */
+		    height: 100px; /* 세로 높이 */
+		    border: 2px solid #ccc; /* 테두리 스타일 설정 */
+		    border-radius: 10px; /* 테두리 모서리 둥글게 조절 */
+		    padding: 10px;
+		    font-size: 17px;
+		    line-height: 1.5;
+		 }
+		  
+		.form-control3:focus {
+		    border-color: #FF1493; /* 선택된 상태일 때 테두리 색 변경 */
+		    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 선택된 상태일 때 그림자 효과 추가 */
+		}
+		
+		.checkbox-group {
+		  	display: flex;
+		    flex-wrap: wrap;
+		    gap: 10px; /* 체크박스 간격 설정 */
+		    max-width: 100%; /* 가로 공간 내에서 최대로 넓게 나열 */
+		}
+		  
+		.checkbox-group label {
+		   flex-basis: calc(20% - 10px); /* 각 체크박스의 기본 크기 설정 (최대 20% 너비) */
+    	   display: inline-block;
+		}
+		
+		
 	</style>
 </th:block>
     
-<main layout:fragment="main">
-	<h1>프로필 수정 페이지</h1>
+<main layout:fragment="main" style="margin: 200px;">
+	<h2>수정할 프로필을 작성해주세요</h2>
 	
 <form id="profileModifyForm">
 	<div class="memberInfo">
-		<div>
-			<label class="form-label" for="userId">사용자 아이디</label>
+		<div class="my-1">
+			<label class="form-label" for="userId">아이디</label>
 			<input class="form-control" name="userId" id="userId" th:value="${profile.userId}" readonly>
 		</div>
 		
+		<h3>자기소개를 입력하세요</h3>
 		<div>
-			<label class="form-label" for="userIntroduce">자기 소개를 입력하세요</label>
-			<textarea class="form-control" id="userIntroduce"
+			<label class="form-label" for="userIntroduce"></label>
+			<textarea class="form-control3" id="userIntroduce"
 				name="userIntroduce" th:text="${profile.userIntroduce}" required autofocus>
 			</textarea>
 		</div>
+		
 		<h2>취미 (최대 3개 선택 가능)</h2>
-		<div th:each="hobby, idx : ${hobbys}" style="float: left; margin: 5px;">
-			<span th:if="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
-    			<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);" checked>
-			<label th:text="${hobby.hobbyName}"></label>
-			</span>
-			<span th:unless="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
-   				<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);">
-			<label th:text="${hobby.hobbyName}"></label>
-			</span>			
+		<div class="checkbox-group">
+			<div class="checkg" th:each="hobby, idx : ${hobbys}" style="float: left; margin: 5px;">
+				<span th:if="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
+	    			<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);" checked>
+				<label th:text="${hobby.hobbyName}"></label>
+				</span>
+				<span th:unless="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
+	   				<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);">
+				<label th:text="${hobby.hobbyName}"></label>
+				</span>			
+			</div>
 		</div>
 	</div>
 

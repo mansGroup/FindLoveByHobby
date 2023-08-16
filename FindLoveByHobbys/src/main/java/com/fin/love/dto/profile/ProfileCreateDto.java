@@ -4,6 +4,7 @@ package com.fin.love.dto.profile;
 import com.fin.love.repository.profile.Profile;
 
 import lombok.Data;
+import lombok.Getter;
 
 @Data
 public class ProfileCreateDto {

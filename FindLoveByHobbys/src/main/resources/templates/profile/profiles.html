@@ -2,55 +2,180 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
-<main layout:fragment="main">
-	<h3>이성에게 어필할 수 있는 프로필을 작성해주세요</h3>
+	
+<th:block layout:fragment="css">
+	<style>
+		 .my-1 {
+		    display: flex;
+		    align-items: center;
+		    gap: 10px;
+		    max-width: 300px; /* 전체 컨테이너의 최대 가로 길이 설정 */
+		  }
+		
+		  .form-label1 {
+		    flex: 1;
+		    max-width: 100px; /* 라벨의 최대 가로 길이 설정 */
+		  }
+		
+		  .form-control {
+		    flex: 2;
+		    max-width: 200px; /* 인풋의 최대 가로 길이 설정 */
+		  }
+		
+		  .my-2 {
+		    display: flex;
+		    align-items: center;
+		    gap: 10px;
+		    max-width: 300px; /* 전체 컨테이너의 최대 가로 길이 설정 */
+		  }
+		
+		  .form-label2 {
+		    flex: 1;
+		    max-width: 100px; /* 라벨의 최대 가로 길이 설정 */
+		  }
+		
+		  .form-control {
+		    flex: 2;
+		    max-width: 200px; /* 인풋의 최대 가로 길이 설정 */
+		  }
+		
+		  .form-control3 {
+		    width: 450px; /* 가로 너비 */
+		    height: 100px; /* 세로 높이 */
+		    border: 2px solid #ccc; /* 테두리 스타일 설정 */
+		    border-radius: 10px; /* 테두리 모서리 둥글게 조절 */
+		    padding: 10px;
+		    font-size: 17px;
+		    line-height: 1.5;
+		  }
+		  
+		  .form-control3:focus {
+		    border-color: #FF1493; /* 선택된 상태일 때 테두리 색 변경 */
+		    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 선택된 상태일 때 그림자 효과 추가 */
+		  }
+		  
+		  .checkbox-group {
+		  	display: flex;
+		    flex-wrap: wrap;
+		    gap: 10px; /* 체크박스 간격 설정 */
+		    max-width: 100%; /* 가로 공간 내에서 최대로 넓게 나열 */
+		  }
+		  
+		  .checkbox-group label {
+		    flex-basis: calc(20% - 10px); /* 각 체크박스의 기본 크기 설정 (최대 20% 너비) */
+    		display: inline-block;
+		  }
 
-	<form action="/profile/user/profileimage" method="post">
+
+
+		  :root {
+			  --background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
+			  --gray: #34495e;
+			  --darkgray: #2c3e50;
+		  }
+
+		  select {
+			  /* Reset Select */
+			  appearance: none;
+			  outline: 0;
+			  border: 0;
+			  box-shadow: none;
+			  
+			  /* Personalize */
+			  flex: 1;
+			  padding: 0 1em;
+			  color: #fff;
+			  background-color: var(--darkgray);
+			  background-image: none;
+			  cursor: pointer;
+		  }
+		select::-ms-expand {
+		  display: none;
+		}
+		.select {
+		  position: relative;
+		  display: flex;
+		  width: 20em;
+		  height: 3em;
+		  border-radius: .25em;
+		  overflow: hidden;
+		}
+		.select::after {
+		  content: '\25BC';
+		  position: absolute;
+		  top: 0;
+		  right: 0;
+		  padding: 1em;
+		  background-color: #34495e;
+		  transition: .25s all ease;
+		  pointer-events: none;
+		}
+		.select:hover::after {
+		  color: #f39c12;
+		}
+		
+		body {
+		  color: #fff;
+		  background: var(--background-gradient);
+		}
+		h1 {
+		  margin: 0 0 0.25em;
+		}
+		a {
+		  font-weight: bold;
+		  color: var(--gray);
+		  text-decoration: none;
+		  padding: .25em;
+		  border-radius: .25em;
+		  background: white;
+		}
+	</style>
+</th:block>
+<main layout:fragment="main" style="margin: 250px;">
+	<h2>이성에게 어필할 수 있는 프로필을 작성해주세요</h2>
+
+	<form id="profiles" action="/profile/user/profileimage" method="post">
 		<!-- 회원가입 정보에서 불러올 데이터(이름, 성별, 생년월일) -->
-		<div class="memberInfo">
 			<input class="d-none" th:value="${ #authentication.name }" name="userId" />
 			<div class="my-1">
-				<label class="form-label" for="name">이름</label>
-				<input class="form-control" id="name" type="text" value="테스트 값" readonly>
+				<label class="form-label1" for="name">이름</label>
+				<input class="form-control" id="name" type="text" value="111" readonly>
 			</div>
 			<div class="my-2">
-				<label class="form-label" for="gender">성별</label>
-				 <input class="form-control" id="gender" type="text" value="테스트 값" readonly>
-			</div>
-			<div class="my-3">
-				<label class="form-label" for="bday">생년월일</label>
-				<input class="form-control" id="bday" type="text" value="테스트 값" readonly>
+				<label class="form-label2" for="gender">성별</label>
+				 <input class="form-control" id="gender" type="text" value="111" readonly>
 			</div>
 
 			<!-- 자기소개서는 텍스트 입력 -->
-			<div class="my-4">
-				<label class="form-label" for="userIntroduce">자기 소개를 입력하세요</label>
-				<textarea class="form-control" id="userIntroduce" name="userIntroduce" required autofocus></textarea>
+			<h2>자기소개를 입력하세요</h2>
+			<div class="my-3">
+				<label class="form-label3" for="userIntroduce"></label>
+				<textarea class="form-control3" id="userIntroduce" name="userIntroduce" required autofocus></textarea>
 			</div>
 
-			<!-- DB 데이터로 프로필 등록 -->
+			<!-- DB 불러와서 프로필 등록 -->
 			<h2>취미 (최대 3개 선택 가능)</h2>
+			<div class="checkbox-group">
 			<div th:each="hobby, idx : ${hobbys}" style="float: left; margin: 5px;">
 				<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);">
 				<label th:text="${hobby.hobbyName}"></label>
 			</div>
-		</div>
+			</div>
 
-		<div class="form-check">
 			<h2>나이</h2>
-			<select class="form-select" name="userAge" required>
+			<select class="select" name="userAge" required>
 				<option value="" disabled selected>나이 정보를 선택하세요</option>
 				<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
 			</select>
 
 			<h2>키</h2>
-			<select class="form-select" name="userHeight" required>
+			<select class="select" name="userHeight" required>
 				<option value="" disabled selected>키 정보를 선택하세요</option>
 				<option th:each="height , idx : ${heights}" th:text="${height.heightName}" th:value="${idx.count}"></option>
 			</select>
 
 			<h2>음주여부</h2>
-			<select class="form-select" name="userDrinks" required>
+			<select class="select" name="userDrinks" required>
 				<option value="" disabled selected>음주여부를 선택하세요</option>
 				<option value="1">마시지 않음</option>
 				<option value="2">가끔 마심</option>
@@ -58,14 +183,14 @@
 			</select>
 
 			<h2>흡연여부</h2>
-			<select class="form-select" name="userSmoker" required>
+			<select class="select" name="userSmoker" required>
 				<option value="" disabled selected>흡연여부를 선택하세요</option>
 				<option value="1">흡연</option>
 				<option value="2">비흡연</option>
 			</select>
 
 			<h2>학력</h2>
-			<select class="form-select" name="userAcademic" required>
+			<select class="select" name="userAcademic" required>
 				<option value="" disabled selected>학력 정보를 선택하세요</option>
 				<option value="1">4년재대학교 졸업</option>
 				<option value="2">4년재대학교 재학중</option>
@@ -75,7 +200,7 @@
 			</select>
 
 			<h2>직업</h2>
-			<select class="form-select" name="userJob" required>
+			<select class="select" name="userJob" required>
 				<option value="" disabled selected>직업 정보를 선택하세요</option>
 				<option value="1">학생</option>
 				<option value="2">사업가</option>
@@ -90,7 +215,7 @@
 			</select>
 
 			<h2>연봉</h2>
-			<select class="form-select" name="userIncome" required>
+			<select class="select" name="userIncome" required>
 				<option value="" disabled selected>연봉 정보를 선택하세요</option>
 				<option value="1">1,000만원 이하</option>
 				<option value="2">1,000만원 ~ 2,000만원</option>
@@ -106,17 +231,16 @@
 			</select>
 
 			<h2>종교</h2>
-			<select class="form-select" name="userReligion" required>
+			<select class="select" name="userReligion" required>
 				<option value="" disabled selected>종교 정보를 선택하세요</option>
 				<option value="1">기독교</option>
 				<option value="2">천주교</option>
 				<option value="3">불교</option>
 				<option value="4">무교</option>
 			</select>
-		</div>
 
-		<div class="my-2">
-			<input class="form-control btn btn-outline-dark	" type="submit" value="작성완료" />
+		<div class="my-2" style="float: right;">
+			<input class="form-control btn btn-outline-dark	" id="btnRegister" type="submit" value="작성완료" />
 		</div>
 	</form>
 

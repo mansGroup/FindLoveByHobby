@@ -16,6 +16,5 @@
 		 alert("최대 3개까지 선택할 수 있습니다.");
 		 obj.checked = false;
 		 return false;
-	 }
-	 
+	 } 	 
  }
