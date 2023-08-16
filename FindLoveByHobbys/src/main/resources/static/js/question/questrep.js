@@ -1,16 +1,63 @@
 /**
  * 
  */
-document.addEventListener("DOMContentLoaded", function() {
-        let replyContent = document.getElementById("replyContent").value;
-        let submitBtn = document.getElementById("submitBtn");
-        let editBtn = document.getElementById("editBtn");
-        let deleteBtn = document.getElementById("deleteBtn");
-        let saveEditBtn = document.getElementById("saveEditBtn");
-        let cancelEditBtn = document.getElementById("cancelEditBtn");
-		let textarea = document.getElementById("repmessage");
+document.addEventListener("DOMContentLoaded", () => {
+        
+       
+        
+        const btnDelete = document.getElementById("btnDelete");
+		const btnEdit = document.querySelector('#btnEdit');
+		const replyid = document.querySelector('input#replyid');
+	   
+    	btnDelete.addEventListener('click', () => {
+       
+       const check = confirm('삭제할까요?')
+        
+        if(check) {
+		
+        modifyForm.method = 'post';
+        modifyForm.submit();
+        }
+          
+    });
+    
+    btnEdit.addEventListener('click',(e)=>{
+		
+		e.preventDefault();
+		
+		modifyForm.method = 'post';
+		modifyForm.action = `/questionrep/update?id=${replyid.value}`;
+		modifyForm.submit();
+		
+	})
+
+   
+      });
+    
+    /*
+    editBtn.addEventListener('click', (e) => {
+		e.preventDefault();
+        // 제목과 내용이 입력되어 있는지 체크. 
+        const replyContent = document.querySelector('replyContent').value; // textarea에 입력된 값.
+        if(replyContent === '') {
+            alert("내용은 반드시 입력");
+            return; // 함수 종료
+        }
+        
+        const check = confirm('변경 내용을 저장할까요?');
+        if(check) {
+            
+        
+        modifyForm.action = './update'; // 폼 요청 주소
+        modifyForm.method = 'post'; // 폼 요청 방식
+        modifyForm.submit();
+        }
+        
+    });
 	
-        if (replyContent !== null) { // replycontent 값이 null이 아니면
+	
+	
+       /* if (replyContent !== null) { // replycontent 값이 null이 아니면
             submitBtn.style.display = "none";  // 답변 등록 버튼 숨김
             editBtn.style.display = "block";   // 수정 버튼 보임
             deleteBtn.style.display = "block"; // 삭제 버튼 보임
@@ -25,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
             cancelEditBtn.style.display = "none"; 
             textarea.readOnly = false;
         }
-        /*
+        
         function enableEditMode() { // 수정 버튼을 눌렀을 때
             editBtn.style.display = "none";         // "수정" 버튼 숨김
             deleteBtn.style.display = "none";       // "삭제" 버튼 숨김
@@ -55,4 +102,4 @@ document.addEventListener("DOMContentLoaded", function() {
                 disableEditMode();  // 수정 완료 후 다시 읽기 전용 모드로 변경
             });
             */
-    });
+  

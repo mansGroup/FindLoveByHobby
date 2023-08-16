@@ -62,12 +62,27 @@ public class QuestionService {
 
 	public Question readbyId(long id) {
 		// TODO Auto-generated method stub
+		
 		return questrepository.findById(id).orElseThrow();
 	}
+	
+	 public void updateStatusTo1(long id) {
+	        Question question = questrepository.findById(id).orElseThrow();
+	        question.setStatus(1);
+	        questrepository.save(question);
+	    }
 	
 	public Member readbyUserId(String userid) {
 		
 		return memberrepository.findById(userid).orElseThrow();
+		
+	}
+
+
+	public void updateStatusTo2(Long id) {
+		Question question = questrepository.findById(id).orElseThrow();
+        question.setStatus(2);
+        questrepository.save(question);
 		
 	}
 

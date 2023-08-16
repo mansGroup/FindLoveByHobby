@@ -24,6 +24,7 @@
 						<h5 class="mb-4">
 							문의 처리 상황 <br /> <span id="statustext" class="text-muted">확인
 								전</span>
+
 						</h5>
 
 						<form class="custom-form rsvp-form" role="form" id="readForm"
@@ -56,54 +57,52 @@
 										placeholder="문의 내용을 작성해주세요" rows="5"
 										th:text="${quest.questioncontent}" readonly="readonly"></textarea>
 								</div>
-								<!-- 계정 활성화 된 user(role=0)만 수정 버튼이 보이도록 -->
+
 								<th:block th:if="${ quest.status } == 0 and ${role} == 0">
 									<div class="col-lg-3 col-5 mx-auto">
 										<button type="submit" class="form-control">수정하기</button>
 									</div>
 								</th:block>
-								<!-- 관리자 계정일 시 답변 텍스트 박스 보이기 -->
-								<th:block th:if="${role} == 3">
-									<form action="/questionrep/qrepcreate" method="get">
-										<div>
-											<h5 class="mb-4">
-												운영자 답변 <br />
-											</h5>
-											<div class="col-lg-12 col-12">
-												<textarea class="form-control" id="repmessage"
-													th:text="${reply.replycontent}" name="repmessage" rows="5"></textarea>
-											</div>
-											<input class="d-none" name="questid" id="questid"
-												th:value="${quest.id}" />
-											<input class="d-none" id="replyContent" th:value="${reply.replycontent}" />
-											<div class="col-lg-3 col-5 mx-auto">
-												<button id="submitBtn" type="submit" class="form-control">답변
-													등록</button>
-												<button id="editBtn" class="form-control">수정</button>
-												<button id="deleteBtn" class="form-control">삭제</button>
-												<button id="saveEditBtn" class="form-control">수정 완료</button>
-												<button id="cancelEditBtn" class="form-control">수정
-													취소</button>
-											</div>
-										</div>
-									</form>
-								</th:block>
-
-
 							</div>
 						</form>
+						<th:block th:if="${role} == 3">
 
+							<div>
+								<h5 class="mb-4">
+									운영자 답변 <br />
+								</h5>
+								<form class="card-body" id="modifyForm">
+									<div class="col-lg-12 col-12">
+										<textarea class="form-control" id="repmessage"
+											th:text="${reply.replycontent}" name="repmessage" rows="5"></textarea>
+									</div>
+									<input class="d-none" name="questid" id="questid"
+										th:value="${quest.id}" /> <input class="d-none"
+										id="replyContent" th:value="${reply.replycontent}" readonly="readonly"/>
+								</form>
+								<div class="col-lg-3 col-5 mx-auto">
+									<div class="col-lg-3 col-5 mx-auto">
+                                            <a th:herf="@{/question/qslist}" class="btn form-control">답변 등록</a>
+                                    </div>
+									<button id="editBtn" class="form-control">수정</button>
+									<button id="deleteBtn" class="form-control">삭제</button>
+								</div>
+
+							</div>
+
+						</th:block>
 
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</section>
+
+
 
 </main>
 <th:block layout:fragment="myscripts">
 
 	<script th:src="@{/js/question/questread.js}"></script>
-	<script th:src="@{/js/question/questrep.js}"></script>
+
 </th:block>

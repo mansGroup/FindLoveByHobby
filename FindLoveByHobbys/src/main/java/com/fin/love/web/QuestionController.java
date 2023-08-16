@@ -138,6 +138,14 @@ public class QuestionController {
 		QuestionReply reply = questReplyService.findbyQuestionId(id);
 		
 		
+		
+//		if(reply == null) {
+//			reply.setReplycontent("답변을 등록하세요");
+//			
+//		} 
+		log.info("qreply=({})",reply);
+		
+		
 		model.addAttribute("reply", reply);
 		log.info("roles=({})",roles);
 		model.addAttribute("quest", quest);
