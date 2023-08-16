@@ -97,7 +97,7 @@ h3 {
 				</div>
 				<div class="col-10">
 
-					<div id="searchresult" class="row"></div>
+					<div id="searchresult" class="row" style="display: flex; justify-content: center;"></div>
 
 				</div>
 				<div
@@ -127,13 +127,13 @@ h3 {
 							</div>
 						</div>
 					</div>
-					<div class="col-1"></div>
+					
 					<input class="d-none" type="number" id="pagenum"
 						th:value="${pagenum}" />
-					<div id="makelists" class="row col-10">
+					<div id="makelists" class="row col-12" style="display: flex; justify-content: center;">
 
 						<div th:each="list : ${list}"
-							class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+							class="col-lg-3 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0" style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 0px 20px;">
 							<div class="image-hover-thumb">
 								<a th:href="@{'/meeting/read?id='+${list.id}}"><img
 									style="height: 270px; width: 450px;"
@@ -158,7 +158,7 @@ h3 {
 						</div>
 
 					</div>
-					<div class="col-1"></div>
+					
 				</div>
 			</div>
 		</section>

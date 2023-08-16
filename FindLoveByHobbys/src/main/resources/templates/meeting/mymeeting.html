@@ -1,7 +1,15 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
-
+<th:block layout:fragment="css">
+	<style>
+h3 {
+	white-space: nowrap; /* 텍스트가 한 줄을 넘어가지 않도록 설정 */
+	overflow: hidden; /* 넘치는 텍스트 숨기기 */
+	text-overflow: ellipsis; /* 넘치는 부분을 ...으로 표시 */
+}
+</style>
+</th:block>
 <main id="mainbody" style="height: 100%;" layout:fragment="main">
 	<input id="statusvalue" class="d-none" th:value="${status}" />
 	<section style="background-color: white; padding-bottom: 0px;"
@@ -17,10 +25,10 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-1"></div>
-				<div class="row col-10">
+				
+				<div class="row col-12" style="display: flex; justify-content: center;">
 					<div th:each="list : ${list}"
-						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+						class="col-lg-3 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0" style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 0px 20px;">
 						<div class="image-hover-thumb">
 							<a th:href="@{'/meeting/modify?id='+${list.id}}"><img
 								style="height: 270px; width: 450px;"
@@ -45,12 +53,12 @@
 					</div>
 
 				</div>
-				<div class="col-1"></div>
+				
 			</div>
 		</div>
 	</section>
 
-	<section style="background-color: white; padding-top: 0px;"
+	<section style="background-color: white; padding-top: 50px;"
 		class="the-wedding-section section-bg section-padding" id="section_3">
 		<div class="container">
 			<div class="row">
@@ -63,10 +71,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-1"></div>
-				<div class="row col-10">
+				
+				<div class="row col-12" style="display: flex; justify-content: center;">
 					<div th:each="list2 : ${list2}"
-						class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+						class="col-lg-3 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0"
+						style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 0px 20px;">
 						<div class="image-hover-thumb">
 							<a th:href="@{'/meeting/read?id='+${list2.id}}"><img
 								style="height: 270px; width: 450px;"
@@ -91,7 +100,7 @@
 					</div>
 
 				</div>
-				<div class="col-1"></div>
+				
 			</div>
 		</div>
 	</section>

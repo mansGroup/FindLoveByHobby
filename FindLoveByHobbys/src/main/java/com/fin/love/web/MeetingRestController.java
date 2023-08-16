@@ -42,7 +42,6 @@ public class MeetingRestController {
 		try {
 			list = meetservice.search(dto);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

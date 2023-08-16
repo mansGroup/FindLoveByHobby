@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		console.log(list);
-		searchResult(list, 3, 0);
+		searchResult(list, 2, 0);
 		
 			
 			
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			let meettime = date.toLocaleString();
 			count += 1;
 			html += `
-				<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+				<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0" style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 0px 20px;">
 					<input class="d-none" value="${x.id}" />
 						<div class="image-hover-thumb">
 							<a href="/meeting/read?id=${x.id}"><img style="height: 270px; width: 450px;" src="data:image/jpeg;base64,${x.image1}"
@@ -276,8 +276,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-			nowcount -= 3;
-			searchResult(list, nowcount + 3, nowcount);
+			nowcount -= 2;
+			searchResult(list, nowcount + 2, nowcount);
 			console.log(nowcount);
 
 		} else {
@@ -307,7 +307,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		mainbody.style.opacity = "0";
 
-		if (nowcount + 3 > list.length) {
+		if (nowcount + 2 > list.length) {
 
 			
 			mainbody.style.opacity = "1";
@@ -317,8 +317,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		} else {
 
 
-			nowcount += 3;
-			searchResult(list, nowcount + 3, nowcount);
+			nowcount += 2;
+			searchResult(list, nowcount + 2, nowcount);
 			console.log(nowcount);
 
 
@@ -346,12 +346,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			let listsize = response1.data;
 			console.log("listsize = " + listsize);
 
-			if (pages * 3 < listsize) {
+			if (pages * 2 < listsize) {
 
 				refreshList(pages);
 				pagenum.value = pages + 1;
 
-			} else if (pages * 3 >= listsize) {
+			} else if (pages * 2 >= listsize) {
 
 				refreshList(0);
 				pagenum.value = 1;
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				let dates = date.toLocaleString();
 
 				html += `
-					<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+					<div class="col-lg-3 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0" style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 0px 20px;">
 							<div class="image-hover-thumb">
 								<a href="/meeting/read?id=${x.id}"><img style="height: 270px; width: 450px;"
 									src="data:image/jpg;base64,${x.image1}"
