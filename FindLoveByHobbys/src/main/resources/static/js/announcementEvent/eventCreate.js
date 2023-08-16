@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const divide = document.querySelector('#divide');
 
 
+	// 버튼을 기본 이미지로 바꿔준다.
 	files.addEventListener('change', function() {
 		const file = files.files[0];
 
@@ -30,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 	});
-
 	const imageUpload = (id) => {
 		console.info('들어옴')
 
@@ -60,12 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// FormData 객체를 전송
 		xhr.send(formData);
-		
-		
-	};
-	
 
-	btnCreate.addEventListener('click', () => {
+
+	};
+
+
+	btnCreate.addEventListener('click', (e) => {
+		e.preventDefault();
 
 		let titleVal = title.value;
 		let contentVal = content.value;
@@ -81,6 +82,21 @@ document.addEventListener('DOMContentLoaded', () => {
 			return;
 		}
 
+		if (titleVal.length > 50) {
+			alert('제목은 최대 100자 까지 가능합니다.');
+			return;
+		}
+
+		if (contentVal.length > 500) {
+			alert('내용은 최대 500자 까지 가능합니다.');
+			return;
+		}
+
+		if (image === `/images/Adding_a_Person_Image.png`) {
+			alert('반드시 사진을 등록해주세요.');
+			return;
+		}
+		
 		const formData = new FormData();
 
 		formData.append('title', titleVal);
@@ -99,9 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
 					if (xhr.status === 200) {
 						const responseText = xhr.responseText;
 						console.log('responseText >>>> ', responseText);
-						
+
 						imageUpload(responseText);
-						
+
+
+						// 버튼을 누르면 밑의 주소로 이동한다.
 						window.location.href = '/announcementEvent/eventMain';
 					} else {
 						console.error("Request failed");

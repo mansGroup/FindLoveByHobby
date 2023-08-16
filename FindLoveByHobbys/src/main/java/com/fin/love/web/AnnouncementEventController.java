@@ -5,11 +5,11 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fin.love.dto.announcementEvent.AnnouncementEventDto;
+import com.fin.love.dto.announcementEvent.AnnouncementEventReadDto;
 import com.fin.love.repository.announcementEvent.AnnouncementEvent;
 import com.fin.love.repository.announcementEvent.AnnouncementEventPicture;
 import com.fin.love.service.AnnouncementEventService;
@@ -91,16 +91,22 @@ public class AnnouncementEventController {
 		return "redirect:/announcementEvent/eventDetails?id=" + dto.getId();
 		// 쿼리스트링에선 공백이 있으면 안된다.
 	}
-
+	
+	
+	// 유저 페이지
 	@GetMapping("/eventUser")
 	public void userPage(Model model) {
 		log.info("userPage()");
-
+		
+		
+		
 		// ANNOUNCEMENT_EVENT 테이블에서 id에 해당하는 포스트를 검색.
-		List<AnnouncementEvent> post = announcementEventService.findAll();
-
+		List<AnnouncementEvent> ame = announcementEventService.getAllEvent();
+		log.info("ame = {}", ame);
+		List<AnnouncementEventReadDto> list = announcementEventService.getAllEventPicture();
 		// 결과를 model에 저장.
-		model.addAttribute("post", post.get(0));
+		model.addAttribute("ame", ame);
+		model.addAttribute("list", list);
 	}
 
 }

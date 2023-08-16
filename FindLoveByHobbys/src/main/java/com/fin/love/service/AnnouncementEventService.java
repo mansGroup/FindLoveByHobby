@@ -3,6 +3,7 @@ package com.fin.love.service;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fin.love.dto.announcementEvent.AnnouncementEventCreateDto;
 import com.fin.love.dto.announcementEvent.AnnouncementEventDto;
+import com.fin.love.dto.announcementEvent.AnnouncementEventReadDto;
 import com.fin.love.repository.announcementEvent.AnnouncementEvent;
 import com.fin.love.repository.announcementEvent.AnnouncementEventPicture;
 import com.fin.love.repository.announcementEvent.AnnouncementEventPictureRepository;
@@ -29,7 +31,7 @@ public class AnnouncementEventService {
 	
 	private final AnnouncementEventRepository announcementEventRepository;
 	private final AnnouncementEventPictureRepository announcementEventPictureRepository;
-	
+	private final MatchingService matchservice;
 //=================================이미지 관련========================================================================================
 
 	// 날짜별로 폴더 생성하는 메서드.
@@ -72,6 +74,30 @@ public class AnnouncementEventService {
 			
 			pic.picUpdate(saveImagePathName);
 		}
+
+//=====================관리자 이미지==================================================================================
+		
+		public AnnouncementEventPicture findByid(Long id) {
+			
+			AnnouncementEventPicture anep = announcementEventPictureRepository.findById(id).orElse(null);
+			
+			return anep;
+		}
+		
+			// 출력하는 사진으로 변경시키기
+			public String imageChange(String picture) {
+				log.info("imageChange(picture = {})", picture);
+
+				if (picture.equals("/images/Adding_a_Person_Image.png")) {
+					return picture;
+				}
+
+				String result = "/images/uploadImages/";
+				result += picture;
+
+				return result;
+			}
+		
 //=================================이미지 관련========================================================================================
 	
 		// DB ANNOUNCEMENT_EVENT 테이블에서 전체 검색한 결과를 리턴:
@@ -111,6 +137,8 @@ public class AnnouncementEventService {
         log.info("delete(id={})", id);
         
         announcementEventRepository.deleteById(id);
+        
+        announcementEventPictureRepository.deleteById(id);
     }
     
     @Transactional // (1)
@@ -125,33 +153,41 @@ public class AnnouncementEventService {
         entity.update(dto); // (3)
         
     }
-
-	public List<AnnouncementEvent> findAll() {
+    
+    @Transactional(readOnly = true)
+	public List<AnnouncementEvent> getAllEvent() {
 		log.info("findAll()");
-
+		
 		return announcementEventRepository.findAll();
 	}
-
-	
-	public AnnouncementEventPicture findByid(Long id) {
-		
-		AnnouncementEventPicture anep = announcementEventPictureRepository.findById(id).orElse(null);
-		
-		return anep;
-	}
-	
-	// 출력하는 사진으로 변경시키기
-		public String imageChange(String picture) {
-			log.info("imageChange(picture = {})", picture);
-
-			if (picture.equals("/images/Adding_a_Person_Image.png")) {
-				return picture;
-			}
-
-			String result = "/images/uploadImages/";
-			result += picture;
-
-			return result;
-		}
     
+    
+    
+    
+    public List<AnnouncementEventReadDto> getAllEventPicture() {
+    	
+		
+    	List<AnnouncementEvent> ame = getAllEvent();
+    	List<AnnouncementEventReadDto> eventPic = new ArrayList<>();
+    	
+    	for (AnnouncementEvent x : ame) {
+    		
+    		AnnouncementEventPicture y = announcementEventPictureRepository.findById(x.getId()).orElse(new AnnouncementEventPicture());
+    			
+    			if (y.getPicture()!=null) {
+    				log.info("pic = {}",y.getPicture());
+    				
+    				String picture = matchservice.imageChange(y.getPicture());
+    				
+    				AnnouncementEventReadDto dto = AnnouncementEventReadDto.FromEntity(x, picture);
+    				eventPic.add(dto);
+    				
+    				
+    			}
+    		
+    	}
+				
+    	return eventPic;
+	
+    }
 }
