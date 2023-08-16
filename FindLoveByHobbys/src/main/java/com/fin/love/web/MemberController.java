@@ -51,6 +51,7 @@ public class MemberController {
 	@GetMapping("/searchid")
 	public void searchId () {
 		log.info("searchId() GET");
+
 	}
 
 	@PostMapping("/signup")
