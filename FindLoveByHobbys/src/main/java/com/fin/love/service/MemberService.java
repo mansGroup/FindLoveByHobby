@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fin.love.dto.member.MemberLogInDto;
 import com.fin.love.dto.member.MemberSignUpDto;
+import com.fin.love.repository.profile.Height;
+import com.fin.love.repository.profile.HeightRepository;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
 import com.fin.love.respository.member.Role;
@@ -100,6 +102,15 @@ public class MemberService implements UserDetailsService {
 		log.info("member >>> " + member);
 		
 		member.updateRole(Role.USER);
+	}
+	
+	
+	// 멤버 리스트 불러오기 (Profile)
+	@Transactional(readOnly = true)
+	public List<Member> readMembefrList() {
+		log.info("readMembefrList()");
+		
+		return memberRepository.findAll();
 	}
 	
 }

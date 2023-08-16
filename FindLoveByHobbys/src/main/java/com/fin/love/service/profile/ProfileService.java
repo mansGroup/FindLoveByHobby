@@ -62,23 +62,32 @@ public class ProfileService {
 	}
 	
 	
-//	@Transactional
-//	public List<Profile> search(ProfileSearchDto dto) {
-//		log.info("search(dto= {})", dto);
-//		
-//		List<Profile> list = null;
-//		switch(dto.getType()) {
-//		case "":
-//			
-//		
-//		}
-//}
-
 	@Transactional(readOnly = true)
 	public Profile findById(String userid) {
 		log.info("findById(userId={})", userid);
 		
 		return profileRepository.findById(userid).orElse(null);
 	}
+	
+	
+//	@Transactional
+//	public List<Profile> search(ProfileSearchDto dto) {
+//		log.info("search(dto= {})", dto);
+//		
+//		List<Profile> list = null;
+//		switch(dto.getType()) {
+//		case "a":
+//			list = profileRepository.findByuserAgeContainsIgnoreCaseOrderByIdDesc(dto.getKeyword());
+//			break;
+//		case "h":
+//			list = profileRepository.findByuserHeightContainsIgnoreCaseOrderByIdDesc(dto.getKeyword());
+//			break;
+//		case "j":
+//			list = profileRepository.findByuserJobContainsIgnoreCaseOrderByIdDesc(dto.getKeyword());
+//			break;
+//		}
+//		return list;
+//	}
+//	
 
 }
