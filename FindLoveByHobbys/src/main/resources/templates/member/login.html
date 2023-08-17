@@ -3,8 +3,6 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
 	
-	<div layout:fragment="main">
-	
 <th:block layout:fragment="css">
 <style>
 
@@ -48,12 +46,6 @@ input, button {
   transition: transform 1.2s ease-in-out;
   padding: 50px 30px 0;
 }
-
-
-			<div>
-				<a th:href="@{ /member/searchid }">아이디 찾기 </a> <a
-					th:href="@{ /member/searchpassword }">비밀번호 찾기</a>
-			</div>
 
 .sub-cont {
   overflow: hidden;
@@ -206,9 +198,7 @@ input {
 </style>
 </th:block>
 
-	
-
-
+<main layout:fragment="main">
 
 <p class="tip">취미로 당신의 인생 연인을 찾아보시라요^^</p>
 	<div class="cont">
@@ -261,8 +251,7 @@ input {
 			</div>
 		</div>
 	</div>
-</div>
-
+	
 	<a href="https://dribbble.com/shots/3306190-Login-Registration-form"
 		target="_blank" class="icon-link"> <img
 		src="http://icons.iconarchive.com/icons/uiconstock/socialmedia/256/Dribbble-icon.png">
@@ -272,7 +261,13 @@ input {
 		class="icon-link icon-link--twitter"> <img
 		src="https://cdn1.iconfinder.com/data/icons/logotypes/32/twitter-128.png">
 	</a>
+	
+</main>
 
 
+<th:block layout:fragment="myscripts">
+	
+	<script src="/js/signup/signin.js"></script>
+</th:block>
 
 </html>

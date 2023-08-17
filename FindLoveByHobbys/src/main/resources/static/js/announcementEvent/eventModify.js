@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	const image = document.getElementById('imageModify');
 	
 	const id = document.querySelector('#id').value;
+	
+	const inputBasicUserPicture = document.querySelector('input#basicUserPicture');
 
 	btnDelete.addEventListener('click', () => {
 
@@ -28,8 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	});
 	
 	files.addEventListener('change', function() {
+		const basicUserPicture = inputBasicUserPicture.value;
+		
 		const file = files.files[0];
-
+		
+		if (file.name === undefined) {
+			image.src = `${basicUserPicture}`;
+			image.style.display = 'none';
+		}
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -40,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			image.src = '/images/Adding_a_Person_Image.png';
+			image.src = `${basicUserPicture}`;
 			image.style.display = 'none';
 		}
 		

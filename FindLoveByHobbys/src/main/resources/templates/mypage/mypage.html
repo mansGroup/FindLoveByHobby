@@ -69,11 +69,11 @@
 					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
 					<label for="meeting"
 						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
-						<a th:href="@{/meeting/meetinglist?pagenum=1}" style="display: flex; justify-content: center; align-items: center;">
+						<a th:href="@{/meeting/meetinglist}" style="display: flex; justify-content: center; align-items: center;">
 						<img src="/images/mypage/free-animated-icon-conference-9828863.gif"
 						class="img-fluid imageThumnail" alt="" id="meeting">
 						</a>
-					</label> <a th:href="@{/meeting/meetinglist?pagenum=1}" id="matchingList"
+					</label> <a th:href="@{/meeting/meetinglist}" id="matchingList"
 						style="display: flex; justify-content: center; margin-top: 10px;">미팅</a>
 				</div>
 
@@ -81,12 +81,12 @@
 					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
 					<label for="question"
 						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
-						<a th:href="@{/question/qscreate}"
+						<a th:href="@{/question/qslist}"
 						style="display: flex; justify-content: center; align-items: center;">
 							<img src="/images/mypage/free-animated-icon-call-10690137.gif"
 							class="img-fluid imageThumnail" alt="" id="question">
 					</a>
-					</label> <a th:href="@{/question/qscreate}" id="imageModify"
+					</label> <a th:href="@{/question/qslist}" id="imageModify"
 						style="display: flex; justify-content: center; margin-top: 10px;">문의 하기</a>
 				</div>
 
@@ -94,9 +94,12 @@
 					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
 					<label for="matchingList"
 						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/announcementEvent/eventUser}"
+						style="display: flex; justify-content: center; align-items: center;">
 						<img src="/images/mypage/mypage_quesion.gif"
 						class="img-fluid imageThumnail" alt="" id="defultImage1">
-					</label> <a href="#" id="matchingList"
+						</a>
+					</label> <a href="@{/announcementEvent/eventUser}" id="matchingList"
 						style="display: flex; justify-content: center; margin-top: 10px;">공지 / 이벤트</a>
 				</div>
 

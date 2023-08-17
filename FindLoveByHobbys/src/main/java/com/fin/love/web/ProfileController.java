@@ -301,8 +301,14 @@ public class ProfileController {
 
 	// 프로필 수정 후 업데이트
 	@PostMapping("/update")
-	public String profileUpdate(ProfileUpdateDto dto, @RequestParam String hobby1, @RequestParam String hobby2, @RequestParam String hobby3) {
+	public String profileUpdate(ProfileUpdateDto dto, 
+			@RequestParam String hobby1, 
+			@RequestParam String hobby2, 
+			@RequestParam String hobby3) {
 		log.info("profileUpdate({})", dto);
+		log.info("hobby1" + hobby1);
+		log.info("hobby2" + hobby2);
+		log.info("hobby3" + hobby3);
 
 		profileService.profileUpdate(dto);
 
