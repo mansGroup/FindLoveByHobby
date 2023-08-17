@@ -35,4 +35,5 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
 	List<Member> findByOrderByRoleDesc();
 
+    List<Member> findByName(String username);
 }

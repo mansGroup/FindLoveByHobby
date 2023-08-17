@@ -54,6 +54,22 @@ public class EmailSenderService {
         return key;
     }
 
+    public String sendEmailForFindPassword(String toEmail) {
+        String key = createKey();
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("dahanyu0@gmail.com");
+        message.setTo(toEmail);
+        message.setText(makeBoby(key));
+        message.setSubject("취밋 비밀번호 찾기 인증번호 발송");
+
+        mailSender.send(message);
+
+        log.info("mail Sent successfully...");
+
+        return key;
+    }
+
+
     private String makeBoby(String randomNumber) {
         return """
                 안녕하세요 취밋입니다.

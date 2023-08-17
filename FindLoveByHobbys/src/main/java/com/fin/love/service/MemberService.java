@@ -1,6 +1,7 @@
 package com.fin.love.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -105,4 +106,19 @@ public class MemberService implements UserDetailsService {
     public Member getMemberInfo(String id) {
 		return memberRepository.findById(id).orElseThrow();
     }
+
+	public Member getMemberOrElseEmptyEntity(String id) {
+		Member entity = memberRepository.findById(id).orElseGet(Member::new);
+		return entity;
+	}
+
+	public List<Member> getMemberInfoByUsername(String username) {
+		return  memberRepository.findByName(username);
+	}
+
+	@Transactional
+	public void updatePassword(String userId, String temporaryPassword) {
+		Member entity = memberRepository.findById(userId).orElseThrow();
+		entity.updatePassword(temporaryPassword);
+	}
 }

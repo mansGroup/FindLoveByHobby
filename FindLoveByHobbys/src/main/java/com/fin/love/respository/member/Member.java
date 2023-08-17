@@ -116,5 +116,8 @@ public class Member extends BaseTimeEntity implements UserDetails {
 		
 		return this;
 	}
-	
+
+    public void updatePassword(String temporaryPassword) {
+        this.password = temporaryPassword;
+    }
 }

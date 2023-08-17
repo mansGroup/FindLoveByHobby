@@ -1,31 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const userid = document.querySelector('input#userid').value;
-    const email = document.querySelector('input#email').value;
+    const username = document.querySelector('input#username');
+    const email = document.querySelector('input#email');
     const btnSendAuthenticationNumber = document.querySelector('span#btnSendAuthenticationNumber');
     const authenticationNumber = document.querySelector('input#authenticationNumber');
     const btnCheckKey = document.querySelector('span#btnCheckKey');
-    const findIdForm = document.querySelector('form#findIdForm');
     let code = '';
+    let userid = '';
 
     btnSendAuthenticationNumber.addEventListener('click', () => {
-        const url = '/authentication/findid/' + userid + '/' + email;
+        const usernameValue = username.value;
+        const emailValue = email.value;
+        console.log(username + '=========' + email);
+        const url = '/authentication/findid/' + usernameValue + '/' + emailValue;
 
         axios.get(url)
             .then((response) => {
-                if (response.data == '이메일을 확인해 주세요.') {
-                    alert('이메일을 확인해 주세요.');
+                const data = response.data;
+                if (response.data.userid == 'null') {
+                    alert('이메일이 일치하지 않습니다.');
                 } else {
                     alert('인증번호가 발송되었습니다.');
-                    code = response.data();
+                    code = data.code;
+                    userid = data.userid;
                 }
             }).catch((error) => console.log(error));
     });
 
     btnCheckKey.addEventListener('click', () => {
         if (code != authenticationNumber.value) {
-            alert('인증번호가 틀렸습니다.');
+            alert('인증번호가 일치하지 않습니다.');
         } else {
-            findIdForm.
+            alert('아이디는 ' + userid + ' 입니다.');
         }
     });
 });
