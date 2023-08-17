@@ -20,7 +20,7 @@
                                     </div>
                                 </div>
 
-                                <h5 class="mb-4"><span th:text="${quest.usernickname}"></span>님 문의 사항이 있으신가요? <br /><span class="text-muted">최대한 신속하게 답변드리겠습니다.</span></h5>
+                                <h5 class="mb-4">문의 사항이 있으신가요? <br /><span class="text-muted">최대한 신속하게 답변드리겠습니다.</span></h5>
 								
                                 <form class="custom-form rsvp-form" role="form" id="modifyForm" action="/question/qsmodify" method="post">
                                 	<input class="d-none" id="numid" name="numid" th:value="${quest.id}" />
@@ -45,12 +45,9 @@
                                         <div class="col-lg-3 col-5 mx-auto">
                                             <button type="submit" class="form-control">수정완료</button>
                                         </div>
-                                        <div class="col-lg-3 col-5 mx-auto">
-                                            <a th:herf="@{/question/qslist}" class="btn form-control">뒤로가기</a>
-                                        </div>
+
                                     </div>
                                 </form>
-                                
                             </div>
                         </div>
 

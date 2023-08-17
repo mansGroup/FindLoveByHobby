@@ -1,6 +1,5 @@
 package com.fin.love.dto.questionRep;
 
-import com.fin.love.repository.question.Question;
 import com.fin.love.repository.questreply.QuestionReply;
 
 import lombok.AllArgsConstructor;
@@ -12,10 +11,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class QuestRepListDto {
+public class QuestRepUpdateDto {
 
-	private Question quest;
+	private long replyid;
 	
-	private QuestionReply reply;
+	private String repmessage;
+	
+	public QuestionReply toEntity() {
+		
+		return QuestionReply.builder().replyid(replyid).replycontent(repmessage).build();
+				
+		
+	}
 	
 }
