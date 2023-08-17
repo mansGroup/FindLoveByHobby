@@ -83,6 +83,7 @@
 	    			<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);" checked>
 				<label th:text="${hobby.hobbyName}"></label>
 				</span>
+				
 				<span th:unless="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
 	   				<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);">
 				<label th:text="${hobby.hobbyName}"></label>

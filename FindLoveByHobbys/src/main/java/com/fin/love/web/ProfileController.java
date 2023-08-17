@@ -123,7 +123,6 @@ public class ProfileController {
 		Long hobbyId2 = Long.valueOf(st.nextToken());
 		Long hobbyId3 = Long.valueOf(st.nextToken());
 		
-		
 		UserHobbyDto hobbyDto1 = new UserHobbyDto(dto.getUserId(), hobbyId1);
 		UserHobbyDto hobbyDto2 = new UserHobbyDto(dto.getUserId(), hobbyId2);
 		UserHobbyDto hobbyDto3 = new UserHobbyDto(dto.getUserId(), hobbyId3);		

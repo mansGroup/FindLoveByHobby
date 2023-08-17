@@ -5,131 +5,134 @@
 	
 <th:block layout:fragment="css">
 	<style>
-		 .my-1 {
-		    display: flex;
-		    align-items: center;
-		    gap: 10px;
-		    max-width: 300px; /* 전체 컨테이너의 최대 가로 길이 설정 */
-		  }
-		
-		  .form-label1 {
-		    flex: 1;
-		    max-width: 100px; /* 라벨의 최대 가로 길이 설정 */
-		  }
-		
-		  .form-control {
-		    flex: 2;
-		    max-width: 200px; /* 인풋의 최대 가로 길이 설정 */
-		  }
-		
-		  .my-2 {
-		    display: flex;
-		    align-items: center;
-		    gap: 10px;
-		    max-width: 300px; /* 전체 컨테이너의 최대 가로 길이 설정 */
-		  }
-		
-		  .form-label2 {
-		    flex: 1;
-		    max-width: 100px; /* 라벨의 최대 가로 길이 설정 */
-		  }
-		
-		  .form-control {
-		    flex: 2;
-		    max-width: 200px; /* 인풋의 최대 가로 길이 설정 */
-		  }
-		
-		  .form-control3 {
-		    width: 450px; /* 가로 너비 */
-		    height: 100px; /* 세로 높이 */
-		    border: 2px solid #ccc; /* 테두리 스타일 설정 */
-		    border-radius: 10px; /* 테두리 모서리 둥글게 조절 */
-		    padding: 10px;
-		    font-size: 17px;
-		    line-height: 1.5;
-		  }
-		  
-		  .form-control3:focus {
-		    border-color: #FF1493; /* 선택된 상태일 때 테두리 색 변경 */
-		    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 선택된 상태일 때 그림자 효과 추가 */
-		  }
-		  
-		  .checkbox-group {
-		  	display: flex;
-		    flex-wrap: wrap;
-		    gap: 10px; /* 체크박스 간격 설정 */
-		    max-width: 100%; /* 가로 공간 내에서 최대로 넓게 나열 */
-		  }
-		  
-		  .checkbox-group label {
-		    flex-basis: calc(20% - 10px); /* 각 체크박스의 기본 크기 설정 (최대 20% 너비) */
-    		display: inline-block;
-		  }
+.my-1 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	max-width: 300px; /* 전체 컨테이너의 최대 가로 길이 설정 */
+}
 
+.form-label1 {
+	flex: 1;
+	max-width: 100px; /* 라벨의 최대 가로 길이 설정 */
+}
 
+.form-control {
+	flex: 2;
+	max-width: 200px; /* 인풋의 최대 가로 길이 설정 */
+}
 
-		  :root {
-			  --background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
-			  --gray: #34495e;
-			  --darkgray: #2c3e50;
-		  }
+.my-2 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	max-width: 300px; /* 전체 컨테이너의 최대 가로 길이 설정 */
+}
 
-		  select {
-			  /* Reset Select */
-			  appearance: none;
-			  outline: 0;
-			  border: 0;
-			  box-shadow: none;
-			  
-			  /* Personalize */
-			  flex: 1;
-			  padding: 0 1em;
-			  color: #fff;
-			  background-color: var(--darkgray);
-			  background-image: none;
-			  cursor: pointer;
-		  }
-		select::-ms-expand {
-		  display: none;
-		}
-		.select {
-		  position: relative;
-		  display: flex;
-		  width: 20em;
-		  height: 3em;
-		  border-radius: .25em;
-		  overflow: hidden;
-		}
-		.select::after {
-		  content: '\25BC';
-		  position: absolute;
-		  top: 0;
-		  right: 0;
-		  padding: 1em;
-		  background-color: #34495e;
-		  transition: .25s all ease;
-		  pointer-events: none;
-		}
-		.select:hover::after {
-		  color: #f39c12;
-		}
-		
-		body {
-		  color: #fff;
-		  background: var(--background-gradient);
-		}
-		h1 {
-		  margin: 0 0 0.25em;
-		}
-		a {
-		  font-weight: bold;
-		  color: var(--gray);
-		  text-decoration: none;
-		  padding: .25em;
-		  border-radius: .25em;
-		  background: white;
-		}
-	</style>
+.form-label2 {
+	flex: 1;
+	max-width: 100px; /* 라벨의 최대 가로 길이 설정 */
+}
+
+.form-control {
+	flex: 2;
+	max-width: 200px; /* 인풋의 최대 가로 길이 설정 */
+}
+
+.form-control3 {
+	width: 450px; /* 가로 너비 */
+	height: 100px; /* 세로 높이 */
+	border: 2px solid #ccc; /* 테두리 스타일 설정 */
+	border-radius: 10px; /* 테두리 모서리 둥글게 조절 */
+	padding: 10px;
+	font-size: 17px;
+	line-height: 1.5;
+}
+
+.form-control3:focus {
+	border-color: #FF1493; /* 선택된 상태일 때 테두리 색 변경 */
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 선택된 상태일 때 그림자 효과 추가 */
+}
+
+.checkbox-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px; /* 체크박스 간격 설정 */
+	max-width: 100%; /* 가로 공간 내에서 최대로 넓게 나열 */
+}
+
+.checkbox-group label {
+	flex-basis: calc(20% - 10px); /* 각 체크박스의 기본 크기 설정 (최대 20% 너비) */
+	display: inline-block;
+}
+
+:root {
+	--background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
+	--gray: #34495e;
+	--darkgray: #2c3e50;
+}
+
+select {
+	/* Reset Select */
+	appearance: none;
+	outline: 0;
+	border: 0;
+	box-shadow: none;
+	/* Personalize */
+	flex: 1;
+	padding: 0 1em;
+	color: #fff;
+	background-color: var(--darkgray);
+	background-image: none;
+	cursor: pointer;
+}
+
+select::-ms-expand {
+	display: none;
+}
+
+.select {
+	position: relative;
+	display: flex;
+	width: 20em;
+	height: 3em;
+	border-radius: .25em;
+	overflow: hidden;
+}
+
+.select::after {
+	content: '\25BC';
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 1em;
+	background-color: #34495e;
+	transition: .25s all ease;
+	pointer-events: none;
+}
+
+.select:hover::after {
+	color: #f39c12;
+}
+
+body {
+	color: #fff;
+	background: var(--background-gradient);
+}
+
+h1 {
+	margin: 0 0 0.25em;
+}
+
+a {
+	font-weight: bold;
+	color: var(--gray);
+	text-decoration: none;
+	padding: .25em;
+	border-radius: .25em;
+	background: white;
+}
+</style>
 </th:block>
 <main layout:fragment="main" style="margin: 250px;">
 	<h2>이성에게 어필할 수 있는 프로필을 작성해주세요</h2>
