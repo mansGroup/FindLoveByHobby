@@ -4,35 +4,46 @@
 	layout:decorate="~{layout/base_layout}">
 <body>
 	<main layout:fragment="main">
+		<th:block layout:fragment="css">
+			<style>
+.page-header {
+	text-align: center;
+	margin-bottom: 40px;
+}
+</style>
 
-		<div>
-			<h1>공지&이벤트 유저 화면</h1>
+		</th:block>
+
+
+		<div class="page-header" style="margin-top: 50px">
+			<h2>공지&이벤트 유저 화면</h2>
 		</div>
-		<div>
-			<div>
-				<h6 th:if="${post.divide} == 0">이벤트</h6>
-				<h6 th:if="${post.divide} == 1">공지</h6>
+		<div class="btn-toolbar mb-3" role="toolbar"
+			aria-label="Toolbar with button groups">
+			<div class="btn-group me-2" role="group" aria-label="First group">
+				<a type="button" class="btn btn-warning"
+					th:href="@{/announcementEvent/eventMain}">메인</a> <a type="button"
+					class="btn btn-warning" th:href="@{/announcementEvent/eventCreate}">작성하기</a>
 			</div>
-			<div>
-				<label for="id">번호</label> 
-				<input id="id" name="id" th:value="${post.id}" readonly />
-			</div>
-			<div>
-				<label for="title">제목</label> 
-				<input id="title" name="title" th:value="${post.title}" readonly />
-			</div>
-			<div>
-				<label for="author">작성자</label> 
-				<input id="author" name="author" th:value="${post.author}" readonly />
-			</div>
-			<div>
-				<label for="content">내용</label>
-				<textarea id="content" name="content" th:text="${post.content}" readonly ></textarea>
-			</div>
-			<div>
-				<label for="createTime">작성시간</label> 
-				<input id="createTime" name="createTime"
-					   th:value="${ #temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm:ss') }" readonly />
+		</div>
+
+		<div class="row row-cols-1 row-cols-md-3 g-4"
+			style="margin-left: 270px; margin-right: 150px; margin-bottom: 150px;">
+			<div th:each="event : ${list}" class="col" style="margin-bottom: 100px">
+				<div class="card h-100" style="width: 18rem;" th:value="${event}">
+					<img th:src="${event.pictures}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h6 th:if="${event.events.divide == 0}">이벤트</h6>
+						<h6 th:if="${event.events.divide == 1}">공지</h6>
+						<h5 class="card-title" id="title" th:text="${event.events.title}"></h5>
+						<label class="card-author" id="author" th:text="${event.events.author}"></label>
+						<p class="card-text" id="content" th:text="${event.events.content}"></p>
+						<p class="card-footer">
+							<small class="text-body-secondary"
+								th:text="${#temporals.format(event.events.createdTime, 'yyyy-MM-dd HH:mm:ss')}"></small>
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</main>
