@@ -23,6 +23,7 @@ import com.fin.love.repository.profile.UserHobby;
 import com.fin.love.repository.profile.UserHobbyRepository;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
+import com.fin.love.respository.member.Role;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -72,7 +73,10 @@ public class MatchingService {
 		} else { // 여자라면
 			members = memberRepository.findBySex(1); // 남자만 검색
 		}
-
+		
+		Role role = Role.USER;
+		members = memberRepository.findByRole(role);
+		
 		// 모든 취미 불러오는 List
 		List<Hobby> hobbys = hobbyRepository.findAll();
 

@@ -117,7 +117,7 @@ public class FaceChatController {
 
 		faceservice.doReport(dto);
 
-		return "redirect:/facechat/chatroom";
+		return "redirect:/chat/chat";
 
 	}
 
@@ -127,7 +127,7 @@ public class FaceChatController {
 
 		log.info("report 당함");
 
-		return "redirect:/facechat/chatroom";
+		return "redirect:/chat/chat";
 
 	}
 

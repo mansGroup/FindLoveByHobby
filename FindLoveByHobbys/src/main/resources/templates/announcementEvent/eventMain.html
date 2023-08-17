@@ -3,7 +3,8 @@
 	xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
 <body>
-	<main layout:fragment="main" style="margin-left:150px; margin-right:150px; margin-bottom: 150px; margin-top:70px">
+	<main layout:fragment="main"
+		style="margin-left: 150px; margin-right: 150px; margin-bottom: 150px; margin-top: 70px">
 
 		<div style="display: flex; justify-content: space-around;">
 			<h2>공지&이벤트 메인 페이지</h2>
@@ -14,9 +15,6 @@
 				<a type="button" class="btn btn-warning"
 					th:href="@{/announcementEvent/eventMain}">메인</a> <a type="button"
 					class="btn btn-warning" th:href="@{/announcementEvent/eventCreate}">작성하기</a>
-				<a type="button" class="btn btn-warning"
-					th:href="@{/announcementEvent/eventUser}">유저페이지(임시)</a>
-
 			</div>
 		</div>
 
@@ -45,8 +43,6 @@
 			<tbody>
 			</tbody>
 		</table>
-
-
 	</main>
 
 </body>

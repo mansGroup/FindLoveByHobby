@@ -306,9 +306,9 @@ public class ProfileController {
 			@RequestParam String hobby2, 
 			@RequestParam String hobby3) {
 		log.info("profileUpdate({})", dto);
-		log.info("hobby1" + hobby1);
-		log.info("hobby2" + hobby2);
-		log.info("hobby3" + hobby3);
+		log.info("hobby1 >>>>>>>>>> " + hobby1);
+		log.info("hobby2 >>>>>>>>>> " + hobby2);
+		log.info("hobby3 >>>>>>>>.> " + hobby3);
 
 		profileService.profileUpdate(dto);
 
@@ -327,11 +327,17 @@ public class ProfileController {
 		if (!hobby3.equals("-2")) {
 			hobbyId3 = Long.parseLong(hobby3);
 		}
+		
+		log.info("hobbyId1 >>>>>>>>>> " + hobbyId1);
+		log.info("hobbyId2 >>>>>>>>>> " + hobbyId2);
+		log.info("hobbyId3 >>>>>>>>>> " + hobbyId3);
 
 		UserHobbyDto hobbyDto1 = null;
 		UserHobbyDto hobbyDto2 = null;
 		UserHobbyDto hobbyDto3 = null;
-
+		
+		hobbyService.hobbyByIdAllDelete(dto.getUserId());
+		
 		if (hobbyId1 != null) {
 			hobbyDto1 = new UserHobbyDto(dto.getUserId(), hobbyId1);
 			hobbyService.hobbySave(hobbyDto1);
