@@ -55,11 +55,11 @@ public class FaceChatController {
 			if (x.getId().equals(userid)) {
 
 				model.addAttribute("speakmember1", x.getName());
-
+				model.addAttribute("speak1", x.getId());
 			} else {
 
 				model.addAttribute("speakmember2", x.getName());
-
+				model.addAttribute("speak2", x.getId());
 			}
 
 		}

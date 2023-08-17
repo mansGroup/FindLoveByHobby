@@ -47,6 +47,7 @@ public class NoteService {
                 if (n.getSender().equals(id)) {
                     log.info("sender?");
                     Like like = likeRepository.findBySenderAndRecipient(n.getSender(), n.getRecipient());
+                    log.info(like.getRecipient());
 
                     if (like.getWhether() == 0) {
                         dto.setMessage(String.format("%s님에게 좋아요를 보냈어요. 응답을 기다리는 중이에요.",recipientMemberInfo.getNickname()));

@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fin.love.dto.question.CreateQuestDto;
 import com.fin.love.dto.question.UpdateQuestDto;
+import com.fin.love.dto.questionRep.QuestRepCreatetDto;
 import com.fin.love.repository.question.Question;
+import com.fin.love.repository.questreply.QuestionReply;
 import com.fin.love.respository.member.Member;
+import com.fin.love.service.QuestReplyService;
 import com.fin.love.service.QuestionService;
 
 import jakarta.servlet.http.HttpSession;
@@ -26,7 +29,10 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequestMapping("/question")
 public class QuestionController {
-
+	
+	@Autowired
+	private QuestReplyService questReplyService;
+	
 	@Autowired
 	private QuestionService questionservice;
 
@@ -45,26 +51,26 @@ public class QuestionController {
 	}
 
 	// TODO 나중에 리스트 페이지 완성 시 변경 필요함.
-	@PostMapping("/qscreate")
-	public String qscreate(CreateQuestDto dto) {
+		@PostMapping("/qscreate")
+		public String qscreate(CreateQuestDto dto) {
 
-		log.info("qscreate({})", dto);
+			log.info("qscreate({})", dto);
 
-		questionservice.write(dto);
-    
-		return "redirect:/question/qslist";
+			questionservice.write(dto);
+	    
+			return "redirect:/question/qslist";
 
-	}
+		}
 
-	@GetMapping("/qsmodify")
-	public void qsmodify(@RequestParam long numid, Model model) {
+		@GetMapping("/qsmodify")
+		public void qsmodify(@RequestParam long numid, Model model) {
 
-		log.info("qsmodify()");
+			log.info("qsmodify()");
 
-		Question quest = readAndModify(numid);
+			Question quest = readAndModify(numid);
 
-		model.addAttribute("quest", quest);
-	}
+			model.addAttribute("quest", quest);
+		}
 
 	@PostMapping("/qsmodify")
 	public String qsmodify(UpdateQuestDto dto) {
@@ -73,7 +79,7 @@ public class QuestionController {
 
 		questionservice.update(dto);
 
-		return "redirect:/question/qslist";
+		return "redirect:/question/qsread?id="+dto.getNumid();
 	}
 
 	@GetMapping("/qslist")
@@ -108,11 +114,42 @@ public class QuestionController {
 	public void read(@RequestParam long id, Model model) {
 
 		log.info("qsread(id={})", id);
-
+		
 		Question quest = readAndModify(id);
-
+		String role = quest.getMember().getRole().toString();
+		log.info("role=({})",role);
+		int roles = 0;
+		switch(role) {
+		
+		case "USER":
+			roles=0;
+			break;
+		case "UNVARIFIED_USER":
+			roles=1;
+			break;
+		case "RIP_USER":
+			roles=2;
+			break;
+		case "ADMIN":
+			roles=3;
+			break;
+			
+		}
+		QuestionReply reply = questReplyService.findbyQuestionId(id);
+		
+		
+		
+//		if(reply == null) {
+//			reply.setReplycontent("답변을 등록하세요");
+//			
+//		} 
+		log.info("qreply=({})",reply);
+		
+		
+		model.addAttribute("reply", reply);
+		log.info("roles=({})",roles);
 		model.addAttribute("quest", quest);
-
+		model.addAttribute("role", roles);
 	}
 
 //	@GetMapping("/demo")

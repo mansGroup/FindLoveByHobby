@@ -10,4 +10,6 @@ public interface UserHobbyRepository extends JpaRepository<UserHobby, String> {
 	
 	void deleteByUserid(String userid);
 	
+	List<UserHobby> findByHobbyId(Long hobbyId);
+	
 }

@@ -43,7 +43,7 @@
 	</section>
  <div style=" display: flex; justify-content: flex-end; padding: 29px 92px 0px 0px;">
                     <a href="/note/note">
-                        <p class="noteNumber"></p>
+                        <p class="noteNumber" style="color: #ff5500; font-weight: bold;"></p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
                             <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
                         </svg>
@@ -59,29 +59,26 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 
-			<a th:href="@{/matching/matchingList/{userId} (userId = ${#authentication.name})}" class="navbar-brand mx-auto mx-lg-0">
+			<a th:href="@{/}" class="navbar-brand mx-auto mx-lg-0">
 				<span>Chwi</span><img src="/images/mypage/roundHeart.gif" /><span>Meet</span>
 			</a>
 
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item"><a class="nav-link click-scroll"
+						href="#section_4">Introduction</a></li>
+				
+					<li class="nav-item"><a class="nav-link click-scroll"
 						th:href="@{/matching/matchingList/{userId} (userId = ${#authentication.name})}">Matching</a></li>
 
 					<li class="nav-item"><a class="nav-link click-scroll"
-						href="#section_2">Our Story</a></li>
+						th:href="@{/chat/chat}">Chatting room</a></li>
 
 					<li class="nav-item"><a class="nav-link click-scroll"
-						href="#section_3">The Wedding</a></li>
+						th:href="@{/meeting/meetinglist}">Meeting</a></li>
 
 					<li class="nav-item"><a class="nav-link click-scroll"
-						href="#section_4">People</a></li>
-
-					<li class="nav-item"><a class="nav-link click-scroll"
-						href="#section_5">Gallery</a></li>
-
-					<li class="nav-item"><a class="nav-link click-scroll"
-						th:href="@{/mypage/{userId} (userId = ${#authentication.name})}">MyPage</a></li>
+						th:href="@{/mypage/room}">MyPage</a></li>
 						
 					<!-- 인증된 사용자이면(로그인 상태이면) -->
 					<th:block sec:authorize="isAuthenticated()">
@@ -93,7 +90,7 @@
 
 					<!-- 익명 사용자이면(로그인 하지 않은 상태이면) -->
 					<th:block sec:authorize="isAnonymous()">
-						<li class="nav-item"><a class="nav-link" th:href="@{ /member/login}">로그인</a>
+						<li class="nav-item"><a class="nav-link" th:href="@{/member/login}">로그인</a>
 						</li>
 						<li class="nav-item"><a class="nav-link"
 							th:href="@{ /member/signup }">회원가입</a></li>
@@ -129,8 +126,8 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <h4 class="mb-4">Visit Us</h4>
 
-                            <p> 5th Avenue at, Central Park S, 
-                            <br> New York, NY 10019, United States</p>
+                            <p> Republic of Korea 
+                            <br>1244 Teheran-ro, Gangnam-gu, Seoul</p>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-12 my-4 my-lg-0 my-md-0">
@@ -138,7 +135,7 @@
 
                             <p class="mb-2">
                                 <a href="mailto:hello@company.com">
-                                    hello@company.com
+                                    chwimeet@company.com
                                 </a>
                             </p>
 
@@ -153,13 +150,11 @@
                             <h4 class="mb-4">Socials</h4>
 
                             <ul class="social-icon">
-                                <li class="social-icon-item"><a href="#" class="social-icon-link bi-twitter"></a></li>
+                                <li class="social-icon-item"><img src="/images/mypage/git.png" /></li>
 
-                                <li class="social-icon-item"><a href="#" class="social-icon-link bi-instagram"></a></li>
+                                <li class="social-icon-item"><img src="/images/mypage/instagram.png" /></li>
 
-                                <li class="social-icon-item"><a href="#" class="social-icon-link bi-whatsapp"></a></li>
-
-                                <li class="social-icon-item"><a href="https://fb.com/tooplate" target="_blank" class="social-icon-link bi-facebook"></a></li>
+                                <li class="social-icon-item"><img src="/images/mypage/트위터.png" /></li>
                             </ul>
 
                             <p class="copyright-text mt-3 mb-0">Copyright © 2036 Wedding Lite Co., Ltd. 
@@ -174,10 +169,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-12 mx-auto">
-                        <a href="index.html" class="navbar-brand mx-auto mx-lg-0">
-                            <span>Bratt</span>
-                            <i class="bi-heart brand-icon"></i>
-                            <span>Jolie</span>
+                        <a class="navbar-brand mx-auto mx-lg-0">
+                            <span>Chwi</span>
+                            <img src="/images/wjdwjr_heart.png" />
+                            <span>Meet</span>
                         </a>
                     </div>
 

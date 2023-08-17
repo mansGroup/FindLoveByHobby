@@ -12,5 +12,5 @@ document.addEventListener('DOMContentLoaded', () => {
                     noteNumber.innerHTML = ''+response.data;
                 }
             }).catch((error) => console.log(error));
-    }, 3000);
+    }, 10000);
 });

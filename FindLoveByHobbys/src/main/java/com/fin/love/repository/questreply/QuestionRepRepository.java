@@ -9,7 +9,7 @@ import com.fin.love.respository.member.Member;
 
 public interface QuestionRepRepository extends JpaRepository<QuestionReply, Long>{
 
-	
+	QuestionReply findByQuestionId(long id);
 	
 }
 

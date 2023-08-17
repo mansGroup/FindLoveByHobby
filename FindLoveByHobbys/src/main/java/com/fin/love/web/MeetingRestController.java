@@ -41,7 +41,6 @@ public class MeetingRestController {
 		try {
 			list = meetservice.search(dto);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -83,7 +82,7 @@ public class MeetingRestController {
 			// 파일 저장 경로 설정
 			String savePath = "C:/IMA/";
 			UUID uid = UUID.randomUUID();
-			String fileName = uid + file.getOriginalFilename() + ".jpg";
+			String fileName = uid + file.getOriginalFilename();
 			File filenew = new File(savePath, fileName);
 			log.info("파일화 성공 = {}",file.toString());
 			// 파일 저장
@@ -109,6 +108,36 @@ public class MeetingRestController {
 		}
 		
 		
+		
+	}
+	
+	@GetMapping("/listrefresh/{page}")
+	public ResponseEntity<List<Meeting>> listrefresh(@PathVariable int page){
+		
+		List<Meeting> list = meetservice.makelist(page);
+		
+		log.info("page = {}",page);
+		
+		return ResponseEntity.ok(list);
+	}
+	
+	@GetMapping("/listrefresh")
+	public ResponseEntity<Integer> listrefresh(){
+		
+		List<Meeting> list2 = meetservice.findAllByStatus(0);
+		
+		log.info("number");
+		
+		return ResponseEntity.ok(list2.size());
+	}
+	
+	@GetMapping("checkleader")
+	public ResponseEntity<String> checkleader(@RequestParam long id){
+		log.info("who is leader()");
+		
+		Meeting meet = meetservice.readById(id);
+		
+		return ResponseEntity.ok(meet.getLeader());
 		
 	}
 

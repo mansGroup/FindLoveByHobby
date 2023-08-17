@@ -29,7 +29,10 @@ public class MatchingDetailController {
 	private final MatchingDetailService matchingDetailService;
 	private final PictureService pictureService;
 	private final MatchingService matchingService;
-
+	
+	
+	
+	
 	// 사용자의 매칭 상세 정보 페이지로 이동하는 메서드
 	@GetMapping("/matchingDetail/{id}")
 	public String matchingDetail(@PathVariable("id") String id, Model model) {

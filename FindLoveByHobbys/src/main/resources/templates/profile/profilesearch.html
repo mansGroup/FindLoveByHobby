@@ -2,70 +2,288 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
-<th:block layout:fragment="css">
-	<style>
-	</style>
-</th:block>
+
 
 <main layout:fragment="main">
-	<!-- 검색(임시 경로) -->
-	<div class="card-body">
-		<form method="get" th:action="@{/profile/profilesearch}">
-			<h2>조건에 맞는 이상형 검색하기</h2>
-			<div class="row">
+	<div style="margin: 0 20%;">
 
-				<div class="hobby">
-					<h2>원하는 이상형의 취미를 선택하세요. (최대 3개 선택 가능)</h2>
-					<div th:each="hobby, idx : ${hobbys}" style="float: left; margin: 5px;">
-						<span th:if="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
-							<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);" checked>
-							<label th:text="${hobby.hobbyName}"></label>
-						</span>
-						<span th:unless="${hobby.hobbyId == hobbys1 or hobby.hobbyId == hobbys2 or hobby.hobbyId == hobbys3}">
-							<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);">
-							<label th:text="${hobby.hobbyName}"></label>
-						</span>
+		<input class="d-none" th:value="${ #authentication.name }"
+			id="loginUserId" />
+
+		<!-- 검색(임시 경로) -->
+		<div class="card-body">
+			<form method="get" th:action="@{/profile/profilesearch}">
+				<div class="col-lg-12 col-12">
+					<div class="section-title-wrap mb-5">
+						<h2 class="section-title">Search for conditions</h2>
+
 					</div>
 				</div>
-				
-				<div class="age">
-				<p>원하는 이상형의 나이를 선택하세요</p>
-					<select class="form-select" name="type">
-						<option value="">나이</option>
-						<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
-					</select>
-				</div>
-				
-				<div class="height">
-				<p>원하는 이상형의 키를 선택하세요</p>
-					<select class="form-select" name="type">
-						<option value="">키</option>
-						<option th:each="height , idx : ${heights}" th:text="${height.heightName}" th:value="${idx.count}"></option>
-					</select>
-				</div>
-				
-				<div class="job">
-				<p>원하는 이상형의 직종을 선택하세요</p>
-					<select class="form-select" name="type">
-						<option value="">직업</option>
-						<option th:each="job , idx : ${jobs}" th:text="${job.jobName}" th:value="${idx.count}"></option>
-					</select>
-				</div>
+				<div class="row">
+					<div class="hobby" style="margin-bottom: 20px;">
+						<p style="color: black;">
+							원하는 이상형의 취미를 선택하세요.<span style="font-size: 15px; color: gray;">(최대
+								3개 선택 가능)</span>
+						</p>
+						<div class="row">
+							<div class="checkbox-group"
+								style="display: flex; justify-content: space-between;">
+								<div class="col-lg-4" style="margin-right: 10px;">
+									<select class="form-select" name="hobby1">
+										<option value="-2">선택안함</option>
+										<option th:each="hobby, idx : ${hobbys}"
+											th:text="${hobby.hobbyName}" th:value="${idx.count}"></option>
+									</select>
+								</div>
+								<div class="col-lg-4" style="margin-right: 10px;">
+									<select class="form-select" name="hobby2">
+										<option value="-2">선택안함</option>
+										<option th:each="hobby, idx : ${hobbys}"
+											th:text="${hobby.hobbyName}" th:value="${idx.count}"></option>
+									</select>
+								</div>
+								<div class="col-lg-4" style="margin-right: 10px;">
+									<select class="form-select" name="hobby3">
+										<option value="-2">선택안함</option>
+										<option th:each="hobby, idx : ${hobbys}"
+											th:text="${hobby.hobbyName}" th:value="${idx.count}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
 
-				<div class="col-8">
-					<input class="form-control" name="keyword" type="text" placeholder="검색어 입력" />
-				</div>
+					<div class="age">
+						<p style="color: black;">원하는 이상형의 나이를 선택하세요</p>
+						<select class="form-select" name="age">
+							<option value="">나이</option>
+							<option value="a" th:each="age , idx : ${ages}"
+								th:text="${age.ageName}" th:value="${idx.count}"></option>
+						</select>
+					</div>
 
-				<div class="col-1">
-					<input class="form-control btn btn-outline-dark" type="submit" value="검색" />
-				</div>
+					<div class="height">
+						<p style="color: black;">원하는 이상형의 키를 선택하세요</p>
+						<select class="form-select" name="height">
+							<option value="">키</option>
+							<option value="h" th:each="height , idx : ${heights}"
+								th:text="${height.heightName}" th:value="${idx.count}"></option>
+						</select>
+					</div>
 
-			</div>
-		</form>
+					<div
+						style="display: contents; display: flex; justify-content: center;">
+						<div>
+							<input class="form-control btn btn-outline-dark" type="submit"
+								value="검색" style="width: 200px;" />
+						</div>
+					</div>
+
+
+
+
+				</div>
+			</form>
+		</div>
 	</div>
 	
+	<div style="background-color: #e9eaeb;">
+	
+	
+	
+	<input th:value="${size}" class="d-none" id="size" />
+
+	<div th:if="${size == 0}"></div>
+
+	<div th:unless="${size == 0}">
+
+		<input th:value="${member1.userId}" class="d-none" id="member1Id" />
+		<input th:value="${member2.userId}" class="d-none" id="member2Id" />
+		<input th:value="${member3.userId}" class="d-none" id="member3Id" />
+		<input th:value="${member4.userId}" class="d-none" id="member4Id" />
+
+		<section class="about-section section-padding" id="section_2">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-12"
+						style="display: flex; justify-content: center;">
+						<div class="image-hover-thumb imageBoxContainer"
+							style="display: flex;">
+							<img th:src="${member1.pic}"
+								class="about-image img-fluid imageThumnail" alt="">
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-12">
+						<div class="about-info-wrap d-flex flex-column">
+							<div class="about-info-title d-flex align-items-center my-3">
+								<h4 th:text="${member1.name}">nickname</h4>
+
+								<span class="about-tag ms-2" th:text="${member1.age}">age</span>
+							</div>
+							
+							<div type="text" class="btn btn-light position-relative" style="margin-bottom: 5px;">
+								<span th:text="${member1.height}">키</span> 
+							</div>
+							
+							<div type="text" class="btn btn-light position-relative"
+								style="margin-bottom: 5px;">
+								<a
+									th:href="@{/matching/matchingDetail/{id} (id=${member1.userId})}">상세프로필</a>
+							</div>
+
+							<p th:text="${member1.introduce}">userIntrodus</p>
+
+							<div class="social-icon-wrap mt-auto"
+								style="display: flex; justify-content: center;">
+								<label for="member1LikeBtn" style="cursor: pointer;"
+									onmouseover="this.style.transform = 'scale(1.1)';"
+									onmouseout="this.style.transform = 'scale(1)';"> <img
+									src="/images/heart.png" style="width: 44px;" />
+								</label>
+								<button class="d-none" id="member1LikeBtn"></button>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-12"
+						style="display: flex; justify-content: center;">
+						<div class="image-hover-thumb imageBoxContainer"
+							style="display: flex;">
+							<img th:src="${member2.pic}"
+								class="about-image img-fluid imageThumnail" alt="">
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-12">
+						<div class="about-info-wrap d-flex flex-column">
+							<div class="about-info-title d-flex align-items-center my-3">
+								<h4 th:text="${member2.name}">nickname</h4>
+
+								<span class="about-tag ms-2" th:text="${member2.age	}">age</span>
+							</div>
+							
+							<div type="text" class="btn btn-light position-relative" style="margin-bottom: 5px;">
+								<span th:text="${member2.height}">키</span> 
+							</div>
+
+							<div type="text" class="btn btn-light position-relative"
+								style="margin-bottom: 5px;">
+								<a
+									th:href="@{/matching/matchingDetail/{id} (id=${member2.userId})}">상세프로필</a>
+							</div>
+
+							<p th:text="${member2.introduce}">userIntrodus</p>
+
+							<div class="social-icon-wrap mt-auto"
+								style="display: flex; justify-content: center;">
+								<label for="member2LikeBtn" style="cursor: pointer;"
+									onmouseover="this.style.transform = 'scale(1.1)';"
+									onmouseout="this.style.transform = 'scale(1)';"> <img
+									src="/images/heart.png" style="width: 44px;" />
+								</label>
+								<button class="d-none" id="member2LikeBtn"></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="about-section section-padding" id="section_2">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-12"
+						style="display: flex; justify-content: center;">
+						<div class="image-hover-thumb imageBoxContainer"
+							style="display: flex;">
+							<img th:src="${member3.pic}"
+								class="about-image img-fluid imageThumnail" alt="">
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-12">
+						<div class="about-info-wrap d-flex flex-column">
+							<div class="about-info-title d-flex align-items-center my-3">
+								<h4 th:text="${member3.name}">nickname</h4>
+
+								<span class="about-tag ms-2" th:text="${member3.age}">age</span>
+							</div>
+							
+							<div type="text" class="btn btn-light position-relative" style="margin-bottom: 5px;">
+								<span th:text="${member3.height}">키</span> 
+							</div>
+							
+							<div type="text" class="btn btn-light position-relative"
+								style="margin-bottom: 5px;">
+								<a
+									th:href="@{/matching/matchingDetail/{id} (id=${member3.userId})}">상세프로필</a>
+							</div>
+
+							<p th:text="${member3.introduce}">userIntrodus</p>
+
+							<div class="social-icon-wrap mt-auto"
+								style="display: flex; justify-content: center;">
+								<label for="member3LikeBtn" style="cursor: pointer;"
+									onmouseover="this.style.transform = 'scale(1.1)';"
+									onmouseout="this.style.transform = 'scale(1)';"> <img
+									src="/images/heart.png" style="width: 44px;" />
+								</label>
+								<button class="d-none" id="member3LikeBtn"></button>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-12"
+						style="display: flex; justify-content: center;">
+						<div class="image-hover-thumb imageBoxContainer"
+							style="display: flex;">
+							<img th:src="${member4.pic}"
+								class="about-image img-fluid imageThumnail" alt="">
+						</div>
+					</div>
+
+					<div class="col-lg-3 col-12">
+						<div class="about-info-wrap d-flex flex-column">
+							<div class="about-info-title d-flex align-items-center my-3">
+								<h4 th:text="${member4.name}">nickname</h4>
+
+								<span class="about-tag ms-2" th:text="${member4.age	}">age</span>
+							</div>
+							
+							<div type="text" class="btn btn-light position-relative" style="margin-bottom: 5px;">
+								<span th:text="${member4.height}">키</span> 
+							</div>
+							
+							<div type="text" class="btn btn-light position-relative"
+								style="margin-bottom: 5px;">
+								<a
+									th:href="@{/matching/matchingDetail/{id} (id=${member4.userId})}">상세프로필</a>
+							</div>
+
+							<p th:text="${member4.introduce}">userIntrodus</p>
+
+							<div class="social-icon-wrap mt-auto"
+								style="display: flex; justify-content: center;">
+								<label for="member4LikeBtn" style="cursor: pointer;"
+									onmouseover="this.style.transform = 'scale(1.1)';"
+									onmouseout="this.style.transform = 'scale(1)';"> <img
+									src="/images/heart.png" style="width: 44px;" />
+								</label>
+								<button class="d-none" id="member4LikeBtn"></button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>
 	<th:block layout:fragment="myscripts">
-        <script src="..\js\profile\profiles.js"></script>
+		<script src="/js/profile/profilesearch.js"></script>
 	</th:block>
+
 </main>
 </html>

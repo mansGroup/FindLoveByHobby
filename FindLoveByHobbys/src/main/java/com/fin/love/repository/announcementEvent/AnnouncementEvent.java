@@ -41,10 +41,10 @@ public class AnnouncementEvent extends BaseTimeEntity {
     @Column(nullable = false)
 	private String content;
 	
-    @Column(nullable = false)
+    @Column(nullable = true)
     private int category;
     
-    @Column(nullable = false)
+    @Column(nullable = true)
     private int divide;
     
     // Setter 메서드의 역할을 한다.

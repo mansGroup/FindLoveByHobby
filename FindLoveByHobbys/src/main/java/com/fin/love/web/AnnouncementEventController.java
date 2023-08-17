@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fin.love.dto.announcementEvent.AnnouncementEventDto;
+import com.fin.love.dto.announcementEvent.AnnouncementEventReadDto;
 import com.fin.love.repository.announcementEvent.AnnouncementEvent;
+import com.fin.love.repository.announcementEvent.AnnouncementEventPicture;
 import com.fin.love.service.AnnouncementEventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,8 @@ import lombok.extern.slf4j.Slf4j;
 public class AnnouncementEventController {
 
 	private final AnnouncementEventService announcementEventService;
-
+	
+	
 	@GetMapping("/eventMain")
 	public void read(Model model) {
 		log.info("post()");
@@ -41,27 +44,26 @@ public class AnnouncementEventController {
 
 	}
 
-	// 작성한 정보를 DB에 넣기위해
-	@PostMapping("/eventCreate")
-	public String create(Long id, AnnouncementEventDto dto) {
-		log.info("create(dto={}) POST", dto);
-
-		announcementEventService.create(dto);
-
-		return "redirect:/announcementEvent/eventMain";
-	}
-
 	// "/eventDetails", "/eventModify" 요청 주소들을 처리하는 컨트롤러 메서드
-	@GetMapping({ "/eventDetails", "/eventModify", "/eventUser" })
+	@GetMapping({ "/eventDetails", "/eventModify" })
 	public void read(Long id, Model model) {
-		log.info("read(id={}", id);
+		log.info("read(id={})", id);
 
 		// ANNOUNCEMENT_EVENT 테이블에서 id에 해당하는 포스트를 검색.
 		AnnouncementEvent post = announcementEventService.read(id);
-
+				
 		// 결과를 model에 저장.
 		model.addAttribute("post", post);
 
+		AnnouncementEventPicture anep = announcementEventService.findByid(id);
+		
+		if (anep == null) {
+			model.addAttribute("pic", "/images/Adding_a_Person_Image.png");
+		} else {
+			String eventPic = announcementEventService.imageChange(anep.getPicture());
+			model.addAttribute("pic", eventPic);
+		}
+		
 		// 컨트롤러 메서드의 리턴값이 없는 경우(void인 경우),
 		// 뷰의 이름은 요청 주소와 같다!
 		// details -> details.html, modify -> modify.html
@@ -90,5 +92,21 @@ public class AnnouncementEventController {
 		// 쿼리스트링에선 공백이 있으면 안된다.
 	}
 	
+	
+	// 유저 페이지
+	@GetMapping("/eventUser")
+	public void userPage(Model model) {
+		log.info("userPage()");
+		
+		
+		
+		// ANNOUNCEMENT_EVENT 테이블에서 id에 해당하는 포스트를 검색.
+		List<AnnouncementEvent> ame = announcementEventService.getAllEvent();
+		log.info("ame = {}", ame);
+		List<AnnouncementEventReadDto> list = announcementEventService.getAllEventPicture();
+		// 결과를 model에 저장.
+		model.addAttribute("ame", ame);
+		model.addAttribute("list", list);
+	}
 
 }

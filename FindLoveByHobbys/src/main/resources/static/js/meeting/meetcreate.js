@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	const image1path = document.querySelector('input#image1path');
 	const image2path = document.querySelector('input#image2path');
 	const image3path = document.querySelector('input#image3path');
+	const membercount = document.querySelector('input#membercount');
 	
 	function checkValue(){
 		
@@ -96,6 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 		}
 		
+		if(membercount.value == '' || membercount.value<2 || membercount.value>10 || membercount%2==1 ){
+			
+			return false;
+			
+		}
+		
 		return true;
 		
 	}
@@ -106,7 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		if(checkValue()==false){
 			
-			alert('모든 항목을 입력해주세요.')
+			alert('모든 항목을 입력해주세요. 그리고 참여 인원은 반드시 짝수로 등록해주셔야 합니다.')
 			return;
 			
 		}

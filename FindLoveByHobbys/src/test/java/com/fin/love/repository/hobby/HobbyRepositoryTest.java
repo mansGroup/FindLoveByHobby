@@ -1,6 +1,7 @@
 package com.fin.love.repository.hobby;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class HobbyRepositoryTest {
 	@Autowired
 	private UserHobbyRepository uhr;
 	
-	@Test
+//	@Test
 	public void testCreated() {
 		log.info("testCreated() 실행 ");
 		
@@ -63,6 +64,29 @@ public class HobbyRepositoryTest {
 			log.info("UserHobby Data >>>> " + uh);
 		}
 		
+	}
+	
+	@Test
+	public void stTest() {
+		log.info("시작");
+		
+		String str = "1,2,3";
+		
+		StringTokenizer st = new StringTokenizer(str, ",");
+		
+		log.info("size >>> " + st.countTokens());
+		
+		String str1 = st.nextToken();
+		String str2 = st.nextToken();
+		String str3 = st.nextToken();
+		
+		log.info("size >>> " + st.countTokens());
+		
+		log.info("str1 >>> " + str1);
+		log.info("str2 >>> " + str2);
+		log.info("str3 >>> " + str3);
+		
+		log.info("끝");
 	}
 	
 }
