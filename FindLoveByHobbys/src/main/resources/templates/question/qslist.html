@@ -5,10 +5,10 @@
 	<link href="/css/question/questlist.css" rel="stylesheet" />
 </th:block>
 
-<main style="margin:0px 30px;" layout:fragment="main">
+<main style="margin:0px 30px; height: 100%;" layout:fragment="main">
 	<input class="d-none" id="userid" name="userid" th:value="${userid}" />
 	<input class="d-none" value="1" id="num" name="num">
-	<div style="height: 500px; max-height: 500px; overflow-y: auto;">
+	<div style="height: 100%; max-height: 500px; overflow-y: auto;">
 		<table class="table">
 			<thead>
 				<tr>
@@ -39,14 +39,14 @@
 	<div
 		style="height: 100px; margin-top: 30px; display: flex; justify-content: center;">
 		<div style="margin-right: 50px;">
-			<button class="btn form-control" id="btnaddload">더 보기</button>
+			<button class="btn form-control btn-outline-lighter" id="btnaddload">더 보기</button>
 		</div>
 		<div style="margin-right: 50px;">
-			<a th:href="@{/question/qscreate}" class="btn form-control"
+			<a th:href="@{/question/qscreate}" class="btn form-control btn-outline-dark"
 				id="btnCreate">문의하기</a>
 		</div>
 		<div>
-			<button id="btnModal" type="button" class="btn btn-primary">자주 묻는 질문</button>
+			<button id="btnModal" type="button" class="btn btn-outline-primary">자주 묻는 질문</button>
 		</div>
 	</div>
 

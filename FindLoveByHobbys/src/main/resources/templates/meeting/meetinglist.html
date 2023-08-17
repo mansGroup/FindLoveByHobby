@@ -2,12 +2,30 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
 
+<th:block layout:fragment="css">
+	<style>
+#mainbody {
+	opacity: 1;
+	transition: opacity 0.5s ease;
+}
 
+#makelists {
+	opacity: 1;
+	transition: opacity 0.5s ease;
+}
 
-<main id="mainbody" style="height: 100%;" layout:fragment="main">
+h3 {
+	white-space: nowrap; /* 텍스트가 한 줄을 넘어가지 않도록 설정 */
+	overflow: hidden; /* 넘치는 텍스트 숨기기 */
+	text-overflow: ellipsis; /* 넘치는 부분을 ...으로 표시 */
+}
+</style>
+</th:block>
+
+<main id="mainbody" style="height: 100%; background-image: url('https://img.freepik.com/premium-vector/premium-background-with-black-lines-on-a-white-background_391563-627.jpg'); background-repeat: no-repeat;" layout:fragment="main">
 	<div style="margin: 0px 30px;">
 		<div class="form-control my-2"
-			style="border: none; text-align: center;">
+			style="border: none; text-align: center; padding: 50px;">
 			<h2>취+Meet 만남의 장</h2>
 		</div>
 		<div id="selectors" class="row">
@@ -31,24 +49,24 @@
 				<div class="col-2"></div>
 				<div class="col-2 row">
 					<label
-						style="border: none; display: flex; justify-content: center;"
-						class="card col-4" for="location">희망 지역</label> <input
+						style="border: none; display: flex; justify-content: center; align-items: center;"
+						class="card col-4" for="location">지역</label> <input
 						style="border: none; border-bottom: 1px solid black; text-align: center;"
 						class="col-8" readonly="readonly" required="required" type="text"
 						id="location" name="location" />
 				</div>
 				<div class="col-2 row">
 					<label
-						style="border: none; display: flex; justify-content: center;"
-						class="card col-4" for="hobby">희망 취미</label> <input
+						style="border: none; display: flex; justify-content: center; align-items: center;"
+						class="card col-4" for="hobby">취미</label> <input
 						style="border: none; border-bottom: 1px solid black; text-align: center;"
 						class="col-8" readonly="readonly" required="required" type="text"
 						id="hobby" name="hobby" />
 				</div>
 				<div class="col-2 row">
 					<label
-						style="border: none; display: flex; justify-content: center;"
-						class="card col-4" for="age">희망 연령</label> <input
+						style="border: none; display: flex; justify-content: center; align-items: center;"
+						class="card col-4" for="age">연령</label> <input
 						style="border: none; border-bottom: 1px solid black; text-align: center;"
 						class="col-8" readonly="readonly" required="required" type="text"
 						id="age" name="age" />
@@ -79,7 +97,7 @@
 				</div>
 				<div class="col-10">
 
-					<div id="searchresult" class="row"></div>
+					<div id="searchresult" class="row" style="display: flex; justify-content: center;"></div>
 
 				</div>
 				<div
@@ -96,7 +114,7 @@
 		</section>
 
 
-		<section style="background-color: white;"
+		<section style="background-color: white; padding-top: 0px;"
 			class="the-wedding-section section-bg section-padding" id="section_3">
 			<div class="container">
 				<div class="row">
@@ -109,12 +127,16 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-1"></div>
-					<div class="row col-10">
+					
+					<input class="d-none" type="number" id="pagenum"
+						th:value="${pagenum}" />
+					<div id="makelists" class="row col-12" style="display: flex; justify-content: center;">
+
 						<div th:each="list : ${list}"
-							class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0">
+							class="col-lg-3 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0" style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 0px 20px;">
 							<div class="image-hover-thumb">
 								<a th:href="@{'/meeting/read?id='+${list.id}}"><img
+									style="height: 270px; width: 450px;"
 									th:src="'data:image/jpg;base64,' + ${list.image1}"
 									class="img-fluid" alt=""></a>
 							</div>
@@ -131,11 +153,12 @@
 								<p
 									th:text="${ #temporals.format(list.meetingdate, 'YYYY. M. d a h:mm:ss') }">5:00
 									PM</p>
+								<p th:text="${list.hobby.hobbyName} + ' 모임'"></p>
 							</div>
 						</div>
 
 					</div>
-					<div class="col-1"></div>
+					
 				</div>
 			</div>
 		</section>

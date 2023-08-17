@@ -83,13 +83,19 @@ public class Meeting extends BaseTimeEntity {
 	@Column
 	private LocalDateTime meetingdate;
 	
+	@Column
+	private int malecount;
+	
+	@Column
+	private int femalecount;
+	
 	public void updateStatus(int status) {
 		
 		this.status = status;
 		
 	}
 	
-	public void update(MeetingMakeDto dto, Hobby hobby, Location loc, int member) {
+	public void update(MeetingMakeDto dto, Hobby hobby, Location loc) {
 		
 		this.content1 = dto.getContent1();
 		this.content2 = dto.getContent2();
@@ -97,7 +103,7 @@ public class Meeting extends BaseTimeEntity {
 		this.contents = dto.getContents();
 		this.hobby = hobby;
 		this.location = loc;
-		this.member = member;
+		this.member = dto.getMembercount();
 		this.title = dto.getTitle();
 		this.image1 = dto.getImage1();
 		this.image2 = dto.getImage2();
@@ -114,10 +120,6 @@ public class Meeting extends BaseTimeEntity {
 		
 	}
 	
-	public void memberChange(int member) {
-		
-		this.member += member;
-		
-	}
+	
 	
 }

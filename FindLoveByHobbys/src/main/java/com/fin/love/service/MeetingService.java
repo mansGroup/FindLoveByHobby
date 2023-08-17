@@ -1,5 +1,6 @@
 package com.fin.love.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.file.Files;
@@ -37,6 +38,7 @@ import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
 
 import lombok.extern.slf4j.Slf4j;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Service
 @Slf4j
@@ -69,13 +71,19 @@ public class MeetingService {
 	@Autowired
 	private PictureService picservice;
 
-	public List<Meeting> myLeaderList(String userid) {
+	public List<Meeting> myLeaderList(String userid, int status) {
 
 		List<Meeting> list = meetingrepository.findByLeader(userid);
 		List<Meeting> list2 = new ArrayList<>();
 		for (int i = 0; i < list.size(); i++) {
 
 			Meeting met = list.get(i);
+
+			if (met.getStatus() != status) {
+
+				continue;
+
+			}
 
 			String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
 					imageToBase64(met.getImage3()) };
@@ -89,13 +97,13 @@ public class MeetingService {
 		return list2;
 	}
 
-	public List<Meeting> myMeetList(String userid) {
+	public List<Meeting> myMeetList(String userid, int status) {
 
 		List<Meeting> list = meetingrepository.findAll();
 		List<Meeting> list2 = new ArrayList<>();
 		for (Meeting x : list) {
 
-			if (userid.equals(x.getLeader()) || x.getMember() == 1) {
+			if (userid.equals(x.getLeader()) || x.getMember() == 1 || x.getStatus() != status) {
 
 				continue;
 
@@ -129,61 +137,44 @@ public class MeetingService {
 
 		log.info("read All");
 
-		List<Meeting> list = meetingrepository.findAll();
+		List<Meeting> lists = meetingrepository.findAll();
+		List<Meeting> list = new ArrayList<>();
+		for (int i = 0; i < lists.size(); i++) {
+
+			if (lists.get(i).getStatus() == 1) {
+
+				continue;
+
+			}
+
+			list.add(lists.get(i));
+
+		}
+		log.info("{}", list);
 
 		int len = list.size();
 		int start = num - 1 >= 0 ? num - 1 : 0;
-		int startcheck = start * 6 > len ? (len / 6) * 6 : start * 6;
+		int end = num * 3 >= list.size() ? list.size() : num * 3;
+
 		List<Meeting> list2 = new ArrayList<>();
-		if (len > startcheck && len >= num * 6) {
 
-			for (int i = start * 6; i < num * 6; i++) {
+		for (int i = start * 3; i < end; i++) {
 
-				Meeting met = list.get(i);
+			Meeting met = list.get(i);
 
-				String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
-						imageToBase64(met.getImage3()) };
+			String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
+					imageToBase64(met.getImage3()) };
 
-				met.makePhoto(deq);
+			met.makePhoto(deq);
 
-				list2.add(met);
-
-			}
-
-		} else if (len < startcheck) {
-
-			for (int i = startcheck; i < len; i++) {
-
-				Meeting met = list.get(i);
-
-				String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
-						imageToBase64(met.getImage3()) };
-
-				met.makePhoto(deq);
-
-				list2.add(met);
-
-			}
-
-		} else if (len > startcheck && len < num * 6) {
-
-			for (int i = startcheck; i < len; i++) {
-
-				Meeting met = list.get(i);
-
-				String[] deq = new String[] { imageToBase64(met.getImage1()), imageToBase64(met.getImage2()),
-						imageToBase64(met.getImage3()) };
-				met.makePhoto(deq);
-
-				list2.add(met);
-
-			}
+			list2.add(met);
 
 		}
 
 		return list2;
 
 	}
+	
 
 	public void create(MeetingMakeDto dto) {
 
@@ -203,9 +194,9 @@ public class MeetingService {
 
 		Hobby hobby = hobbyrepository.findById(dto.getHobbyid()).orElseThrow();
 		Location loc = locrepository.findById(dto.getLocationid()).orElseThrow();
-		log.info("create(dto = {}, hobby = {}, loc = {})", dto, hobby, loc);
+		log.info("update(dto = {}, hobby = {}, loc = {})", dto, hobby, loc);
 		Meeting meeting = meetingrepository.findById(id).orElseThrow();
-		meeting.update(dto, hobby, loc, 1);
+		meeting.update(dto, hobby, loc);
 
 		meetingrepository.save(meeting);
 	}
@@ -214,14 +205,14 @@ public class MeetingService {
 		Meeting meet;
 
 		meet = meetingrepository.findById(id).orElseThrow();
-		mtmemrepository.deleteByMeetingId(meet.getId());
+		mtmemrepository.deleteAllByMeetingId(meet.getId());
 		if (meet.getStatus() != 0) {
 
 			return 0;
 
 		}
 
-		meetingrepository.delete(meet);
+		meetingrepository.deleteById(id);
 		return 1;
 
 	}
@@ -245,12 +236,13 @@ public class MeetingService {
 	}
 
 	public String imageToBase64(String imagePath) {
-		log.info(imagePath);
+		log.info("imgpt = {}", imagePath);
 
 		try {
 			Path path = Paths.get(imagePath);
 			byte[] imageBytes = Files.readAllBytes(path);
 			return Base64.getEncoder().encodeToString(imageBytes);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 
@@ -393,7 +385,7 @@ public class MeetingService {
 			String userid = x.getProfile().getUserId();
 			Member member = memberrepository.findById(userid).orElseThrow();
 
-			if (member.getSex() == 0) {
+			if (member.getSex() == 2) {
 
 				woman.add(x);
 
@@ -404,9 +396,11 @@ public class MeetingService {
 			}
 
 		}
-
 		list2.add(woman);
 		list2.add(man);
+
+		log.info("list2 = {}", list2.get(0));
+		log.info("list2 = {}", list2.get(1));
 
 		return list2;
 
@@ -418,7 +412,7 @@ public class MeetingService {
 
 		for (MeetingMember x : list) {
 
-			if (gender == 0) {
+			if (gender == 2) {
 
 				img.add(imageToBase64("C:\\IMA\\neo.gif"));
 
@@ -439,9 +433,47 @@ public class MeetingService {
 
 		Meeting meet = meetingrepository.findById(id).orElseThrow();
 
-		meet.memberChange(1);
+		List<MeetingMember> lists = mtmemrepository.findByMeetingId(id);
 
-		meetingrepository.save(meet);
+		int mans = 0;
+		int womans = 0;
+		Member mem2 = memberrepository.findById(userid).orElseThrow();
+		for (MeetingMember x : lists) {
+
+			Member mem = memberrepository.findById(x.getProfile().getUserId()).orElseThrow();
+
+			if (mem.getSex() == 1) {
+
+				mans++;
+
+			} else {
+
+				womans++;
+
+			}
+
+		}
+
+		int manlimit = meet.getMalecount();
+		int womanlimit = meet.getFemalecount();
+
+		if (mem2.getSex() == 1) {
+
+			if (manlimit - mans <= 0) {
+
+				return;
+
+			}
+
+		} else {
+
+			if (womanlimit - womans <= 0) {
+
+				return;
+
+			}
+
+		}
 
 		Profile profile = profilerepository.findById(userid).orElseThrow();
 
@@ -454,23 +486,19 @@ public class MeetingService {
 	public void updateRemove(long id, String userid) {
 		Meeting meet = meetingrepository.findById(id).orElseThrow();
 
-		meet.memberChange(-1);
-
-		meetingrepository.save(meet);
-
 		Profile profile = profilerepository.findById(userid).orElseThrow();
 
 		List<MeetingMember> meetmem = mtmemrepository.findByMeetingId(id);
 		MeetingMember delmem = null;
-		for(MeetingMember x : meetmem) {
-			
-			if(userid.equals(x.getProfile().getUserId())) {
-				
+		for (MeetingMember x : meetmem) {
+
+			if (userid.equals(x.getProfile().getUserId())) {
+
 				delmem = x;
 				break;
-				
+
 			}
-			
+
 		}
 
 		mtmemrepository.deleteById(delmem.getId());
@@ -478,22 +506,39 @@ public class MeetingService {
 	}
 
 	public int checkInvited(List<List<MeetingMember>> list, String userid) {
-	
-		for(List<MeetingMember> x : list) {
-			
-			for(MeetingMember y : x) {
-				
-				if(userid.equals(y.getProfile().getUserId())) {
-					
+
+		for (List<MeetingMember> x : list) {
+
+			for (MeetingMember y : x) {
+
+				if (userid.equals(y.getProfile().getUserId())) {
+
 					return 1;
-					
+
 				}
-				
+
 			}
-			
+
 		}
-		
+
 		return 0;
 	}
 
+	public List<Meeting> findAll() {
+		// TODO Auto-generated method stub
+		return meetingrepository.findAll();
+	}
+
+	public Meeting readById(long id) {
+
+		return meetingrepository.findById(id).orElseThrow();
+
+	}
+
+	public List<Meeting> findAllByStatus(int status) {
+		// TODO Auto-generated method stub
+		List<Meeting> list = meetingrepository.findByStatus(status);
+
+		return list;
+	}
 }
