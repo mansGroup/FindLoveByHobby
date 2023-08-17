@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			return;
 		}
 
-		if (image === `/images/Adding_a_Person_Image.png`) {
+		if (image === `/images/Adding_a_Person_Image.png`	) {
 			alert('반드시 사진을 등록해주세요.');
 			return;
 		}
