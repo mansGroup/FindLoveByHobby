@@ -254,7 +254,7 @@ public class MeetingService {
 
 	public List<Meeting> search(MeetingSearchDto dto) throws Exception {
 
-		List<Meeting> list2 = meetingrepository.findAll();
+		List<Meeting> list2 = meetingrepository.findByStatus(0);
 
 		if (list2 == null || list2.size() == 0) {
 
