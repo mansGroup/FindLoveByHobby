@@ -2,46 +2,277 @@
 <html xmlns:th="http://www.thymleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
+	
+	<div layout:fragment="main">
+	
+<th:block layout:fragment="css">
+<style>
 
-<div layout:fragment="main">
-	<div>
-		<div>
-			<h1>로그인 페이지</h1>
-		</div>
-		<div>
-			<form method="post" th:action="@{ /member/login }">
+*, *:before, *:after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-				<div class="my-2">
-					<label for="username">아이디:</label> <input type="text"
-						class="form-control" id="username" name="username" required
-						autofocus />
-				</div>
+body {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  background: #ededed;
+}
 
-				<div class="my-2">
-					<label for="password">비밀번호:</label> <input type="password"
-						class="form-control" id="password" name="password" required />
-				</div>
-				<div class="my-2">
-					<input id="login" type="submit" value="로그인" />
-				</div>
-			</form>
+input, button {
+  border: none;
+  outline: none;
+  background: none;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
 
-			<div th:if="${param.error}">
-				<p class="error-message" style="color:red;">아이디나 비밀번호를 확인하세요.</p>
-			</div>
+.tip {
+  font-size: 20px;
+  margin: 40px auto 50px;
+  text-align: center;
+}
 
+.cont {
+  overflow: hidden;
+  position: relative;
+  width: 900px;
+  height: 550px;
+  margin: 0 auto 100px;
+  background: #fff;
+}
 
-			<div class="my-2">
-				<a th:href="@{/member/signup}">회원가입하기</a>
-			</div>
+.form {
+  position: relative;
+  width: 640px;
+  height: 100%;
+  transition: transform 1.2s ease-in-out;
+  padding: 50px 30px 0;
+}
+
 
 			<div>
-				<a th:href="@{ /member/searchid}">아이디 찾기 </a> <a
-					th:href="@{ /member/searchpassword}">비밀번호 찾기</a>
+				<a th:href="@{ /member/searchid }">아이디 찾기 </a> <a
+					th:href="@{ /member/searchpassword }">비밀번호 찾기</a>
 			</div>
 
+.sub-cont {
+  overflow: hidden;
+  position: absolute;
+  left: 640px;
+  top: 0;
+  width: 900px;
+  height: 100%;
+  padding-left: 260px;
+  background: #fff;
+  transition: transform 1.2s ease-in-out;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  width: 260px;
+  height: 36px;
+  border-radius: 30px;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.img {
+  overflow: hidden;
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 260px;
+  height: 100%;
+  padding-top: 360px;
+}
+
+.img:before {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 900px;
+  height: 100%;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/sections-3.jpg');
+  background-size: cover;
+  transition: transform 1.2s ease-in-out;
+}
+
+.img:after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.h2 {
+  width: 100%;
+  font-size: 26px;
+  text-align: center;
+}
+
+.label {
+  display: block;
+  width: 260px;
+  margin: 25px auto 0;
+  text-align: center;
+}
+
+.label span {
+  font-size: 12px;
+  color: #cfcfcf;
+  text-transform: uppercase;
+}
+
+input {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding-bottom: 5px;
+  font-size: 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+.forgot-pass {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 12px;
+  color: #cfcfcf;
+}
+
+.submit {
+  margin-top: 40px;
+  margin-bottom: 20px;
+  background: #d4af7a;
+  text-transform: uppercase;
+}
+
+.fb-btn {
+  border: 2px solid #d3dae9;
+  color: darken(#d3dae9, 20%);
+}
+
+.fb-btn span {
+  font-weight: bold;
+  color: darken(#768cb6, 20%);
+}
+
+.sign-in {
+  transition-timing-function: ease-out;
+}
+
+
+.sign-in.sign-up {
+  transition-timing-function: ease-in-out;
+  transition-duration: 1.2s;
+  transform: translate3d(640px, 0, 0);
+}
+
+.sign-up {
+  transform: translate3d(-900px, 0, 0);
+}
+
+.icon-link {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  width: 32px;
+}
+
+.icon-link img {
+  width: 100%;
+  vertical-align: top;
+}
+
+.icon-link--twitter {
+  left: auto;
+  right: 5px;
+}
+
+.link-footer {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+}
+
+</style>
+</th:block>
+
+	
+
+
+
+<p class="tip">취미로 당신의 인생 연인을 찾아보시라요^^</p>
+	<div class="cont">
+	<form method="post" th:action="@{ /member/login }">
+		<div class="form sign-in">
+			<h2>Welcome!</h2>
+			<label> <span>ID</span> <input type="text"
+						 id="username" name="username" required
+						autofocus />
+			</label> 
+			<label> <span>Password</span> <input type="password"
+						id="password" name="password" required />
+			</label>
+			<p class="forgot-pass" style="margin-left: 60px;"><a>아이디/비밀번호를 잊으셨나요?</a></p>
+			<button type="submit" class="submit" >Sign In</button>
+			<a th:href="@{/member/signup}"><button class="submit" type="button">Sign Up</button></a>
+		</div>
+		</form>
+			
+		<div class="sub-cont">
+			<div class="img">
+				<div class="img__text m--up">
+					<h2>New here?</h2>
+					<p>Sign up and discover great amount of new opportunities!</p>
+				</div>
+				<div class="img__text m--in">
+					<h2>One of us?</h2>
+					<p>If you already has an account, just sign in. We've missed
+						you!</p>
+				</div>
+				<div class="img__btn">
+					<span class="m--up">Sign Up</span> 
+					<span class="m--in">Sign In</span>
+				</div>
+				
+			</div>
+			<div class="form sign-up">
+			
+				<h2>Time to feel like home,</h2>
+				<label> <span>Name</span> <input type="text" />
+				</label> <label> <span>ID</span> <input type="text"  id="username" name="username"/>
+				</label> <label> <span>Password</span> <input id="password" name="password" type="password" />
+				</label>
+				<a th:href="@{/member/signup}"><button type="button" class="submit">Sign Up</button></a>
+				
+				<a th:href="@{ /member/searchid}"><button type="button" class="fb-btn">아이디 찾기 </button></a>
+				<a
+					th:href="@{ /member/searchpassword}"><button type="button" class="fb-btn"> 비밀번호 찾기</button></a>
+			
+			</div>
 		</div>
 	</div>
 </div>
+
+	<a href="https://dribbble.com/shots/3306190-Login-Registration-form"
+		target="_blank" class="icon-link"> <img
+		src="http://icons.iconarchive.com/icons/uiconstock/socialmedia/256/Dribbble-icon.png">
+	</a> <a href="https://codepen.io/suez/pen/XWyBpre" target="_blank"
+		class="link-footer">New 2023 Version</a> <a
+		href="https://twitter.com/NikolayTalanov" target="_blank"
+		class="icon-link icon-link--twitter"> <img
+		src="https://cdn1.iconfinder.com/data/icons/logotypes/32/twitter-128.png">
+	</a>
+
+
 
 </html>

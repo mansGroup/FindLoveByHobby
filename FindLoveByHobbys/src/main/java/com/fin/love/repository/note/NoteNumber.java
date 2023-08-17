@@ -21,7 +21,7 @@ public class NoteNumber {
     @Column
     private Long checkCount;
 
-    public NoteNumber upNoteCount(Long noteCount) {
+    public NoteNumber upNoteCount() {
         this.noteCount++;
         return this;
     }

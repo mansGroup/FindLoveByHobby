@@ -51,27 +51,34 @@ public class MemberController {
 	@GetMapping("/searchid")
 	public void searchId () {
 		log.info("searchId() GET");
+
+	}
+
+	@GetMapping("/searchpassword")
+	public void searchPassword() {
+		log.info("searchPassword()");
 	}
 
 	@PostMapping("/signup")
-	public String createId(MemberSignUpDto dto, 
-			@RequestParam("useraddress") String userAddress,
-			@RequestParam("userdetailaddress") String userDetailAddress,
-			@RequestParam("useraddressnotes") String userAddressNotes) {
+	public String createId(MemberSignUpDto dto,
+						   @RequestParam("useraddress") String userAddress,
+						   @RequestParam("userdetailaddress") String userDetailAddress,
+						   @RequestParam("useraddressnotes") String userAddressNotes) {
+
 		log.info("create({}) POST", dto);
-		
+
 		// 주소 api 정보 합치기
 		String combinedAddress = userAddress + " " + userDetailAddress + " " + userAddressNotes;
-		log.info("combinedAddress=({})",combinedAddress);
+		log.info("combinedAddress=({})", combinedAddress);
 		dto.setRole(Role.UNVARIFIED_USER);
 		log.info(combinedAddress);
 		dto.setAddress(combinedAddress);
-		
+
 		String id = memberService.signUp(dto);
 		log.info("signup id = {}", id);
-		
+
 		matchingDetailService.newCreat(dto.getUserid());
-		
+
 		return "/member/login";
 	}
 	

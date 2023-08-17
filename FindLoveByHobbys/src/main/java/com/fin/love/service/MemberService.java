@@ -1,6 +1,7 @@
 package com.fin.love.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.fin.love.dto.member.MemberLogInDto;
 import com.fin.love.dto.member.MemberSignUpDto;
+import com.fin.love.repository.profile.Height;
+import com.fin.love.repository.profile.HeightRepository;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
 import com.fin.love.respository.member.Role;
@@ -26,14 +29,15 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberService implements UserDetailsService {
 
 	private final PasswordEncoder passwordEncoder;
-
 	private final MemberRepository memberRepository;
 
 	public String signUp(MemberSignUpDto dto) {
 		log.info("signUp(dto={})", dto);
 
 		Member entity = Member.builder().id(dto.getUserid()).name(dto.getUsername())
-				.password(passwordEncoder.encode(dto.getPassword())).email(dto.getEmail()).nickname(dto.getNickname())
+				.password(passwordEncoder.encode(dto.getPassword()))
+				.email(dto.getEmail())
+				.nickname(dto.getNickname())
 				.role(dto.getRole()).sex(dto.getSex()).phone(dto.getPhone()).address(dto.getAddress()).birthday(dto.getBirthdate()).build();
 		log.info("save 전: entity={}", entity);
 		memberRepository.save(entity);
@@ -101,5 +105,37 @@ public class MemberService implements UserDetailsService {
 		
 		member.updateRole(Role.USER);
 	}
+
+
+    public Member getMemberInfo(String id) {
+		return memberRepository.findById(id).orElseThrow();
+    }
+
+	public Member getMemberOrElseEmptyEntity(String id) {
+		Member entity = memberRepository.findById(id).orElseGet(Member::new);
+		return entity;
+	}
+
+	public List<Member> getMemberInfoByUsername(String username) {
+		return  memberRepository.findByName(username);
+	}
+
+	@Transactional
+	public void updatePassword(String userId, String temporaryPassword) {
+		Member entity = memberRepository.findById(userId).orElseThrow();
+		String EncryptedPassword = passwordEncoder.encode(temporaryPassword);
+		entity.updatePassword(EncryptedPassword);
+	}
+
 	
+	
+	// 멤버 리스트 불러오기 (Profile)
+	@Transactional(readOnly = true)
+	public List<Member> readMembefrList() {
+		log.info("readMembefrList()");
+		
+		return memberRepository.findAll();
+	}
+	
+
 }

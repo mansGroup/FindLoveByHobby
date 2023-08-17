@@ -32,7 +32,7 @@ public class ChatCountService {
                 return;
             }
 
-            chatCount.upMaleChatCount();
+            chatCount.upFemaleChatCount();
 
         } else {
             if (chatCount.getRoomid() == null) {
@@ -48,12 +48,12 @@ public class ChatCountService {
                 return;
             }
 
-            chatCount.upFemaleChatCount();
+            chatCount.upMaleChatCount();
         }
     }
 
     @Transactional
-    public void downChatCount(Long roomId, String maleId, String femaleId, int mySex) {
+    public void downChatCount(Long roomId, int mySex) {
         ChatCount chatCount = chatCountRepository.findById(roomId).orElseGet(ChatCount::new);
 
         if (mySex == 1) {

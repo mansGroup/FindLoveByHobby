@@ -20,14 +20,13 @@ public class NoteNumberService {
     public void upNoteCount(String userId) {
         NoteNumber entity = noteNumberRepository.findById(userId).orElseGet(NoteNumber::new);
         if (entity.getUserid() == null) {
-
             noteNumberRepository.save(NoteNumber.builder()
                                         .userid(userId)
                                         .noteCount(1L)
                                         .checkCount(0L)
                                         .build());
         }else {
-            entity.upNoteCount(entity.getNoteCount());
+            entity.upNoteCount();
         }
     }
 
@@ -45,7 +44,9 @@ public class NoteNumberService {
     @Transactional
     public boolean checkedNote(String id) {
         NoteNumber number = noteNumberRepository.findById(id).orElseGet(NoteNumber::new);
-        if (number.getUserid() == null) return false;
+        if (number.getUserid() == null) {
+            return false;
+        }
 
         number.checkedNote(number.getNoteCount());
 

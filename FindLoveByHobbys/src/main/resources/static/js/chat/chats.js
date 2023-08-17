@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         switch (data.textType) {
             case 'bye' :
-                if (sessionId != cur_session) {
+                if (sessionId == cur_session) {
                     bye(data);
                 }
                 break;
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
             msgArea.innerHTML += str;
 
             // 실시간으로 채팅을 보고 있음으로 chatCount를 내림
-            const url = "/chatcount/downCount/" + roomId + "/" + maleId + "/" + femaleId + "/" + mySex;
+            const url = "/chatcount/downCount/" + roomId + "/" + mySex;
 
             axios.get(url)
                 .catch((error) => console.log(error));

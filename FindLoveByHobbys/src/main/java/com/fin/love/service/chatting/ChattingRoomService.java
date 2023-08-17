@@ -26,9 +26,9 @@ public class ChattingRoomService {
 
         // userId에 해당하는 채팅방 정보 가져오기
         if (sex == 1) {
-            list = chattingRoomRepository.findByMaleId(userId);
+            list = chattingRoomRepository.findByMaleid(userId);
         } else {
-            list = chattingRoomRepository.findByFemaleId(userId);
+            list = chattingRoomRepository.findByFemaleid(userId);
         }
 
         //
@@ -37,10 +37,10 @@ public class ChattingRoomService {
         // 채팅방 정보에서 상대방 ID, 상대방과 연결된 채팅방 번호 가져오기
         for (ChattingRoom entity : list) {
             if (sex == 1) {
-                ChattingListDto dto = new ChattingListDto(entity.getContentid(), entity.getFemaleId());
+                ChattingListDto dto = new ChattingListDto(entity.getContentid(), entity.getFemaleid());
                 dtoList.add(dto);
             } else {
-                ChattingListDto dto = new ChattingListDto(entity.getContentid(), entity.getMaleId());
+                ChattingListDto dto = new ChattingListDto(entity.getContentid(), entity.getMaleid());
                 dtoList.add(dto);
             }
         }
@@ -56,13 +56,13 @@ public class ChattingRoomService {
         Member sender = memberRepository.findById(senderId).orElseThrow();
         if (sender.getSex() == 1) {
             chattingRoomRepository.save(ChattingRoom.builder()
-                    .maleId(senderId)
-                    .femaleId(user)
+                    .maleid(senderId)
+                    .femaleid(user)
                     .build());
         } else {
             chattingRoomRepository.save(ChattingRoom.builder()
-                    .maleId(user)
-                    .femaleId(senderId)
+                    .maleid(user)
+                    .femaleid(senderId)
                     .build());
         }
     }

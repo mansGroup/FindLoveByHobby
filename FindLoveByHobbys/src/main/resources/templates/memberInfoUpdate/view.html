@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base_layout}">
+
+<th:block layout:fragment="css">
+  <style>
+
+    input {
+      width: 246px;
+    }
+
+    .checkbox-group label {
+      flex-basis: calc(20% - 10px); /* 각 체크박스의 기본 크기 설정 (최대 20% 너비) */
+      display: inline-block;
+    }
+
+
+
+    :root {
+      --background-gradient: linear-gradient(30deg, #f39c12 30%, #f1c40f);
+      --gray: #34495e;
+      --darkgray: #2c3e50;
+    }
+
+    select {
+      /* Reset Select */
+      appearance: none;
+      outline: 0;
+      border: 0;
+      box-shadow: none;
+
+      /* Personalize */
+      flex: 1;
+      padding: 0 1em;
+      color: #fff;
+      background-color: var(--darkgray);
+      background-image: none;
+      cursor: pointer;
+    }
+    select::-ms-expand {
+      display: none;
+    }
+    .select {
+      position: relative;
+      display: flex;
+      width: 20em;
+      height: 3em;
+      border-radius: .25em;
+      overflow: hidden;
+    }
+    .select::after {
+      content: '\25BC';
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 1em;
+      background-color: #34495e;
+      transition: .25s all ease;
+      pointer-events: none;
+    }
+    .select:hover::after {
+      color: #f39c12;
+    }
+
+    body {
+      color: #fff;
+      background: var(--background-gradient);
+    }
+    h1 {
+      margin: 0 0 0.25em;
+    }
+    a {
+      font-weight: bold;
+      color: var(--gray);
+      text-decoration: none;
+      padding: .25em;
+      border-radius: .25em;
+      background: white;
+    }
+
+  </style>
+</th:block>
+
+<main layout:fragment="main" style="margin: 57px 250px;">
+  <h3 style="color: #f1c40f; margin-bottom: 58px;">수정할 회원정보를 작성해주세요</h3>
+
+  <form id="profileModifyForm">
+    <div class="memberInfo">
+      <div>
+        <div class="row">
+
+          <div class="col-lg-1"></div>
+
+          <div style="margin-bottom: 30px;" class="col-lg-4">
+            <h3 style="color: #f1c40f;">ID</h3>
+            <input th:value="${member.id}" readonly>
+          </div>
+
+          <div class="col-lg-2"></div>
+
+          <div style="margin-bottom: 30px;" class="col-lg-4">
+            <h3 style="color: #f1c40f;">Password</h3>
+            <input type="text" placeholder="변경할 비밀번호를 입력해주세요">
+          </div>
+
+          <div class="col-lg-1"></div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-1"></div>
+
+          <div style="margin-bottom: 30px;" class="col-lg-4">
+            <h3 style="color: #f1c40f;">Email</h3>
+            <input type="text" th:value="${member.email}">
+          </div>
+
+          <div class="col-lg-2"></div>
+
+          <div style="margin-bottom: 30px;" class="col-lg-4">
+            <h3 style="color: #f1c40f;">Phone</h3>
+            <input type="text" th:value="${member.phone}">
+          </div>
+
+          <div class="col-lg-1"></div>
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-1"></div>
+
+          <div style="margin-bottom: 30px;" class="col-lg-4">
+            <h3 style="color: #f1c40f;">Address</h3>
+            <input type="text" th:value="${member.address}">
+          </div>
+
+          <div class="col-lg-2"></div>
+
+
+
+          <div class="col-lg-1"></div>
+
+        </div>
+      </div>
+
+      <div class="modifybtn" style="display: flex; justify-content: center; margin-top: 40px;">
+        <button class="btn btn-outline-dark" id="btnUpdate">수정완료</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- profile 자바스크립트 경로 -->
+  <th:block layout:fragment="myscripts">
+  </th:block>
+</main>
+</html>

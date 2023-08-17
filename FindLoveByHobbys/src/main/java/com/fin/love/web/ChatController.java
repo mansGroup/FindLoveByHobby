@@ -47,6 +47,7 @@ public class ChatController {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userid = authentication.getName();
+        model.addAttribute("id", userid);
 
         // 나의 성별 찾기
         Member member = memberService.getSexById(userid);
@@ -60,40 +61,40 @@ public class ChatController {
         for (ChattingListDto dto : dtoList) {
             dto.setNickname(memberService.getNicknameById(dto.getId()));
         }
-
-        // 모델에 리스트 실어주기
         model.addAttribute("dtoList", dtoList);
-        model.addAttribute("id", userid);
+
         log.info("채팅방 정보 리스트 사이즈 from chatController {}", dtoList.size());
     }
 
     @GetMapping("/chatroom/{room}")
     public String chatByLove(@PathVariable Long room, Model model) {
         log.info("chatByLove({})", room);
+        model.addAttribute("roomId", room);
 
+        // spring security에서 id 찾아오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userid = authentication.getName();
-        String maleID = "";
-        String femaleId = "";
-
-
+        model.addAttribute("myId", userid);
 
         // 나의 성별 찾기
         Member member = memberService.getSexById(userid);
-
-        chattingService.checkAllChatCount(room, maleID, member.getSex());
-
         model.addAttribute("mySex", member.getSex());
+
+        // 채팅방 알람 초기화
+        chattingService.checkAllChatCount(room, userid, member.getSex());
+
         // 성별에 따라 maleid, femaleid 넣어주기
+        String maleID = "";
+        String femaleId = "";
         if (member.getSex() == 1) {
             maleID = userid;
         } else {
             femaleId = userid;
         }
 
-
-        // userId로 채팅방번호 상대방 ID 리스트 가져오기
+        // userId로 채팅방번호, 상대방 ID 리스트 가져오기
         List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userid, member.getSex());
+        model.addAttribute("dtoList", dtoList);
 
         // 상대방 ID로 상대방 nickname 가져오기
         for (ChattingListDto dto : dtoList) {
@@ -106,33 +107,30 @@ public class ChatController {
                 }
             }
         }
+        model.addAttribute("maleId", maleID);
+        model.addAttribute("femaleId", femaleId);
+
 
         // roomid로 chatting list를 받아옴
         List<Chatting> chatList = chattingService.getChatListByContentId(room);
         log.info("chatList size({})", chatList.size());
+        model.addAttribute("chatList", chatList);
 
         // 내 id로 내 nickname 찾아오기
         String myNickname = memberService.getNicknameById(userid);
-        log.info(myNickname + "내 닉네이이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ");
-        // 내 id로 내 nickname 찾아오기
-        String otherNickname = "";
-        for (Chatting x : chatList) {
-            if (!x.getNickname().equals(myNickname)) {
-                otherNickname = x.getNickname();
-                break;
-            }
-        }
-
-        model.addAttribute("dtoList", dtoList);
-        model.addAttribute("chatList", chatList);
-        model.addAttribute("roomId", room);
         model.addAttribute("myNickname", myNickname);
+
+        // 상대방 id로 상대방 nickname 찾아오기
+        String otherNickname = "";
+        if (maleID == userid) {
+            Member otherInfo = memberService.getMemberInfo(femaleId);
+            otherNickname = otherInfo.getNickname();
+        } else {
+            Member otherInfo = memberService.getMemberInfo(maleID);
+            otherNickname = otherInfo.getNickname();
+        }
         model.addAttribute("otherNickname", otherNickname);
-        model.addAttribute("maleId", maleID);
-        model.addAttribute("femaleId", femaleId);
-        model.addAttribute("myId", userid);
-        log.info(myNickname);
-        log.info(otherNickname);
+
         return "/chat/chatroom";
     }
 
@@ -141,9 +139,12 @@ public class ChatController {
     public String chatOut(Long roomId) {
         log.info("chatOut({})", roomId);
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
+
         chattingService.deleteChat(roomId);
         chattingRoomService.deleteRoom(roomId);
 
-        return "redirect:/chat/demo";
+        return "redirect:/matching/matchingList/" + userid;
     }
 }

@@ -28,6 +28,7 @@ public class NoteController {
         // TODO 시큐리티 id 바꿔주기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userid = authentication.getName();
+
         // 쪽지창 들어오면 알람 개수 없애주기
         boolean haveNoteNumber = noteNumberService.checkedNote(userid);
 

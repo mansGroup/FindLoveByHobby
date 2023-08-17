@@ -27,9 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	const btnUpdate = document.querySelector('#btnUpdate');
 	btnUpdate.addEventListener('click', (e) => {
-		alert("프로필을 수정하셨습니다");
+		alert("프로필을 수정하셨습니다.");
 
-		const check = confirm('변경 내용을 저장할까요?');
+		const check = confirm('변경 내용을 저장하시겠습까?');
 		if (check) {
 			profileModifyForm.action = '/profile/update';
 			profileModifyForm.method = 'post';

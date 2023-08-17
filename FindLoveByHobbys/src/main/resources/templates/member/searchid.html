@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout/base_layout}">
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/base_layout}">
 <meta charset="UTF-8">
-<div layout:fragment="main">
+<main layout:fragment="main">
 	<div>
 		<h1>아이디 찾기</h1>
 	</div>
 	<div>
-		<label> 이름:</label> <input type="text" id="findId" name="findId"></input> <span
-			id="findIdMs"> </span>
+		<label> 이름:</label>
+		<input type="text" id="username"/>
 	</div>
 	<div>
-		<label> 휴대전화:</label> <input type="text" id="phone" name="phone"></input> 
-		<span id="phoneSearch"></span>
+		<label> Email:</label>
+		<input type="text" id="email"/>
 	</div>
-</div>
+	<div>
+		<span class="btn" id="btnSendAuthenticationNumber">인증번호 전송</span>
+	</div>
+	<div>
+		<input type="text" id="authenticationNumber" >
+		<span class="btn" id="btnCheckKey">인증번호 확인</span>
+	</div>
+</main>
+
+<th:block layout:fragment="myscripts">
+	<script src="/js/authentication/findUserId.js"></script>
+</th:block>
+
 </html>
