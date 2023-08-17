@@ -129,119 +129,186 @@
 		  border-radius: .25em;
 		  background: white;
 		}
+		
 	</style>
 </th:block>
-<main layout:fragment="main" style="margin: 250px;">
-	<h2>이성에게 어필할 수 있는 프로필을 작성해주세요</h2>
+<main layout:fragment="main" style="margin: 100px 250px 200px 250px;">
+	<h3 style="color: #f1c40f;">이성에게 어필할 수 있는 프로필을 작성해주세요</h3>
 
 	<form id="profiles" action="/profile/user/profileimage" method="post">
+		<div style="margin-bottom: 30px;">
 		<!-- 회원가입 정보에서 불러올 데이터(이름, 성별, 생년월일) -->
 			<input class="d-none" th:value="${ #authentication.name }" name="userId" />
 			<div class="my-1">
 				<label class="form-label1" for="name">이름</label>
-				<input class="form-control" id="name" type="text" value="111" readonly>
+				<input class="form-control" id="name" type="text" th:value="${member.name}" readonly>
 			</div>
 			<div class="my-2">
 				<label class="form-label2" for="gender">성별</label>
-				 <input class="form-control" id="gender" type="text" value="111" readonly>
+				 <input class="form-control" id="gender" type="text" th:if="${member.sex == 1}" value="남자" readonly>
+				 <input class="form-control" id="gender" type="text" th:unless="${member.sex == 1}" value="여자" readonly>
 			</div>
-
+		</div>
 			<!-- 자기소개서는 텍스트 입력 -->
-			<h2>자기소개를 입력하세요</h2>
+			<h3 style="color: #f1c40f;">자기소개를 입력하세요</h3>
 			<div class="my-3">
 				<label class="form-label3" for="userIntroduce"></label>
 				<textarea class="form-control3" id="userIntroduce" name="userIntroduce" required autofocus></textarea>
 			</div>
-
-			<!-- DB 불러와서 프로필 등록 -->
-			<h2>취미 (최대 3개 선택 가능)</h2>
-			<div class="checkbox-group">
-			<div th:each="hobby, idx : ${hobbys}" style="float: left; margin: 5px;">
-				<input type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);">
-				<label th:text="${hobby.hobbyName}"></label>
+			
+			<div style="margin-bottom: 30px;">
+				<!-- DB 불러와서 프로필 등록 -->
+				<h3 style="color: #f1c40f;">취미 <span style="color: #f1c40f; font-size: 15px;">(최대 3개 선택 가능)</span></h3>
+				<div class="checkbox-group">
+					<div th:each="hobby, idx : ${hobbys}" style="float: left; margin: 5px;">
+						<input autocomplete="off" class="btn-check" type="checkbox" name="hobbyId" th:value="${hobby.hobbyId}" onclick="count(this);" th:id="${idx.count}">
+						<label class="btn btn-outline-secondary" th:text="${hobby.hobbyName}" th:for="${idx.count}"></label>
+					</div>
+				</div>
 			</div>
+			
+			<div class="row">
+			
+				<div class="col-lg-1"></div>
+				
+				<div style="margin-bottom: 30px;" class="col-lg-4">
+					<h3 style="color: #f1c40f;">나이</h3>
+					<select class="select" name="userAge" required>
+						<option value="" disabled selected>나이 정보를 선택하세요</option>
+						<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
+					</select>
+				</div>
+				
+				<div class="col-lg-2"></div>
+				
+				<div style="margin-bottom: 30px;" class="col-lg-4">
+					<h3 style="color: #f1c40f;">키</h3>
+					<select class="select" name="userHeight" required>
+						<option value="" disabled selected>키 정보를 선택하세요</option>
+						<option th:each="height , idx : ${heights}" th:text="${height.heightName}" th:value="${idx.count}"></option>
+					</select>
+				</div>
+				
+				<div class="col-lg-1"></div>
+				
+			</div>
+			
+			
+			<div class="row">
+			
+				<div class="col-lg-1"></div>
+
+				<div style="margin-bottom: 30px;" class="col-lg-4">
+					<h3 style="color: #f1c40f;">음주여부</h3>
+					<select class="select" name="userDrinks" required>
+						<option value="" disabled selected>음주여부를 선택하세요</option>
+						<option value="1">마시지 않음</option>
+						<option value="2">가끔 마심</option>
+						<option value="3">자주 마심</option>
+					</select>
+				</div>
+				
+				<div class="col-lg-2"></div>
+				
+				<div style="margin-bottom: 30px;" class="col-lg-4">
+					<h3 style="color: #f1c40f;">흡연여부</h3>
+					<select class="select" name="userSmoker" required>
+						<option value="" disabled selected>흡연여부를 선택하세요</option>
+						<option value="1">흡연</option>
+						<option value="2">비흡연</option>
+					</select>
+				</div>
+				
+				<div class="col-lg-1"></div>
+				
+			</div>
+			
+			<div class="row">
+			
+				<div class="col-lg-1"></div>
+			
+				<div style="margin-bottom: 30px;" class="col-lg-4">
+					<h3 style="color: #f1c40f;">학력</h3>
+					<select class="select" name="userAcademic" required>
+						<option value="" disabled selected>학력 정보를 선택하세요</option>
+						<option value="1">4년재대학교 졸업</option>
+						<option value="2">4년재대학교 재학중</option>
+						<option value="3">전문대학교 졸업</option>
+						<option value="4">전문대학교 재학중</option>
+						<option value="5">고등학교 졸업</option>
+					</select>
+				</div>
+				
+				<div class="col-lg-2"></div>
+				
+				<div style="margin-bottom: 30px;" class="col-lg-4">
+					<h3 style="color: #f1c40f;">직업</h3>
+					<select class="select" name="userJob" required>
+						<option value="" disabled selected>직업 정보를 선택하세요</option>
+						<option value="1">학생</option>
+						<option value="2">사업가</option>
+						<option value="3">전문직</option>
+						<option value="4">회사원</option>
+						<option value="5">공무원</option>
+						<option value="6">군인</option>
+						<option value="7">교육직 / 연구직</option>
+						<option value="8">금융직</option>
+						<option value="9">기술직</option>
+						<option value="10">기타</option>
+					</select>
+				</div>
+				
+				<div class="col-lg-1"></div>
+				
 			</div>
 
-			<h2>나이</h2>
-			<select class="select" name="userAge" required>
-				<option value="" disabled selected>나이 정보를 선택하세요</option>
-				<option th:each="age , idx : ${ages}" th:text="${age.ageName}" th:value="${idx.count}"></option>
-			</select>
+			<div class="row">
+			
+				<div class="col-lg-1"></div>
+				
+				<div style="margin-bottom: 30px;" class="col-lg-4">
+					<h3 style="color: #f1c40f;">연봉</h3>
+					<select class="select" name="userIncome" required>
+						<option value="" disabled selected>연봉 정보를 선택하세요</option>
+						<option value="1">1,000만원 이하</option>
+						<option value="2">1,000만원 ~ 2,000만원</option>
+						<option value="3">2,000만원 ~ 3,000만원</option>
+						<option value="4">3,000만원 ~ 4,000만원</option>
+						<option value="5">4,000만원 ~ 5,000만원</option>
+						<option value="6">5,000만원 ~ 6,000만원</option>
+						<option value="7">6,000만원 ~ 7,000만원</option>
+						<option value="8">7,000만원 ~ 8,000만원</option>
+						<option value="9">8,000만원 ~ 9,000만원</option>
+						<option value="10">9,000만원 ~ 10,000만원</option>
+						<option value="11">10,000만원 이상</option>
+					</select>
+				</div>
+				
+				<div class="col-lg-2"></div>
+				
+				<div style="margin-bottom: 30px;" class="col-lg-4">
+					<h3 style="color: #f1c40f;">종교</h3>
+					<select class="select" name="userReligion" required>
+						<option value="" disabled selected>종교 정보를 선택하세요</option>
+						<option value="1">기독교</option>
+						<option value="2">천주교</option>
+						<option value="3">불교</option>
+						<option value="4">무교</option>
+					</select>
+				</div>
 
-			<h2>키</h2>
-			<select class="select" name="userHeight" required>
-				<option value="" disabled selected>키 정보를 선택하세요</option>
-				<option th:each="height , idx : ${heights}" th:text="${height.heightName}" th:value="${idx.count}"></option>
-			</select>
-
-			<h2>음주여부</h2>
-			<select class="select" name="userDrinks" required>
-				<option value="" disabled selected>음주여부를 선택하세요</option>
-				<option value="1">마시지 않음</option>
-				<option value="2">가끔 마심</option>
-				<option value="3">자주 마심</option>
-			</select>
-
-			<h2>흡연여부</h2>
-			<select class="select" name="userSmoker" required>
-				<option value="" disabled selected>흡연여부를 선택하세요</option>
-				<option value="1">흡연</option>
-				<option value="2">비흡연</option>
-			</select>
-
-			<h2>학력</h2>
-			<select class="select" name="userAcademic" required>
-				<option value="" disabled selected>학력 정보를 선택하세요</option>
-				<option value="1">4년재대학교 졸업</option>
-				<option value="2">4년재대학교 재학중</option>
-				<option value="3">전문대학교 졸업</option>
-				<option value="4">전문대학교 재학중</option>
-				<option value="5">고등학교 졸업</option>
-			</select>
-
-			<h2>직업</h2>
-			<select class="select" name="userJob" required>
-				<option value="" disabled selected>직업 정보를 선택하세요</option>
-				<option value="1">학생</option>
-				<option value="2">사업가</option>
-				<option value="3">전문직</option>
-				<option value="4">회사원</option>
-				<option value="5">공무원</option>
-				<option value="6">군인</option>
-				<option value="7">교육직 / 연구직</option>
-				<option value="8">금융직</option>
-				<option value="9">기술직</option>
-				<option value="10">기타</option>
-			</select>
-
-			<h2>연봉</h2>
-			<select class="select" name="userIncome" required>
-				<option value="" disabled selected>연봉 정보를 선택하세요</option>
-				<option value="1">1,000만원 이하</option>
-				<option value="2">1,000만원 ~ 2,000만원</option>
-				<option value="3">2,000만원 ~ 3,000만원</option>
-				<option value="4">3,000만원 ~ 4,000만원</option>
-				<option value="5">4,000만원 ~ 5,000만원</option>
-				<option value="6">5,000만원 ~ 6,000만원</option>
-				<option value="7">6,000만원 ~ 7,000만원</option>
-				<option value="8">7,000만원 ~ 8,000만원</option>
-				<option value="9">8,000만원 ~ 9,000만원</option>
-				<option value="10">9,000만원 ~ 10,000만원</option>
-				<option value="11">10,000만원 이상</option>
-			</select>
-
-			<h2>종교</h2>
-			<select class="select" name="userReligion" required>
-				<option value="" disabled selected>종교 정보를 선택하세요</option>
-				<option value="1">기독교</option>
-				<option value="2">천주교</option>
-				<option value="3">불교</option>
-				<option value="4">무교</option>
-			</select>
-
-		<div class="my-2" style="float: right;">
-			<input class="form-control btn btn-outline-dark	" id="btnRegister" type="submit" value="작성완료" />
-		</div>
+				<div class="col-lg-1"></div>
+				
+			</div>
+			
+			<div style="margin: 30px 0;">
+				<div class="my-2" style="float: right;">
+					<label for="btnRegister" style="cursor: pointer;">
+						<img src="/images/profile/free-icon-right-arrow-776864.png" />
+					</label>
+					<input class="form-control btn btn-outline-dark	d-none" id="btnRegister" type="submit" value="작성완료" />
+				</div>
+			</div>
 	</form>
 
 	<!-- profile 자바스크립트 경로 -->
