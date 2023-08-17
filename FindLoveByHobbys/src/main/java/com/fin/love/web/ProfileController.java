@@ -192,6 +192,7 @@ public class ProfileController {
 
 		StringTokenizer st = new StringTokenizer(hobbyID, ",");
 
+
 		Long hobbyId1 = null;
 		Long hobbyId2 = null;
 		Long hobbyId3 = null;
@@ -226,6 +227,7 @@ public class ProfileController {
 			hobbyService.hobbySave(hobbyDto3);
 			log.info("hobbyDto= {}", hobbyDto3);
 		}
+
 
 		return "redirect:/profile/profileimage";
 	}
