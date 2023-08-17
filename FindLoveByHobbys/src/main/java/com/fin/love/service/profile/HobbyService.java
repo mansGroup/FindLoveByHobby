@@ -76,4 +76,6 @@ public class HobbyService {
 //		UserHobby entity = userHobbyRepository.findById(dto.getUserid()).orElseThrow();
 //		entity.userHobbyUpdate(dto);
 //	}
+	
+
 }

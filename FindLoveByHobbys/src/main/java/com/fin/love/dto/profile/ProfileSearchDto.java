@@ -4,12 +4,10 @@ import lombok.Data;
 
 @Data
 public class ProfileSearchDto {
-
-	private int userHobby1;
-	private int userHobby2;
-	private int userHobby3;
+	
+	private int hobby1;
+	private int hobby2;
+	private int hobby3;	
 	private int age;
 	private int height;
-	private int job;
-	
 }

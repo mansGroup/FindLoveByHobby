@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,8 @@ import com.fin.love.repository.profile.Profile;
 import com.fin.love.repository.profile.Religion;
 import com.fin.love.repository.profile.Smoker;
 import com.fin.love.repository.profile.UserHobby;
+import com.fin.love.respository.member.Member;
+import com.fin.love.service.MemberService;
 import com.fin.love.service.profile.AcademicService;
 import com.fin.love.service.profile.AgeService;
 import com.fin.love.service.profile.DringsService;
@@ -53,6 +56,7 @@ public class ProfileController {
 	private HttpSession session;
 
 	private final ProfileService profileService;
+	private final MemberService memberService;
 	private final HobbyService hobbyService;
 	private final AgeService ageService;
 	private final HeightService heightService;
@@ -71,16 +75,19 @@ public class ProfileController {
 		List<Hobby> hobby = hobbyService.readHobbyList();
 		List<Age> age = ageService.readAgeList();
 		List<Height> height = heightService.readHeightList();
+		List<Member> member = memberService.readMembefrList();
 
 		model.addAttribute("hobbys", hobby);
 		model.addAttribute("ages", age);
 		model.addAttribute("heights", height);
+		model.addAttribute("members", member);
 
 		return "/profile/profiles";
 	}
 	
+	
 	@GetMapping("/profilesearch")
-	public String search(ProfileSearchDto dto, Model model, @RequestParam(value = "keyword") String keyword) {
+	public String search(ProfileSearchDto dto, Model model) {
 		log.info("search(dto= {})", dto);
 		
 		// 조건 검색할 리스트 불러옴
@@ -94,14 +101,14 @@ public class ProfileController {
 		model.addAttribute("heights", height);
 		model.addAttribute("jobs", jobs);
 		
-//		// ** 실제 검색할 코드 **
 //		List<Profile> list = profileService.search(dto);
-//		model.addAttribute("profiles", list);
-		
-		
+//        
+//        model.addAttribute("profiles", list);
+
+
 		return "/profile/profilesearch";
 	}
-
+	
 	
 	// 클라이언트에서 받은 데이터를 DB로 넘겨줌
 	@PostMapping("/user/profileimage")
@@ -118,7 +125,7 @@ public class ProfileController {
 		
 		UserHobbyDto hobbyDto1 = new UserHobbyDto(dto.getUserId(), hobbyId1);
 		UserHobbyDto hobbyDto2 = new UserHobbyDto(dto.getUserId(), hobbyId2);
-		UserHobbyDto hobbyDto3 = new UserHobbyDto(dto.getUserId(), hobbyId3);
+		UserHobbyDto hobbyDto3 = new UserHobbyDto(dto.getUserId(), hobbyId3);		
 		
 		hobbyService.hobbySave(hobbyDto1);
 		log.info("hobbyDto= {}", hobbyDto1);
@@ -131,7 +138,7 @@ public class ProfileController {
 		
 		return "redirect:/profile/profileimage";
 	}
-
+	
 	
 	// DB에 저장되어 있는 사용자 데이터를 수정페이지로 읽기
 	@GetMapping("/profilemodify")
@@ -211,6 +218,10 @@ public class ProfileController {
 		hobbyService.hobbySave(hobbyDto3);
 		log.info("hobbyDto= {}", hobbyDto3);
 		
+		if (hobbyId1 == null || hobbyId2 == null || hobbyId3 == null) {
+			
+		}
+				
 		return "redirect:/mypage/" + dto.getUserId();
 	}
 	
