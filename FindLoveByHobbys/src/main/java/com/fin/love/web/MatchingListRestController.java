@@ -51,5 +51,30 @@ public class MatchingListRestController {
 		return ResponseEntity.ok(result); // 0이면 실패, 1이면 성공
 	}
 	
+	@PostMapping("/member3/likesend/{userId}/{member2UserId}")
+	public ResponseEntity<Integer> member3LikeSend(@PathVariable String userId, @PathVariable String member3UserId) {
+		log.info("likeSend(userId = {}, memberId = {})", userId, member3UserId);
+		
+		int result = likeService.likeSend(userId, member3UserId);
+		noteService.likeSend(userId, member3UserId);
+		noteNumberService.upNoteCount(member3UserId);
+		noteNumberService.upNoteCount(userId);
+		log.info("result = {}", result);
+		
+		return ResponseEntity.ok(result); // 0이면 실패, 1이면 성공
+	}
+	
+	@PostMapping("/member4/likesend/{userId}/{member2UserId}")
+	public ResponseEntity<Integer> member4LikeSend(@PathVariable String userId, @PathVariable String member4UserId) {
+		log.info("likeSend(userId = {}, memberId = {})", userId, member4UserId);
+		
+		int result = likeService.likeSend(userId, member4UserId);
+		noteService.likeSend(userId, member4UserId);
+		noteNumberService.upNoteCount(member4UserId);
+		noteNumberService.upNoteCount(userId);
+		log.info("result = {}", result);
+		
+		return ResponseEntity.ok(result); // 0이면 실패, 1이면 성공
+	}
 	
 }

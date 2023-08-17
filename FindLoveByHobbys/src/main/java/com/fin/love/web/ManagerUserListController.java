@@ -38,7 +38,7 @@ public class ManagerUserListController {
 		
 		Role[] roles = Role.values();
 		List<ManagerUserListDto> dtos = new LinkedList<>();
-		List<Member> members = memberRepository.findByOrderByIdDesc();
+		List<Member> members = memberRepository.findByOrderByRoleDesc();
 		
 		for (int i = 0; i < members.size(); i++) {
 			ManagerUserListDto dto = mamagerUserListService.dtoCreate(members.get(i).getId());

@@ -68,6 +68,12 @@ public class HobbyService {
 		userHobbyRepository.deleteByUserid(userId);
 	}
 	
+	@Transactional
+	public String findHobbyName(Long hobbyId) {
+		log.info("findHobbyName(hobbyId = {})", hobbyId);
+		
+		return hobbyRepository.findByHobbyId(hobbyId).getHobbyName();
+	}
 	
 //	@Transactional
 //	public void userHobbyUpdate(UserHobbyUpdateDto dto) {
