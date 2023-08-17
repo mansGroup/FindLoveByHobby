@@ -10,15 +10,25 @@
 				<th style="text-align: center;">문의글 번호</th>
 				<th style="text-align: center;">문의자</th>
 				<th style="text-align: center;">문의내용</th>
-				<th style="text-align: center;">문의작성시간</th>
+				<th style="text-align: center;">문의접수시간</th>
+				<th style="text-align: center;">답변완료시간</th>
+				<th style="text-align: center;">답변상태</th>
+				<th style="text-align: center;">답글</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr th:each="list : ${list}">
-					<td th:text="${list.id}"></td>
-					<td th:text="${list.member.id}"></td>
-					<td th:text="${list.questioncontent}"></td>
-					<td th:text="${list.modifiedTime}"></td>
+					<td th:text="${list.quest.id}"></td>
+					<td th:text="${list.quest.member.id}"></td>
+					<td><a
+						th:text="${list.quest.questioncontent}"></a></td>
+					<td th:text="${list.quest.modifiedTime}"></td>
+					<td th:text="${list.reply.modifiedTime}"></td>
+					<td th:text="${list.quest.status}"></td>
+					<td th:if="${ list.quest.status } == 0 or ${ list.quest.status } == 1"><a class="form-control" th:href="@{/questionrep/qrepcreate?id={id}(id=${list.quest.id})}"
+						th:text="답글달기"></a></td>
+					<td th:if="${ list.quest.status } == 2"><a class="form-control" th:href="@{/questionrep/qrepmodify?id={id}(id=${list.quest.id})}"
+						th:text="수정하기"></a></td>
 			</tr>
 		</tbody>
 	</table>
@@ -27,4 +37,7 @@
                             id="btnBack">문의목록으로</button>
 		</div>
 </main>
+	<th:block layout:fragment="myscripts">
+		<script th:src="@{/js/question/questrep.js}"></script>
+	</th:block>
 </html>

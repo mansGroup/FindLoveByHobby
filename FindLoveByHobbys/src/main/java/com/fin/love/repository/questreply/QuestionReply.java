@@ -1,5 +1,6 @@
 package com.fin.love.repository.questreply;
 
+import com.fin.love.dto.questionRep.QuestRepUpdateDto;
 import com.fin.love.repository.BaseTimeEntity;
 import com.fin.love.repository.question.Question;
 
@@ -16,8 +17,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -36,5 +39,10 @@ public class QuestionReply extends BaseTimeEntity {
 	@Column
 	private String replycontent;
 	
+	public void updateContent(QuestRepUpdateDto dto) {
+		
+		this.replycontent = dto.getRepmessage(); 
+		
+	}
 	
 }

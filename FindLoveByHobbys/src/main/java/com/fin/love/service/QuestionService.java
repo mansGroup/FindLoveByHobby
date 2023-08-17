@@ -9,6 +9,7 @@ import com.fin.love.dto.question.CreateQuestDto;
 import com.fin.love.dto.question.UpdateQuestDto;
 import com.fin.love.repository.question.Question;
 import com.fin.love.repository.question.QuestionRepository;
+import com.fin.love.repository.questreply.QuestionReply;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
 
@@ -61,14 +62,32 @@ public class QuestionService {
 
 	public Question readbyId(long id) {
 		// TODO Auto-generated method stub
+		
 		return questrepository.findById(id).orElseThrow();
 	}
+	
+	 public void updateStatusTo1(long id) {
+	        Question question = questrepository.findById(id).orElseThrow();
+	        question.setStatus(1);
+	        questrepository.save(question);
+	    }
 	
 	public Member readbyUserId(String userid) {
 		
 		return memberrepository.findById(userid).orElseThrow();
 		
 	}
+
+
+	public void updateStatusTo2(Long id) {
+		Question question = questrepository.findById(id).orElseThrow();
+        question.setStatus(2);
+        questrepository.save(question);
+		
+	}
+
+
+	
 	
 	
 }
