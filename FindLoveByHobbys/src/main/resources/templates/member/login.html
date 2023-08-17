@@ -49,6 +49,12 @@ input, button {
   padding: 50px 30px 0;
 }
 
+
+			<div>
+				<a th:href="@{ /member/searchid }">아이디 찾기 </a> <a
+					th:href="@{ /member/searchpassword }">비밀번호 찾기</a>
+			</div>
+
 .sub-cont {
   overflow: hidden;
   position: absolute;
@@ -161,6 +167,7 @@ input {
 .sign-in {
   transition-timing-function: ease-out;
 }
+
 
 .sign-in.sign-up {
   transition-timing-function: ease-in-out;

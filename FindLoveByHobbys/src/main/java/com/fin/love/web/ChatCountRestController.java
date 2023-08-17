@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/chatCount")
 @RestController
-public class ChatCountController {
+public class ChatCountRestController {
 
     private final ChatCountService chatCountService;
     @GetMapping("upCount/{roomId}/{maleId}/{femaleId}/{mySex}")
@@ -28,13 +28,11 @@ public class ChatCountController {
         chatCountService.upChatCount(roomId, maleId, femaleId, mySex);
     }
 
-    @GetMapping("downCount/{roomId}/{maleId}/{femaleId}/{mySex}")
+    @GetMapping("downCount/{roomId}/{mySex}")
     public void downChatCount(@PathVariable Long roomId,
-                            @PathVariable String maleId,
-                            @PathVariable String femaleId,
                             @PathVariable int mySex) {
 
-        chatCountService.downChatCount(roomId, maleId, femaleId, mySex);
+        chatCountService.downChatCount(roomId, mySex);
     }
 
     @GetMapping("/countList/{myId}/{mySex}")

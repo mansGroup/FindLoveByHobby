@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	
 	idcfButton.addEventListener('click', async function(e) {
 		e.preventDefault();
-		console.log(e.target)
+		console.log(e.target);
 		const userid = document.querySelector('#userid').value;
 		
 		const reqUrl = `/api/member/${userid}`;

@@ -40,8 +40,6 @@ public class MatchingConnectionController {
     private final MatchingService matchingService;
     private final MatchingDetailService matchingDetailService;
 
-    private String user = "user2";  // TODO 세션연결
-
     @GetMapping("/profile/{senderId}")
     public String conectionDetail(@PathVariable String senderId, Model model) {
         // 프로필 사진
@@ -138,6 +136,7 @@ public class MatchingConnectionController {
     public String connected(@PathVariable String senderId) {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userid = authentication.getName();
+
         // LIKES 테이블 whether값 0 -> 1
         likeService.chageWhether(senderId, userid, 1);
 
@@ -166,6 +165,6 @@ public class MatchingConnectionController {
 
         // sender알람 Notecount 올리기
         noteNumberService.upNoteCount(senderId);
-        return "redirect:/matching/matchingList/"+userid;
+        return "redirect:/matching/matchingList/" + userid;
     }
 }

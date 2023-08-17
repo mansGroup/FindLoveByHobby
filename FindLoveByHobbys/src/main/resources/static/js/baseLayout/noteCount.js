@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const id = document.querySelector('span#securityId').getAttribute('data-securityId');
+    const id = document.querySelector('span#securityId').innerText;
     const noteNumber = document.querySelector('p.noteNumber');
 
     setInterval(function () {
-        console.log('note인터벌 실행중');
+        console.log('note인터벌 실행중 id = {}', id);
         const url = `/api/note/count/${id}`;
         axios.get(url)
             .then((response) => {
