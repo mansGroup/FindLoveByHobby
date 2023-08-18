@@ -287,18 +287,22 @@ public class MatchingService {
 						assessmentMemberName = st.nextToken();
 						assessmentMemberCount = Integer.parseInt(st.nextToken());
 					}
-
+					
+					Member ranMember = memberRepository.findById(members.get(i).getId()).orElseThrow();
+					
 					String memberNickname = memberRepository.findById(members.get(i).getId()).orElseThrow()
 							.getNickname(); // 다섯번째 매칭된 유저 닉네임
 					String memberage = ages.get(profileRepository.findById(members.get(i).getId()).orElseThrow().getUserAge() - 1).getAgeName(); 
-					
 					
 					String memberIntrodus = profileRepository.findById(members.get(i).getId()).orElseThrow()
 							.getUserIntroduce(); // 다섯번째 매칭된 유저 소개
 
 					MatchingListDto member = new MatchingListDto(members.get(i).getId(), memberNickname, memberage,
 							memberIntrodus, assessmentMemberName, assessmentMemberCount);
-					list.add(member);
+					
+					if (ranMember.getRole() == Role.USER) {
+						list.add(member);
+					}
 				}
 			} else { // 여자라면
 				members = memberRepository.findBySex(1); // 남자만 검색
@@ -313,6 +317,8 @@ public class MatchingService {
 						assessmentMemberName = st.nextToken();
 						assessmentMemberCount = Integer.parseInt(st.nextToken());
 					}
+					
+					Member ranMember = memberRepository.findById(members.get(i).getId()).orElseThrow();
 
 					String memberNickname = memberRepository.findById(members.get(i).getId()).orElseThrow()
 							.getNickname(); // 다섯번째 매칭된 유저 닉네임
@@ -322,7 +328,10 @@ public class MatchingService {
 
 					MatchingListDto member = new MatchingListDto(members.get(i).getId(), memberNickname, memberage,
 							memberIntrodus, assessmentMemberName, assessmentMemberCount);
-					list.add(member);
+
+					if (ranMember.getRole() == Role.USER) {
+						list.add(member);
+					}
 				}
 			}
 		}

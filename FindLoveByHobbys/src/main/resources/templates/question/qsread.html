@@ -13,12 +13,6 @@
 						<div class="section-title-wrap mb-5">
 							<h2 class="section-title">문의사항 상세</h2>
 
-
-							<div class="section-title-bottom">
-								<span class="section-title-line"></span> <i
-									class="section-title-icon bi-heart-fill"></i> <span
-									class="section-title-line"></span>
-							</div>
 						</div>
 						<input class="d-none" type="text" id="status" name="status"
 							th:value="${quest.status}" />
@@ -75,10 +69,7 @@
 
 							</div>
 						</form>
-						<div th:if="${quest.status} == 0">
-						<button id="editBtn" class="form-control">수정</button>
-						<button id="deleteBtn" class="form-control">삭제</button>
-						</div>
+						
 					</div>
 
 				</div>
@@ -99,6 +90,10 @@
 					<input class="d-none" name="replyid" id="replyid"
 						th:value="${reply.replyid}" /> <input class="d-none"
 						name="questid" id="questid" th:value="${quest.id}" />
+						<div th:if="${quest.status} == 0">
+						<button id="editBtn" class="form-control">수정</button>
+						<button id="deleteBtn" class="form-control">삭제</button>
+						</div>
 				</form>
 
 

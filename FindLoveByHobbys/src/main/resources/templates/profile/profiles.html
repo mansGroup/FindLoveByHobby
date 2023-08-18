@@ -135,27 +135,34 @@
 
 </th:block>
 <main layout:fragment="main" style="margin: 100px 250px 200px 250px;">
-	<h3 style="color: #f1c40f;">이성에게 어필할 수 있는 프로필을 작성해주세요</h3>
+	<div style=" margin-bottom: 25px;">
+		<h3 style="color: #f1c40f;">이성에게 어필할 수 있는 프로필을 작성해주세요</h3>
+	</div>
+	
 
 	<form id="profiles" action="/profile/user/profileimage" method="post">
-		<div style="margin-bottom: 30px;">
+		<div style="margin-bottom: 50px;">
 		<!-- 회원가입 정보에서 불러올 데이터(이름, 성별, 생년월일) -->
-			<input class="d-none" th:value="${ #authentication.name }" name="userId" />
-			<div class="my-1">
-				<label class="form-label1" for="name">이름</label>
-				<input class="form-control" id="name" type="text" th:value="${member.name}" readonly>
-			</div>
-			<div class="my-2">
-				<label class="form-label2" for="gender">성별</label>
-				 <input class="form-control" id="gender" type="text" th:if="${member.sex == 1}" value="남자" readonly>
-				 <input class="form-control" id="gender" type="text" th:unless="${member.sex == 1}" value="여자" readonly>
+			<div class="row">
+				<input class="d-none" th:value="${ #authentication.name }" name="userId" />
+				<div class="my-1 col-3" style="width: 280px;">
+					<label class="form-label1" for="name">이름</label>
+					<input class="form-control" id="name" type="text" th:value="${member.name}" style="width: 400px;" readonly>
+				</div>
+				<div class="col-3"></div>
+				<div class="my-2 col-3" style="width: 280px;">
+					<label class="form-label2" for="gender">성별</label>
+					 <input class="form-control" id="gender" type="text" th:if="${member.sex == 1}" style="width: 400px;" value="남자" readonly>
+					 <input class="form-control" id="gender" type="text" th:unless="${member.sex == 1}" style="width: 400px;" value="여자" readonly>
+				</div>
+				<div class="col-3"></div>
 			</div>
 		</div>
 			<!-- 자기소개서는 텍스트 입력 -->
-			<h3 style="color: #f1c40f;">자기소개를 입력하세요</h3>
-			<div class="my-3">
+			<h3 style="color: #f1c40f; margin-bottom: 0px;">자기소개를 입력하세요</h3>
+			<div style="margin-bottom: 30px;">
 				<label class="form-label3" for="userIntroduce"></label>
-				<textarea class="form-control3" id="userIntroduce" name="userIntroduce" required autofocus></textarea>
+				<textarea class="form-control3" id="userIntroduce" name="userIntroduce" required autofocus style="width: 100%;"></textarea>
 			</div>
 			
 			<div style="margin-bottom: 30px;">

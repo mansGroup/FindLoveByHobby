@@ -3,7 +3,8 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout/base_layout}">
 
-<main layout:fragment="main">
+<main layout:fragment="main" >
+<div style="margin-right: 100px; margin-left: 100px;">
 	<table class="table">
 		<thead>
 			<tr>
@@ -35,6 +36,8 @@
 		<div>
 			<button class="form-control btn btn-outline-success"
                             id="btnBack">문의목록으로</button>
+		</div>
+		
 		</div>
 </main>
 	<th:block layout:fragment="myscripts">
