@@ -39,4 +39,18 @@ public class MypageController {
 		return "/mypage/mypage";
 	}
 	
+	@GetMapping("/manager/room")
+	public String managerMypage(Model model) {
+		log.info("managerMypage()");
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    String userId = authentication.getName();
+	    
+	    Member member = memberRepository.findById(userId).orElseThrow();
+	    
+	    model.addAttribute("user", member);
+		
+		return "/mypage/manager_mypage";
+	}
+	
 }
