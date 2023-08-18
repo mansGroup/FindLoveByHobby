@@ -1,6 +1,7 @@
 package com.fin.love.repository.question;
 
 import com.fin.love.dto.question.UpdateQuestDto;
+import com.fin.love.dto.questionRep.QuestRepListDto;
 import com.fin.love.repository.BaseTimeEntity;
 import com.fin.love.respository.member.Member;
 
@@ -50,6 +51,11 @@ public class Question extends BaseTimeEntity{
 	public void update(UpdateQuestDto dto) {
 		
 		this.questioncontent = dto.getContent();
+		this.status = dto.getStatus();
+	}
+	
+	public void status(QuestRepListDto dto) {
+		
 		this.status = dto.getStatus();
 	}
 	

@@ -1,5 +1,6 @@
 package com.fin.love.repository.questreply;
 
+import com.fin.love.dto.questionRep.QuestRepListDto;
 import com.fin.love.dto.questionRep.QuestRepUpdateDto;
 import com.fin.love.repository.BaseTimeEntity;
 import com.fin.love.repository.question.Question;
@@ -11,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -33,7 +35,7 @@ public class QuestionReply extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(generator = "QUESTIONREPLY_SEQ_GEN")
 	private long replyid;
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name="questionid")
 	private Question question;
 	@Column
@@ -44,5 +46,6 @@ public class QuestionReply extends BaseTimeEntity {
 		this.replycontent = dto.getRepmessage(); 
 		
 	}
+	
 	
 }

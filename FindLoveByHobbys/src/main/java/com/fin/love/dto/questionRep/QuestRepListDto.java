@@ -18,4 +18,6 @@ public class QuestRepListDto {
 	
 	private QuestionReply reply;
 	
+	private int status;
+	
 }
