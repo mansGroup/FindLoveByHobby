@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 email.value = data.email;
                 phone.value = data.phone;
                 jibunAddress.value = data.address;
+                
+                window.XMLHttpRequest('/mypage/room');
             })
             .catch((error) => console.log(error));
     });

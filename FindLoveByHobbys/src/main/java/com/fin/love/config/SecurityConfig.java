@@ -45,7 +45,7 @@ public class SecurityConfig {
 					.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 					// 로그인 하지 않아도 접근 가능한 주소 설정
 
-					.requestMatchers("/", "/login", "/css/**", "/images/**", "/js/**", "/fonts/**", "/member/login", "/member/signup","/api/member/**","/api/**").permitAll()
+					.requestMatchers("/", "/login", "/css/**", "/images/**", "/js/**", "/fonts/**", "/member/login", "/member/signup","/api/member/**","/api/**", "/member/findid", "/member/findpassword").permitAll()
 					.anyRequest().authenticated()
 
 				);
