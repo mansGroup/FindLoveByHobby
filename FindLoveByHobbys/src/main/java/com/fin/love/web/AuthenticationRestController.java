@@ -23,6 +23,16 @@ public class AuthenticationRestController {
     private final EmailSenderService emailSenderService;
     private final MemberService memberService;
 
+    @GetMapping("/userid/{id}")
+    public ResponseEntity<String> authenticationUserid(@PathVariable String id) {
+        boolean result = memberService.authenticationUserid(id);
+        log.info(result+"");
+        if (result == true) {
+            return ResponseEntity.ok("empty");
+        }
+        return ResponseEntity.ok("ok");
+    }
+
     @GetMapping("/findpassword/{userId}/{email}")
     public ResponseEntity<FindUserPasswordDto> findPassword(@PathVariable String userId,
                                                                 @PathVariable String email) {
@@ -30,7 +40,7 @@ public class AuthenticationRestController {
         Member member = memberService.getMemberOrElseEmptyEntity(userId);
         FindUserPasswordDto dto = new FindUserPasswordDto();
 
-        if (Objects.equals(member.getId(), null)) {
+        if (!member.getEmail().equals(email)) {
             dto.setCode("null");
             dto.setUserPassword("null");
             return ResponseEntity.ok(dto);
@@ -47,6 +57,12 @@ public class AuthenticationRestController {
                                       @PathVariable String email) {
         log.info("findId(username={}, email={})", username, email);
         List<Member> member = memberService.getMemberInfoByUsername(username);
+        if (member.size() == 0) {
+            FindUseridDto dto = FindUseridDto.builder()
+                    .userid("$9)유저아이디가 없습니다!#")
+                    .build();
+            return ResponseEntity.ok(dto);
+        }
         int size = member.size();
         FindUseridDto dto = new FindUseridDto();
 

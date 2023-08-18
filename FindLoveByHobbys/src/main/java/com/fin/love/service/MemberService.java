@@ -118,7 +118,9 @@ public class MemberService implements UserDetailsService {
 	}
 
 	public List<Member> getMemberInfoByUsername(String username) {
-		return  memberRepository.findByName(username);
+		List<Member> list = memberRepository.findByName(username);
+		log.info("=================================="+list.size());
+		return  list;
 	}
 
 	@Transactional
@@ -142,7 +144,9 @@ public class MemberService implements UserDetailsService {
 	@Transactional
     public UpdateInfoDto updateUserInfo(UpdateInfoDto dto) {
 		Member entity = memberRepository.findById(dto.getId()).orElseThrow();
-		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+		if (!dto.getPassword().equals("")) {
+			dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+		}
 		entity.updateInfo(dto);
 		return UpdateInfoDto.builder()
 				.id(entity.getId())
@@ -152,4 +156,8 @@ public class MemberService implements UserDetailsService {
 				.phone(entity.getPhone())
 				.build();
     }
+
+	public boolean authenticationUserid(String id) {
+		return memberRepository.findById(id).isEmpty();
+	}
 }
