@@ -11,14 +11,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const userIdValue = userId.value;
         const emailValue = email.value;
         console.log(userIdValue + '=========' + emailValue);
-        const url = '/authentication/findpassword/' + userIdValue + '/' + emailValue;
+        let responseid = '';
 
-        axios.get(url)
+        axios.get('/authentication/userid/' + userIdValue)
+            .then((response) => { responseid = response.data })
+            .catch((error) => console.log(error));
+        console.log(responseid+'][][][][][');
+        if (responseid == 'empty') {
+            alert('아이디를 확인해주세요');
+            return;
+        }
+        let checkEmail = '';
+        axios.get('/authentication/findpassword/' + userIdValue + '/' + emailValue)
             .then((response) => {
                 const data = response.data;
-                if (response.data.userPassword == 'null') {
-                    alert('입력정보를 확인해주세요.');
+                if (data.userPassword == 'null') {
+                    alert('이메일을 확인해주세요.');
+                    checkEmail = data.userPassword;
                 } else {
+                    if (checkEmail == 'null') {
+                        return;
+                    }
                     alert('인증번호가 발송되었습니다.');
                     code = data.code;
                     userPassword = data.userPassword;

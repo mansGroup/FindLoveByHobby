@@ -7,17 +7,21 @@ document.addEventListener('DOMContentLoaded', () => {
     let code = '';
     let userid = '';
 
-    btnSendAuthenticationNumber.addEventListener('click', () => {
+    btnSendAuthenticationNumber.addEventListener('click', (e) => {
+        e.preventDefault();
         const usernameValue = username.value;
         const emailValue = email.value;
         console.log(username + '=========' + email);
         const url = '/authentication/findid/' + usernameValue + '/' + emailValue;
-
         axios.get(url)
             .then((response) => {
                 const data = response.data;
-                if (response.data.userid == 'null') {
+                if (data.userid == '$9)유저아이디가 없습니다!#') {
+                    alert('이름을 확인해주세요');
+                    return;
+                }else if (data.userid == 'null') {
                     alert('이메일이 일치하지 않습니다.');
+                    return;
                 } else {
                     alert('인증번호가 발송되었습니다.');
                     code = data.code;
@@ -30,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (authenticationNumber.value != null) {
             if (code != authenticationNumber.value) {
                 alert('인증번호가 일치하지 않습니다.');
+                return;
             } else {
                 alert('아이디는 ' + userid + ' 입니다.');
             }

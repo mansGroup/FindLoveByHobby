@@ -13,6 +13,27 @@ document.addEventListener('DOMContentLoaded', () => {
             return
         }
         console.log(id.value);
+        if (password.value == null) {
+            password.value = '';
+        }
+
+        if (phone.value == null) {
+            alert('핸드폰 번호를 입력해주세요')
+            return;
+        }
+
+        if (email.value == null) {
+            alert('email을 입력해주세요')
+            return;
+        }
+
+        if (jibunAddress.value == null) {
+            alert('주소를 입력해주세요')
+            return;
+        }
+
+
+
         axios.post('/api/member/info/update',
             {
                 id: id.value,
