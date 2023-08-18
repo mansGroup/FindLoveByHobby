@@ -255,6 +255,10 @@ public class ProfileController {
 			hobbys1name =  hobbyService.findHobbyName(hobbys.get(0).getHobbyId());
 			model.addAttribute("hobbys1", hobbys.get(0).getHobbyId());
 			model.addAttribute("hobbys1name", hobbys1name);
+			model.addAttribute("hobbys2", -2);
+			model.addAttribute("hobbys2name", "선택안함");
+			model.addAttribute("hobbys3", -2);
+			model.addAttribute("hobbys3name", "선택안함");
 		} else if (hobbys.size() == 2) {
 			hobbys1name =  hobbyService.findHobbyName(hobbys.get(0).getHobbyId());
 			hobbys2name =  hobbyService.findHobbyName(hobbys.get(1).getHobbyId());
@@ -262,6 +266,8 @@ public class ProfileController {
 			model.addAttribute("hobbys1name", hobbys1name);
 			model.addAttribute("hobbys2", hobbys.get(1).getHobbyId());
 			model.addAttribute("hobbys2name", hobbys2name);
+			model.addAttribute("hobbys3", -2);
+			model.addAttribute("hobbys3name", "선택안함");
 		} else {
 			hobbys1name =  hobbyService.findHobbyName(hobbys.get(0).getHobbyId());
 			hobbys2name =  hobbyService.findHobbyName(hobbys.get(1).getHobbyId());
@@ -294,7 +300,9 @@ public class ProfileController {
 		String userDrings = drings.get(profile.getUserDrinks() - 1).getDringsName();
 		String userSmoker = smoker.get(profile.getUserSmoker() - 1).getSmokerName();
 		String userHeight = height.get(profile.getUserHeight() - 1).getHeightName();
-
+		Member member = memberService.login(userid);
+		
+		model.addAttribute("gender", member.getSex());
 		model.addAttribute("userHeight", userHeight);
 		model.addAttribute("userAge", userAge);
 		model.addAttribute("userAcademic", userAcademic);

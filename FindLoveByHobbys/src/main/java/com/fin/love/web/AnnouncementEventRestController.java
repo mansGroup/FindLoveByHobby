@@ -46,6 +46,14 @@ public class AnnouncementEventRestController {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String name = authentication.getName();
+	    
+	    if (uploadFile == null) {
+	    	
+	    	announcementEventService.pic1SaveImage(id, "/images/Adding_a_Person_Image.png", name);
+			
+			return ResponseEntity.ok("/images/Adding_a_Person_Image.png");
+	    	
+	    }
 		
 		// 이미지 파일만 업로드 가능
 		if (uploadFile.getContentType().startsWith("image") == false) {
