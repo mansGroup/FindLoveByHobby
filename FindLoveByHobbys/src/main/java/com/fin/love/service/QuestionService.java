@@ -1,14 +1,19 @@
 package com.fin.love.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fin.love.dto.question.CreateQuestDto;
+import com.fin.love.dto.question.QuestionStatusListDto;
 import com.fin.love.dto.question.UpdateQuestDto;
 import com.fin.love.repository.question.Question;
 import com.fin.love.repository.question.QuestionRepository;
+import com.fin.love.repository.questreply.QuestionRepRepository;
 import com.fin.love.repository.questreply.QuestionReply;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
@@ -22,6 +27,9 @@ public class QuestionService {
 
 	@Autowired
 	private QuestionRepository questrepository;
+	
+	@Autowired
+	private QuestionRepRepository questionRepRepository;
 
 	@Autowired
 	private MemberRepository memberrepository;
@@ -87,7 +95,24 @@ public class QuestionService {
 	}
 
 
-	
+	public List<QuestionStatusListDto> readAll() {
+		List<QuestionStatusListDto> result = new ArrayList<>();
+		
+		List<Question> list = questrepository.findByOrderByIdDesc();
+		for (Question q : list) {
+			QuestionStatusListDto dto = QuestionStatusListDto.fromEntity(q);
+			
+			if(q.getStatus() == 2) {
+				QuestionReply qRep = questionRepRepository.findByQuestion(q);
+				dto.setCompletedTime(qRep.getModifiedTime());
+			}
+			
+			
+			result.add(dto);
+		}
+		
+		return result;
+	}
 	
 	
 }

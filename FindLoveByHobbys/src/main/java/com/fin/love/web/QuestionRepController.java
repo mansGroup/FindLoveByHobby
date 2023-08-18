@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fin.love.dto.question.QuestionStatusListDto;
 import com.fin.love.dto.questionRep.QuestRepCreatetDto;
 import com.fin.love.dto.questionRep.QuestRepModifyDto;
 import com.fin.love.dto.questionRep.QuestRepUpdateDto;
@@ -94,11 +95,16 @@ public class QuestionRepController {
 	}
 
 	@GetMapping("/qreplist")
-	public void qreplist(Model model) {
-
+	public void qreplist(Model model, QuestRepListDto dto) {
 		log.info("qreplist()");
 		List<QuestRepListDto> list = questReplyService.read();
 		
+		List<QuestionStatusListDto> list2 = questionservice.readAll();
+		log.info(list2.toString());
+		
+		
+		
+		model.addAttribute("list2",list2);
 		model.addAttribute("list", list);
 
 	}

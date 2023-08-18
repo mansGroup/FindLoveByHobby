@@ -45,7 +45,9 @@ public class QuestReplyService {
 			 log.info("xId = {}",x.getId());
 			 log.info("reply = {}",reply.getModifiedTime());
 			 list.add(dto);
+			 
 		 }
+		 
 		 
 //		 log.info("listsize=({})",list.size());
 		
