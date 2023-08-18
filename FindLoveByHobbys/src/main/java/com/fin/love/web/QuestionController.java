@@ -137,13 +137,16 @@ public class QuestionController {
 		}
 		QuestionReply reply = questReplyService.findbyQuestionId(id);
 		
+		if(quest.getStatus()==2) {
+			
+			log.info("qreply=({})",reply);
+			
+		} else {
+			
+			reply = new QuestionReply();
+			
+		}
 		
-		
-//		if(reply == null) {
-//			reply.setReplycontent("답변을 등록하세요");
-//			
-//		} 
-		log.info("qreply=({})",reply);
 		
 		
 		model.addAttribute("reply", reply);
@@ -152,23 +155,7 @@ public class QuestionController {
 		model.addAttribute("role", roles);
 	}
 
-//	@GetMapping("/demo")
-//	public String demo(@RequestParam String userid, HttpSession session) {
-//		
-//		session.setAttribute("userid", userid);
-//		
-//		return "redirect:/question/qslist";
-//		
-//	}
-//	
-//	@GetMapping("/demologin")
-//	public void demo() {
-//		
-//		
-//		
-//		
-//		
-//	}
+
 	
 	public Question readAndModify(long id) {
 
