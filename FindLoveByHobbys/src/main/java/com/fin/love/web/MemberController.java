@@ -48,13 +48,13 @@ public class MemberController {
 		
 	}
 	
-	@GetMapping("/searchid")
+	@GetMapping("/findid")
 	public void searchId () {
 		log.info("searchId() GET");
 
 	}
 
-	@GetMapping("/searchpassword")
+	@GetMapping("/findpassword")
 	public void searchPassword() {
 		log.info("searchPassword()");
 	}

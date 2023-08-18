@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import com.fin.love.dto.member.UpdateInfoDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -136,6 +137,19 @@ public class MemberService implements UserDetailsService {
 		
 		return memberRepository.findAll();
 	}
-	
 
+
+	@Transactional
+    public UpdateInfoDto updateUserInfo(UpdateInfoDto dto) {
+		Member entity = memberRepository.findById(dto.getId()).orElseThrow();
+		dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+		entity.updateInfo(dto);
+		return UpdateInfoDto.builder()
+				.id(entity.getId())
+				.password("")
+				.email(entity.getEmail())
+				.address(entity.getAddress())
+				.phone(entity.getPhone())
+				.build();
+    }
 }

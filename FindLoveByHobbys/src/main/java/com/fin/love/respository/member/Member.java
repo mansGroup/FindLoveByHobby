@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.fin.love.dto.member.UpdateInfoDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -119,5 +120,14 @@ public class Member extends BaseTimeEntity implements UserDetails {
 
     public void updatePassword(String temporaryPassword) {
         this.password = temporaryPassword;
+    }
+
+    public Member updateInfo(UpdateInfoDto dto) {
+        this.password = dto.getPassword();
+        this.email = dto.getEmail();
+        this.phone = dto.getPhone();
+        this.address = dto.getAddress();
+
+        return this;
     }
 }
