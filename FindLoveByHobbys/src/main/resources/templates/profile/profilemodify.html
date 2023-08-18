@@ -134,7 +134,9 @@
 </th:block>
     
 <main layout:fragment="main" style="margin: 100px 250px;">
-	<h3 style="color: #f1c40f;">수정할 프로필을 작성해주세요</h3>
+	<div style="margin-bottom: 30px;">
+		<h3 style="color: #f1c40f;">수정할 프로필을 작성해주세요</h3>
+	</div>
 	
 <form id="profileModifyForm">
 	<div class="memberInfo">
@@ -149,7 +151,7 @@
 			<h3 style="color: #f1c40f;">자기소개를 입력하세요</h3>
 			<div>
 				<label class="form-label" for="userIntroduce"></label>
-				<textarea class="form-control3" id="userIntroduce"
+				<textarea class="form-control3" id="userIntroduce" style="width: 100%;"
 					name="userIntroduce" th:text="${profile.userIntroduce}" required autofocus>
 				</textarea>
 			</div>

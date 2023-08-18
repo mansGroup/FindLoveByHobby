@@ -13,65 +13,94 @@
 						<div class="section-title-wrap mb-5">
 							<h2 class="section-title">문의사항 상세</h2>
 
+						</div>
+						<input class="d-none" type="text" id="status" name="status"
+							th:value="${quest.status}" />
+						<h5 class="mb-4">
+							문의 처리 상황 <br /> <span id="statustext" class="text-muted">확인
+								전</span>
 
-                                    <div class="section-title-bottom">
-                                        <span class="section-title-line"></span>
-                                        <i class="section-title-icon bi-heart-fill"></i>
-                                        <span class="section-title-line"></span>
-                                    </div>
-                                </div>
-								<input class="d-none" type="text" id="status" name="status" th:value="${quest.status}" />
-                                <h5 class="mb-4">문의 처리 상황 <br /><span id="statustext" class="text-muted">확인 전</span>
-                                
-                                </h5>
+						</h5>
 
-                                <form class="custom-form rsvp-form" role="form" id="readForm" action="/question/qsmodify" method="get">
-                                    <input class="d-none" name="numid" id="numid" th:value="${quest.id}" />
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-6 col-12">
-                                        <!-- 차후 실제 로그인한 아이디로 변경 필요 TODO -->
-                                            <input type="text" name="userid" id="name" class="form-control" placeholder="Full Name*" required="required" th:value="${quest.member.id}" readonly="readonly">
-                                        </div>
+						<form class="custom-form rsvp-form" role="form" id="readForm"
+							action="/question/qsmodify" method="get">
+							<input class="d-none" name="numid" id="numid"
+								th:value="${quest.id}" />
+							<div class="row">
+								<div class="col-lg-4 col-md-6 col-12">
+									<!-- 차후 실제 로그인한 아이디로 변경 필요 TODO -->
+									<input type="text" name="userid" id="name" class="form-control"
+										placeholder="Full Name*" required="required"
+										th:value="${quest.member.id}" readonly="readonly">
+								</div>
 
-                                        <div class="col-lg-4 col-md-6 col-12"> 
-                                            <input type="email" name="userid" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email Address*" required="required" th:value="${quest.useremail}" readonly="readonly">
-                                        </div>
+								<div class="col-lg-4 col-md-6 col-12">
+									<input type="email" name="userid" id="email"
+										pattern="[^ @]*@[^ @]*" class="form-control"
+										placeholder="Email Address*" required="required"
+										th:value="${quest.useremail}" readonly="readonly">
+								</div>
 
-                                        <div class="col-lg-4 col-md-6 col-12"> 
-                                            <input type="text" name="options" id="options" class="form-control" placeholder="option" required="required" th:value="${quest.questionoption}" readonly="readonly" />
-                                        </div>
+								<div class="col-lg-4 col-md-6 col-12">
+									<input type="text" name="options" id="options"
+										class="form-control" placeholder="option" required="required"
+										th:value="${quest.questionoption}" readonly="readonly" />
+								</div>
 
-                                        <div class="col-lg-12 col-12">
-                                            <textarea class="form-control" id="message" name="message" placeholder="문의 내용을 작성해주세요" rows="5" th:text="${quest.questioncontent}" readonly="readonly"></textarea>
-                                        </div>
-										<div class="row" th:if="${ quest.status } == 0">
-                                        <div  class="col-lg-3 col-5 mx-auto">
-                                            <button type="submit" class="form-control">수정하기</button>
-                                        </div>
-                                        <div class="col-lg-3 col-5 mx-auto">
-                                            <a th:href="@{/question/qslist}" class="btn form-control">뒤로가기</a>
-                                        </div>
-										</div>
-										<div class="row" th:if="${ quest.status } != 0">
-                                        
-                                        <div class="col-lg-3 col-5 mx-auto">
-                                            <a th:href="@{/question/qslist}" class="btn form-control">뒤로가기</a>
-                                        </div>
-										</div>
+								<div class="col-lg-12 col-12">
+									<textarea class="form-control" id="message" name="message"
+										placeholder="문의 내용을 작성해주세요" rows="5"
+										th:text="${quest.questioncontent}" readonly="readonly"></textarea>
+								</div>
+								<div class="row" th:if="${ quest.status } == 0">
+									<div class="col-lg-3 col-5 mx-auto">
+										<button type="submit" class="form-control">수정하기</button>
+									</div>
+									<div class="col-lg-3 col-5 mx-auto">
+										<a th:href="@{/question/qslist}" class="btn form-control">뒤로가기</a>
+									</div>
+								</div>
+								<div class="row" th:if="${ quest.status } != 0">
 
-                                    </div>
-									<button id="editBtn" class="form-control">수정</button>
-									<button id="deleteBtn" class="form-control">삭제</button>
+									<div class="col-lg-3 col-5 mx-auto">
+										<a th:href="@{/question/qslist}" class="btn form-control">뒤로가기</a>
+									</div>
 								</div>
 
 							</div>
-
-						</th:block>
-
+						</form>
+						
 					</div>
+
 				</div>
+
+
+
+			</div>
+			<div class="col-lg-8 col-12 mx-auto" style="background-color: white; margin-top: 100px; padding: 50px; border-radius: 20px;" th:if="${ quest.status } == 2">
+				<h5 class="mb-4">
+					운영자 답변 <br />
+				</h5>
+				<form class="card-body" id="modifyForm"
+					th:action="@{/questionrep/qrepmodify}" method="post">
+					<div class="col-lg-12 col-12">
+						<textarea class="form-control" id="repmessage" name="repmessage"
+							rows="5" th:text="${reply.replycontent}" readonly="readonly"></textarea>
+					</div>
+					<input class="d-none" name="replyid" id="replyid"
+						th:value="${reply.replyid}" /> <input class="d-none"
+						name="questid" id="questid" th:value="${quest.id}" />
+						<div th:if="${quest.status} == 0">
+						<button id="editBtn" class="form-control">수정</button>
+						<button id="deleteBtn" class="form-control">삭제</button>
+						</div>
+				</form>
+
+
 			</div>
 		</div>
+
+
 	</section>
 
 

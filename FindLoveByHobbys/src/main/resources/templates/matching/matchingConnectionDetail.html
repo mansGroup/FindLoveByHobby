@@ -18,25 +18,22 @@
 				<div class="section-title-wrap mb-5">
 					<h2 class="section-title">상세프로필</h2>
 					<div class="section-title-bottom">
-						<span class="section-title-line"></span> <i
-							class="section-title-icon bi-heart-fill"></i> <span
-							class="section-title-line"></span>
 					</div>
 
 
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-6" style="height: 600px; width: 480px;">
 							<!-- 이미지 삽입 할 위치 -->
 							<div id="carouselExample" class="carousel slide">
 								<div class="carousel-inner">
 									<div class="carousel-item active">
-										<img th:src="${usualPic1}" class="d-block w-100" alt="...">
+										<img th:src="${usualPic1}" class="d-block w-100" style="height: 600px; width: 480px;">
 									</div>
 									<div class="carousel-item">
-										<img th:src="${usualPic2}" class="d-block w-100" alt="...">
+										<img th:src="${usualPic2}" class="d-block w-100" style="height: 600px; width: 480px;">
 									</div>
 									<div class="carousel-item">
-										<img th:src="${usualPic3}" class="d-block w-100" alt="...">
+										<img th:src="${usualPic3}" class="d-block w-100" style="height: 600px; width: 480px;">
 									</div>
 								</div>
 								<button class="carousel-control-prev" type="button"
@@ -174,24 +171,21 @@
 						</div>
 						<div class="row">
 							<div class="col-lg-4 col-12">
-								<div class="gallery-thumb image-hover-thumb">
-									<a href="#" class="popup-image"> <img th:src="${hobbyPic1}"
+								<div class="gallery-thumb image-hover-thumb" style="height: 400px; width: 400px; display: flex;">
+									<img th:src="${hobbyPic1}"
 										class="gallery-image img-fluid" alt="">
-									</a>
 								</div>
 							</div>
 							<div class="col-lg-4 col-12">
-								<div class="gallery-thumb image-hover-thumb">
-									<a href="#" class="popup-image"> <img th:src="${hobbyPic2}"
+								<div class="gallery-thumb image-hover-thumb" style="height: 400px; width: 400px; display: flex;">
+									<img th:src="${hobbyPic2}"
 										class="gallery-image img-fluid" alt="">
-									</a>
 								</div>
 							</div>
 							<div class="col-lg-4 col-12">
-								<div class="gallery-thumb image-hover-thumb">
+								<div class="gallery-thumb image-hover-thumb" style="height: 400px; width: 400px; display: flex;">
 									 <img th:src="${hobbyPic3}"
 										class="gallery-image img-fluid" alt="">
-									</a>
 								</div>
 							</div>
 						</div>
