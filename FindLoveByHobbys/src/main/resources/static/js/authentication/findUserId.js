@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const username = document.querySelector('input#username');
     const email = document.querySelector('input#email');
-    const btnSendAuthenticationNumber = document.querySelector('span#btnSendAuthenticationNumber');
+    const btnSendAuthenticationNumber = document.querySelector('button#btnSendAuthenticationNumber');
     const authenticationNumber = document.querySelector('input#authenticationNumber');
-    const btnCheckKey = document.querySelector('span#btnCheckKey');
+    const btnCheckKey = document.querySelector('button#btnCheckKey');
     let code = '';
     let userid = '';
 
@@ -27,10 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     btnCheckKey.addEventListener('click', () => {
-        if (code != authenticationNumber.value) {
-            alert('인증번호가 일치하지 않습니다.');
-        } else {
-            alert('아이디는 ' + userid + ' 입니다.');
+        if (authenticationNumber.value != null) {
+            if (code != authenticationNumber.value) {
+                alert('인증번호가 일치하지 않습니다.');
+            } else {
+                alert('아이디는 ' + userid + ' 입니다.');
+            }
         }
     });
 });
