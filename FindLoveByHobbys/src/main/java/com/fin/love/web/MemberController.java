@@ -102,9 +102,12 @@ public class MemberController {
 		
 		log.info("member.getRole() >> " + member.getRole());
 		
-		if (member.getRole() == Role.UNVARIFIED_USER || member.getRole() == Role.RIP_USER) {
+		if (member.getRole() == Role.UNVARIFIED_USER) {
 			
 			return "redirect:/member/unvarified";
+		} if(member.getRole() == Role.RIP_USER) {
+			
+			return "redirect:/member/banned";
 		}
 		
 		return "redirect:/matching/matchingList/" + userid; 
@@ -114,6 +117,12 @@ public class MemberController {
 	@GetMapping("/unvarified") 
 	public void unvarified() {
 		log.info("GET UNVARIFIED");
+		
+	}
+	
+	@GetMapping("/banned") 
+	public void banned() {
+		log.info("GET banned");
 		
 	}
 

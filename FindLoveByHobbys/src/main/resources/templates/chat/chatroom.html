@@ -16,7 +16,7 @@
     <div id="myId" class="d-none" th:value="${myId}"></div>
     <div id="mySex" class="d-none" th:value="${mySex}"></div>
 
-    <!-- d-none form -->
+    <!-- d-none form -->	
     <form id="goChat" class="d-none" th:action="@{'/matching/matchingList/' + ${myId}}"></form>
 
     <form class="d-none" id="chatOutForm" action="/chat/out" method="post">

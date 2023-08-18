@@ -247,19 +247,25 @@ public class ProfileController {
 
 		List<UserHobby> hobbys = hobbyService.findById(userid);
 		
-		String hobbys1name =  hobbyService.findHobbyName(hobbys.get(0).getHobbyId());
-		String hobbys2name =  hobbyService.findHobbyName(hobbys.get(1).getHobbyId());
-		String hobbys3name =  hobbyService.findHobbyName(hobbys.get(2).getHobbyId());
+		String hobbys1name = "";
+		String hobbys2name = "";
+		String hobbys3name = "";
 		
 		if (hobbys.size() == 1) {
+			hobbys1name =  hobbyService.findHobbyName(hobbys.get(0).getHobbyId());
 			model.addAttribute("hobbys1", hobbys.get(0).getHobbyId());
 			model.addAttribute("hobbys1name", hobbys1name);
 		} else if (hobbys.size() == 2) {
+			hobbys1name =  hobbyService.findHobbyName(hobbys.get(0).getHobbyId());
+			hobbys2name =  hobbyService.findHobbyName(hobbys.get(1).getHobbyId());
 			model.addAttribute("hobbys1", hobbys.get(0).getHobbyId());
 			model.addAttribute("hobbys1name", hobbys1name);
 			model.addAttribute("hobbys2", hobbys.get(1).getHobbyId());
 			model.addAttribute("hobbys2name", hobbys2name);
 		} else {
+			hobbys1name =  hobbyService.findHobbyName(hobbys.get(0).getHobbyId());
+			hobbys2name =  hobbyService.findHobbyName(hobbys.get(1).getHobbyId());
+			hobbys3name =  hobbyService.findHobbyName(hobbys.get(2).getHobbyId());
 			model.addAttribute("hobbys1", hobbys.get(0).getHobbyId());
 			model.addAttribute("hobbys1name", hobbys1name);
 			model.addAttribute("hobbys2", hobbys.get(1).getHobbyId());

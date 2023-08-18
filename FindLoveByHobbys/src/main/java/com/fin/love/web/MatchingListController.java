@@ -32,7 +32,7 @@ public class MatchingListController {
 		// 매칭 유저 뽑기
 		List<MatchingListDto> memberList = matchingService.matching(userId);
 		
-		if (memberList == null || memberList.size() == 0) {
+		if (memberList == null || memberList.size() == 0 || memberList.size() == 1) {
 			return "redirect:/matching/matching/none";
 		}
 		
