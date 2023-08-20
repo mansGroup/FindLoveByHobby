@@ -98,8 +98,9 @@
 (기능명세서 - 이찬희, 위태욱)
 
 
-( 프로젝트 간트차트 - ? 까먹음 )
+( 프로젝트 간트차트 - 김다훈 )
 
+링크 : https://drive.google.com/file/d/1UelzdiL3JOaL6EMozt8IXGbTBnCPTKGn/view?usp=sharing
 
 ( 화면구성서 - 김도현 )
 
