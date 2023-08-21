@@ -92,6 +92,7 @@
 
 (기능명세서 - 이찬희, 위태욱)
 
+링크 : https://docs.google.com/spreadsheets/d/1azhzJ4zk00MoW8FDb9e94FghjpjQ9M8hzIShAayFLO8/edit?usp=sharing
 
 ( 프로젝트 간트차트 - 김다훈 )
 
@@ -99,6 +100,7 @@
 
 ( 화면구성서 - 김도현 )
 
+링크 : https://docs.google.com/presentation/d/11--cQSjvNyknA2qCTp1CUqlq62QGAISoU2kHvz7Frp4/edit#slide=id.g27583a149b4_0_116
 
 ( 결과물 PPT - 지대한 )
 
