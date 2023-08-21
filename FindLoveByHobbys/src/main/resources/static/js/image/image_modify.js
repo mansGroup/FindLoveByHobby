@@ -164,7 +164,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		const usualPic1 = inputUsualPic1.value;
 		
 		const file = imageInput1.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -210,13 +212,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	imageInput2.addEventListener('change', function() {
 		const usualPic2 = inputUsualPic2.value;
 		
 		const file = imageInput2.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -244,7 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// Ajax 요청
 		const xhr = new XMLHttpRequest();
-		const url = `/api/upload/usualImage1/${id}`; // 서버의 URL
+		const url = `/api/upload/usualImage2/${id}`; // 서버의 URL
 		xhr.open("POST", url, true);
 
 		xhr.onreadystatechange = function() {
@@ -262,13 +268,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	imageInput3.addEventListener('change', function() {
 		const usualPic3 = inputUsualPic3.value;
 		
 		const file = imageInput3.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -296,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// Ajax 요청
 		const xhr = new XMLHttpRequest();
-		const url = `/api/upload/usualImage1/${id}`; // 서버의 URL
+		const url = `/api/upload/usualImage3/${id}`; // 서버의 URL
 		xhr.open("POST", url, true);
 
 		xhr.onreadystatechange = function() {
@@ -314,13 +324,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	hobbyImageInput1.addEventListener('change', function() {
 		const hobbyPic1 = inputHobbyPic1.value;
 		
 		const file = hobbyImageInput1.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -366,13 +380,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	hobbyImageInput2.addEventListener('change', function() {
 		const hobbyPic2 = inputHobbyPic2.value;
 		
 		const file = hobbyImageInput2.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -418,13 +436,17 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	hobbyImageInput3.addEventListener('change', function() {
 		const hobbyPic3 = inputHobbyPic3.value;
 		
 		const file = hobbyImageInput3.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -469,6 +491,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// FormData 객체를 전송
 		xhr.send(formData);
+		
+		}
 		
 	});
 

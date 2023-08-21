@@ -15,7 +15,7 @@ public interface MemberRepository extends JpaRepository<Member, String> {
 
 	int countByNickname(String nickname);
 
-	List<Member> findBySex(int sexCode);
+	List<Member> findBySexAndRole(int sexCode, Role role);
 
 	List<Member> findByOrderByIdDesc();
 

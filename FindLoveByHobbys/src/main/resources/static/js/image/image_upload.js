@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	imageInput1.addEventListener('change', function() {
 		const file = imageInput1.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -40,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			previewImage1.style.display = 'none';
 		}
 		
+		
+			
 		console.info('들어옴')
 
 		const id = inputUserId.value;
@@ -71,11 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	imageInput2.addEventListener('change', function() {
 		const file = imageInput2.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -120,11 +128,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// FormData 객체를 전송
 		xhr.send(formData);
+		
+		}
 	});
 	
 	imageInput3.addEventListener('change', function() {
 		const file = imageInput3.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -169,11 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// FormData 객체를 전송
 		xhr.send(formData);
+		
+		}
+		
 	});
 	
 	hobbyImageInput1.addEventListener('change', function() {
 		const file = hobbyImageInput1.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -219,11 +236,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	hobbyImageInput2.addEventListener('change', function() {
 		const file = hobbyImageInput2.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -269,11 +290,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	hobbyImageInput3.addEventListener('change', function() {
 		const file = hobbyImageInput3.files[0];
-
+	
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -318,6 +343,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// FormData 객체를 전송
 		xhr.send(formData);
+		
+		}
 		
 	});
 	

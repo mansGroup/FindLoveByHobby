@@ -88,7 +88,7 @@ public class FileUploadController {
 		return "/profile/image_upload";
 	}
 	
-	@GetMapping("/image_modify")
+	@GetMapping("/image/modify")
 	public String imageModify(HttpSession session, Model model) {
 		log.info("imageModify()");
 		
