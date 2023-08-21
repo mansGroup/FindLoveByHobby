@@ -110,4 +110,4 @@
 
 ( E-R Diagram - 유다한 )
 
-<img src="https://user-images.githubusercontent.com/103639913/260392694-39b82b33-59a8-4905-b5ec-7ca1fa078966.jpg" style="height:480px; width:480px;" />
+링크 : https://drive.google.com/file/d/1TD2Xr8lnhEOQoEFG1sLJGBu4y2vGDEid/view
