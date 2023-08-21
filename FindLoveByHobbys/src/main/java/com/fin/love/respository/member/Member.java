@@ -123,7 +123,9 @@ public class Member extends BaseTimeEntity implements UserDetails {
     }
 
     public Member updateInfo(UpdateInfoDto dto) {
-        this.password = dto.getPassword();
+        if (!dto.getPassword().equals("")) {
+            this.password = dto.getPassword();
+        }
         this.email = dto.getEmail();
         this.phone = dto.getPhone();
         this.address = dto.getAddress();
