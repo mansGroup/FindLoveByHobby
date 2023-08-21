@@ -30,7 +30,7 @@
   border-radius: 1.25rem;
 }
 
-#signup {
+#signupbtn {
   background-color: #4CAF50;
   color: #fff;
   margin-left: 60px;
@@ -94,7 +94,7 @@
 				<div class="container">
 					<div class="row">
 					
-						<form method="post" th:action="@{ /member/signup }">
+						<form action="/member/signup" method="post">
 						<div class="col-lg-8 col-12 mx-auto">
 							<div class="rsvp-form-wrap">
 								<div class="section-title-wrap mb-5">
@@ -143,13 +143,17 @@
 									
 									<div class="col-lg-4 col-md-6 col-12">
 										<input class="form-control" type="number"
-											pattern="[0-9]{8}" title="8자리의 숫자를 입력하세요 (예: 19940624)" name="birthdate" id="birthdate"
+											name="birthdate" id="birthdate"
 											placeholder="Birthday* ex)19940624" required />
+											<div id="birthdateErrorMessage" style="color: red;"></div>
 									</div>
 									
 									<div class="col-lg-4 col-md-6 col-12">
 										<input class="form-control" type="number"
-											name="phone" id="phone" placeholder="PhoneNum*" required />
+											name="phone" id="phone" placeholder="PhoneNum*" 
+											 required />
+											<div id="phoneErrorMessage" style="color: red;"></div>
+											
 									</div>
 									
 									<div class="col-lg-4 col-md-6 col-12">
@@ -263,11 +267,12 @@
 												}
 											</script>
 									</div>
-								
+									
+									<br> <span id="submitmessage" style="font-size: 30px"></span>
 
-
+									
 									<div class="col-lg-3 col-5 mx-auto">
-										<input id="signup" type="submit" value="가입 완료" />
+										<input id="signupbtn" type="submit" value="가입 완료" />
 									</div>
 
 								</div>

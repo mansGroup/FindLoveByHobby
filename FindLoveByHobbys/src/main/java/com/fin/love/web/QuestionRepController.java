@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +35,9 @@ public class QuestionRepController {
 	private QuestionService questionService;
 	@Autowired
 	private QuestionService questionservice;
-
+	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/qrepcreate")
 	public void qrepcreate(@RequestParam long id, Model model) {
 		log.info("id=({})", id);
@@ -80,7 +83,9 @@ public class QuestionRepController {
 		return questionservice.readbyId(id);
 
 	}
-
+	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/qrepcreate")
 	public String qrepcreate(QuestRepCreatetDto dto) {
 
@@ -93,7 +98,8 @@ public class QuestionRepController {
 
 		return "redirect:/questionrep/qreplist";
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/qreplist")
 	public void qreplist(Model model, QuestRepListDto dto) {
 		log.info("qreplist()");
@@ -108,7 +114,8 @@ public class QuestionRepController {
 		model.addAttribute("list", list);
 
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/qrepmodify")
 	public void modify(@RequestParam long id, Model model) {
 		log.info("GET()");
@@ -147,7 +154,8 @@ public class QuestionRepController {
 		model.addAttribute("quest", quest);
 		model.addAttribute("role", roles);
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/qrepmodify")
 	public String delete(QuestRepModifyDto dto) {
 		log.info("id=()",dto.getReplyid());
@@ -160,6 +168,7 @@ public class QuestionRepController {
 
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/update")
 	public String update(QuestRepUpdateDto dto) {
 		log.info("dto = {}", dto);

@@ -38,6 +38,7 @@ public class AnnouncementEventRestController {
 	private final PictureService pictureService;
 	private final AnnouncementEventService announcementEventService;
 	
+	
 	@PostMapping("/usualImage/{id}")
 	public ResponseEntity<String> imageUpload1(@RequestBody MultipartFile uploadFile, @PathVariable Long id) throws Exception {
 		log.info("usualImage()");

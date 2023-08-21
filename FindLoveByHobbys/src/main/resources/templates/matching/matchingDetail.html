@@ -8,7 +8,7 @@
 
 	<main layout:fragment="main">
 		<!-- TODO: 로그인 아이디  "a"나중에 실제 로그인 하는 아이디로 변경-->
-		<input class="d-none" th:value="b" id="senderId" /> <input
+		<input class="d-none" th:value="${ #authentication.name }" id="senderId" /> <input
 			class="d-none" th:value="${id}" id="getterId" />
 
 

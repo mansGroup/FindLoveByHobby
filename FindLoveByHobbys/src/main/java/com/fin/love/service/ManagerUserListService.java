@@ -72,23 +72,37 @@ public class ManagerUserListService {
 			gender = "남자";
 		}
 		
-		Profile profile = profileRepository.findById(userId).orElseThrow();
+		Profile profile = profileRepository.findById(userId).orElse(null);
 		List<Age> ages = ageRepository.findAll();
-		String age = ages.get(profile.getUserAge() - 1).getAgeName();
 		List<Academic> academics = academicRepository.findAll();
-		String academic = academics.get(profile.getUserAcademic() - 1).getAcademicName();
 		List<Income> incomes = incomeRepository.findAll();
-		String income = incomes.get(profile.getUserIncome() - 1).getIncome();
 		List<Jobs> jobs = jobsRepository.findAll();
-		String userJob = jobs.get(profile.getUserJob() - 1).getJobName();
 		List<Religion> religions = religionRepository.findAll();
-		String religion = religions.get(profile.getUserReligion() - 1).getReligionName();
 		List<Drings> drings = dringsRepository.findAll();
-		String drink = drings.get(profile.getUserDrinks() - 1).getDringsName();
 		List<Height> heights = heightRepository.findAll();
-		String height = heights.get(profile.getUserHeight() - 1).getHeightName();
 		List<Smoker> smokers = smokerRepository.findAll();
-		String smoker = smokers.get(profile.getUserSmoker() - 1).getSmokerName();
+		
+		String age = "";
+		String academic = "";
+		String income = "";
+		String userJob = "";
+		String religion = "";
+		String drink = "";
+		String height = "";
+		String smoker = "";
+		String userIntroduce = "";
+		
+		if (profile != null) {
+			age = ages.get(profile.getUserAge() - 1).getAgeName();
+			academic = academics.get(profile.getUserAcademic() - 1).getAcademicName();
+			income = incomes.get(profile.getUserIncome() - 1).getIncome();
+			userJob = jobs.get(profile.getUserJob() - 1).getJobName();
+			religion = religions.get(profile.getUserReligion() - 1).getReligionName();
+			drink = drings.get(profile.getUserDrinks() - 1).getDringsName();
+			height = heights.get(profile.getUserHeight() - 1).getHeightName();
+			smoker = smokers.get(profile.getUserSmoker() - 1).getSmokerName();
+			userIntroduce = profile.getUserIntroduce();
+		}
 		
 		Assessment assessment = assessmentRepository.findById(userId).orElse(null);
 		int sexy = 0;
@@ -105,27 +119,45 @@ public class ManagerUserListService {
 			wonderful = assessment.getWonderful();
 		}
 		
-		Picture pic = pictureRepository.findById(userId).orElseThrow();
-		HobbyPicture hobbyPic = hobbyPictureRepository.findById(userId).orElseThrow();
-		String pic1 = pictureService.imageChange(pic.getPic1());
-		String pic2 = pictureService.imageChange(pic.getPic2());
-		String pic3 = pictureService.imageChange(pic.getPic3());
-		String hobbyPic1 = pictureService.imageChange(hobbyPic.getHobbyPic1());
-		String hobbyPic2 = pictureService.imageChange(hobbyPic.getHobbyPic2());
-		String hobbyPic3 = pictureService.imageChange(hobbyPic.getHobbyPic3());
+		Picture pic = pictureRepository.findById(userId).orElse(null);
+		HobbyPicture hobbyPic = hobbyPictureRepository.findById(userId).orElse(null);
+		String pic1 = "/images/Adding_a_Person_Image.png";
+		String pic2 = "/images/Adding_a_Person_Image.png";
+		String pic3 = "/images/Adding_a_Person_Image.png";
+		String hobbyPic1 = "/images/Adding_a_Person_Image.png";
+		String hobbyPic2 = "/images/Adding_a_Person_Image.png";
+		String hobbyPic3 = "/images/Adding_a_Person_Image.png";
+		
+		if (pic != null) {
+			pic1 = pictureService.imageChange(pic.getPic1());
+			pic2 = pictureService.imageChange(pic.getPic2());
+			pic3 = pictureService.imageChange(pic.getPic3());
+		}
+		
+		if (hobbyPic != null) {
+			hobbyPic1 = pictureService.imageChange(hobbyPic.getHobbyPic1());
+			hobbyPic2 = pictureService.imageChange(hobbyPic.getHobbyPic2());
+			hobbyPic3 = pictureService.imageChange(hobbyPic.getHobbyPic3());
+		}
 		
 		List<UserHobby> userHobbys = userHobbyRepository.findByUserid(userId);
 		
-		String hobby1 = hobbyRepository.findById(userHobbys.get(0).getHobbyId()).orElse(null).getHobbyName();
+		String hobby1 = "";
 		String hobby2 = "";
 		String hobby3 = "";
 		
-		if (userHobbys.size() >= 2) {
-			hobby2 = hobbyRepository.findById(userHobbys.get(1).getHobbyId()).orElse(null).getHobbyName();
-		}
+		if (userHobbys.size() != 0) {
+			
+			hobby1 = hobbyRepository.findById(userHobbys.get(0).getHobbyId()).orElse(null).getHobbyName();
+			
+			if (userHobbys.size() >= 2) {
+				hobby2 = hobbyRepository.findById(userHobbys.get(1).getHobbyId()).orElse(null).getHobbyName();
+			}
+			
+			if (userHobbys.size() >= 3) {
+				hobby3 = hobbyRepository.findById(userHobbys.get(2).getHobbyId()).orElse(null).getHobbyName();
+			}
 		
-		if (userHobbys.size() >= 3) {
-			hobby3 = hobbyRepository.findById(userHobbys.get(2).getHobbyId()).orElse(null).getHobbyName();
 		}
 		
 		
@@ -149,7 +181,7 @@ public class ManagerUserListService {
 				income,  // 연봉
 				userJob,  // 직업
 				religion,  // 종교
-				profile.getUserIntroduce(),  // 소개글
+				userIntroduce,  // 소개글
 				sexy,  // sexy 카운트
 				beautiful, // Beautiful 카운트
 				cute, // Cute 카운트

@@ -30,9 +30,11 @@ public class MatchingListRestController {
 		log.info("likeSend(userId = {}, memberId = {})", userId, member1UserId);
 		
 		int result = likeService.likeSend(userId, member1UserId);
+		if(result == 1) {
 		noteService.likeSend(userId, member1UserId);
 		noteNumberService.upNoteCount(member1UserId);
 		noteNumberService.upNoteCount(userId);
+		}
 		log.info("result = {}", result);
 		
 		return ResponseEntity.ok(result); // 0이면 실패, 1이면 성공
@@ -43,9 +45,11 @@ public class MatchingListRestController {
 		log.info("likeSend(userId = {}, memberId = {})", userId, member2UserId);
 		
 		int result = likeService.likeSend(userId, member2UserId);
+		if(result == 1) {
 		noteService.likeSend(userId, member2UserId);
 		noteNumberService.upNoteCount(member2UserId);
 		noteNumberService.upNoteCount(userId);
+		}
 		log.info("result = {}", result);
 		
 		return ResponseEntity.ok(result); // 0이면 실패, 1이면 성공
@@ -56,9 +60,11 @@ public class MatchingListRestController {
 		log.info("likeSend(userId = {}, memberId = {})", userId, member3UserId);
 		
 		int result = likeService.likeSend(userId, member3UserId);
+		if(result == 1) {
 		noteService.likeSend(userId, member3UserId);
 		noteNumberService.upNoteCount(member3UserId);
 		noteNumberService.upNoteCount(userId);
+		}
 		log.info("result = {}", result);
 		
 		return ResponseEntity.ok(result); // 0이면 실패, 1이면 성공
@@ -69,9 +75,11 @@ public class MatchingListRestController {
 		log.info("likeSend(userId = {}, memberId = {})", userId, member4UserId);
 		
 		int result = likeService.likeSend(userId, member4UserId);
+		if(result == 1) {
 		noteService.likeSend(userId, member4UserId);
 		noteNumberService.upNoteCount(member4UserId);
 		noteNumberService.upNoteCount(userId);
+		}
 		log.info("result = {}", result);
 		
 		return ResponseEntity.ok(result); // 0이면 실패, 1이면 성공

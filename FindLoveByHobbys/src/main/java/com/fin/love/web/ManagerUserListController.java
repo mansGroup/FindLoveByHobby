@@ -1,16 +1,15 @@
 package com.fin.love.web;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fin.love.dto.member.ManagerUserListDto;
 import com.fin.love.respository.member.Member;
@@ -32,6 +31,7 @@ public class ManagerUserListController {
 	private final MemberRepository memberRepository;
 	private final MemberService memberService;
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/user/list/{pageCount}")
 	public String managerUserList(@PathVariable int pageCount, Model model) {
 		log.info("managerUserList()");
@@ -60,6 +60,7 @@ public class ManagerUserListController {
 		return "/member/manager_user_list";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/role/update/{userId}")
 	public String roleUpdate(@PathVariable String userId) {
 		log.info("roleUpdate(userId = {})", userId);

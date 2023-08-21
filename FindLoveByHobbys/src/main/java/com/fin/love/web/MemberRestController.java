@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.fin.love.dto.member.MemberSignUpDto;
+import com.fin.love.respository.member.Role;
+import com.fin.love.service.MatchingDetailService;
 import com.fin.love.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberRestController {
 	
 	private final MemberService memberService;
+	private final MatchingDetailService matchingDetailService;
 	
 	@GetMapping("/{userid}")
 	public ResponseEntity<Boolean> idDupleCheck(@PathVariable String userid) {
@@ -38,4 +42,5 @@ public class MemberRestController {
 		
 		return ResponseEntity.ok(result);
 	}
+	
 }

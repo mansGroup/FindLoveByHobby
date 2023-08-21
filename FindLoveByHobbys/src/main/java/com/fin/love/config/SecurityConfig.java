@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.access.AccessDeniedHandlerImpl;
 
 import jakarta.servlet.DispatcherType;
 
@@ -35,6 +37,13 @@ public class SecurityConfig {
 //		
 //		return new InMemoryUserDetailsManager(user1);
 //	}
+	
+	@Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        AccessDeniedHandlerImpl handler = new AccessDeniedHandlerImpl();
+        handler.setErrorPage("/member/accessdenied"); // 에러 페이지 URL 설정
+        return handler;
+    }
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -60,6 +69,10 @@ public class SecurityConfig {
 				);
 		
 		http.logout((logout) -> logout.logoutSuccessUrl("/"));
+		
+		 http.exceptionHandling(exceptionHandling -> exceptionHandling
+	                .accessDeniedHandler(accessDeniedHandler()) // AccessDeniedHandler 설정
+	        );
 		
 		return http.build();
 	}

@@ -56,7 +56,7 @@
 					<div class="age">
 						<p style="color: black;">원하는 이상형의 나이를 선택하세요</p>
 						<select class="form-select" name="age">
-							<option value="">나이</option>
+							<option value="-1">나이</option>
 							<option value="a" th:each="age , idx : ${ages}"
 								th:text="${age.ageName}" th:value="${idx.count}"></option>
 						</select>
@@ -65,7 +65,7 @@
 					<div class="height">
 						<p style="color: black;">원하는 이상형의 키를 선택하세요</p>
 						<select class="form-select" name="height">
-							<option value="">키</option>
+							<option value="-1">키</option>
 							<option value="h" th:each="height , idx : ${heights}"
 								th:text="${height.heightName}" th:value="${idx.count}"></option>
 						</select>

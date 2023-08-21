@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     websocket.onmessage = onMessage;
     websocket.onopen = onOpen;
-    websocket.onclose = onClose;
-
+    
+    
     btnOut.addEventListener('click', () => {
         if (confirm('채팅방을 나가시겠습니까?')) {
             onClose();
@@ -40,6 +40,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
     });
+    
+    setInterval(() => {
+		websocket.send()
+	}, 30000);
 
     function sendFaceChat() {
         const Data = {
@@ -85,6 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //채팅창에서 나갔을 때
     function onClose(evt) {
+		if(evt.code == 1000) {
+			console.log(evt.code);
+					
         let str = {
             "message": +`${myNickname}님이 방을 나가셨습니다.`,
             "nickname": myNickname,
@@ -101,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         axios.get(url)
             .catch((error) => console.log(error));
+        }
     }
 
     //채팅창에 들어왔을 때

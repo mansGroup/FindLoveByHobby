@@ -2,6 +2,7 @@ package com.fin.love.web;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class AnnouncementEventController {
 
 	private final AnnouncementEventService announcementEventService;
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/eventMain")
 	public void read(Model model) {
 		log.info("post()");
@@ -36,8 +37,9 @@ public class AnnouncementEventController {
 		// Model에 검색 결과를 세팅:
 
 	}
-
+	
 	// 작성하기 들어가는 페이지
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/eventCreate")
 	public void announcementEvent() {
 		log.info("create() GET");
@@ -45,6 +47,7 @@ public class AnnouncementEventController {
 	}
 
 	// "/eventDetails", "/eventModify" 요청 주소들을 처리하는 컨트롤러 메서드
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping({ "/eventDetails", "/eventModify" })
 	public void read(Long id, Model model) {
 		log.info("read(id={})", id);
@@ -70,6 +73,7 @@ public class AnnouncementEventController {
 	}
 
 	// DB 행을 삭제
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/eventDelete")
 	public String delete(Long id) {
 		log.info("delete(id={})", id);
@@ -81,6 +85,7 @@ public class AnnouncementEventController {
 	}
 
 	// DB 행을 업데이트
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/eventUpdate")
 	public String update(AnnouncementEventDto dto) {
 		log.info("update={}", dto);
@@ -94,6 +99,7 @@ public class AnnouncementEventController {
 	
 	
 	// 유저 페이지
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')" )
 	@GetMapping("/eventUser")
 	public void userPage(Model model) {
 		log.info("userPage()");

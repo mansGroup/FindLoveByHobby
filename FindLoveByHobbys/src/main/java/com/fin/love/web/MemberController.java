@@ -14,11 +14,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fin.love.dto.member.MemberLogInDto;
 import com.fin.love.dto.member.MemberSignUpDto;
+import com.fin.love.repository.image.HobbyPicture;
+import com.fin.love.repository.image.Picture;
 import com.fin.love.repository.profile.Profile;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.Role;
 import com.fin.love.service.MatchingDetailService;
+import com.fin.love.service.MatchingService;
 import com.fin.love.service.MemberService;
+import com.fin.love.service.PictureService;
 import com.fin.love.service.profile.ProfileService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,11 +39,16 @@ public class MemberController {
 	private final MemberService memberService;
 	private final ProfileService profileService;
 	private final MatchingDetailService matchingDetailService;
-
+	private final MatchingService matchingService;
 	
 	@GetMapping("/login")
 	public void login() {
 	log.info("login() GET");
+	}
+	
+	@GetMapping("/accessdenied")
+	public void accessdenied() {
+	log.info("accessdenied() GET");
 	}
 	
 	@GetMapping("/signup")
@@ -78,7 +87,7 @@ public class MemberController {
 		log.info("signup id = {}", id);
 
 		matchingDetailService.newCreat(dto.getUserid());
-
+		
 		return "/member/login";
 	}
 	

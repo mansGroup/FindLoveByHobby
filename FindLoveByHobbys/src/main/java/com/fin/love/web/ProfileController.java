@@ -139,13 +139,33 @@ public class ProfileController {
 		
 		
 		// 취미를 가진 사람들 찾기
-		members = profileService.findByhobbys(hobbyId1, hobbyId2, hobbyId3, userId);
+		if (hobbyId1 != null && hobbyId2 != null && hobbyId3 != null) {
+			members = profileService.findByhobbys(hobbyId1, hobbyId2, hobbyId3, userId);
+		} else {
+			members = profileService.findByAll();
+		}
+		
+		// 권한이 유저인 사람들만 찾기.
+		members = profileService.findByRole(members);
 		
 		// 선택한 나이 +-5살 까지 사람들 찾기
-		List<Member> membersByAge = profileService.membersByage(members, age);
+		List<Member> membersByAge = new ArrayList<>();
+		if (age != -1) {
+			membersByAge = profileService.membersByage(members, age);
+		} else {
+			age = profileService.findById(userId).getUserAge();
+			membersByAge = profileService.membersByage(members, age);
+		}
+		 
 		
 		// 선택한 키의 +-5cm 까지 사람들 찾기
-		List<Member> membersByHeight = profileService.membersByHeight(members, height);
+		List<Member> membersByHeight = new ArrayList<>();
+		if (height != -1) {
+			membersByHeight = profileService.membersByHeight(members, height);
+		} else {
+			height = profileService.findById(userId).getUserHeight();
+			membersByHeight = profileService.membersByHeight(members, height);
+		}
 		
 		if (membersByHeight == null) {
 			List<ProfileSearchDto> dto = profileService.toProfileSearchDto(membersByAge);

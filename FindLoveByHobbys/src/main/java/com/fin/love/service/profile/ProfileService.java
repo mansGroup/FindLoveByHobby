@@ -24,6 +24,7 @@ import com.fin.love.repository.profile.UserHobby;
 import com.fin.love.repository.profile.UserHobbyRepository;
 import com.fin.love.respository.member.Member;
 import com.fin.love.respository.member.MemberRepository;
+import com.fin.love.respository.member.Role;
 import com.fin.love.service.PictureService;
 
 import lombok.RequiredArgsConstructor;
@@ -296,6 +297,27 @@ public class ProfileService {
 				result.add(dto.get(randomInt));
 			} else {
 				i--;
+			}
+		}
+		
+		return result;
+	}
+
+	public List<Member> findByAll() {
+		log.info("findByAll()");
+		
+		return memberRepository.findAll();
+	}
+
+	public List<Member> findByRole(List<Member> members) {
+		log.info("findByRole()");
+		
+		List<Member> result = new ArrayList<>();
+		Role role = Role.USER;
+		
+		for (int i = 0; i < members.size(); i++) {
+			if (members.get(i).getRole() == role) {
+				result.add(members.get(i));
 			}
 		}
 		
