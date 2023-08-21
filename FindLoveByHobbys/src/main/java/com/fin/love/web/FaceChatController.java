@@ -100,14 +100,6 @@ public class FaceChatController {
 		
 	}
 
-	// 임시 입장 메서드
-	@GetMapping("/chatroom")
-	public void chatroom() {
-
-		log.info("chatroom({})");
-
-	}
-
 	// 신고 처리 메서드
 	@PostMapping("/report")
 	public String facechatreport(@RequestParam String audios, ReportFaceChatDto dto, HttpSession session) {

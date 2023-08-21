@@ -110,14 +110,16 @@ public class MeetingController {
 
 		int result = meetingservice.delete(deleteId);
 		if (result == 1) {
+			
 			log.info("삭제 성공");
 		} else {
 			log.info("삭제 실패");
-
+			
 		}
 		return "redirect:/meeting/mymeeting";
 
 	}
+	
 
 	@GetMapping("/mymeeting")
 	public void mylist(HttpSession session, Model model, @RequestParam(defaultValue = "0") int status) {

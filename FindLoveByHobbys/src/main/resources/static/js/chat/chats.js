@@ -140,6 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     acceptFaceChat(data);
                 } else {
 					
+					setTimeout(()=>{
+						console.log("입장");
+						
+					},2000);
+					
 					faceChatForm.method = 'get';
 					faceChatForm.submit();
 				}

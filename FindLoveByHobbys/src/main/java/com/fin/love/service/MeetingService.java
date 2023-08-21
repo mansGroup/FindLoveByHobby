@@ -201,21 +201,18 @@ public class MeetingService {
 		meetingrepository.save(meeting);
 	}
 
+	
 	public int delete(long id) {
-		Meeting meet;
-
-		meet = meetingrepository.findById(id).orElseThrow();
-		mtmemrepository.deleteAllByMeetingId(meet.getId());
-		if (meet.getStatus() != 0) {
-
-			return 0;
-
-		}
-
+		
+		mtmemrepository.deletedQuery(id);
+		
 		meetingrepository.deleteById(id);
+				
+		
 		return 1;
 
 	}
+
 
 	public List<Hobby> loadhobby() {
 
@@ -541,4 +538,5 @@ public class MeetingService {
 
 		return list;
 	}
+
 }

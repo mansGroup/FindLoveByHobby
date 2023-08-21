@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "meeting")
+@Table(name = "MEETING")
 @SequenceGenerator(name = "MEETING_SEQ_GEN", sequenceName = "MEETING_SEQ" ,allocationSize = 1)
 public class Meeting extends BaseTimeEntity {
 

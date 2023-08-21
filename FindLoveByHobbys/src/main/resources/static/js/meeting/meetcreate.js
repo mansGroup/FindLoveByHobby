@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			
 		}
 		
-		if(membercount.value == '' || membercount.value<2 || membercount.value>10 || membercount%2==1 ){
+		if(membercount.value == '' || membercount.value<2 || membercount.value>10 || membercount.value%2==1 ){
 			
 			return false;
 			
