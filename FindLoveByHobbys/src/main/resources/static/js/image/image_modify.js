@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
 				}
 			}
 		};
-
+		
 		// FormData 객체를 전송
 		xhr.send(formData);
 		

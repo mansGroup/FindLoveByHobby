@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		const file = files.files[0];
 		
+		if (file !== undefined) {
+		
 		if (file.name === undefined) {
 			image.src = `${basicUserPicture}`;
 			image.style.display = 'none';
@@ -82,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
 
 	});
 
