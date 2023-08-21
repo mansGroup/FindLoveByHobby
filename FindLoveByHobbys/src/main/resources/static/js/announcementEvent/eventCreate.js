@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
 	// 버튼을 기본 이미지로 바꿔준다.
 	files.addEventListener('change', function() {
 		const file = files.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -29,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			image.src = '/images/Adding_a_Person_Image.png';
 			image.style.display = 'none';
 		}
-
+		
+		}
 	});
 	const imageUpload = (id) => {
 		console.info('들어옴')
@@ -41,7 +44,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		
 		const uploadFile = fileInput.files[0]; // 첫 번째 파일만 선택합니다.
 		formData.append("uploadFile", uploadFile);
-
+		
+		if (uploadFile !== undefined) {
+		
 		// Ajax 요청
 		const xhr = new XMLHttpRequest();
 		const url = `/api/eventUpload/usualImage/${id}`; // 서버의 URL
@@ -61,7 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// FormData 객체를 전송
 		xhr.send(formData);
-
+		
+		}
 
 	};
 

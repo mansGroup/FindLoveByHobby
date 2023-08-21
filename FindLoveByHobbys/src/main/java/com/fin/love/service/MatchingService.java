@@ -67,15 +67,14 @@ public class MatchingService {
 		List<Age> ages = ageRepository.findAll();
 
 		log.info("사용자 성별 >>>> " + userInfo.getSex());
-
-		if (userInfo.getSex() == 1) { // 1인지 모르겠지만 남자라면
-			members = memberRepository.findBySex(2); // 여자만 검색
-		} else { // 여자라면
-			members = memberRepository.findBySex(1); // 남자만 검색
-		}
 		
 		Role role = Role.USER;
-		members = memberRepository.findByRole(role);
+		
+		if (userInfo.getSex() == 1) { 
+			members = memberRepository.findBySexAndRole(2, role); // 여자만 검색
+		} else { // 여자라면
+			members = memberRepository.findBySexAndRole(1, role); // 남자만 검색
+		}
 		
 		// 모든 취미 불러오는 List
 		List<Hobby> hobbys = hobbyRepository.findAll();
@@ -274,8 +273,8 @@ public class MatchingService {
 
 		// 검색 대상이 없을 경우
 		if (first.equals("") && second.equals("") && third.equals("") && fourth.equals("") && fifth.equals("")) {
-			if (userInfo.getSex() == 1) { // 1인지 모르겠지만 남자라면
-				members = memberRepository.findBySex(0); // 여자만 검색
+			if (userInfo.getSex() == 1) { 
+				members = memberRepository.findBySexAndRole(2, role); // 여자만 검색
 
 				for (int i = 0; i < members.size(); i++) {
 					Assessment assessmentMember = assessmentRepository.findById(members.get(i).getId()).orElseThrow();
@@ -305,7 +304,7 @@ public class MatchingService {
 					}
 				}
 			} else { // 여자라면
-				members = memberRepository.findBySex(1); // 남자만 검색
+				members = memberRepository.findBySexAndRole(1, role); // 남자만 검색
 
 				for (int i = 0; i < members.size(); i++) {
 					Assessment assessmentMember = assessmentRepository.findById(members.get(i).getId()).orElseThrow();
