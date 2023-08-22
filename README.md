@@ -107,6 +107,7 @@
 
 ( Story Board - 유다한 )
 
+링크 : https://drive.google.com/file/d/1KeP2GOSMJ1lWhb3V5lhtxfAIYZdZRm0X/view?usp=sharing
 
 ( E-R Diagram - 유다한 )
 
