@@ -147,6 +147,10 @@ public class ProfileService {
 			}
 
 		}
+		
+		if (list.size() == 0) {
+			return members;
+		}
 
 		return list;
 	}
@@ -177,6 +181,10 @@ public class ProfileService {
 				list.add(members.get(i));
 			}
 
+		}
+		
+		if (list.size() == 0) {
+			return members;
 		}
 
 		return list;
