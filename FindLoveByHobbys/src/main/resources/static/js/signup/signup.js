@@ -9,14 +9,19 @@ document.addEventListener('DOMContentLoaded', () => {
 	const inputBirthdate = document.querySelector('input#birthdate');
 	const signupbtn = document.querySelector('#signupbtn');
 	const submitmessage = document.querySelector('#submitmessage');
+	const submitmessage2 = document.querySelector('#submitmessage2');
 	const phoneErrorMessage = document.getElementById('phoneErrorMessage');
 	const birthdateErrorMessage = document.getElementById('birthdateErrorMessage');
+	let idCheck = false;
+	let nickCheck = false;
+
 
 	idcfButton.addEventListener('click', async function(e) {
 		e.preventDefault();
 		console.log(e.target);
 		const userid = document.querySelector('#userid').value;
-
+		 
+		
 		const reqUrl = `/api/member/${userid}`;
 		console.log(reqUrl);
 		try {
@@ -26,11 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (answer == false) {
 
 				cfmessageSpan.textContent = '사용 가능한 아이디입니다.';
-				idcheck = 1;
+				idCheck = true;
 			} else {
 
 				cfmessageSpan.textContent = '이미 사용 중인 아이디입니다.';
-
+				idCheck = false;
 			}
 		} catch (error) {
 
@@ -64,9 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	nickcfButton.addEventListener('click', async function(e) {
 		e.preventDefault();
-
+		
+		
 		const nickname = document.querySelector('#nickname').value;
-
+		
 		const reqUrl = `/api/member/${nickname}`;
 		console.log(reqUrl);
 		try {
@@ -76,11 +82,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (answer == false) {
 
 				nickcfmessage.textContent = '사용 가능한 닉네임입니다.';
-				nickcheck = 1;
+				nickCheck = true;
 			} else {
 
 				nickcfmessage.textContent = '이미 사용 중인 닉네임입니다.';
-
+				nickCheck = false;
 			}
 		} catch (error) {
 
@@ -116,6 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
+	
+	signupbtn.addEventListener('click', function(e) {
+    if (!idCheck) {
+        e.preventDefault();
+        submitmessage.textContent = 'ID 중복확인을';
+        submitmessage2.textContent = '해주세요.';
+    } else if (!nickCheck) {
+        e.preventDefault();
+        submitmessage.textContent = 'Nickname 중복확인을';
+        submitmessage2.textContent = '해주세요.';
+    }
 
+
+	});
 
 });
