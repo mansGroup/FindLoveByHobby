@@ -140,7 +140,6 @@ public class ProfileService {
 		}
 
 		for (int i = 0; i < members.size(); i++) {
-
 			Profile memberPro = profileRepository.findById(members.get(i).getId()).orElseThrow();
 
 			if (memberPro.getUserAge() >= minage && memberPro.getUserAge() <= maxage) {
@@ -208,8 +207,8 @@ public class ProfileService {
 	public List<ProfileSearchDto> dtoSort(List<ProfileSearchDto> dto, String userId) {
 		log.info("dtoSort()");
 		
+		Role role = Role.USER;
 		int userGender = memberRepository.findById(userId).orElseThrow().getSex();
-		
 		String member1Id = "";
 		String member2Id = "";
 		String member3Id = "";
@@ -235,6 +234,7 @@ public class ProfileService {
 			}
 			
 			List<Member> members = memberRepository.findAll();
+			
 			List<Member> sortMembers = new ArrayList<>();
 			
 			for (int i = 0; i < members.size(); i++) {
@@ -242,7 +242,8 @@ public class ProfileService {
 						 && !members.get(i).getId().equals(member1Id)
 						 && !members.get(i).getId().equals(member2Id) 
 						 && !members.get(i).getId().equals(member3Id) 
-						 && !members.get(i).getId().equals(member4Id)) {
+						 && !members.get(i).getId().equals(member4Id)
+						 && members.get(i).getRole() == role) {
 					
 					sortMembers.add(members.get(i));
 					
@@ -287,13 +288,19 @@ public class ProfileService {
 		List<ProfileSearchDto> result = new ArrayList<>();
 		Random ran = new Random();
 
-		int number = 0;
+		int number1 = 0;
+		int number2 = 0;
+		int number3 = 0;
+		int number4 = 0;
 
 		for (int i = 0; i < 4; i++) {
 			int randomInt = ran.nextInt(dto.size());
 
-			if (number != randomInt) {
-				number = randomInt;
+			if (number1 != randomInt && number2 != randomInt && number3 != randomInt && number4 != randomInt) {
+				number4 = number3;
+				number3 = number2;
+				number2 = number1;
+				number1 = randomInt;
 				result.add(dto.get(randomInt));
 			} else {
 				i--;
@@ -319,6 +326,21 @@ public class ProfileService {
 			if (members.get(i).getRole() == role) {
 				result.add(members.get(i));
 			}
+		}
+		
+		return result;
+	}
+
+	public List<Member> findByGender(List<Member> members, int userGender) {
+		log.info("findByGender");
+		List<Member> result = new ArrayList<>();
+		
+		for (int i = 0; i < members.size(); i++) {
+			
+			if (userGender != members.get(i).getSex()) {
+				result.add(members.get(i));
+			}
+			
 		}
 		
 		return result;

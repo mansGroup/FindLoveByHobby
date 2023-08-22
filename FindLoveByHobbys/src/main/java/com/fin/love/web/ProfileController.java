@@ -100,7 +100,9 @@ public class ProfileController {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 	    String userId = authentication.getName();
-
+	    
+	    Member member = memberService.getSexById(userId);
+	    
 		// 조건 검색할 리스트 불러옴
 		List<Hobby> hobby = hobbyService.readHobbyList();
 		List<Age> ages = ageService.readAgeList();
@@ -145,59 +147,31 @@ public class ProfileController {
 			members = profileService.findByAll();
 		}
 		
+		// 여자면 남자, 남자면 여자만 검색.
+		members = profileService.findByGender(members, member.getSex());
+		
 		// 권한이 유저인 사람들만 찾기.
 		members = profileService.findByRole(members);
 		
 		// 선택한 나이 +-5살 까지 사람들 찾기
-		List<Member> membersByAge = new ArrayList<>();
 		if (age != -1) {
-			membersByAge = profileService.membersByage(members, age);
-		} else {
-			age = profileService.findById(userId).getUserAge();
-			membersByAge = profileService.membersByage(members, age);
+			members = profileService.membersByage(members, age);
 		}
 		 
 		
 		// 선택한 키의 +-5cm 까지 사람들 찾기
-		List<Member> membersByHeight = new ArrayList<>();
 		if (height != -1) {
-			membersByHeight = profileService.membersByHeight(members, height);
-		} else {
-			height = profileService.findById(userId).getUserHeight();
-			membersByHeight = profileService.membersByHeight(members, height);
+			members = profileService.membersByHeight(members, height);
 		}
 		
-		if (membersByHeight == null) {
-			List<ProfileSearchDto> dto = profileService.toProfileSearchDto(membersByAge);
-			dto = profileService.dtoSort(dto, userId);
-			log.info("dto 1 >>>> " + dto);
-			
-			model.addAttribute("member1", dto.get(0));
-			model.addAttribute("member2", dto.get(1));
-			model.addAttribute("member3", dto.get(2));
-			model.addAttribute("member4", dto.get(3));
-			model.addAttribute("size", dto.size());
-			
-		} else if (membersByAge == null) {
-			List<ProfileSearchDto> dto = profileService.toProfileSearchDto(members);
-			dto = profileService.dtoSort(dto, userId);
-			log.info("dto 2 >>>> " + dto);
-			model.addAttribute("member1", dto.get(0));
-			model.addAttribute("member2", dto.get(1));
-			model.addAttribute("member3", dto.get(2));
-			model.addAttribute("member4", dto.get(3));
-			model.addAttribute("size", dto.size());
-		} else {
-			List<ProfileSearchDto> dto = profileService.toProfileSearchDto(membersByHeight);
-			dto = profileService.dtoSort(dto, userId);
-			log.info("dto 3 >>>> " + dto);
-			model.addAttribute("member1", dto.get(0));
-			model.addAttribute("member2", dto.get(1));
-			model.addAttribute("member3", dto.get(2));
-			model.addAttribute("member4", dto.get(3));
-			model.addAttribute("size", dto.size());
-		}
+		List<ProfileSearchDto> dto = profileService.toProfileSearchDto(members);
+		dto = profileService.dtoSort(dto, userId);
 		
+		model.addAttribute("member1", dto.get(0));
+		model.addAttribute("member2", dto.get(1));
+		model.addAttribute("member3", dto.get(2));
+		model.addAttribute("member4", dto.get(3));
+		model.addAttribute("size", dto.size());
 		
 		return "/profile/profilesearch";
 	}
