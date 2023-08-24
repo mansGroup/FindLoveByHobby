@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base_layout}">
+
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" href="/css/note/note.css">
+    </th:block>
+
+    <main layout:fragment="main">
+            <div class="note-box">
+                <div class="top">
+                    My note box
+                </div>
+                <div th:each="contentList : ${noteContentList}">
+                    <a th:if="${contentList.link}" th:href="${contentList.link}">
+                        <div class="note">
+                            <h2 th:text="${contentList.sender}">중요한 쪽지</h2>
+                            <p th:text="${contentList.message}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae eros eget lectus dictum luctus vel id lectus.</p>
+                        </div>
+                    </a>
+                    <div th:unless="${contentList.link}" class="note">
+                        <h2 th:text="${contentList.sender}">중요한 쪽지</h2>
+                        <p th:text="${contentList.message}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae eros eget lectus dictum luctus vel id lectus.</p>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+</html>

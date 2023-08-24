@@ -1,0 +1,215 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+
+<th:block layout:fragment="css">
+	<style>
+.upload {
+	width: 200px;
+	height: 200px;
+	opacity: 0.3;
+}
+
+.textsection div {
+	display: flex;
+	justify-content: center;
+}
+
+.row {
+	margin-bottom: 35px;
+}
+
+.labels {
+	font-size: large;
+	font-weight: bold;
+}
+
+.card input {
+	height: 50px;
+}
+
+.card select {
+	height: 50px;
+	display: flex;
+	flex-direction: row;
+}
+
+.loadimg {
+
+	width: 200px;
+	height: 200px;
+}
+
+</style>
+</th:block>
+
+<main style="height: 100%;" layout:fragment="main">
+	<div class="my-4" style="text-align: center;">
+		<h2>미팅을 개최하기 위해서 양식에 맞춰 작성해주세요.</h2>
+	</div>
+	<div>
+		<form id="createForm" class="card" style="border: none;">
+			<div class="row" style="display: flex; justify-content: center;">
+				<div class="textsection row">
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-2" style="align-items: center; display: flex;">
+							<label class="labels" for="title">제목</label>
+						</div>
+
+						<div class="col-5">
+							<input required="required" class="card tworow" type="text" id="title" name="title"
+								style="width: 100%;" />
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-2" style="align-items: center; display: flex;">
+							<label class="labels" for="content1">코스 소개</label>
+						</div>
+						<div class="col-5">
+							<input required="required" class="card tworow" type="text" id="content1"
+								name="content1" style="width: 100%;" />
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-2" style="align-items: center; display: flex;">
+							<label class="labels" for="content2">주최자 소개</label>
+						</div>
+						<div class="col-5">
+							<input required="required" class="card tworow" type="text" id="content2"
+								name="content2" style="width: 100%;" />
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-2" style="align-items: center; display: flex;">
+							<label class="labels" for="content3">선호 분위기</label>
+						</div>
+						<div class="col-5">
+							<input required="required" class="card tworow" type="text" id="content3"
+								name="content3" style="width: 100%;" />
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-2" style="align-items: center; display: flex;">
+							<label class="labels" for="contents">상세 소개</label>
+						</div>
+						<div class="col-5">
+							<textarea required="required" class="card contents" id="contents" name="contents"
+								style="width: 100%;" rows="5"></textarea>
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-2" style="align-items: center; display: flex;">
+							<label class="labels" for="meetingtime">만남일자</label>
+						</div>
+						<div class="col-5">
+							<input required="required" class="card dates" type="datetime-local" id="meetingtime"
+								name="meetingtime" style="width: 100%;" />
+
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-2" style="align-items: center; display: flex;">
+							<label class="labels" for="hobbyid">취미 종류</label>
+						</div>
+						<div class="col-5">
+							<select required="required" class="card options" id="hobbyid" name="hobbyid"
+								style="width: 100%;">
+								<option th:each="list : ${list}" th:value=${list.hobbyId}
+									th:text="${list.hobbyName}">아?</option>
+							</select>
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="row">
+						<div class="col-2"></div>
+						<div class="col-2" style="align-items: center; display: flex;">
+							<label class="labels" for="locationid">지역 분류</label>
+						</div>
+						<div class="col-5">
+							<select required="required" class="card options" id="locationid" name="locationid"
+								style="width: 100%;">
+								<option th:each="list2 : ${list2}" th:value=${list2.id}
+									th:text="${list2.locationname}">어?</option>
+							</select>
+						</div>
+						<div class="col-3"></div>
+					</div>
+					<div class="row">
+						<div class="col-4"></div>
+						<div class="col-4 row">
+							<div class="col-12"><label class="labels" for="membercount">미팅 총 인원 수를 입력해주세요.(최대 10명)</label></div>
+							<div class="col-12"><input style="width: 100%;" class="card tworow" required="required" type="number" max="10" min="2" id="membercount" name="membercount" value="2" /></div>
+						</div>
+						<div class="col-4"></div>
+					</div>
+				</div>
+				
+				<div class="imgsection row"
+					style="display: flex; justify-content: center;">
+					<div class="my-4">
+						<h4 style="text-align: center;">소개 이미지 업로드</h4>
+					</div>
+					<div class="row">
+						<div class="col-3"></div>
+						<div class="col-2" style="display: flex; justify-content: center;">
+							<label for="image1"> <img id="icon1" class="upload"
+								th:src="'data:image/png;base64,' + ${icon}" alt="이미지 없음">
+							</label> <input class="d-none" type="file" id="image1" value="" />
+							<input required="required" class="d-none" type="text" id="image1path" name="image1"/>
+						</div>
+
+						<div class="col-2" style="display: flex; justify-content: center;">
+							<label for="image2"> <img id="icon2" class="upload"
+								th:src="'data:image/png;base64,' + ${icon}" alt="이미지 없음">
+							</label> <input class="d-none" type="file" id="image2" value="" />
+							<input required="required" class="d-none" type="text" id="image2path" name="image2" />
+						</div>
+						<div class="col-2" style="display: flex; justify-content: center;">
+							<label for="image3"> <img id="icon3" class="upload"
+								th:src="'data:image/png;base64,' + ${icon}" alt="이미지 없음">
+							</label> <input class="d-none" type="file" id="image3" value="" />
+						</div>
+						<input required="required" class="d-none" type="text" id="image3path" name="image3" />
+						<div class="col-3"></div>
+					</div>
+				</div>
+				<div class="imgsection2 row">
+					<div class="col-3"></div>
+					<div class="col-2" style="display: flex; justify-content: center;">
+						<img src="https://img.freepik.com/free-icon/x-mark_318-1500.jpg" alt="이미지 없음" id="img1" class="loadimg" style="border-radius: 10px;" />
+					</div>
+					<div class="col-2" style="display: flex; justify-content: center;">
+						<img src="https://img.freepik.com/free-icon/x-mark_318-1500.jpg" alt="이미지 없음" id="img2" class="loadimg" style="border-radius: 10px;" />
+					</div>
+					<div class="col-2" style="display: flex; justify-content: center;">
+						<img src="https://img.freepik.com/free-icon/x-mark_318-1500.jpg" alt="이미지 없음" id="img3" class="loadimg" style="border-radius: 10px;" />
+					</div>
+					<div class="col-3"></div>
+				</div>
+			</div>
+			<div class="my-3" style="display: flex; justify-content: center;">
+					<button style="width: 300px; height: 50px; font-size: large;" class="btn btn-outline-dark" id="btnCreate">등록</button>
+				</div>
+		</form>
+	</div>
+	
+</main>
+
+<th:block layout:fragment="myscripts">
+	<script th:src="@{/js/meeting/meetcreate.js}"></script>
+</th:block>
+
+</html>

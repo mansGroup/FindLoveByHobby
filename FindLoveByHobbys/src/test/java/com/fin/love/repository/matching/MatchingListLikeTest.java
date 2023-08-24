@@ -10,6 +10,8 @@ import com.fin.love.dto.matching.MatchingDetailDto;
 import com.fin.love.repository.assessment.AssessmentRepository;
 import com.fin.love.repository.like.Like;
 import com.fin.love.repository.like.LikeRepository;
+import com.fin.love.respository.member.Member;
+import com.fin.love.respository.member.MemberRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,12 +25,15 @@ public class MatchingListLikeTest {
 	@Autowired
 	private AssessmentRepository assessmentRepository;
 	
-	@Test
-	public void findHobby() {
-		
-		List<MatchingDetailDto> mat = assessmentRepository.findByHobbyise("a");
-		log.info("{}",mat);
-	}
+	@Autowired
+	private MemberRepository memberRepository;
+	
+//	@Test
+//	public void findHobby() {
+//		
+//		List<MatchingDetailDto> mat = assessmentRepository.findByHobbyise("a");
+//		log.info("{}",mat);
+//	}
 	
 	
 //	@Test
@@ -45,6 +50,19 @@ public class MatchingListLikeTest {
 		
 		
 		
+	}
+	
+	@Test
+	public void memberOrderByRoleTest () {
+		log.info("시작");
+		
+		List<Member> list = memberRepository.findByOrderByRole();
+		
+		for (int i = 0; i < list.size(); i++) {
+			log.info("list >>>> " + list.get(i));
+		}
+		
+		log.info("끝");
 	}
 	
 }

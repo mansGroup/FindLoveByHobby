@@ -1,0 +1,187 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+
+<th:block layout:fragment="css">
+	<style>
+#mainbody {
+	opacity: 1;
+	transition: opacity 0.5s ease;
+}
+
+#makelists {
+	opacity: 1;
+	transition: opacity 0.5s ease;
+}
+
+h3 {
+	white-space: nowrap; /* 텍스트가 한 줄을 넘어가지 않도록 설정 */
+	overflow: hidden; /* 넘치는 텍스트 숨기기 */
+	text-overflow: ellipsis; /* 넘치는 부분을 ...으로 표시 */
+}
+</style>
+</th:block>
+
+<main id="mainbody" style="height: 100%;" layout:fragment="main">
+	<div style="margin: 0px 30px;">
+		<div class="form-control my-2"
+			style="border: none; text-align: center; padding: 50px;">
+			<h2>취+Meet 만남의 장</h2>
+		</div>
+		<div id="selectors" class="row">
+
+			<div class="row" style="display: flex; justify-content: center;">
+				<select id="optionselect"
+					style="display: flex; flex-direction: row; height: 50px;"
+					class="card col-2">
+					<option value="-1" selected="selected">조건을 선택하세요</option>
+					<option value="0">지역</option>
+					<option value="1">취미</option>
+					<option value="2">연령대</option>
+				</select> <select id="optionvalue"
+					style="display: flex; flex-direction: row; height: 50px;"
+					class="card col-5 mx-3">
+
+				</select>
+			</div>
+			<div class="row card-body my-3"
+				style="display: flex; justify-content: center; align-content: center;">
+				<div class="col-2"></div>
+				<div class="col-2 row">
+					<label
+						style="border: none; display: flex; justify-content: center; align-items: center;"
+						class="card col-4" for="location">지역</label> <input
+						style="border: none; border-bottom: 1px solid black; text-align: center;"
+						class="col-8" readonly="readonly" required="required" type="text"
+						id="location" name="location" />
+				</div>
+				<div class="col-2 row">
+					<label
+						style="border: none; display: flex; justify-content: center; align-items: center;"
+						class="card col-4" for="hobby">취미</label> <input
+						style="border: none; border-bottom: 1px solid black; text-align: center;"
+						class="col-8" readonly="readonly" required="required" type="text"
+						id="hobby" name="hobby" />
+				</div>
+				<div class="col-2 row">
+					<label
+						style="border: none; display: flex; justify-content: center; align-items: center;"
+						class="card col-4" for="age">연령</label> <input
+						style="border: none; border-bottom: 1px solid black; text-align: center;"
+						class="col-8" readonly="readonly" required="required" type="text"
+						id="age" name="age" />
+				</div>
+				<div class="col-2 row" style="justify-content: center;">
+					<button class="btn btn-outline-primary col-10" id="btnsearch">검색</button>
+				</div>
+				<div class="col-2"></div>
+			</div>
+
+
+			<form id="searchform">
+				<input class="d-none" type="text" name="hobbyId" id="hobbyId" /> <input
+					class="d-none" type="text" name="locationid" id="locationId" /> <input
+					class="d-none" type="text" name="ageId" id="ageId" />
+			</form>
+		</div>
+	</div>
+	<div>
+		<section
+			style="background-color: white; display: flex; justify-content: center;"
+			class="the-wedding-section section-bg section-padding" id="section_3">
+			<div class="container row">
+				<div
+					style="display: flex; flex-direction: column; align-content: center; justify-content: center;"
+					class="col-1 d-none" id="btnBackPr">
+					<button class="btn btn-outline-dark" id="btnBack">◀</button>
+				</div>
+				<div class="col-10">
+
+					<div id="searchresult" class="row" style="display: flex; justify-content: center;"></div>
+
+				</div>
+				<div
+					style="display: flex; flex-direction: column; align-content: center; justify-content: center;"
+					class="col-1 d-none" id="btnFrontPr">
+					<button class="btn btn-outline-dark" id="btnFront">▶</button>
+				</div>
+			</div>
+
+
+
+
+
+		</section>
+
+
+		<section style="background-color: white; padding-top: 0px;"
+			class="the-wedding-section section-bg section-padding" id="section_3">
+			<div class="container">
+				<div class="row">
+					<div class="row">
+						<div class="col-lg-12 col-10">
+							<div class="section-title-wrap mb-5">
+								<h2 class="section-title">이런 모임은 어떠세요?</h2>
+
+								<div class="section-title-bottom"></div>
+							</div>
+						</div>
+					</div>
+					
+					<input class="d-none" type="number" id="pagenum"
+						th:value="${pagenum}" />
+					<div id="makelists" class="row col-12" style="display: flex; justify-content: center;">
+
+						<div th:each="list : ${list}"
+							class="col-lg-3 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0" style="border: 2px solid; padding: 10px; border-radius: 5%; margin: 0px 20px;">
+							<div class="image-hover-thumb">
+								<a th:href="@{'/meeting/read?id='+${list.id}}"><img
+									style="height: 270px; width: 450px;"
+									th:src="'data:image/jpg;base64,' + ${list.image1}"
+									class="img-fluid" alt=""></a>
+							</div>
+							<input class="d-none" id="meetid" name="meetid"
+								th:value="${list.id}" />
+
+
+							<div class="section-block">
+								<h3 class="my-3" th:text="${ list.title }">The Reception</h3>
+
+								<p class="mb-2" th:text="${ list.location.locationname }">
+									5th Avenue at, Central Park S</p>
+
+								<p
+									th:text="${ #temporals.format(list.meetingdate, 'YYYY. M. d a h:mm:ss') }">5:00
+									PM</p>
+								<p th:text="${list.hobby.hobbyName} + ' 모임'"></p>
+							</div>
+						</div>
+
+					</div>
+					
+				</div>
+			</div>
+		</section>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 col-10">
+			<div class="section-title-wrap mb-5">
+				<h2 class="section-title">마음에 드는 모임이 없다면? 직접 만들어 보세요</h2>
+
+				<div class="section-title-bottom"></div>
+			</div>
+		</div>
+	</div>
+	<div style="display: flex; justify-content: center;" class="my-4">
+		<a class="btn btn-outline-dark"
+			style="width: 300px; height: 40px; font-weight: bold;"
+			th:href="@{/meeting/create}">내가 직접 만들어보기</a>
+	</div>
+
+</main>
+
+
+<th:block layout:fragment="myscripts">
+	<script th:src="@{/js/meeting/mtlist.js}"></script>
+</th:block>
+</html>

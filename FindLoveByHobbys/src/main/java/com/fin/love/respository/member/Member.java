@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 
+import com.fin.love.dto.member.UpdateInfoDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-@lombok.ToString
+@ToString
 @Entity
 @Table(name = "USERINFO")
 public class Member extends BaseTimeEntity implements UserDetails {
@@ -66,7 +67,7 @@ public class Member extends BaseTimeEntity implements UserDetails {
         this.password = password;
         this.email = email;
         this.sex = sex;
-        this.role = Role.USER;
+        this.role = role;
         this.phone = phone;
         this.nickname = nickname;
         this.address = address;
@@ -74,6 +75,10 @@ public class Member extends BaseTimeEntity implements UserDetails {
         		
     }
 	
+    public String getEmail() {
+    	return this.email;
+    }
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // ROLE_USER 권한을 갖음.
@@ -107,6 +112,24 @@ public class Member extends BaseTimeEntity implements UserDetails {
 		return this.id;
 	}
 	
-	
-	
+	public Member updateRole(Role role) {
+		this.role = role;
+		
+		return this;
+	}
+
+    public void updatePassword(String temporaryPassword) {
+        this.password = temporaryPassword;
+    }
+
+    public Member updateInfo(UpdateInfoDto dto) {
+        if (!dto.getPassword().equals("")) {
+            this.password = dto.getPassword();
+        }
+        this.email = dto.getEmail();
+        this.phone = dto.getPhone();
+        this.address = dto.getAddress();
+
+        return this;
+    }
 }

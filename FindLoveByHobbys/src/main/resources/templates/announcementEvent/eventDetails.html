@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+<head>
+<th:block layout:fragment="css">
+	<style>
+body {
+	font-family: Arial, sans-serif;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.page-header {
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.imageBoxContainer {
+	width: 500px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 40px;
+}
+
+.imageThumnail {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.form-group {
+	margin-bottom: 20px;
+}
+
+textarea {
+	width: 100%;
+	height: 150px;
+	resize: vertical;
+}
+
+.btn-group {
+	margin-bottom: 20px;
+}
+
+.btn-outline-secondary {
+	border-color: #6c757d;
+	color: #6c757d;
+}
+
+.btn-outline-primary {
+	border-color: #007bff;
+	color: #007bff;
+}
+</style>
+</th:block>
+</head>
+<body>
+	<main layout:fragment="main">
+		<div class="container">
+			<div class="page-header">
+				<h2>공지&이벤트 상세보기</h2>
+			</div>
+			<div class="btn-toolbar mb-3" role="toolbar"
+				aria-label="Toolbar with button groups">
+				<div class="btn-group me-2" role="group" aria-label="First group">
+					<a type="button" class="btn btn-warning"
+						th:href="@{/announcementEvent/eventMain}">메인</a> <a type="button"
+						class="btn btn-warning"
+						th:href="@{/announcementEvent/eventCreate}">작성하기</a>
+				</div>
+			</div>
+			<div>
+				<form>
+					<div style="display: flex; flex-wrap: nowrap; justify-content: space-around;">
+						<div class="imageBoxContainer">
+							<img th:src="${pic}" class="img-fluid imageThumnail" id="image" />
+						</div>
+					</div>
+					<div>
+						<label for="divide">공지&이벤트</label> <br />
+						<h6 th:if="${post.divide == 0}">이벤트</h6>
+						<h6 th:if="${post.divide == 1}">공지</h6>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-sm">번호</span>
+						<input id="id" name="id" th:value="${post.id}"
+							class="form-control" aria-label="Sizing example input"
+							aria-describedby="inputGroup-sizing-sm" readonly>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-sm">제목</span>
+						<input id="title" name="title" th:value="${post.title}"
+							class="form-control" aria-label="Sizing example input"
+							aria-describedby="inputGroup-sizing-sm" readonly>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-sm">작성자</span>
+						<input id="author" name="author" th:value="${post.author}"
+							class="form-control" aria-label="Sizing example input"
+							aria-describedby="inputGroup-sizing-sm" readonly>
+					</div>
+					<div class="form-floating" style="margin-bottom: 20px">
+						<textarea class="form-control" placeholder="Leave a comment here"
+							id="content" name="content" th:text="${post.content}"
+							style="height: 100px" readonly></textarea>
+						<label for="content">내용</label>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-sm">작성시간</span>
+						<input id="createTime" name="createTime"
+							th:value="${#temporals.format(post.createdTime, 'yyyy-MM-dd HH:mm:ss')}"
+							class="form-control" aria-label="Sizing example input"
+							aria-describedby="inputGroup-sizing-sm" readonly>
+					</div>
+					<div class="input-group mb-3">
+						<span class="input-group-text" id="inputGroup-sizing-sm">수정시간</span>
+						<input id="modifiedTime" name="modifiedTime"
+							th:value="${#temporals.format(post.modifiedTime, 'yyyy-MM-dd HH:mm:ss')}"
+							class="form-control" aria-label="Sizing example input"
+							aria-describedby="inputGroup-sizing-sm" readonly>
+					</div>
+				</form>
+				<div>
+					<a class="btn btn-warning"
+						th:href="@{/announcementEvent/eventModify?id={id} (id = ${post.id} ) }">수정하기</a>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

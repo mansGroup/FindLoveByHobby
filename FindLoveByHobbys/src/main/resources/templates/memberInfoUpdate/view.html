@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="~{layout/base_layout}">
+
+<th:block layout:fragment="css">
+	<style>
+
+		*, *:before, *:after {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+			background: #ededed;
+		}
+
+		input, button {
+			border: none;
+			outline: none;
+			background: none;
+			font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+		}
+
+		.tip {
+			font-size: 20px;
+			margin: 40px auto 50px;
+			text-align: center;
+		}
+
+		.cont {
+			overflow: hidden;
+			position: relative;
+			width: 900px;
+			height: 550px;
+			margin: 0 auto 100px;
+			background: #fff;
+		}
+
+		.form {
+			position: relative;
+			width: 640px;
+			height: 100%;
+			transition: transform 1.2s ease-in-out;
+			padding: 28px 30px 0;
+		}
+
+		.sub-cont {
+			overflow: hidden;
+			position: absolute;
+			left: 640px;
+			top: 0;
+			width: 900px;
+			height: 100%;
+			padding-left: 260px;
+			background: #fff;
+			transition: transform 1.2s ease-in-out;
+		}
+
+		button {
+			display: block;
+			margin: 0 auto;
+			width: 260px;
+			height: 36px;
+			border-radius: 30px;
+			color: #fff;
+			font-size: 15px;
+			cursor: pointer;
+		}
+
+		.img {
+			overflow: hidden;
+			z-index: 2;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 260px;
+			height: 100%;
+			padding-top: 360px;
+		}
+
+		.img:before {
+			content: '';
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 900px;
+			height: 100%;
+			background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/sections-3.jpg');
+			background-size: cover;
+			transition: transform 1.2s ease-in-out;
+		}
+
+		.img:after {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.6);
+		}
+
+		.h2 {
+			width: 100%;
+			font-size: 26px;
+			text-align: center;
+
+		}
+
+		.label {
+			display: block;
+			width: 260px;
+			margin: 25px auto 0;
+			text-align: center;
+		}
+
+		.label span {
+			font-size: 12px;
+			color: #cfcfcf;
+			text-transform: uppercase;
+		}
+
+		input {
+			display: block;
+			width: 246px;
+			margin-top: 5px;
+			padding-bottom: 5px;
+			font-size: 16px;
+			border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+			text-align: center;
+		}
+
+		.forgot-pass {
+			margin-top: 15px;
+			text-align: center;
+			font-size: 12px;
+			color: #cfcfcf;
+		}
+
+		.submit {
+			margin-top: 14px;
+			margin-bottom: 20px;
+			background: #d4af7a;
+			text-transform: uppercase;
+		}
+
+		.fb-btn {
+			border: 2px solid #d3dae9;
+			color: darken(#d3dae9, 20%);
+		}
+
+		.fb-btn span {
+			font-weight: bold;
+			color: darken(#768cb6, 20%);
+		}
+
+		.sign-in {
+			transition-timing-function: ease-out;
+		}
+
+
+		.sign-in.sign-up {
+			transition-timing-function: ease-in-out;
+			transition-duration: 1.2s;
+			transform: translate3d(640px, 0, 0);
+		}
+
+		.sign-up {
+			transform: translate3d(-900px, 0, 0);
+		}
+
+		.icon-link {
+			position: absolute;
+			left: 5px;
+			bottom: 5px;
+			width: 32px;
+		}
+
+		.icon-link img {
+			width: 100%;
+			vertical-align: top;
+		}
+
+		.icon-link--twitter {
+			left: auto;
+			right: 5px;
+		}
+
+		.link-footer {
+			position: absolute;
+			left: 50%;
+			bottom: 0;
+			transform: translateX(-50%);
+		}
+
+	</style>
+</th:block>
+
+<main layout:fragment="main">
+
+	<p class="tip"></p>
+	<div class="cont">
+
+		<div class="form sign-in">
+			<h2 style="margin-bottom: 37px;">회원정보 수정</h2>
+			<div>
+				<label> <span>ID</span>
+					<input id="id" th:value="${member.id}" readonly>
+				</label>
+				<label> <span>Password</span>
+					<input id="userPassword" type="text" placeholder="변경할 비밀번호를 입력해주세요">
+				</label>
+			</div>
+
+			<div style="margin-bottom: 35px"></div>
+
+			<div>
+				<label> <span>Email</span>
+					<input id="email" type="text" th:value="${member.email}">
+				</label>
+
+				<label> <span>Phone</span>
+					<input id="phone" type="text" th:value="${member.phone}">
+				</label>
+			</div>
+
+			<div style="margin-bottom: 35px"></div>
+
+			<div>
+				<label> <span>Address</span>
+					<input id="jibunAddress" type="text" th:value="${member.address}" readonly>
+				</label>
+				<label> <span>상세주소</span>
+					<input id="detailAddress" type="text">
+				</label>
+				<button class="submit" id="btnFindAddress" style="margin: 10px 0px 0px 0px; width: 122px;">주소변경</button>
+			</div>
+
+			<button class="submit" id="btnModifyInfo" style="margin: 64px 0px 0px 120px;">회원정보 수정</button>
+		</div>
+
+		<div class="sub-cont">
+			<div class="img">
+				<div class="img__text m--up">
+					<h2>New here?</h2>
+					<p>Sign up and discover great amount of new opportunities!</p>
+				</div>
+				<div class="img__text m--in">
+					<h2>One of us?</h2>
+					<p>If you already has an account, just sign in. We've missed
+						you!</p>
+				</div>
+				<div class="img__btn">
+					<span class="m--up">Sign Up</span>
+					<span class="m--in">Sign In</span>
+				</div>
+
+			</div>
+			<div class="form sign-up">
+
+				<h2>Time to feel like home,</h2>
+				<label> <span>Name</span> <input type="text" />
+				</label> <label> <span>ID</span> <input type="text"  id="username" name="username"/>
+			</label> <label> <span>Password</span> <input id="password" name="password" type="password" />
+			</label>
+				<a th:href="@{/member/signup}"><button type="button" class="submit">Sign Up</button></a>
+
+				<a th:href="@{ /member/searchid}"><button type="button" class="fb-btn">아이디 찾기 </button></a>
+				<a th:href="@{ /member/searchpassword}"><button type="button" class="fb-btn"> 비밀번호 찾기</button></a>
+
+			</div>
+		</div>
+	</div>
+
+
+
+</main>
+
+
+<th:block layout:fragment="myscripts">
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="/js/signup/findAddress.js"></script>
+	<script src="/js/member/updateInfo.js"></script>
+</th:block>
+
+</html>

@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	imageInput1.addEventListener('change', function() {
 		const file = imageInput1.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -36,10 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage1.src = '#';
+			previewImage1.src = '/images/Adding_a_Person_Image.png';
 			previewImage1.style.display = 'none';
 		}
 		
+		
+			
 		console.info('들어옴')
 
 		const id = inputUserId.value;
@@ -71,11 +75,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	imageInput2.addEventListener('change', function() {
 		const file = imageInput2.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -86,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage2.src = '#';
+			previewImage2.src = '/images/Adding_a_Person_Image.png';
 			previewImage2.style.display = 'none';
 		}
 		
@@ -120,11 +128,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// FormData 객체를 전송
 		xhr.send(formData);
+		
+		}
 	});
 	
 	imageInput3.addEventListener('change', function() {
 		const file = imageInput3.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -135,7 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage3.src = '#';
+			previewImage3.src = '/images/Adding_a_Person_Image.png';
 			previewImage3.style.display = 'none';
 		}
 		
@@ -169,11 +181,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// FormData 객체를 전송
 		xhr.send(formData);
+		
+		}
+		
 	});
 	
 	hobbyImageInput1.addEventListener('change', function() {
 		const file = hobbyImageInput1.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -184,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage4.src = '#';
+			previewImage4.src = '/images/Adding_a_Person_Image.png';
 			previewImage4.style.display = 'none';
 		}
 		
@@ -195,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const formData = new FormData();
 
 		// 추가적인 파일 데이터를 FormData 객체에 추가합니다.
-		const fileInput = document.querySelector('input#uploadFilesUsualImage1');
+		const fileInput = document.querySelector('input#hobbyUploadFilesUsualImage1');
 		const uploadFile = fileInput.files[0]; // 첫 번째 파일만 선택합니다.
 		formData.append("uploadFile", uploadFile);
 
@@ -219,11 +236,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	hobbyImageInput2.addEventListener('change', function() {
 		const file = hobbyImageInput2.files[0];
-
+		
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -234,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage5.src = '#';
+			previewImage5.src = '/images/Adding_a_Person_Image.png';
 			previewImage5.style.display = 'none';
 		}
 		
@@ -245,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const formData = new FormData();
 
 		// 추가적인 파일 데이터를 FormData 객체에 추가합니다.
-		const fileInput = document.querySelector('input#uploadFilesUsualImage1');
+		const fileInput = document.querySelector('input#hobbyUploadFilesUsualImage2');
 		const uploadFile = fileInput.files[0]; // 첫 번째 파일만 선택합니다.
 		formData.append("uploadFile", uploadFile);
 
@@ -269,11 +290,15 @@ document.addEventListener('DOMContentLoaded', () => {
 		// FormData 객체를 전송
 		xhr.send(formData);
 		
+		}
+		
 	});
 	
 	hobbyImageInput3.addEventListener('change', function() {
 		const file = hobbyImageInput3.files[0];
-
+	
+		if (file !== undefined) {
+		
 		if (file) {
 			const reader = new FileReader();
 
@@ -284,7 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 			reader.readAsDataURL(file);
 		} else {
-			previewImage6.src = '#';
+			previewImage6.src = '/images/Adding_a_Person_Image.png';
 			previewImage6.style.display = 'none';
 		}
 		
@@ -295,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const formData = new FormData();
 
 		// 추가적인 파일 데이터를 FormData 객체에 추가합니다.
-		const fileInput = document.querySelector('input#uploadFilesUsualImage1');
+		const fileInput = document.querySelector('input#hobbyUploadFilesUsualImage3');
 		const uploadFile = fileInput.files[0]; // 첫 번째 파일만 선택합니다.
 		formData.append("uploadFile", uploadFile);
 
@@ -318,6 +343,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// FormData 객체를 전송
 		xhr.send(formData);
+		
+		}
 		
 	});
 	

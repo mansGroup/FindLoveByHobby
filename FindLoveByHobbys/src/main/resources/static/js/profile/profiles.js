@@ -3,7 +3,7 @@
  */
 
  function count(obj){
-	 var chkBox = document.getElementsByName("check");
+	 var chkBox = document.getElementsByName("hobbyId");
 	 var chkCnt = 0;
 	 
 	 for(var i = 0; i < chkBox.length; i++) {
@@ -16,6 +16,5 @@
 		 alert("최대 3개까지 선택할 수 있습니다.");
 		 obj.checked = false;
 		 return false;
-	 }
-	 
+	 } 	 
  }

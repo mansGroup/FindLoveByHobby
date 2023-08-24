@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +35,12 @@ public class FaceChatController {
 
 	// 화상채팅 방으로 입장하는 메서드
 	@PostMapping("/room")
-	public String facechatroom(Model model, MakeFaceChatRoomDto dto) {
+	public String facechatroom(Model model, MakeFaceChatRoomDto dto, HttpSession session) {
 		log.info("dto = {}", dto);
-		
+
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userid = authentication.getName();
+
 		long roomId = dto.getRoomId();
 		int result = faceservice.makeRoom(dto);
 		if (result == 0) {
@@ -46,15 +51,15 @@ public class FaceChatController {
 		List<Member> list = faceservice.loadMemberName(dto);
 
 		for (Member x : list) {
-
-			if (x.getId().equals(dto.getSpeakmember1())) {
+			// TODO 로그인 하면 여기에 아이디 담겨야 함.
+			if (x.getId().equals(userid)) {
 
 				model.addAttribute("speakmember1", x.getName());
-
+				model.addAttribute("speak1", x.getId());
 			} else {
 
 				model.addAttribute("speakmember2", x.getName());
-
+				model.addAttribute("speak2", x.getId());
 			}
 
 		}
@@ -65,32 +70,57 @@ public class FaceChatController {
 		return "/facechat/room";
 	}
 
-	// 임시 입장 메서드
-	@GetMapping("/chatroom")
-	public void chatroom() {
+	@GetMapping("/room")
+	public String facechatroom(MakeFaceChatRoomDto dto, Model model) {
 
-		log.info("chatroom({})");
+		log.info("dto = {}", dto);
 
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String userid = authentication.getName();
+		
+		List<Member> list = faceservice.loadMemberName(dto);
+
+		for (Member x : list) {
+			// TODO 로그인 하면 여기에 아이디 담겨야 함.
+			if (x.getId().equals(userid)) {
+
+				model.addAttribute("speakmember1", x.getName());
+
+			} else {
+
+				model.addAttribute("speakmember2", x.getName());
+
+			}
+
+		}
+		
+		model.addAttribute("roomId",dto.getRoomId());
+
+		return "/facechat/room";
+		
 	}
 
 	// 신고 처리 메서드
 	@PostMapping("/report")
-	public String facechatreport(ReportFaceChatDto dto) {
-		log.info("doReport({})",dto);
+	public String facechatreport(@RequestParam String audios, ReportFaceChatDto dto, HttpSession session) {
+		log.info("doReport({})", dto);
+		log.info("{}", audios);
+		dto.setAudios(audios);
+
 		faceservice.doReport(dto);
-		
-		return "redirect:/facechat/chatroom";
+
+		return "redirect:/chat/chat";
 
 	}
-	
+
 	// 리폿 당했을 경우 강제로 사이트 이동
 	@GetMapping("/report")
 	public String facechatreport() {
-		
+
 		log.info("report 당함");
-		
-		return "redirect:/facechat/chatroom";
-		
+
+		return "redirect:/chat/chat";
+
 	}
 
 }

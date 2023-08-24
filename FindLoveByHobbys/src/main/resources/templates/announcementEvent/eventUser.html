@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http:www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+<body>
+
+<th:block layout:fragment="css">
+			<style>
+.page-header {
+	text-align: center;
+	margin-bottom: 40px;
+}
+</style>
+
+		</th:block>
+
+	<main layout:fragment="main">
+
+		<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-left: 270px; margin-right: 150px; margin-bottom: 150px;">
+    <div th:each="event : ${list}" class="col" style="margin-bottom: 100px">
+        <div class="card h-100" style="width: 18rem;" th:value="${event}">
+            <img th:src="${event.pictures}" class="card-img-top" style="height: 400px; width: 287px;">
+            <div class="card-body">
+                <h6 th:if="${event.events.divide == 0}">이벤트</h6>
+                <h6 th:if="${event.events.divide == 1}">공지</h6>
+                <h5 class="card-title" id="title" th:text="${event.events.title}"></h5>
+                <label class="card-author" id="author" th:text="${event.events.author}"></label>
+                
+                <div class="form-group">
+                    <label for="content">내용</label>
+                    <textarea class="form-control" style="background-color: white;" id="content" th:text="${event.events.content}" rows="4" readonly></textarea>
+                </div>
+                
+                <p class="card-footer">
+                    <small class="text-body-secondary"
+                        th:text="${#temporals.format(event.events.createdTime, 'yyyy-MM-dd HH:mm:ss')}"></small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+	</main>
+</body>
+</html>

@@ -11,18 +11,41 @@
     <!-- 닉네임 정보 -->
     <div id="myNickname" class="d-none" th:value="${myNickname}"></div>
     <div id="otherNickname" class="d-none" th:value="${otherNickname}"></div>
+    <div id="maleID" class="d-none" th:value="${maleId}"></div>
+    <div id="femaleID" class="d-none" th:value="${femaleId}"></div>
+    <div id="myId" class="d-none" th:value="${myId}"></div>
+    <div id="mySex" class="d-none" th:value="${mySex}"></div>
+
+    <!-- d-none form -->	
+    <form id="goChat" class="d-none" th:action="@{'/matching/matchingList/' + ${myId}}"></form>
+
+    <form class="d-none" id="chatOutForm" action="/chat/out" method="post">
+        <input name="roomId" th:value="${roomId}">
+    </form>
+
+    <form id="faceChatForm" class="d-none" action="/facechat/room" method="post">
+        <input type="hidden" name="roomId" th:value="${roomId}">
+        <input type="hidden" name="speakmember1" th:value="${femaleId}">
+        <input type="hidden" name="speakmember2" th:value="${maleId}">
+        <input type="submit" value="화상채팅">
+    </form>
 
     <div class="container1 clearfix">
         <div class="people-list" id="people-list">
             <!-- 상대방 리스트 -->
             <ul  class="list">
-                <li class="clearfix" th:each="dto : ${dtoList}">
-                    <a th:href="@{'/chat/chatroom/' + ${dto.contentId}}">
-                        <div class="about">
-                            <div class="name" th:text="${dto.nickname}">${list}</div>
-                        </div>
-                    </a>
-                </li>
+                <div th:each="list : ${dtoList}">
+                    <li class="clearfix">
+                        <a th:href="@{'/chat/chatroom/' + ${list.contentId}}">
+                            <div class="about" style="display: flex;">
+                                <div class="name" th:text="${list.nickname}">${list}</div>
+                                <div th:if="${list.nickname != otherNickname} ">
+                                    <div class="chatCount" th:value="${list.contentId}" style="font-size: 15px; margin-left: 3px; "></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </div>
             </ul>
         </div>
         <!-- 방번호 -->
@@ -30,8 +53,14 @@
         <div class="chat">
             <!-- 카톡방 상대방 프로필 영역 -->
             <div class="chat-header clearfix">
-                <div class="chat-about">
+                <div class="chat-about btn">
                     <div class="chat-with" th:text="${otherNickname}">상대방 이름</div>
+                </div>
+                <span class="btn" id="btnFaceChat">화상채팅
+
+                </span>
+                <div id="btnOut" class="btn">
+                    채팅방 나가기
                 </div>
                 <i class="fa fa-star"></i>
             </div> <!-- end chat-header -->
@@ -41,10 +70,10 @@
                 <!-- 메세지 영역 -->
                 <ul class="list" id="msgArea" >
                     <div th:each="chat : ${chatList}">
-                        <li th:if="${myNickname} == ${chat.nickname}" class="clearfix align-right">
+                        <li th:if="${myNickname} == ${chat.nickname}" class="align-right">
                             <div class="message-data">
                                 <span class="message-data-time " th:text="${#temporals.format(chat.createdTime,'a hh:mm')}" >10:10 AM, Today</span> &nbsp; &nbsp;
-                                <span class="message-data-name" th:text="${chat.nickname}">Olia</span>
+                                <span class="message-data-name" th:text="${myNickname}">Olia</span>
                             </div>
                             <div class="message my-message" th:text="${chat.conversation}">
                                 Hi Vincent, how are you? How is the project coming along?
@@ -53,7 +82,7 @@
 
                         <li th:if="${otherNickname} == ${chat.nickname}">
                             <div class="message-data">
-                                <span class="message-data-name" th:text="${chat.nickname}">Vincent</span>
+                                <span class="message-data-name" th:text="${otherNickname}">Vincent</span>
                                 <span class="message-data-time" th:text="${#temporals.format(chat.createdTime,'a hh:mm')}">10:20 AM, Today</span>
                             </div>
                             <div class="message other-message float-right" th:text="${chat.conversation}">
@@ -83,8 +112,9 @@
 </main>
 
     <th:block layout:fragment="myscripts">
-        <script src="\js\chat\chats.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/chat/chats.js"></script>
+        <script src="/js/chat/chatCount.js"></script>
     </th:block>
 
 </html>

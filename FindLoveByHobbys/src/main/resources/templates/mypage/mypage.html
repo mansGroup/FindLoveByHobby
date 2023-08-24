@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+
+<th:block layout:fragment="css">
+	<style>
+.imageBoxContainer {
+	position: relative;
+	overflow: hidden;
+}
+
+.imageBoxContainer:hover .img-fluid {
+	transform: scale(1.2); /* 이미지를 110% 크기로 확대 */
+	transition: transform 0.3s ease-in-out; /* 애니메이션 효과 지정 */
+}
+</style>
+</th:block>
+
+<th:block layout:fragment="main">
+
+	<!-- 로그인한 아이디 수정하기 -->
+
+	<section class="the-wedding-section"
+		style="padding-top: 40px; padding-bottom: 100px;" id="section_3">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-12 col-12">
+					<div class="section-title-wrap mb-5">
+						<h2 class="section-title">My Page</h2>
+
+						<div class="section-title-bottom">
+							<span class="section-title-line"></span> <img
+								src="/images/mypage/mypage_main_icon.gif"
+								class="section-title-icon bi-heart-fill" /> <span
+								class="section-title-line"></span>
+						</div>
+					</div>
+				</div>
+
+				<div
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="matchingList"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/matching/matchingList/{userId} (userId = ${ #authentication.name })}"
+						style="display: flex; justify-content: center; align-items: center;">
+							<img src="/images/mypage/mypage_matchingList_gif.gif"
+							class="img-fluid imageThumnail" alt="" id="defultImage1">
+					</a>
+
+					</label> <a th:href="@{/matching/matchingList/{userId} (userId = ${ #authentication.name })}"
+						id="matchingList" style="display: flex; justify-content: center; margin-top: 10px;">매칭</a>
+
+				</div>
+
+				<div
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="chattingRoom"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/chat/chat}" style="display: flex; justify-content: center; align-items: center;">
+							<img src="/images/mypage/free-animated-icon-bubble-chat-7211842.gif" class="img-fluid imageThumnail" alt="" id="defultImage1">
+						</a>
+					</label> 
+					<a th:href="@{/chat/chat}" id="chattingRoom" style="display: flex; justify-content: center; margin-top: 10px;">채팅방</a>
+				</div>
+
+				<div
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="meeting"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/meeting/mymeeting}" style="display: flex; justify-content: center; align-items: center;">
+						<img src="/images/mypage/free-animated-icon-conference-9828863.gif"
+						class="img-fluid imageThumnail" alt="" id="meeting">
+						</a>
+					</label> <a th:href="@{/meeting/mymeeting}" id="matchingList"
+						style="display: flex; justify-content: center; margin-top: 10px;">미팅</a>
+				</div>
+
+				<div
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="question"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/question/qslist}"
+						style="display: flex; justify-content: center; align-items: center;">
+							<img src="/images/mypage/free-animated-icon-call-10690137.gif"
+							class="img-fluid imageThumnail" alt="" id="question">
+					</a>
+					</label> <a th:href="@{/question/qslist}" id="imageModify"
+						style="display: flex; justify-content: center; margin-top: 10px;">문의 하기</a>
+				</div>
+
+				<div
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="matchingList"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/announcementEvent/eventUser}"
+						style="display: flex; justify-content: center; align-items: center;">
+						<img src="/images/mypage/mypage_quesion.gif"
+						class="img-fluid imageThumnail" alt="" id="defultImage1">
+						</a>
+					</label> <a href="@{/announcementEvent/eventUser}" id="matchingList"
+						style="display: flex; justify-content: center; margin-top: 10px;">공지 / 이벤트</a>
+				</div>
+
+				<div
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="matchingList"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/profile/profilesearch (age = 0, height = 0, hobby1 = '0', hobby2 = '0', hobby3 = '0')}"
+						style="display: flex; justify-content: center; align-items: center;">
+						<img src="/images/mypage/mypage_search_matching.gif"
+						class="img-fluid imageThumnail" alt="" id="defultImage1">
+						</a>
+					</label> <a th:href="@{/profile/profilesearch (age = 0, height = 0, hobby1 = '0', hobby2 = '0', hobby3 = '0')}" id="matchingList"
+						style="display: flex; justify-content: center; margin-top: 10px;">검색 매칭</a>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	
+	<section class="the-wedding-section"
+		style="padding-top: 40px; padding-bottom: 100px;" id="section_3">
+		<div class="container">
+			<div class="row">
+				<div
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="profileModifyView"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/profile/profilemodify}" style="display: flex; justify-content: center; align-items: center;">
+						<img src="/images/mypage/mypage_myprofile_hobby.gif"
+						class="img-fluid imageThumnail" alt="" id="defultImage1">
+						</a>
+					</label> <a th:href="@{/profile/profilemodify}" id="profileModifyView"
+						style="display: flex; justify-content: center; margin-top: 10px;">프로필 수정</a>
+				</div>
+
+				<div
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="memberUpdateView"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/member/info/update/view}" style="display: flex; justify-content: center; align-items: center;">
+						<img src="/images/mypage/mypage_myprofile.gif"
+						class="img-fluid imageThumnail" alt="" id="defultImage1">
+						</a>
+					</label> <a th:href="@{/member/info/update/view}" id="memberUpdateView"
+						style="display: flex; justify-content: center; margin-top: 10px;">회원 정보 수정</a>
+				</div>
+
+				<div
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="imageModify"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/profile/image/modify}"
+						style="display: flex; justify-content: center; align-items: center;">
+							<img src="/images/mypage/mypage_image_modifiy.gif"
+							class="img-fluid imageThumnail" alt="" id="defultImage1">
+					</a>
+					</label> <a th:href="@{/profile/image/modify}" id="imageModify"
+						style="display: flex; justify-content: center; margin-top: 10px;">사진 수정</a>
+				</div>
+
+				<div
+					class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="notification"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/note/note}"
+						style="display: flex; justify-content: center; align-items: center;">
+							<img src="/images/mypage/free-animated-icon-notification-bell-6454198.gif"
+							class="img-fluid imageThumnail" alt="" id="defultImage1">
+					</a>
+					</label> <a th:href="@{/note/note}" id="notification"
+						style="display: flex; justify-content: center; margin-top: 10px;">알림</a>
+				</div>
+
+				<div class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+				</div>
+
+				<div class="col-lg-2 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<div th:if="${ user.role == roles[3] }">
+						
+						<label for="notification"
+						style="cursor: pointer; display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+						<a th:href="@{/mypage/manager/room}"
+						style="display: flex; justify-content: center; align-items: center;">
+							<img src="/images/mypage/free-animated-icon-settings-8717906.gif"
+							class="img-fluid imageThumnail" alt="" id="defultImage1">
+					</a>
+					</label> <a th:href="@{/mypage/manager/room}" id="notification"
+						style="display: flex; justify-content: center; margin-top: 10px;">관리자 페이지</a>
+						
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+</th:block>
+
+<th:block layout:fragment="myscripts"></th:block>
+</html>

@@ -18,15 +18,15 @@ public class ChatRoomRepositoryTest {
     @Autowired
     private ChattingRoomRepository chattingRepository;
 
-    @Test
-    public void makeRoom() {
-        ChattingRoom entity = ChattingRoom.builder()
-                .maleId("user1")
-                .femaleId("user2")
-                .build();
-
-        chattingRepository.saveAndFlush(entity);
-    }
+//    @Test
+//    public void makeRoom() {
+//        ChattingRoom entity = ChattingRoom.builder()
+//                .maleId("user1")
+//                .femaleId("user2")
+//                .build();
+//
+//        chattingRepository.saveAndFlush(entity);
+//    }
 
 
 

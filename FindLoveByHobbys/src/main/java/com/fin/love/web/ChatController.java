@@ -5,16 +5,20 @@ import com.fin.love.repository.chat.Chatting;
 import com.fin.love.repository.chat.ChattingRoom;
 import com.fin.love.respository.member.Member;
 import com.fin.love.service.MemberService;
+import com.fin.love.service.chatting.ChatCountService;
 import com.fin.love.service.chatting.ChattingRoomService;
 import com.fin.love.service.chatting.ChattingService;
+
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -29,74 +33,118 @@ public class ChatController {
     private final ChattingService chattingService;
     private final ChattingRoomService chattingRoomService;
     private final MemberService memberService;
+    private final ChatCountService chatCountService;
+
+    @GetMapping("/demo")
+    public void demo() {
+
+    }
 
     @GetMapping("/chat")
     public void chat(Model model) {
+
         log.info("chat()");
 
-        // TODO spring security session 적용
-        // 세션에서 id 찾아오기
-        String userId = "user1";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
+        model.addAttribute("id", userid);
 
         // 나의 성별 찾기
-        Member member = memberService.getSexById(userId);
+        Member member = memberService.getSexById(userid);
+        model.addAttribute("mySex", member.getSex());
+
 
         // id로 상대방 id, 채팅방 정보 가져오기
-        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId, member.getSex());
+        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userid, member.getSex());
 
         // 상대방 id로 닉네임 리스트 가져오기
         for (ChattingListDto dto : dtoList) {
             dto.setNickname(memberService.getNicknameById(dto.getId()));
         }
-
-        // 모델에 리스트 실어주기
         model.addAttribute("dtoList", dtoList);
+
         log.info("채팅방 정보 리스트 사이즈 from chatController {}", dtoList.size());
     }
 
     @GetMapping("/chatroom/{room}")
     public String chatByLove(@PathVariable Long room, Model model) {
         log.info("chatByLove({})", room);
+        model.addAttribute("roomId", room);
 
-        // TODO spring security session 적용
-        // 세션에서 id 찾아오기
-        String userId = "user1";
+        // spring security에서 id 찾아오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
+        model.addAttribute("myId", userid);
 
         // 나의 성별 찾기
-        Member member = memberService.getSexById(userId);
+        Member member = memberService.getSexById(userid);
+        model.addAttribute("mySex", member.getSex());
 
-        // userId로 채팅방번호 상대방 ID 리스트 가져오기
-        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userId, member.getSex());
+        // 채팅방 알람 초기화
+        chattingService.checkAllChatCount(room, userid, member.getSex());
+
+        // 성별에 따라 maleid, femaleid 넣어주기
+        String maleID = "";
+        String femaleId = "";
+        if (member.getSex() == 1) {
+            maleID = userid;
+        } else {
+            femaleId = userid;
+        }
+
+        // userId로 채팅방번호, 상대방 ID 리스트 가져오기
+        List<ChattingListDto> dtoList = chattingRoomService.getChattingRoomListById(userid, member.getSex());
+        model.addAttribute("dtoList", dtoList);
 
         // 상대방 ID로 상대방 nickname 가져오기
         for (ChattingListDto dto : dtoList) {
             dto.setNickname(memberService.getNicknameById(dto.getId()));
+            if (dto.getContentId() == room) {
+                if (maleID == "") {
+                    maleID = dto.getId();
+                } else {
+                    femaleId = dto.getId();
+                }
+            }
         }
+        model.addAttribute("maleId", maleID);
+        model.addAttribute("femaleId", femaleId);
+
 
         // roomid로 chatting list를 받아옴
         List<Chatting> chatList = chattingService.getChatListByContentId(room);
         log.info("chatList size({})", chatList.size());
-
-        // 내 id로 내 nickname 찾아오기
-        String myNickname = memberService.getNicknameById(userId);
-
-        // 내 id로 내 nickname 찾아오기
-        String otherNickname = "";
-        for (Chatting x : chatList) {
-            if (x.getNickname() != myNickname) {
-                otherNickname = x.getNickname();
-                break;
-            }
-        }
-
-        // 닉네임과 채팅방 번호 모델에 리스트 실어주기
-        model.addAttribute("dtoList", dtoList);
         model.addAttribute("chatList", chatList);
-        model.addAttribute("roomId", room);
+
+        // 내 id로 내 nickname 찾아오기
+        String myNickname = memberService.getNicknameById(userid);
         model.addAttribute("myNickname", myNickname);
+
+        // 상대방 id로 상대방 nickname 찾아오기
+        String otherNickname = "";
+        if (maleID == userid) {
+            Member otherInfo = memberService.getMemberInfo(femaleId);
+            otherNickname = otherInfo.getNickname();
+        } else {
+            Member otherInfo = memberService.getMemberInfo(maleID);
+            otherNickname = otherInfo.getNickname();
+        }
         model.addAttribute("otherNickname", otherNickname);
+
         return "/chat/chatroom";
     }
+
+    @Transactional
+    @PostMapping("/out")
+    public String chatOut(Long roomId) {
+        log.info("chatOut({})", roomId);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userid = authentication.getName();
+
+        chattingService.deleteChat(roomId);
+        chattingRoomService.deleteRoom(roomId);
+
+        return "redirect:/matching/matchingList/" + userid;
+    }
 }
-
-

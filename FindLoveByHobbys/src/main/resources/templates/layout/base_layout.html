@@ -1,110 +1,125 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>meet as a hobby</title>
-    
-    <th:block layout:fragment="css"></th:block>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<title>meet as a hobby</title>
 
-	<!-- CSS FILES -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Playfair+Display&display=swap" rel="stylesheet">
-	<link href="/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/css/bootstrap-icons.css" rel="stylesheet">
-	<link href="/css/magnific-popup.css" rel="stylesheet">
-	<link href="/css/tooplate-wedding-lite.css" rel="stylesheet">
-	<link href="/css/profile/profile-register.css" rel="stylesheet" >
+<th:block layout:fragment="css"></th:block>
+
+<!-- CSS FILES -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Playfair+Display&display=swap"
+	rel="stylesheet">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="/css/bootstrap-icons.css" rel="stylesheet">
+<link href="/css/magnific-popup.css" rel="stylesheet">
+<link href="/css/tooplate-wedding-lite.css" rel="stylesheet">
+<link href="/css/profile/profile-register.css" rel="stylesheet">
 </head>
 <body>
-	
+
+    <!-- TODO 스프링시큐리티에서 userid 받아오기 -->
+	<span class="d-none" id="securityId" th:text="${ #authentication.name }"></span>
+
+
 	<section class="preloader">
-            <div class="spinner">
-                <span class="spinner-rotate">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                      <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+		<div class="spinner">
+			<span class="spinner-rotate"> <svg
+					xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+					fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd"
+						d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
                     </svg>
-                </span>    
-            </div>
-        </section>
 
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <a href="index.html" class="navbar-brand mx-auto mx-lg-0">
-                    <span>Bratt</span>
-                    <i class="bi-heart brand-icon"></i>
-                    <span>Jolie</span>
-                </a>
-
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_1">Homepage</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_2">Our Story</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_3">The Wedding</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_4">People</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_5">Gallery</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_6">Rsvp</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link click-scroll" href="#section_7">Contact Us</a>
-                        </li>
-                    </ul>
+			</span>
+		</div>
+	</section>
+ <div style=" display: flex; justify-content: flex-end; padding: 29px 92px 0px 0px;">
+                    <a href="/note/note">
+                        <p class="noteNumber" style="color: #ff5500; font-weight: bold;"></p>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                            <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                        </svg>
+                    </a>
                 </div>
+	<nav class="navbar navbar-expand-lg">
+		<div class="container">
 
-            </div>
-        </nav>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<a th:href="@{/}" class="navbar-brand mx-auto mx-lg-0">
+				<span>Chwi</span><img src="/images/mypage/roundHeart.gif" /><span>Meet</span>
+			</a>
+
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item"><a class="nav-link click-scroll"
+						th:href="@{/matching/matchingList/{userId} (userId = ${#authentication.name})}">Matching</a></li>
+
+					<li class="nav-item"><a class="nav-link click-scroll"
+						th:href="@{/chat/chat}">Chatting room</a></li>
+
+					<li class="nav-item"><a class="nav-link click-scroll"
+						th:href="@{/meeting/meetinglist}">Meeting</a></li>
+
+					<li class="nav-item"><a class="nav-link click-scroll"
+						th:href="@{/mypage/room}">MyPage</a></li>
+						
+					<!-- 인증된 사용자이면(로그인 상태이면) -->
+					<th:block sec:authorize="isAuthenticated()">
+						<li class="nav-item">
+							<!-- 로그인 한 username 표시 --> <span sec:authentication="name"></span>
+							<a class="nav-link" th:href="@{/logout}">로그아웃</a>
+						</li>
+					</th:block>
+
+					<!-- 익명 사용자이면(로그인 하지 않은 상태이면) -->
+					<th:block sec:authorize="isAnonymous()">
+						<li class="nav-item"><a class="nav-link" th:href="@{/member/login}">로그인</a>
+						</li>
+						<li class="nav-item"><a class="nav-link"
+							th:href="@{ /member/signup }">회원가입</a></li>
+					</th:block>
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+
+
 
 	<!-- main 컨텐트가 삽입될 위치 -->
+
     <th:block layout:fragment="main"></th:block>
-	
+
 	<section class="contact-section section-bg section-padding" id="section_7">
                 <div class="container">
                     <div class="row">
 
                         <div class="col-lg-12 col-12">
                             <div class="section-title-wrap mb-5">
-                                <h2 class="section-title">Get in touch</h2>
-
-                                <div class="section-title-bottom">
-                                    <span class="section-title-line"></span>
-                                    <i class="section-title-icon bi-heart-fill"></i>
-                                    <span class="section-title-line"></span>
-                                </div>
+                                <!-- <h2 class="section-title">FIND LOVE BY HOBBY</h2>  -->
+                                <img src="/images/logo-design.png" alt="이미지 로딩 중"/>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-12">
                             <h4 class="mb-4">Visit Us</h4>
 
-                            <p> 5th Avenue at, Central Park S, 
-                            <br> New York, NY 10019, United States</p>
+                            <p> Republic of Korea 
+                            <br>1244 Teheran-ro, Gangnam-gu, Seoul</p>
                         </div>
 
                         <div class="col-lg-4 col-md-6 col-12 my-4 my-lg-0 my-md-0">
@@ -112,13 +127,13 @@
 
                             <p class="mb-2">
                                 <a href="mailto:hello@company.com">
-                                    hello@company.com
+                                    chwimeet@company.com
                                 </a>
                             </p>
 
                             <p>
                                 <a href="tel: 090-080-0760">
-                                    090-080-0760
+                                    02-1566-5333
                                 </a>
                             </p>
                         </div>
@@ -127,17 +142,14 @@
                             <h4 class="mb-4">Socials</h4>
 
                             <ul class="social-icon">
-                                <li class="social-icon-item"><a href="#" class="social-icon-link bi-twitter"></a></li>
+                                <li class="social-icon-item"><img src="/images/mypage/git.png" /></li>
 
-                                <li class="social-icon-item"><a href="#" class="social-icon-link bi-instagram"></a></li>
+                                <li class="social-icon-item"><img src="/images/mypage/instagram.png" /></li>
 
-                                <li class="social-icon-item"><a href="#" class="social-icon-link bi-whatsapp"></a></li>
-
-                                <li class="social-icon-item"><a href="https://fb.com/tooplate" target="_blank" class="social-icon-link bi-facebook"></a></li>
+                                <li class="social-icon-item"><img src="/images/mypage/트위터.png" /></li>
                             </ul>
 
-                            <p class="copyright-text mt-3 mb-0">Copyright © 2036 Wedding Lite Co., Ltd. 
-                            <br> Design: <a href="https://www.tooplate.com" target="_parent">Tooplate</a></p>
+                            <p class="copyright-text mt-3 mb-0">Copyright © sixman 
                         </div>
 
                     </div>
@@ -148,10 +160,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-12 mx-auto">
-                        <a href="index.html" class="navbar-brand mx-auto mx-lg-0">
-                            <span>Bratt</span>
-                            <i class="bi-heart brand-icon"></i>
-                            <span>Jolie</span>
+                        <a class="navbar-brand mx-auto mx-lg-0">
+                            <span>Chwi</span>
+                            <img src="/images/wjdwjr_heart.png" />
+                            <span>Meet</span>
                         </a>
                     </div>
 
@@ -177,8 +189,12 @@
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
         crossorigin="anonymous"></script>
 
+        <script src="/js/baseLayout/noteCount.js"></script>
+
 <!-- 자바스크립트 파일 추가할 위치  -->
 <th:block layout:fragment="myscripts"></th:block>
+
+
 
 </body>
 </html>

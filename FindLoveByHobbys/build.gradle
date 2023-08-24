@@ -29,6 +29,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
+	// mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	// layout 관리
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
@@ -55,8 +58,8 @@ dependencies {
 	// 이미지 업로드 라이브러리
 	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.11'
 	
-	// 회원가입 E-mail 인증 라이브러리
-	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.0'
+	// Email 스타터
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	
 	// Audio 녹음파일 받는 라이브러리
 	implementation 'commons-io:commons-io:2.11.0'

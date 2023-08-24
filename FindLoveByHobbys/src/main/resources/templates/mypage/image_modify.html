@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/base_layout}">
+
+<th:block layout:fragment="css">
+	<style>
+.imageModifyBtn {
+	box-shadow: inset 0px 0px 15px 0px #ffffff;
+	background: linear-gradient(to bottom, #ededed 5%, #dfdfdf 100%);
+	background-color: #ededed;
+	border-radius: 42px;
+	border: 4px solid #dcdcdc;
+	display: inline-block;
+	cursor: pointer;
+	color: #777777;
+	font-family: Arial;
+	font-size: 23px;
+	font-weight: bold;
+	padding: 12px 36px;
+	text-decoration: none;
+	text-shadow: 0px 0px 0px #ffffff;
+}
+
+.imageModifyBtn:hover {
+	background: linear-gradient(to bottom, #dfdfdf 5%, #ededed 100%);
+	background-color: #dfdfdf;
+}
+
+.imageModifyBtn:active {
+	position: relative;
+	top: 1px;
+}
+
+/* 원하는 크기로 조정 */
+.imageBoxContainer {
+	width: 296px;
+	height: 394px;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* 이미지 비율을 유지하면서 컨테이너에 꽉 차도록 조정 */
+.imageThumnail {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+</style>
+</th:block>
+
+<th:block layout:fragment="main">
+	<!-- 유저 아이디 -->
+	<input class="d-none" th:value="${userId}" id="userId" name="userId" />
+	<input class="d-none" th:value="${usualPic1}" id="usualPic1" />
+	<input class="d-none" th:value="${usualPic2}" id="usualPic2" />
+	<input class="d-none" th:value="${usualPic3}" id="usualPic3" />
+	<input class="d-none" th:value="${hobbyPic1}" id="hobbyPic1" />
+	<input class="d-none" th:value="${hobbyPic2}" id="hobbyPic2" />
+	<input class="d-none" th:value="${hobbyPic3}" id="hobbyPic3" />
+
+	<section class="the-wedding-section section-bg section-padding"
+		id="section_3">
+		<div class="container">
+			<div class="row">
+				
+				<div class="col-lg-12 col-12">
+					<div class="section-title-wrap mb-5">
+						<h2 class="section-title">USUAL IMAGE</h2>
+
+						<div class="section-title-bottom">
+							<span class="section-title-line"></span> <img
+								src="/images/photo.png" class="section-title-icon bi-heart-fill" />
+							<span class="section-title-line"></span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="uploadFilesUsualImage1"> 
+						<img th:src="${usualPic1}" class="img-fluid imageThumnail" alt="" id="modifyUsualImagePic1">
+					</label> 
+					<input class="d-none" id="uploadFilesUsualImage1" type="file" multiple>
+				</div>
+
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="uploadFilesUsualImage2"> <img
+						th:src="${usualPic2}" class="img-fluid imageThumnail" alt=""
+						id="modifyUsualImagePic2">
+					</label> <input class="d-none" id="uploadFilesUsualImage2" type="file"
+						multiple>
+				</div>
+
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="uploadFilesUsualImage3"> <img
+						th:src="${usualPic3}" class="img-fluid imageThumnail" alt=""
+						id="modifyUsualImagePic3">
+					</label> <input class="d-none" id="uploadFilesUsualImage3" type="file"
+						multiple>
+				</div>
+				
+				<div class="col-lg-4 col-12" style="display: flex; justify-content: center;">
+					<label for="usualImagePic1CancelBtn" style="cursor: pointer;"> 
+						<img src="/images/mypage/cancel.png" class="img-fluid imageThumnail" alt="" id="usualPic1Cancel">
+					</label> 
+					<button class="d-none" id="usualImagePic1CancelBtn" >삭제하기</button>
+				</div>
+				
+				<div class="col-lg-4 col-12" style="display: flex; justify-content: center;">
+					<label for="usualImagePic2CancelBtn" style="cursor: pointer;" > 
+						<img src="/images/mypage/cancel.png" class="img-fluid imageThumnail" alt="" id="usualPic1Cancel">
+					</label> 
+					<button class="d-none" id="usualImagePic2CancelBtn" >삭제하기</button>
+				</div>
+				
+				<div class="col-lg-4 col-12" style="display: flex; justify-content: center;">
+					<label for="usualImagePic3CancelBtn" style="cursor: pointer;"> 
+						<img src="/images/mypage/cancel.png" class="img-fluid imageThumnail" alt="" id="usualPic1Cancel">
+					</label> 
+					<button class="d-none" id="usualImagePic3CancelBtn" >삭제하기</button>
+				</div>
+				
+			</div>
+		</div>
+	</section>
+
+	<section class="the-wedding-section section-bg section-padding"
+		id="section_3">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-lg-12 col-12">
+					<div class="section-title-wrap mb-5">
+						<h2 class="section-title">HOBBY IMAGE</h2>
+
+						<div class="section-title-bottom">
+							<span class="section-title-line"></span> <img
+								src="/images/photo.png" class="section-title-icon bi-heart-fill" />
+							<span class="section-title-line"></span>
+						</div>
+					</div>
+				</div>
+				
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="hobbyUploadFilesUsualImage1"> <img
+						th:src="${hobbyPic1}" class="img-fluid imageThumnail" alt=""
+						id="modifyHobbyImagePic1">
+					</label> <input class="d-none" id="hobbyUploadFilesUsualImage1" type="file"
+						multiple>
+				</div>
+
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="hobbyUploadFilesUsualImage2"> <img
+						th:src="${hobbyPic2}" class="img-fluid imageThumnail" alt=""
+						id="modifyHobbyImagePic2">
+					</label> <input class="d-none" id="hobbyUploadFilesUsualImage2" type="file"
+						multiple>
+				</div>
+
+				<div
+					class="col-lg-4 col-md-6 col-12 d-flex flex-column mb-4 mb-lg-0 mb-md-0 imageBoxContainer">
+					<label for="hobbyUploadFilesUsualImage3"> <img
+						th:src="${hobbyPic3}" class="img-fluid imageThumnail" alt=""
+						id="modifyHobbyImagePic3">
+					</label> <input class="d-none" id="hobbyUploadFilesUsualImage3" type="file"
+						multiple>
+				</div>
+				
+				<div class="col-lg-4 col-12" style="display: flex; justify-content: center;">
+					<label for="hobbyImagePic1CancelBtn" style="cursor: pointer;"> 
+						<img src="/images/mypage/cancel.png" class="img-fluid imageThumnail" alt="" id="hobbyPic1Cancel">
+					</label> 
+					<button class="d-none" id="hobbyImagePic1CancelBtn" >삭제하기</button>
+				</div>
+				
+				<div class="col-lg-4 col-12" style="display: flex; justify-content: center;">
+					<label for="hobbyImagePic2CancelBtn" style="cursor: pointer;" > 
+						<img src="/images/mypage/cancel.png" class="img-fluid imageThumnail" alt="" id="hobbyPic2Cancel">
+					</label> 
+					<button class="d-none" id="hobbyImagePic2CancelBtn" >삭제하기</button>
+				</div>
+				
+				<div class="col-lg-4 col-12" style="display: flex; justify-content: center;">
+					<label for="hobbyImagePic3CancelBtn" style="cursor: pointer;"> 
+						<img src="/images/mypage/cancel.png" class="img-fluid imageThumnail" alt="" id="hobbyPic3Cancel">
+					</label> 
+					<button class="d-none" id="hobbyImagePic3CancelBtn" >삭제하기</button>
+				</div>
+				
+			</div>
+		</div>
+	</section>
+
+	<div class="section-bg" style="display: flex; justify-content: center;">
+		<div>
+
+			<a th:href="@{/mypage/room}" class="imageModifyBtn">수정 완료</a>
+
+		</div>
+	</div>
+</th:block>
+
+<th:block layout:fragment="myscripts">
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="/js/image/image_modify.js"></script>
+</th:block>
+</html>

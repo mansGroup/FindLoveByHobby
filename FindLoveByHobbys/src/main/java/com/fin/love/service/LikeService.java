@@ -7,6 +7,7 @@ import com.fin.love.repository.like.LikeRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -22,11 +23,19 @@ public class LikeService {
 		
 		Like like = likeRepository.findBySenderAndRecipient(userId, memberId);
 		
-		if (like != null) {
+		if (like == null) {
 			result = 1;
+			
+			Like entity = Like.builder().sender(userId).recipient(memberId).whether(0).build();
+			likeRepository.save(entity);
 		}
 		
 		return result;
 	}
-	
+
+	@Transactional
+	public void chageWhether(String senderId, String recipientId, int i) {
+		Like like = likeRepository.findBySenderAndRecipient(senderId, recipientId);
+		like.chageWhether(i);
+	}
 }

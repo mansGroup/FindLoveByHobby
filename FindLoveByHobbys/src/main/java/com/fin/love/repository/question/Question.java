@@ -1,6 +1,7 @@
 package com.fin.love.repository.question;
 
 import com.fin.love.dto.question.UpdateQuestDto;
+import com.fin.love.dto.questionRep.QuestRepListDto;
 import com.fin.love.repository.BaseTimeEntity;
 import com.fin.love.respository.member.Member;
 
@@ -16,9 +17,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -48,6 +51,11 @@ public class Question extends BaseTimeEntity{
 	public void update(UpdateQuestDto dto) {
 		
 		this.questioncontent = dto.getContent();
+		this.status = dto.getStatus();
+	}
+	
+	public void status(QuestRepListDto dto) {
+		
 		this.status = dto.getStatus();
 	}
 	

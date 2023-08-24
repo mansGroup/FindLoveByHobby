@@ -2,6 +2,7 @@ package com.fin.love.repository.facechat;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -54,6 +55,22 @@ public class Speakchat {
 	public void saveMyReportData(String root) {
 		
 		this.chatfile = root;
+		
+	}
+	
+	// 업데이트용
+	public void updateStatus(int status) {
+		
+		if(status == 1) {
+			
+			this.report = 2;
+			
+		} else {
+			
+			this.report = 1;
+			
+		}
+		
 		
 	}
 	
