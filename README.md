@@ -10,6 +10,39 @@
 
 <hr />
 
+### 개발 기간
+
+- 약 5주
+
+#### 1주차
+    > 아이디어 회의 및 자료 조사
+    
+    > DB 설계 및 E-R Diagram 작성
+
+    > UI/UX 설계
+    
+    > 개발 환경 구축
+#### 2주차
+    > 담당 파트 개발
+    
+    > GitHub Merge 후 오류 점검
+#### 3주차
+    > 담당 파트 개발
+    
+    > GitHub Merge 후 오류 점검
+
+#### 4주차
+    > 웹 페이지 UI 보완
+
+    > 최종 Merge 후 전체 테스트
+
+#### 5주차
+    > 발표 자료 준비
+
+    > 오류 점검
+
+<hr />
+
 ### 기술 스택
 
 <div align=center> 
@@ -92,24 +125,24 @@
 
 (기능명세서 - 이찬희, 위태욱)
 
-링크 : https://docs.google.com/spreadsheets/d/1azhzJ4zk00MoW8FDb9e94FghjpjQ9M8hzIShAayFLO8/edit?usp=sharing
+링크 : [기능명세서 바로가기](https://docs.google.com/spreadsheets/d/1azhzJ4zk00MoW8FDb9e94FghjpjQ9M8hzIShAayFLO8/edit?usp=sharing)
 
 ( 프로젝트 간트차트 - 김다훈 )
 
-링크 : https://drive.google.com/file/d/1UelzdiL3JOaL6EMozt8IXGbTBnCPTKGn/view?usp=sharing
+링크 : [간트차트 바로가기](https://drive.google.com/file/d/1UelzdiL3JOaL6EMozt8IXGbTBnCPTKGn/view?usp=sharing)
 
 ( 화면구성서 - 김도현 )
 
-링크 : https://docs.google.com/presentation/d/11--cQSjvNyknA2qCTp1CUqlq62QGAISoU2kHvz7Frp4/edit#slide=id.g27583a149b4_0_116
+링크 : [화면설계서 바로가기](https://docs.google.com/presentation/d/11--cQSjvNyknA2qCTp1CUqlq62QGAISoU2kHvz7Frp4/edit#slide=id.g27583a149b4_0_116)
 
 ( 결과물 PPT - 지대한 )
 
-링크 : https://drive.google.com/file/d/1V5XkIJfkx0dTgf0PPhcDzLlnf2Qce7NB/view?ts=64e449ee
+링크 : [발표자료 PPT](https://drive.google.com/file/d/1V5XkIJfkx0dTgf0PPhcDzLlnf2Qce7NB/view?ts=64e449ee)
 
 ( Story Board - 유다한 )
 
-링크 : https://drive.google.com/file/d/1KeP2GOSMJ1lWhb3V5lhtxfAIYZdZRm0X/view?usp=sharing
+링크 : [스토리 보드 바로가기](https://drive.google.com/file/d/1KeP2GOSMJ1lWhb3V5lhtxfAIYZdZRm0X/view?usp=sharing)
 
 ( E-R Diagram - 유다한 )
 
-링크 : https://drive.google.com/file/d/1TD2Xr8lnhEOQoEFG1sLJGBu4y2vGDEid/view
+링크 : [E-R Diagram](https://drive.google.com/file/d/1TD2Xr8lnhEOQoEFG1sLJGBu4y2vGDEid/view)
